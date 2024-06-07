@@ -1,0 +1,324 @@
+---
+title: "lab_notebook"
+author: "Sarah Huet"
+date: 2024/05/29
+format: html
+editor: source
+editor_options: 
+  chunk_output_type: console
+---
+
+# Data exploration
+
+## Variables
+
+### crops
+
+```{r 2024_05_29}
+
+load("FADN_LIFT_2004-2018/FADN_2018.RData")
+dico <- read_excel("data_in/FADN_LIFT_dico.xls")
+
+setdiff(colnames(FADN_18),dico$`COMMON name`)
+
+# extract crop code
+tmp = dico %>% filter(grepl("_TA$",`COMMON name`)) %>%
+  mutate(code_letter = gsub("_TA$","",`COMMON name`),
+         code_number = gsub("I_A_|_TA","",`name from 2014`),
+         crop_name = gsub("Total area under production","",DESCRIPTION)) %>%
+  select(code_letter,code_number,crop_name)
+
+```
+
+
+### livestock
+
+```{r 2024_06_04}
+
+load("FADN_LIFT_2004-2018/FADN_2018.RData")
+dico <- read_excel("data_in/FADN_LIFT_dico.xls")
+
+# extract livestock code by average number
+tmp1 = dico %>% 
+  filter(grepl("_AN$",`COMMON name`)) %>%
+  mutate(code_letter = gsub("_AN$","",`COMMON name`),
+         code_number = gsub("J_AN_|_A","",`name from 2014`),
+         crop_name = gsub(". Average number","",DESCRIPTION)) %>%
+  select(code_letter,code_number,crop_name)
+
+# extract livestock code by livestock unit
+tmp2 = dico %>% 
+  filter(grepl("_ALU$",`COMMON name`)) %>%
+  mutate(code_letter = gsub("_ALU$","",`COMMON name`),
+         code_number = gsub("J_LU_|_V","",`name from 2014`),
+         crop_name = gsub("Livestock unit","",DESCRIPTION)) %>%
+  select(code_letter,code_number,crop_name)
+
+```
+
+```{r 2024_06_06}
+
+# compare livestock average number and livestock units
+
+  # livestock unit
+  tmp_FADN_code <- read_xlsx("data_in/supp_data.xlsx",sheet = "FADN_livestock_code")
+  
+  tmp_input1 <- FADN_18 %>%
+    select(ID, all_of(intersect(paste0(tmp_FADN_code$FADN_code_letter,"_ALU"),colnames(FADN_18)))) %>%
+    pivot_longer(cols = !c(ID),names_to = "code_livestock",values_to = "livestock_unit") %>%
+    rename(farm_id = ID) %>%
+    mutate(code_livestock = gsub("_ALU","",code_livestock)) %>%
+    # remove livestock without population
+    filter(livestock_unit >0 )
+  
+  # average number
+  tmp_input2 <- FADN_18 %>%
+    ## area in hectares for each crop
+    select(ID, all_of(intersect(paste0(tmp_FADN_code$FADN_code_letter,"_AN"),colnames(FADN_18)))) %>%
+    pivot_longer(cols = !c(ID),names_to = "code_livestock",values_to = "average_number") %>%
+    rename(farm_id = ID) %>%
+    mutate(code_livestock = gsub("_AN","",code_livestock)) %>%
+    # remove livestock without population
+    filter(average_number >0 )
+  
+  # compare
+  tmp <- full_join(tmp_input1,tmp_input2)
+  
+  plot(tmp$livestock_unit,tmp$average_number)
+
+
+library(ggplot2)
+
+ggplot(tmp) +
+ aes(x = average_number, fill = code_livestock) +
+ geom_histogram(bins = 30L) +
+ scale_fill_hue(direction = 1) +
+ theme_minimal() +
+ facet_wrap(vars(code_livestock), scales = "free")
+
+ggplot(tmp) +
+ aes(x = livestock_unit, fill = code_livestock) +
+ geom_histogram(bins = 30L) +
+ scale_fill_hue(direction = 1) +
+ theme_minimal() +
+ facet_wrap(vars(code_livestock), scales = "free")
+
+ggplot(tmp) +
+ aes(x = livestock_unit, y = average_number, colour = code_livestock) +
+ geom_point() +
+ geom_line() +
+ scale_color_hue(direction = 1) +
+ theme_minimal() +
+ facet_wrap(vars(code_livestock), scales = "free")
+
+# I will use livestock unit variable for FADN data
+
+```
+
+
+## Number of farms
+
+```{r 2024_05_29}
+
+load("C:/Users/sahuet/OneDrive/Bureau/FADN/FADN_LIFT_2004-2018/fadn_2018.RData")
+
+length(unique(FADN_18$ID)) 
+# 81 288 unique IDs
+# how many farms by country?
+FADN_18 %>% aggregate(ID ~COUNTRY,function(x) length(unique(x)))
+
+```
+
+
+## Livestock feed
+
+### Purchased feed
+
+```{r 2024_05_29}
+
+load("C:/Users/sahuet/OneDrive/Bureau/FADN/FADN_EEorg_2010-2019/FADN_EEorg_2019.RData")
+
+# which variables to choose to estimate concentrate and rough purchased feed?
+
+# Feed variables
+
+## SE310	Feed for grazing livestock in EUR
+## SE315	Feed for grazing livestock home-grown 
+## SE320	Feed for pigs & poultry in EUR
+## SE325	Feed for pigs&poultry home-grown
+
+## IGRFEDCNCTRPUR_V	Purchased concentrated feedstuffs for grazing stock (equines, ruminants) Value
+## ILVFEDFPR_V Farm-produced feedstuffs for grazing stock (equines, ruminants) Value
+## IPIGFEDPUR_V	Purchased feedstuffs for pigs Value
+## IPIGFEDFPR_V Farm-produced feedstuffs for pigs Value
+## IPLTRFEDPUR_V Purchased feedstuffs for poultry and other small animals Value
+## IPLTRFEDFPR_V Farm-produced feedstuffs for poultry and other small animals Value
+
+# two variables for farm produce feedstuffs: exactly the same values => OK
+plot(FADN_19$SE315,FADN_19$ILVFEDFPR_V) + abline(a=0,b=1)
+
+# difference between estimated purchesed feed and purchased concentrates => considering purchased rough feed
+plot(FADN_19$SE310 - FADN_19$SE315,FADN_19$IGRFEDCNCTRPUR_V) + abline(a=0,b=1)
+
+# estimate feed
+tmp = FADN_19 %>%
+  select(ID,SE310,SE315,SE320,SE325,IGRFEDCNCTRPUR_V,ILVFEDFPR_V,IPIGFEDFPR_V,IPIGFEDPUR_V,IPLTRFEDFPR_V,IPLTRFEDPUR_V) %>%
+  mutate(
+    feed_cattle_total = SE310,
+    feed_cattle_produced = SE315,
+    feed_cattle_purch_concent = IGRFEDCNCTRPUR_V,
+    feed_cattle_purch_rough = SE310 - SE315 - IGRFEDCNCTRPUR_V
+  )
+
+# check => ok
+plot(tmp$feed_cattle_total,tmp$feed_cattle_produced + tmp$feed_cattle_purch_concent + tmp$feed_cattle_purch_rough) + abline(0,1)
+
+
+```
+
+```{r 2024_05_29}
+
+load("C:/Users/sahuet/OneDrive/Bureau/FADN/FADN_LIFT_2004-2018/fadn_2018.RData")
+
+# which variables to choose to estimate concentrate and rough purchased feed?
+
+# Feed variables
+
+## SE310	Feed for grazing livestock in EUR
+## SE315	Feed for grazing livestock home-grown 
+## SE320	Feed for pigs & poultry in EUR
+## SE325	Feed for pigs&poultry home-grown
+
+## IGRFEDCNCTRPUR_V	H_SL_2010_V	Purchased concentrated feedstuffs for grazing stock (equines, ruminants) Value
+## IGRFEDCRSPUR_V	H_SL_2020_V	Purchased coarse fodder for grazing stock (equines, ruminants) Value
+## IPIGFEDPUR_V	H_SL_2030_V	Purchased feedstuffs for pigs Value
+## IPLTRFEDPUR_V	H_SL_2040_V	Purchased feedstuffs for poultry and other small animals Value
+
+## ILVFEDFPR_V	H_SL_2050_V	Farm-produced feedstuffs for grazing stock (equines, ruminants) Value
+## IPIGFEDFPR_V	H_SL_2060_V	Farm-produced feedstuffs for pigs Value
+## IPLTRFEDFPR_V	H_SL_2070_V	Farm-produced feedstuffs for poultry and other small animals Value
+
+
+# two variables for farm produce feedstuffs: exactly the same values => OK
+plot(FADN_18$SE315,FADN_18$ILVFEDFPR_V) + abline(a=0,b=1)
+
+# no difference between estimated purchased feed and purchased concentrates => OK
+plot(FADN_18$SE310 - FADN_18$SE315,FADN_18$IGRFEDCNCTRPUR_V + FADN_18$IGRFEDCRSPUR_V) + abline(a=0,b=1)
+
+# estimate feed
+tmp = FADN_18 %>%
+  select(ID,SE310,SE315,SE320,SE325,IGRFEDCNCTRPUR_V,IGRFEDCRSPUR_V,ILVFEDFPR_V) %>%
+  mutate(
+    feed_cattle_total = SE310,
+    feed_cattle_produced = SE315,
+    feed_cattle_purch_concent = IGRFEDCNCTRPUR_V,
+    feed_cattle_purch_rough = IGRFEDCRSPUR_V
+  )
+
+# check => ok
+plot(tmp$feed_cattle_total,tmp$feed_cattle_produced + tmp$feed_cattle_purch_concent + tmp$feed_cattle_purch_rough) + abline(0,1)
+
+```
+
+### Produced feed
+
+```{r 2024_05_30}
+
+# in RICA, areas and production of crops used to feed livestock can be registered in different variables
+# for some crops, on-farm consumption to feed livestock is registered as intra-consumption
+## QINTH3 Intraconsommations pour herbiv. (volume)
+## QINTL3 Intraconsommations pour volailles (vol.)
+## QINTP3 Intraconsommations pour porcins (volume)
+## QINTA3 Intraconsommations pour autres animaux (vol.)
+## tmp_crops_used_to_feed_livestock = unique(RICA_2020_veg$CODE3[RICA_2020_veg$QINTH3 >0 | RICA_2020_veg$QINTL3 >0 | RICA_2020_veg$QINTP3 >0 | RICA_2020_veg$QINTA3 >0])
+## WIP but we don't use these variables because ... WIP instead, we estimate the amount of crops used to feed livestock as the difference between the production and the sales
+
+# Which variables should I choose to estimates livestock feed?
+
+# CROPS ----
+
+## ILVFEDFPR_V	H_SL_2050_V	Farm-produced feedstuffs for grazing stock (equines, ruminants) Value
+## IPIGFEDFPR_V	H_SL_2060_V	Farm-produced feedstuffs for pigs Value
+## IPLTRFEDFPR_V	H_SL_2070_V	Farm-produced feedstuffs for poultry and other small animals Value
+## As these variables are entered in value and do not detail the crops included, I cannot use them. 
+
+## Instead, I'll use the farm use value entered for each crop in the variable names "I_FU_*_V". I'll use the sales quantity and value variables for each crop to estimate the farm use quantity of crop.
+
+## first I have to check if these variables are well entered in the database.
+
+load("C:/Users/sahuet/OneDrive/Bureau/FADN/FADN_LIFT_2004-2018/FADN_2018.RData")
+tmp_crop_code <- read_excel("supp_data.xlsx",sheet = "FADN_crop_code")
+tmp_TT_crops <- read_excel("supp_data.xlsx",sheet = "TT_crops")
+
+## define crops are used as fodder (except grassland)
+tmp_fodder <- unique(tmp_TT_crops$FADN_code_letter[!is.na(tmp_TT_crops$feed_type) 
+                                                   & tmp_TT_crops$land_use_type == "arable"
+                                                   & !is.na(tmp_TT_crops$FADN_code_letter)])
+## define variables names
+tmp_production <- paste0(tmp_fodder,"_PRQ")
+tmp_sales_Q <- paste0(tmp_fodder,"_SQ")
+tmp_sales_V <- paste0(tmp_fodder,"_SV")
+tmp_farm_use <- paste0(tmp_fodder,"_FUV")
+
+library(stringr)
+tmp = FADN_18 %>%
+  select(ID,all_of(c(tmp_production,tmp_sales_Q,tmp_sales_V,tmp_farm_use))) %>%
+  pivot_longer(cols = !ID,names_to = "variables",values_to = "values") %>%
+  mutate(
+    crop = str_extract(variables,"^[a-zA-Z]+"),
+    variable_type = str_extract(variables,"[a-zA-Z]+$")) %>%
+  pivot_wider(id_cols = c(ID,crop),names_from = variable_type,values_from = values) %>%
+  # estimate farm use
+  mutate(
+    crop_value_e_p_t = SV / SQ,
+    feed_t_p_crop = PRQ - SQ) #%>%
+  # remove farms that sold all their crops
+  #filter(feed_t_p_crop > 0)
+  
+
+hist(tmp$FUV,nclass = 100)
+hist(tmp$feed_t_p_crop,nclass = 100)
+plot(tmp$FUV/tmp$crop_value_e_p_t,tmp$feed_t_p_crop) + abline(a=0,b=1)
+boxplot(tmp$crop,tmp$FUV)
+
+```
+
+```{r 2024_06_03}
+
+# GRAZING ----
+
+## CRG_ENA	I_A_30200_ENAA	Rough grazings Energy crop total area
+## CRG_ENTA	I_A_30200_ENTA	Rough grazings Energy crop total area under production
+## CRG_IRA	I_A_30200_IRAA	Rough grazings Irrigated crop total area
+## CRG_SQ	I_SA_30200_Q	Rough grazings Sales quantity
+## CRG_SV	I_SA_30200_V	Rough grazings Sales value
+
+# je compare les moyennes agreste avec mon calcul des yields
+source("~/BiodivLabel/scripts/yield_crop.R")
+
+tmp = tmp_avrg_yields %>%
+  #filter(farm_region %in% unique(tmp_avrg_yields$farm_region[grep("^[F][R]",tmp_avrg_yields$farm_region)])) %>%
+  filter(crop %in% c("CFODRTBR","CFODMZ", "CFODOTH","CGRSTMP","CRG","CGRSXRG")) %>% 
+  group_by(crop) %>% 
+  summarise(mean = mean(yield_avrg))
+
+tmp_SAA_yield <- read_xlsx("supp_data.xlsx",sheet = "yield_SAA_Agreste_2020") %>%
+  mutate(
+    farm_region = case_when(
+      Departement %in% c("971 - Guadeloupe") ~ "9A",
+      Departement %in% c("972 - Martinique") ~ "9B",
+      Departement %in% c("973 - Guyane") ~ "9C",
+      Departement %in% c("974 - La Réunion") ~ "9D",
+      .default = substr(Departement,1,2)
+    ),
+    yield = Production_seche_volume*10^2 / Superficie_correspondante_hectare) %>%
+  # replace NaN in yield as zeros
+  replace_na(list(yield=0))
+
+tmp2 = tmp_SAA_yield %>% group_by(Cultures_developpees_5) %>% summarise(mean = mean(yield))
+
+# les moyennes sont beaucoup plus élevées dans FADN que dans Agreste
+
+```
+
+
