@@ -37,30 +37,6 @@ load("data_in/FADN_2018.RData")
 
 ```
 
-# Import raw data
-
-Run only if you haven't already load the data.
-```{r import_data_2004-2018, echo=FALSE,include=FALSE}
-
-# Get the files names
-tmp_ls_files = paste0(getwd(),"/FADN_LIFT_2004-2018/raw_data/",
-                      list.files(path = paste0(getwd(),"/FADN_LIFT_2004-2018/raw_data/"),pattern = "*.csv"))
-# First apply read.csv, then rbind
-FADN_04_18 = lapply(tmp_ls_files, read_csv) %>% bind_rows()
-
-```
-
-```{r import_data_2018, echo=FALSE,include=FALSE}
-
-# Get the files names
-tmp_ls_files = paste0(getwd(),"/FADN_LIFT_2004-2018/raw_data/",
-                      list.files(path = paste0(getwd(),"/FADN_LIFT_2004-2018/raw_data/"),pattern = "*2018.csv"))
-# First apply read.csv, then rbind
-FADN_18 = lapply(tmp_ls_files, read_csv) %>% bind_rows() %>% mutate(ID = as.character(ID))
-
-```
-
-
 # Livestock
 
 To estimate the impact of livestock on biodiversity, we first need to estimates the impact of their feed intake. Specifically, for purchased feed, we need to estimate the practices that were implemented in the farms that produced it. For that purpose, we will:
@@ -122,11 +98,11 @@ source("scripts/feed_by_livestock_category.R",local = knitr::knit_global())
 
 ```{r N_excretion}
 
-# NB : guidelines IPCC are for one animal, not for one livestock unit
+# does guidelines IPCC are for one animal or for one livestock unit ???
 
 source("scripts/N_excretion_from_livestock.R",local = knitr::knit_global())
 
-### output => kg N yr-1 
+### !!! me sort la qté total => kg N yr-1 
 
 ```
 

@@ -30,6 +30,7 @@ tmp_input <- RICA_2020_veg %>%
 if (my_DB == "FADN") {
   
   # transfert table
+  tmp_FADN_crops <- read_xlsx("data_in/supp_data.xlsx",sheet = "FADN_crop_code")
   tmp_TT_crops <- read_xlsx("data_in/supp_data.xlsx",sheet = "TT_crops") %>%
     rename(crop = FADN_code_letter)
   

@@ -61,9 +61,10 @@ if (my_DB == "FADN") {
              )) %>%
     rename(farm_id = ID) %>%
     mutate(CONSON = INUSE_Q*10^3) %>%
-    # select variables and obs
+    # select variables
     select(farm_id,org_farming,crop,area_ha,CONSON) %>%
-    filter(area_ha >0)
+    # filter crops for which we can estimate fertilisation /!\ WIP check in TT_crops if we correctly assign crops
+    filter(crop %in% tmp_TT_crops$crop[!is.na(tmp_TT_crops$EPK_ferti_crop_name)])
 
 }
 
