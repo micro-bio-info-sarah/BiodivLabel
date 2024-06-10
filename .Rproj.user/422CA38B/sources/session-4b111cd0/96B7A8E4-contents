@@ -31,14 +31,8 @@ if (my_DB == "RICA") {
            org_farming = case_when(
              AGBIO %in% c(2,4) ~ 1,
              .default = 0
-           )) %>%
-    filter(
-      # keep only crops & grasslands with areas
-      area_ha > 0, # 7264 farms
-      # remove organic farms with CONSON>0, as mineral fertilization is supposed to be null in organic farms
-      !(org_farming == 1 & CONSON >0)
-    )
-  # 7069 farms
+           ))
+  # 7266 farms
 
   }
 
@@ -69,14 +63,8 @@ if (my_DB == "FADN") {
              )) %>%
     rename(farm_id = ID) %>%
     mutate(CONSON = INUSE_Q*10^3) %>%
-    # select variables and obs
-    select(farm_id,org_farming,crop,area_ha,CONSON) %>%
-    filter(
-      # keep only crops & grasslands with areas
-      area_ha > 0,
-      # remove organic farms with CONSON>0, as mineral fertilization is supposed to be null in organic farms
-      !(org_farming == 1 & CONSON >0)
-    )
+    # select variables
+    select(farm_id,org_farming,crop,area_ha,CONSON)
 
 }
 
@@ -155,7 +143,7 @@ tmp_N_avrg_n_thrhld <- tmp_N_avrg %>%
   )
 
 
-# Join data ----
+##### Join data ----
 
 tmp_data <- tmp_input %>%
   # add N averages
@@ -165,10 +153,16 @@ tmp_data <- tmp_input %>%
 
 # 7266 farms
 
-# Estimate parameter ----
+##### Estimate parameter ----
 
 tmp_N_ferti <- tmp_data %>%
   # here we considered that fertilizers are applied both on crops and grasslands
+  filter(
+    # keep only crops & grasslands with areas
+    area_ha > 0, # 7264 farms
+    # remove organic farms with CONSON>0, as mineral fertilization is supposed to be null in organic farms
+    !(org_farming == 1 & CONSON >0)
+    ) %>% # 7069 farms
   # calculate parameter
   mutate(
     # x_i
@@ -237,7 +231,7 @@ quantile(tmp_check$average_Nmin[tmp_check$org_farming == 0],na.rm = T)
 quantile(tmp_N_avrg$N_min_Conventionel,na.rm = T)
 # quantiles OK
 
-# Output ----
+##### Output ----
 
 BV_A.4.5 = tmp_N_ferti %>%
   filter(!is.na(A.4.5)) %>%

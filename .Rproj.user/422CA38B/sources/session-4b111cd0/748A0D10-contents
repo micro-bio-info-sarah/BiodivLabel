@@ -35,14 +35,14 @@ if (my_DB == "FADN") {
 
   # transfert table
   tmp_FADN_crops <- read_xlsx("data_in/supp_data.xlsx",sheet = "FADN_crop_code")
-  tmp_TT_crops <- read_xlsx("data_in/supp_data.xlsx",sheet = "TT_crops") %>%
-    rename(crop = FADN_code_letter) %>%
-    group_by(crop,land_use_type) %>%
-    summarise(
-      TFI_crop_name = paste0(unique(na.omit(unlist(strsplit(TFI_crop_name,";")))),collapse = ";")
-    )
-
-
+  tmp_TT_crops0 <- read_xlsx("data_in/supp_data.xlsx",sheet = "TT_crops")
+  tmp_TT_crops <- left_join(
+    tmp_FADN_crops %>% rename(crop = code_letter),
+    tmp_TT_crops0 %>% rename(crop = FADN_code_letter) %>%
+      group_by(crop,land_use_type) %>%
+      summarise(
+        TFI_crop_name = paste0(unique(na.omit(unlist(strsplit(TFI_crop_name,";")))),collapse = ";")
+        ))
 
   tmp_input <- FADN_18 %>%
     # area in hectares for each crop

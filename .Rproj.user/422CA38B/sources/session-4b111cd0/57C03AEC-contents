@@ -42,7 +42,7 @@ if (my_DB == "FADN") {
   tmp_TT_crops <- left_join(
     tmp_FADN_crops %>% rename(crop = code_letter),
     tmp_TT_crops0 %>% rename(crop = FADN_code_letter) %>% select(crop)
-  ) %>% distinct()
+  )
 
 
   tmp_input <- FADN_18 %>%

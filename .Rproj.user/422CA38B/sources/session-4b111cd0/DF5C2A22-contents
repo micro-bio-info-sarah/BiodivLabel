@@ -24,26 +24,15 @@ tmp_input <- RICA_2020_veg %>%
     area_ha = sum(SUPER3*10^-2,na.rm = T)
   ) %>%
   # add off-road diesel consumption
-  left_join(., RICA_2020 %>% select(IDENT,CHRCAQG)) %>%
-  filter(
-    # keep only crops with areas
-    area_ha > 0, # 6869 farms
-    # remove farms without any consumption of off-road diesel as it seems improbable
-    fuels_value >0 # 6264 farms
-  )
-
+  left_join(., RICA_2020 %>% select(IDENT,CHRCAQG)) # 7266 farms
 }
 
 if (my_DB == "FADN") {
 
   # transfert table
   tmp_FADN_crops <- read_xlsx("data_in/supp_data.xlsx",sheet = "FADN_crop_code")
-  tmp_TT_crops0 <- read_xlsx("data_in/supp_data.xlsx",sheet = "TT_crops")
-  tmp_TT_crops <- left_join(
-    tmp_FADN_crops %>% rename(crop = code_letter),
-    tmp_TT_crops0 %>% rename(crop = FADN_code_letter) %>% select(crop)
-  ) %>% distinct()
-
+  tmp_TT_crops <- read_xlsx("data_in/supp_data.xlsx",sheet = "TT_crops") %>%
+    rename(crop = FADN_code_letter)
 
   tmp_input <- FADN_18 %>%
     # area in hectares for each crop
@@ -53,14 +42,8 @@ if (my_DB == "FADN") {
     pivot_longer(cols = !c(ID,IFULS_V),names_to = "crop",values_to = "area_ha") %>%
     mutate(crop = gsub("_TA","",crop)) %>%
     rename(farm_id = ID,fuels_value = IFULS_V) %>%
-    # select variables and obs
-    select(farm_id,crop,area_ha,fuels_value) %>%
-    filter(
-      # keep only crops with areas
-      area_ha > 0, # 6869 farms
-      # remove farms without any consumption of off-road diesel as it seems improbable
-      fuels_value >0 # 6264 farms
-    )
+    # select variables
+    select(farm_id,crop,area_ha,fuels_value)
 
 }
 
@@ -70,11 +53,15 @@ if (my_DB == "FADN") {
 tmp_tillage <- tmp_input %>%
   filter(
     # keep only arable land use type
-    crop %in% tmp_TT_crops$crop[tmp_TT_crops$land_use_type == "arable"]
+    crop %in% tmp_TT_crops$crop[tmp_TT_crops$land_use_type == "arable"], # 7108 farms
+    # keep only crops with areas
+    area_ha > 0, # 6869 farms
+    # remove farms without any consumption of off-road diesel as it seems improbable
+    fuels_value >0 # 6264 farms
     ) %>%
   # calculate areas by farm
-  group_by(farm_id) %>%
-  mutate(SAU_i_ha = sum(area_ha)) %>%
+  left_join(.,
+            tmp_input %>% group_by(farm_id) %>% summarise(SAU_i_ha = sum(area_ha))) %>%
   # estimate parameter
   mutate(
     # x_i
@@ -93,28 +80,8 @@ tmp_tillage <- tmp_input %>%
 
 # 6264 farms left
 
-# add grassland with zero
-tmp_grassland <- tmp_input %>%
-  filter(
-    # keep only grassland land use type
-    crop %in% tmp_TT_crops$crop[tmp_TT_crops$land_use_type == "grassland"]
-    ) %>%
-  # calculate areas by farm
-  group_by(farm_id) %>%
-  mutate(SAU_i_ha = sum(area_ha)) %>%
-  # estimate parameter
-  mutate(
-    # x_i
-    x_i = 0,
-    # calculate A.3.1
-    A.3.1 = 0)
-
-tmp_tillage <- tmp_tillage %>%
-  rbind(tmp_grassland)
-
 # Check ----
 
-tmp_mean_GNR
 quantile(tmp_tillage$A.3.1,c(0.1,0.25,0.5,0.75,0.9))
 
 # Output ----
