@@ -120,6 +120,7 @@ quantile(tmp_tillage$A.3.1,c(0.1,0.25,0.5,0.75,0.9))
 # Output ----
 
 BV_A.3.1 = tmp_tillage %>%
-  select(farm_id,crop,A.3.1)
+  select(farm_id,crop,area_ha,A.3.1) %>%
+  ungroup()
 
 rm(list = names(.GlobalEnv)[grep("tmp",names(.GlobalEnv))])

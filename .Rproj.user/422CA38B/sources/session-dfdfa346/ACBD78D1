@@ -1,19 +1,17 @@
 {
-    "id": "4ED8A4E2",
-    "path": "d:/users/srhuet/documents/FADN2Footprint/scripts/BVI_herd.R",
-    "project_path": "scripts/BVI_herd.R",
+    "id": "ACBD78D1",
+    "path": "d:/users/srhuet/documents/FADN2Footprint/scripts/BVI_milk.R",
+    "project_path": "scripts/BVI_milk.R",
     "type": "r_source",
     "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1718038018281.0,
+    "created": 1718117356508.0,
     "source_on_save": false,
-    "relative_order": 5,
+    "relative_order": 3,
     "properties": {
         "source_window_id": "",
-        "Source": "Source",
-        "cursorPosition": "15,22",
-        "scrollLine": "0"
+        "Source": "Source"
     },
     "folds": "",
     "lastKnownWriteTime": 1715756034,

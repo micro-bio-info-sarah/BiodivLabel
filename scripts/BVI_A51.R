@@ -82,8 +82,6 @@ tmp_ift_ref <- read_excel("data_in/supp_data.xlsx",sheet = "IFT_ref") %>%
 
 # assign averages by crop codes (60 different crops)
 tmp_TFI <- tmp_TT_crops %>%
-  # select crop code and name
-  filter(crop %in% unique(tmp_input$crop)) %>%
   # add average TFI
   # add average ration
   rowwise() %>%
@@ -103,11 +101,7 @@ for (tmp_i in which(is.na(tmp_TFI$TFI))) {
 
 tmp_data <- tmp_input %>%
   # add TFI
-  left_join(.,tmp_TFI) %>%
-  ## if no crops is similar enough, we used the global average ???
-  replace_na(list(TFI = mean(tmp_ift_ref$TFI,
-                             na.rm = T)))
-
+  left_join(.,tmp_TFI)
 
 # Estimate parameter ----
 
@@ -177,12 +171,12 @@ tmp_pesticides <- tmp_pesticides %>%
 
 # check -----
 
-tmp_check_farm_id <- sort(sample(tmp_pesticides$farm_id,size = 15))
+tmp_check_farm_id <- sort(sample(tmp_pesticides$farm_id[tmp_pesticides$org_farming == 0],size = 15))
 
 # compare sums
 tmp_check1 <- tmp_pesticides %>%
   group_by(farm_id,org_farming) %>%
-  summarise(sum_pest = sum(A.5.1))
+  summarise(sum_pest = sum(A.5.1*SAU_c))
 tmp_check2 <- FADN_18 %>%
   select(ID,IPROT_V) %>%
   rename(farm_id = ID)
@@ -190,28 +184,16 @@ tmp_check <- left_join(
   tmp_check1 %>% filter(farm_id %in% tmp_check_farm_id),
   tmp_check2 %>% filter(farm_id %in% tmp_check_farm_id)
 )
-
-
 table(round(tmp_check$sum_pest) == round(tmp_check$IPROT_V))
 
 # quality check : OK
-## compare sums
-tmp = left_join(
-  tmp_pesticides %>%
-    group_by(farm_id) %>%
-    summarise(xi = sum(A.5.1*SAU_c)),
-  tmp_input %>%
-    select(farm_id,org_farming,CONSOPEST)) %>%
-  mutate(comp = case_when(
-    org_farming == 0 & round(xi) == round(CONSOPEST) ~T,
-    org_farming == 1 & round(xi*3.82) == round(CONSOPEST) ~T,
-    .default = F))
-table(tmp$comp)
+
 
 ## Output ----
 
 BV_A.5.1 = tmp_pesticides %>%
-  select(farm_id,crop,A.5.1)
+  select(farm_id,crop,A.5.1) %>%
+  ungroup()
 
 rm(list = names(.GlobalEnv)[grep("tmp",names(.GlobalEnv))])
 

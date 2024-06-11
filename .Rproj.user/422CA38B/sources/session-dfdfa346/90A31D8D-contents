@@ -241,7 +241,8 @@ quantile(tmp_N_avrg$N_min_Conventionel,na.rm = T)
 
 BV_A.4.5 = tmp_N_ferti %>%
   filter(!is.na(A.4.5)) %>%
-  select(farm_id,crop,A.4.5,A.4.5_min,A.4.5_org )
+  select(farm_id,org_farming,area_ha,crop,A.4.5,A.4.5_min,A.4.5_org ) %>%
+  ungroup()
 
 # 6918 farms
 

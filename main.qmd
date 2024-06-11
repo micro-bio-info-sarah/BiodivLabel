@@ -24,16 +24,14 @@ library(tibble)
 rm(list = names(.GlobalEnv)[grep("tmp",names(.GlobalEnv))])
 #rm(list = ls())
 
+# which data base are you using? either "FADN" or "RICA"
+my_DB = "FADN"
+
 ```
 
 ```{r load_data}
 
-# which data base are you using? either "FADN" or "RICA"
-my_DB = "FADN"
-
 load("data_in/FADN_2018.RData")
-
-
 
 ```
 
@@ -166,6 +164,8 @@ $SAU$: the useful arable area (ha) $i$: a farm $c$: a crop or grassland
 with $M_{c} = 0$ for certified organic crops
 
 For organic fertilization, we considered that farms without livestock apply a reference  average of organic fertilizer across both their croplands and grasslands, as determined by the EPK studies (2017). In the case of farms with livestock, we calculated the total nitrogen excretion from their livestock following the IPCC Guidelines. We then estimated the quantity of this organic nitrogen applied to cropland and grassland $Y^{org}$ as for $Y^{min}$.
+
+/!\ WIP add threshold min and max
 
 ```{r A.4.5}
 

@@ -237,22 +237,30 @@ quantile(tmp_check$average_Nmin[tmp_check$org_farming == 0],na.rm = T)
 quantile(tmp_N_avrg$N_min_Conventionel,na.rm = T)
 # quantiles OK
 
+
+# compare sum to original value
+tmp_check_farm_id <- sort(sample(tmp_N_ferti$farm_id,size = 15))
+tmp_check1 <- tmp_N_ferti %>%
+  filter(farm_id %in% tmp_check_farm_id) %>%
+  group_by(farm_id,org_farming) %>%
+  summarise(sum_pest = sum(A.4.5_min*SAU_c))
+tmp_check2 <- tmp_input %>%
+  filter(farm_id %in% tmp_check_farm_id)
+tmp_check <- left_join(
+  tmp_check1,
+  tmp_check2
+  )
+table(round(tmp_check$sum_pest) == round(tmp_check$CONSON))
+
+# quality check : OK
+
 # Output ----
 
 BV_A.4.5 = tmp_N_ferti %>%
   filter(!is.na(A.4.5)) %>%
-  select(farm_id,crop,A.4.5,A.4.5_min,A.4.5_org )
+  select(farm_id,org_farming,area_ha,crop,A.4.5,A.4.5_min,A.4.5_org ) %>%
+  ungroup()
 
 # 6918 farms
-
-# quality check : OK
-## je dois retrouver mes totaux de quantité d'azote min
-#tmp = left_join(tmp_N_ferti %>% group_by(farm_id) %>% summarise(xi = sum(A.4.5_min*SAU_c)),RICA_2020 %>% select(farm_id,org_farming,CONSON)) %>% mutate(comp = case_when(round(xi,0) == round(CONSON,0) ~T,.default = F))
-
-#view(tmp_N_ferti %>% group_by(crop) %>% summarise(A.4.5_min=mean(A.4.5_min),A.4.5_org=mean(A.4.5_org)))
-#view(tmp_N_ferti %>% group_by(crop) %>% summarise(A.4.5_min=mean(A.4.5_min,na.rm = T),A.4.5_org=mean(A.4.5_org,na.rm = T)))
-
-# quality check for organic farms
-#tmp = BV_A.4.5 %>% filter(farm_id %in% RICA_2020$farm_id[RICA_2020$org_farming %in% c(2)])
 
 rm(list = names(.GlobalEnv)[grep("tmp",names(.GlobalEnv))])

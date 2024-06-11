@@ -14,8 +14,8 @@ library(tibble)
 # average for crops
 ## estimates the average agricultural practices
 tmp_ref_farm_crops <- BVI_to_RICA_crops %>%
-  # add coefficient to weight mean and production methods
-  left_join(.,RICA_2020 %>% select(IDENT,EXTR2,AGBIO)) %>%
+  # add coefficient to weight mean and production methods /!\ only for RICA, no extrapolation coefficient in FADN
+  #left_join(.,RICA_2020 %>% select(IDENT,EXTR2,AGBIO)) %>%
   # filter crops and farms
   filter(
     # remove partially organic farms
@@ -103,7 +103,7 @@ tmp_soybean <- tibble(
   )
 # then we applied the BVI model to these estimated parameters
 ## import constant from Lindner 2019 SM
-# import constant from Lindner 2019 SM 
+# import constant from Lindner 2019 SM
 tmp_BV_constant <-  read_excel("data_in/supp_data.xlsx",sheet = "Lindner_2019_BV_LU_function_con")
 
 tmp_BVI_soy <- tmp_soybean %>%
@@ -133,7 +133,7 @@ tmp_BVI_soy <- tmp_soybean %>%
                      tmp_BV_constant$beta[tmp_BV_constant$metric_number == str_sub(param,start = 1,end = 5)]) ^
                     tmp_BV_constant$alpha[tmp_BV_constant$metric_number == str_sub(param,start = 1,end = 5)]) /
                 (2*tmp_BV_constant$sigma[tmp_BV_constant$metric_number == str_sub(param,start = 1,end = 5)] ^
-                   tmp_BV_constant$alpha[tmp_BV_constant$metric_number == str_sub(param,start = 1,end = 5)]))) 
+                   tmp_BV_constant$alpha[tmp_BV_constant$metric_number == str_sub(param,start = 1,end = 5)])))
       ),
     ## constrain BV
     y = case_when(
@@ -169,7 +169,7 @@ tmp_BVI_soy <- tmp_soybean %>%
     A.4.5_org_y = y_A.4.5_org,
     A.5.1_y = y_A.5.1) %>%
   mutate(
-    ## Land use specific biodiversity value 
+    ## Land use specific biodiversity value
     BV_LU = (A.3.1_y + A.4.5_y + A.5.1_y)/3, # average
     # set BV_norm min and max according to Lindner et al. (2019)
     # Normalize BV_LU
@@ -279,11 +279,11 @@ tmp_pseudofarm_grassland <- feed_grassland %>%
 feed_by_pseudofarm = Reduce(rbind,list(
   tmp_pseudofarm_produced %>%
     mutate(feed_origin = "feed_produced"),
-  
+
   tmp_pseudofarm_purchased %>%
     mutate(feed_origin = "feed_purchased"),
-  
-  tmp_pseudofarm_grassland %>% 
+
+  tmp_pseudofarm_grassland %>%
     mutate(feed_origin = "feed_grassland"))) %>% # x farms
   # keep only farms and crops for which a BVI was successfully estimated ???
   filter(!is.na(BVI_ha)) # 4985 farms
@@ -339,9 +339,9 @@ tmp_BVI_herd <- tmp_pseudofarm_livestock_n_feed %>%
    # BVI_ha_feed: weighted average BVI_ha of the feed for the herd ???
    BVI_ha_feed1 = BVI_herd / feed_ha_p_species,
    BVI_ha_feed2 = sum( (DM_kg_p_CODE3 / yield) * BVI_ha ) / sum(DM_kg_p_CODE3 / yield)
-   
+
  )
- 
+
 ##### Output ----
 
 BVI_to_RICA_herd <- tmp_BVI_herd %>% ungroup()

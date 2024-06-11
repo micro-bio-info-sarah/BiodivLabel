@@ -27,22 +27,26 @@ if (my_DB == "RICA") {
            org_farming = case_when(
              AGBIO %in% c(2,4) ~ 1,
              .default = 0
-           ))
-  # 7266 farms
+           )) %>%
+    filter(
+      # keep only crops with areas
+      area_ha > 0 # 6869 farms
+    )
+
 }
 
 if (my_DB == "FADN") {
 
   # transfert table
   tmp_FADN_crops <- read_xlsx("data_in/supp_data.xlsx",sheet = "FADN_crop_code")
-  tmp_TT_crops <- read_xlsx("data_in/supp_data.xlsx",sheet = "TT_crops") %>%
-    rename(crop = FADN_code_letter) %>%
-    group_by(crop,land_use_type) %>%
-    summarise(
-      TFI_crop_name = paste0(unique(na.omit(unlist(strsplit(TFI_crop_name,";")))),collapse = ";")
-    )
-
-
+  tmp_TT_crops0 <- read_xlsx("data_in/supp_data.xlsx",sheet = "TT_crops")
+  tmp_TT_crops <- left_join(
+    tmp_FADN_crops %>% rename(crop = code_letter),
+    tmp_TT_crops0 %>% rename(crop = FADN_code_letter) %>%
+      group_by(crop,land_use_type) %>%
+      summarise(
+        TFI_crop_name = paste0(unique(na.omit(unlist(strsplit(TFI_crop_name,";")))),collapse = ";")
+        ))
 
   tmp_input <- FADN_18 %>%
     # area in hectares for each crop
@@ -58,8 +62,13 @@ if (my_DB == "FADN") {
            )) %>%
     rename(farm_id = ID) %>%
     mutate(CONSOPEST = IPROT_V) %>%
-    # select variables
-    select(farm_id,org_farming,crop,area_ha,CONSOPEST)
+    # select variables and obs
+    select(farm_id,org_farming,crop,area_ha,CONSOPEST) %>%
+    filter(
+      # keep only crops with areas
+      area_ha > 0 #  farms
+    )
+
 
 }
 
@@ -73,8 +82,6 @@ tmp_ift_ref <- read_excel("data_in/supp_data.xlsx",sheet = "IFT_ref") %>%
 
 # assign averages by crop codes (60 different crops)
 tmp_TFI <- tmp_TT_crops %>%
-  # select crop code and name
-  filter(crop %in% unique(tmp_input$crop)) %>%
   # add average TFI
   # add average ration
   rowwise() %>%
@@ -90,26 +97,20 @@ for (tmp_i in which(is.na(tmp_TFI$TFI))) {
                              na.rm = T)
 }
 
-##### Join data ----
+# Join data ----
 
 tmp_data <- tmp_input %>%
   # add TFI
-  left_join(.,tmp_TFI) %>%
-  ## if no crops is similar enough, we used the global average ???
-  replace_na(list(TFI = mean(tmp_ift_ref$TFI,
-                             na.rm = T)))
+  left_join(.,tmp_TFI)
 
-
-##### Estimate parameter ----
+# Estimate parameter ----
 
 tmp_pesticides <- tmp_data %>%
   # here we considered that no plant protection agents are applied to grasslands
   filter(
     # keep only arable land use type
-    land_use_type == "arable", # RICA2020: 7108 farms
-    # keep only crops with areas
-    area_ha > 0 # 6869 farms
-  ) %>%
+    land_use_type == "arable"
+    ) %>%
     # calculate parameter
   mutate(
     # x_i
@@ -139,14 +140,43 @@ tmp_pesticides <- tmp_data %>%
 
 #RICA2020: 6869 farms
 
+
+# add grassland with zero
+tmp_grassland <- tmp_data %>%
+  # here we considered that no plant protection agents are applied to grasslands
+  filter(
+    # keep only grassland land use type
+    land_use_type == "grassland"
+    ) %>%
+  # calculate parameter
+  mutate(
+    # x_i
+    x_i = 0,
+    # calculate SAU_c in hectares
+    SAU_c = area_ha,
+    # calculate theoretical TFI for crop area
+    TFI_SAU_c = 0
+  ) %>%
+  # calculate sum of theoretical TFI for each farm
+  group_by(farm_id) %>%
+  mutate(
+    sum_TFI_SAU_c = 0
+  ) %>%
+  # calculate Y_c for each crop in each farm
+  mutate(A.5.1 = 0) %>%
+  ungroup()
+
+tmp_pesticides <- tmp_pesticides %>%
+  rbind(tmp_grassland)
+
 # check -----
 
-tmp_check_farm_id <- sort(sample(tmp_pesticides$farm_id,size = 15))
+tmp_check_farm_id <- sort(sample(tmp_pesticides$farm_id[tmp_pesticides$org_farming == 0],size = 15))
 
 # compare sums
 tmp_check1 <- tmp_pesticides %>%
   group_by(farm_id,org_farming) %>%
-  summarise(sum_pest = sum(A.5.1))
+  summarise(sum_pest = sum(A.5.1*SAU_c))
 tmp_check2 <- FADN_18 %>%
   select(ID,IPROT_V) %>%
   rename(farm_id = ID)
@@ -154,28 +184,16 @@ tmp_check <- left_join(
   tmp_check1 %>% filter(farm_id %in% tmp_check_farm_id),
   tmp_check2 %>% filter(farm_id %in% tmp_check_farm_id)
 )
-
-
 table(round(tmp_check$sum_pest) == round(tmp_check$IPROT_V))
 
 # quality check : OK
-## compare sums
-tmp = left_join(
-  tmp_pesticides %>%
-    group_by(farm_id) %>%
-    summarise(xi = sum(A.5.1*SAU_c)),
-  tmp_input %>%
-    select(farm_id,org_farming,CONSOPEST)) %>%
-  mutate(comp = case_when(
-    org_farming == 0 & round(xi) == round(CONSOPEST) ~T,
-    org_farming == 1 & round(xi*3.82) == round(CONSOPEST) ~T,
-    .default = F))
-table(tmp$comp)
 
-##### Output ----
+
+## Output ----
 
 BV_A.5.1 = tmp_pesticides %>%
-  select(farm_id,crop,A.5.1)
+  select(farm_id,crop,A.5.1) %>%
+  ungroup()
 
 rm(list = names(.GlobalEnv)[grep("tmp",names(.GlobalEnv))])
 
