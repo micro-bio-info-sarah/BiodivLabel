@@ -7,21 +7,20 @@ library(tidyr)
 library(readr)
 library(readxl)
 library(tibble)
+library(stringr)
 
 
 # National average farm ----
 
-# average for crops
+if (my_DB == "RICA") {
+
+  # average for crops
 ## estimates the average agricultural practices
 tmp_ref_farm_crops <- BVI_to_RICA_crops %>%
   # add coefficient to weight mean and production methods /!\ only for RICA, no extrapolation coefficient in FADN
-  #left_join(.,RICA_2020 %>% select(IDENT,EXTR2,AGBIO)) %>%
-  # filter crops and farms
-  filter(
-    # remove partially organic farms
-    AGBIO != 5) %>%
+  left_join(.,RICA_2020 %>% select(farm_id,EXTR2,org_farming)) %>%
   # estimate national averages for yield, BVI / ha and BVI / kg
-  group_by(CODE3,AGBIO) %>%
+  group_by(crop,org_farming) %>%
   summarise(
     # !!! check les n : certains sont <3
     n = n(),
@@ -36,51 +35,87 @@ tmp_ref_farm_crops <- BVI_to_RICA_crops %>%
     BVI_kg = weighted.mean(BVI_kg,EXTR2,na.rm = T)
   ) %>% ungroup()
 
+## transfert table
+tmp_TT_livestock <- read_xlsx("data_in/supp_data.xlsx",
+                              sheet ="TT_livestock")
+
+}
+
+if (my_DB == "FADN") {
+
+  # average for crops
+  ## estimates the average agricultural practices
+  tmp_ref_farm_crops <- BVI_to_RICA_crops %>%
+    # estimate national averages for yield, BVI / ha and BVI / kg
+    group_by(crop,org_farming) %>%
+    summarise(
+      # !!! check les n : certains sont <3
+      n = n(),
+      # !!! na.rm = T pour test code mais ptetre à enlever par la suite
+      yield = mean(yield,na.rm = T),
+      A.3.1_max = mean(A.3.1_max,na.rm = T),
+      A.4.5_max = mean(A.4.5_max,na.rm = T),
+      A.4.5_min_max = mean(A.4.5_min_max,na.rm = T),
+      A.4.5_org_max = mean(A.4.5_org_max,na.rm = T),
+      A.5.1_max = mean(A.5.1,na.rm = T),
+      BVI_ha = mean(BVI_ha,na.rm = T),
+      BVI_kg = mean(BVI_kg,na.rm = T)
+    ) %>% ungroup()
+
+  # transfert table
+  tmp_FADN_code <- read_xlsx("data_in/supp_data.xlsx",sheet = "FADN_livestock_code")
+  tmp_TT_livestock0 <- read_xlsx("data_in/supp_data.xlsx", sheet ="TT_livestock")
+  tmp_TT_livestock <- left_join(
+    tmp_FADN_code,
+    tmp_TT_livestock0) %>%
+    rename(code_livestock = FADN_code_letter) %>%
+    select(code_livestock,species) %>%
+    distinct()
+
+}
+
 # quality check : compare calculated average with official national average
 
 # Pseudo-farm purchased feed ----
 
 tmp_pseudofarm_purchased_fr <- feed_purchased %>%
   # add production methods
-  left_join(.,RICA_2020 %>% select(IDENT,AGBIO)) %>%
+  left_join(.,BVI_to_RICA_crops %>% select(farm_id,org_farming) %>% distinct()) %>%
   # filter
   filter(
     # farms kept in BVI
-    IDENT %in% BVI_to_RICA_crops$IDENT
-    # filter concentrates
-    #& feed_type == "feed_concent"
-    # remove partially organic farms
-    & AGBIO != 5) %>%
+    farm_id %in% BVI_to_RICA_crops$farm_id
+    ) %>%
   # estimate yield, BVI / ha and BVI / kg
   rowwise() %>%
   mutate(
     yield = mean(tmp_ref_farm_crops$yield[
       # by production methods (i.e. organic or conventional) & by crop
-      tmp_ref_farm_crops$AGBIO == AGBIO & tmp_ref_farm_crops$CODE3 %in% unlist(strsplit(CODE3,";"))]),
-    SAU_c_ha = DM_kg_p_CODE3 / yield,
+      tmp_ref_farm_crops$org_farming == org_farming & tmp_ref_farm_crops$crop %in% unlist(strsplit(crop,";"))]),
+    SAU_c_ha = DM_kg_crop / yield,
     # BVI parameters
     A.3.1_max = mean(tmp_ref_farm_crops$A.3.1_max[
       # by production methods (i.e. organic or conventional) & by crop
-      tmp_ref_farm_crops$AGBIO == AGBIO & tmp_ref_farm_crops$CODE3 %in% unlist(strsplit(CODE3,";"))]),
+      tmp_ref_farm_crops$org_farming == org_farming & tmp_ref_farm_crops$crop %in% unlist(strsplit(crop,";"))]),
     A.4.5_max = mean(tmp_ref_farm_crops$A.4.5_max[
       # by production methods (i.e. organic or conventional) & by crop
-      tmp_ref_farm_crops$AGBIO == AGBIO & tmp_ref_farm_crops$CODE3 %in% unlist(strsplit(CODE3,";"))]),
+      tmp_ref_farm_crops$org_farming == org_farming & tmp_ref_farm_crops$crop %in% unlist(strsplit(crop,";"))]),
     A.4.5_min_max = mean(tmp_ref_farm_crops$A.4.5_min_max[
       # by production methods (i.e. organic or conventional) & by crop
-      tmp_ref_farm_crops$AGBIO == AGBIO & tmp_ref_farm_crops$CODE3 %in% unlist(strsplit(CODE3,";"))]),
+      tmp_ref_farm_crops$org_farming == org_farming & tmp_ref_farm_crops$crop %in% unlist(strsplit(crop,";"))]),
     A.4.5_org_max = mean(tmp_ref_farm_crops$A.4.5_org_max[
       # by production methods (i.e. organic or conventional) & by crop
-      tmp_ref_farm_crops$AGBIO == AGBIO & tmp_ref_farm_crops$CODE3 %in% unlist(strsplit(CODE3,";"))]),
+      tmp_ref_farm_crops$org_farming == org_farming & tmp_ref_farm_crops$crop %in% unlist(strsplit(crop,";"))]),
     A.5.1_max = mean(tmp_ref_farm_crops$A.5.1_max[
       # by production methods (i.e. organic or conventional) & by crop
-      tmp_ref_farm_crops$AGBIO == AGBIO & tmp_ref_farm_crops$CODE3 %in% unlist(strsplit(CODE3,";"))]),
+      tmp_ref_farm_crops$org_farming == org_farming & tmp_ref_farm_crops$crop %in% unlist(strsplit(crop,";"))]),
     # BVI
     BVI_ha = mean(tmp_ref_farm_crops$BVI_ha[
       # by production methods (i.e. organic or conventional) & by crop
-      tmp_ref_farm_crops$AGBIO == AGBIO & tmp_ref_farm_crops$CODE3 %in% unlist(strsplit(CODE3,";"))]),
+      tmp_ref_farm_crops$org_farming == org_farming & tmp_ref_farm_crops$crop %in% unlist(strsplit(crop,";"))]),
     BVI_kg = mean(tmp_ref_farm_crops$BVI_kg[
       # by production methods (i.e. organic or conventional) & by crop
-      tmp_ref_farm_crops$AGBIO == AGBIO & tmp_ref_farm_crops$CODE3 %in% unlist(strsplit(CODE3,";"))])
+      tmp_ref_farm_crops$org_farming == org_farming & tmp_ref_farm_crops$crop %in% unlist(strsplit(crop,";"))])
   ) %>% ungroup()
 
 # Soybean meal from Brasil ----
@@ -92,11 +127,11 @@ tmp_soybean <- tibble(
   "param" = c("A.3.1","A.4.5","A.4.5_min","A.4.5_org","A.5.1"),
   "wheat_Lindner" = c(1.488558,180.7,162.7,18,51580.36245417),
   "soy_Lindner" = c(1.2926064,0,0,0,36888.53241),
-  "wheat_RICA" = c(mean(BV_A.3.1$A.3.1[BV_A.3.1$CODE3 == 111]),
-                   mean(BV_A.4.5$A.4.5[BV_A.4.5$CODE3 == 111]),
-                   mean(BV_A.4.5$A.4.5_min[BV_A.4.5$CODE3 == 111]),
-                   mean(BV_A.4.5$A.4.5_org[BV_A.4.5$CODE3 == 111]),
-                   mean(BV_A.5.1$A.5.1[BV_A.5.1$CODE3 == 111]))
+  "wheat_RICA" = c(mean(BV_A.3.1$A.3.1[BV_A.3.1$crop == 111]),
+                   mean(BV_A.4.5$A.4.5[BV_A.4.5$crop == 111]),
+                   mean(BV_A.4.5$A.4.5_min[BV_A.4.5$crop == 111]),
+                   mean(BV_A.4.5$A.4.5_org[BV_A.4.5$crop == 111]),
+                   mean(BV_A.5.1$A.5.1[BV_A.5.1$crop == 111]))
   ) %>%
   mutate(
   soy_RICA = soy_Lindner * wheat_RICA / wheat_Lindner
@@ -188,11 +223,11 @@ tmp_BVI_soy <- tmp_soybean %>%
     # BVI / kg
     BVI_kg = BVI_ha / yield,
     # add crop code
-    CODE3 = 223,
+    crop = 223,
     feed_type = "feed_concent",
     feed_origin = "feed_purchased"
   ) %>%
-  select(feed_origin,feed_type,CODE3,
+  select(feed_origin,feed_type,crop,
          #A.3.1,A.4.5,A.4.5_min,A.4.5_org,A.5.1,
          A.3.1_max,A.4.5_max,A.4.5_min_max,A.4.5_org_max,A.5.1_max,
          BVI_ha,yield,BVI_kg) %>%
@@ -203,41 +238,41 @@ tmp_BVI_soy <- tmp_soybean %>%
 tmp_pseudofarm_purchased <- tmp_pseudofarm_purchased_fr %>%
   mutate(
     yield = case_when(
-      CODE3 == "223" & feed_type == "feed_concent" ~ tmp_BVI_soy$yield[1],
+      crop == "223" & feed_type == "feed_concent" ~ tmp_BVI_soy$yield[1],
       .default = yield
     ),
     SAU_c_ha = case_when(
-      CODE3 == "223" & feed_type == "feed_concent" ~ DM_kg_p_CODE3 / tmp_BVI_soy$yield[1],
+      crop == "223" & feed_type == "feed_concent" ~ DM_kg_crop / tmp_BVI_soy$yield[1],
       .default = SAU_c_ha
     ),
     # BVI parameters
     A.3.1_max = case_when(
-      CODE3 == "223" & feed_type == "feed_concent" ~ tmp_BVI_soy$A.3.1_max[1],
+      crop == "223" & feed_type == "feed_concent" ~ tmp_BVI_soy$A.3.1_max[1],
       .default = A.3.1_max
     ),
     A.4.5_max = case_when(
-      CODE3 == "223" & feed_type == "feed_concent" ~ tmp_BVI_soy$A.4.5_max[1],
+      crop == "223" & feed_type == "feed_concent" ~ tmp_BVI_soy$A.4.5_max[1],
       .default = A.4.5_max
     ),
     A.4.5_min_max = case_when(
-      CODE3 == "223" & feed_type == "feed_concent" ~ tmp_BVI_soy$A.4.5_min_max[1],
+      crop == "223" & feed_type == "feed_concent" ~ tmp_BVI_soy$A.4.5_min_max[1],
       .default = A.4.5_min_max
     ),
     A.4.5_org_max = case_when(
-      CODE3 == "223" & feed_type == "feed_concent" ~ tmp_BVI_soy$A.4.5_org_max[1],
+      crop == "223" & feed_type == "feed_concent" ~ tmp_BVI_soy$A.4.5_org_max[1],
       .default = A.4.5_org_max
     ),
     A.5.1_max = case_when(
-      CODE3 == "223" & feed_type == "feed_concent" ~ tmp_BVI_soy$A.5.1_max[1],
+      crop == "223" & feed_type == "feed_concent" ~ tmp_BVI_soy$A.5.1_max[1],
       .default = A.5.1_max
     ),
     # BVI
     BVI_ha = case_when(
-      CODE3 == "223" & feed_type == "feed_concent" ~ tmp_BVI_soy$BVI_ha[1],
+      crop == "223" & feed_type == "feed_concent" ~ tmp_BVI_soy$BVI_ha[1],
       .default = BVI_ha
     ),
     BVI_kg = case_when(
-      CODE3 == "223" & feed_type == "feed_concent" ~ tmp_BVI_soy$BVI_kg[1],
+      crop == "223" & feed_type == "feed_concent" ~ tmp_BVI_soy$BVI_kg[1],
       .default = BVI_kg
     )
   )
@@ -245,14 +280,10 @@ tmp_pseudofarm_purchased <- tmp_pseudofarm_purchased_fr %>%
 # Pseudo-farm produced feed  ----
 
 tmp_pseudofarm_produced <- feed_produced %>%
-  # add coefficient to weight mean and production methods
-  left_join(.,RICA_2020 %>% select(IDENT,AGBIO)) %>%
-  # remove partially organic farms
-  filter(AGBIO != 5) %>%
-  # add yields and BVI
-  inner_join(BVI_to_RICA_crops %>% select(IDENT,CODE3,yield,A.3.1_max,A.4.5_max,A.4.5_min_max,A.4.5_org_max,A.5.1_max,BVI_ha,BVI_kg)) %>%
+  # add production method, yields and BVI
+  inner_join(BVI_to_RICA_crops %>% select(farm_id,org_farming,crop,yield,A.3.1_max,A.4.5_max,A.4.5_min_max,A.4.5_org_max,A.5.1_max,BVI_ha,BVI_kg)) %>%
   # recalculate SAU_c_ha for feed
-  mutate(SAU_c_ha = DM_kg_p_CODE3 / yield)
+  mutate(SAU_c_ha = DM_kg_crop / yield)
 
 # qualitéy check : j'ai des culture pour certaines fermes dans les feed mais pas dans les bvi : ce sont des fermes qui ont du être virées en cours
 ## cela représente : 3233 - 3090 = 143 fermes
@@ -261,14 +292,10 @@ tmp_pseudofarm_produced <- feed_produced %>%
 # Pseudo-farm grassland  ----
 
 tmp_pseudofarm_grassland <- feed_grassland %>%
-  # add coefficient to weight mean and production methods
-  left_join(.,RICA_2020 %>% select(IDENT,AGBIO)) %>%
-  # remove partially organic farms
-  filter(AGBIO != 5) %>%
   # add yields and BVI
-  inner_join(BVI_to_RICA_crops %>% select(IDENT,CODE3,yield,A.3.1_max,A.4.5_max,A.4.5_min_max,A.4.5_org_max,A.5.1_max,BVI_ha,BVI_kg)) %>%
+  inner_join(BVI_to_RICA_crops %>% select(farm_id,org_farming,crop,yield,A.3.1_max,A.4.5_max,A.4.5_min_max,A.4.5_org_max,A.5.1_max,BVI_ha,BVI_kg)) %>%
   # recalculate SAU_c_ha for feed
-  mutate(SAU_c_ha = DM_kg_p_CODE3 / yield)
+  mutate(SAU_c_ha = DM_kg_crop / yield)
 
 
 
@@ -284,21 +311,15 @@ feed_by_pseudofarm = Reduce(rbind,list(
     mutate(feed_origin = "feed_purchased"),
 
   tmp_pseudofarm_grassland %>%
-    mutate(feed_origin = "feed_grassland"))) %>% # x farms
-  # keep only farms and crops for which a BVI was successfully estimated ???
-  filter(!is.na(BVI_ha)) # 4985 farms
+    mutate(feed_origin = "feed_grassland")))
 
 # calculate BVI / herd
 
-## transfert table
-tmp_TT_livestock <- read_xlsx("data_in/supp_data.xlsx",
-                              sheet ="TT_livestock")
-
 tmp_pseudofarm_livestock_n_feed <- feed_by_livestock %>%
-  inner_join(.,feed_by_pseudofarm %>% select(IDENT,CODE3,feed_origin,AGBIO,yield,A.3.1_max,A.4.5_max,A.4.5_min_max,A.4.5_org_max,A.5.1_max,BVI_ha,BVI_kg)) %>%
-  inner_join(.,tmp_TT_livestock %>% select(CODE6,species)) %>%
+  inner_join(.,feed_by_pseudofarm %>% select(farm_id,org_farming,crop,feed_origin,org_farming,yield,A.3.1_max,A.4.5_max,A.4.5_min_max,A.4.5_org_max,A.5.1_max,BVI_ha,BVI_kg)) %>%
+  inner_join(.,tmp_TT_livestock %>% select(code_livestock,species)) %>%
   mutate(
-    SAU_c_ha = (DM_kg_p_CODE36 / yield)
+    SAU_c_ha = (DM_kg_crop_livestock / yield)
   )
 # 3458 farms
 
@@ -306,46 +327,47 @@ tmp_pseudofarm_livestock_n_feed <- feed_by_livestock %>%
 
 tmp_BVI_herd <- tmp_pseudofarm_livestock_n_feed %>%
   # summarise BVI / herd
-  group_by(IDENT,species) %>%
+  group_by(farm_id,org_farming,species) %>%
   summarise(
-    # number of animals per species
-    nb_anim = sum(EFFEC),
+    # number of livestock unit per species
+    nb_anim = sum(livestock_unit),
     # total feed per animal
-    feed_kg_p_anim = mean(DM_kg_p_CODE3anim),
+    feed_kg_p_anim = mean(DM_kg_crop_LU),
     # estimate area per animal
-    feed_ha_p_anim = mean(DM_kg_p_CODE3anim / yield),
+    feed_ha_p_anim = mean(DM_kg_crop_LU / yield),
     # total feed for species
-    feed_kg_p_species = sum(DM_kg_p_CODE36),
+    feed_kg_p_species = sum(DM_kg_crop_livestock),
     # estimate area for feed
-    feed_ha_p_species = sum(DM_kg_p_CODE36 / yield),
+    feed_ha_p_species = sum(DM_kg_crop_livestock / yield),
     # BVI_herd: total BVI of the feed for the herd
-    BVI_herd = sum(DM_kg_p_CODE36*BVI_kg),
+    BVI_herd = sum(DM_kg_crop_livestock*BVI_kg),
     # BVI_ha_feed: weighted average BVI_ha of the feed for the herd
-    BVI_ha_feed = sum( (DM_kg_p_CODE36 / yield) * BVI_ha ) / sum(DM_kg_p_CODE36 / yield)
+    BVI_ha_feed = sum( (DM_kg_crop_livestock / yield) * BVI_ha ) / sum(DM_kg_crop_livestock / yield)
   )
 
 # 4017 farms
 
-# quality check :
+# check ----
 ## je dois retrouver les bon totaux de population et de kg de feed
-# tmp_pop
- tmp_kg_feed = feed_by_pseudofarm %>% group_by(IDENT) %>% summarise(
-   # total feed for species
-   feed_kg_p_species = sum(DM_kg_p_CODE3),
-   # estimate area for feed
-   feed_ha_p_species = sum(SAU_c_ha),
-   # BVI_herd: total BVI of the feed for the herd
-   BVI_herd = sum(DM_kg_p_CODE3*BVI_kg),
-   # BVI_ha_feed: weighted average BVI_ha of the feed for the herd ???
-   BVI_ha_feed1 = BVI_herd / feed_ha_p_species,
-   BVI_ha_feed2 = sum( (DM_kg_p_CODE3 / yield) * BVI_ha ) / sum(DM_kg_p_CODE3 / yield)
-
- )
+tmp_check <- feed_by_pseudofarm %>%
+  group_by(farm_id) %>%
+  summarise(
+    # total feed for species
+    feed_kg_p_species = sum(DM_kg_crop),
+    # estimate area for feed
+    feed_ha_p_species = sum(SAU_c_ha),
+    # BVI_herd: total BVI of the feed for the herd
+    BVI_herd = sum(DM_kg_crop*BVI_kg),
+    # BVI_ha_feed: weighted average BVI_ha of the feed for the herd ???
+    BVI_ha_feed1 = BVI_herd / feed_ha_p_species,
+    BVI_ha_feed2 = sum( (DM_kg_crop / yield) * BVI_ha ) / sum(DM_kg_crop / yield)
+    ) %>%
+  mutate(check = round(BVI_ha_feed1) == round(BVI_ha_feed2))
+table(tmp_check$check)
 
 ##### Output ----
 
 BVI_to_RICA_herd <- tmp_BVI_herd %>% ungroup()
-
 
 rm(list = names(.GlobalEnv)[grep("tmp",names(.GlobalEnv))])
 

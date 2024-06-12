@@ -7,6 +7,7 @@ library(tidyr)
 library(readr)
 library(readxl)
 library(tibble)
+library(stringr)
 
 
 # National average farm ----
@@ -315,7 +316,7 @@ feed_by_pseudofarm = Reduce(rbind,list(
 # calculate BVI / herd
 
 tmp_pseudofarm_livestock_n_feed <- feed_by_livestock %>%
-  inner_join(.,feed_by_pseudofarm %>% select(farm_id,crop,feed_origin,org_farming,yield,A.3.1_max,A.4.5_max,A.4.5_min_max,A.4.5_org_max,A.5.1_max,BVI_ha,BVI_kg)) %>%
+  inner_join(.,feed_by_pseudofarm %>% select(farm_id,org_farming,crop,feed_origin,org_farming,yield,A.3.1_max,A.4.5_max,A.4.5_min_max,A.4.5_org_max,A.5.1_max,BVI_ha,BVI_kg)) %>%
   inner_join(.,tmp_TT_livestock %>% select(code_livestock,species)) %>%
   mutate(
     SAU_c_ha = (DM_kg_crop_livestock / yield)
@@ -326,7 +327,7 @@ tmp_pseudofarm_livestock_n_feed <- feed_by_livestock %>%
 
 tmp_BVI_herd <- tmp_pseudofarm_livestock_n_feed %>%
   # summarise BVI / herd
-  group_by(farm_id,species) %>%
+  group_by(farm_id,org_farming,species) %>%
   summarise(
     # number of livestock unit per species
     nb_anim = sum(livestock_unit),

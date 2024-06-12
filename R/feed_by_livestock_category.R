@@ -187,7 +187,7 @@ feed_by_livestock <- tmp_feed_by_livestock %>% ungroup()
 # 4110 farms
 
 
-#rm(list = names(.GlobalEnv)[grep("tmp",names(.GlobalEnv))])
+rm(list = names(.GlobalEnv)[grep("tmp",names(.GlobalEnv))])
 
 
 

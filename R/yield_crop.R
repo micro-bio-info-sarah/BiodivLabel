@@ -156,7 +156,7 @@ tmp_yield_forage <- tmp_input %>%
     prod_kg = SAU_c_ha * yield
   )
 
-tmp_yield <- Reduce(rbind,list(tmp_yield_crops %>% select(farm_id,crop,SAU_c_ha,prod_kg,yield),
+crop_yield <- Reduce(rbind,list(tmp_yield_crops %>% select(farm_id,crop,SAU_c_ha,prod_kg,yield),
                                tmp_yield_forage %>% select(farm_id,crop,SAU_c_ha,prod_kg,yield)))
 
 

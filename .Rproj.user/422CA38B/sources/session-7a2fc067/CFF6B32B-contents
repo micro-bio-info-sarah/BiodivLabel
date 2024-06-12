@@ -155,15 +155,11 @@ tmp_BV_loc <- tmp_BV_norm %>%
 
 # quality check : see in BVI to AGB if similar values for similar crops
 
-# yields ----
-
-source("scripts/yield_crop.R")
-
 # BVI per kg ----
 
 BVI_to_RICA_crops <- tmp_BV_loc %>%
   # add yields
-  left_join(., tmp_yield) %>% # 5952 farms
+  left_join(., crop_yield) %>% # 5952 farms
   mutate(
     BVI_kg = BVI_ha / yield
   ) %>% ungroup()

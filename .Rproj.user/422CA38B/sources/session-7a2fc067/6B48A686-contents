@@ -41,20 +41,18 @@ Run only if you haven't already load the data.
 ```{r import_data_2004-2018, echo=FALSE,include=FALSE}
 
 # Get the files names
-tmp_ls_files = paste0(getwd(),"/FADN_LIFT_2004-2018/raw_data/",
-                      list.files(path = paste0(getwd(),"/FADN_LIFT_2004-2018/raw_data/"),pattern = "*.csv"))
+#tmp_ls_files = paste0(getwd(),"/FADN_LIFT_2004-2018/raw_data/",list.files(path = paste0(getwd(),"/FADN_LIFT_2004-2018/raw_data/"),pattern = "*.csv"))
 # First apply read.csv, then rbind
-FADN_04_18 = lapply(tmp_ls_files, read_csv) %>% bind_rows()
+#FADN_04_18 = lapply(tmp_ls_files, read_csv) %>% bind_rows()
 
 ```
 
 ```{r import_data_2018, echo=FALSE,include=FALSE}
 
 # Get the files names
-tmp_ls_files = paste0(getwd(),"/FADN_LIFT_2004-2018/raw_data/",
-                      list.files(path = paste0(getwd(),"/FADN_LIFT_2004-2018/raw_data/"),pattern = "*2018.csv"))
+#tmp_ls_files = paste0(getwd(),"/FADN_LIFT_2004-2018/raw_data/",list.files(path = paste0(getwd(),"/FADN_LIFT_2004-2018/raw_data/"),pattern = "*2018.csv"))
 # First apply read.csv, then rbind
-FADN_18 = lapply(tmp_ls_files, read_csv) %>% bind_rows() %>% mutate(ID = as.character(ID))
+#FADN_18 = lapply(tmp_ls_files, read_csv) %>% bind_rows() %>% mutate(ID = as.character(ID))
 
 ```
 

@@ -25,8 +25,8 @@ if (my_DB == "RICA") {
     left_join(.,RICA_2020 %>% select(IDENT,CHRPH,AGBIO)) %>% # 7266 farms
     mutate(crop = CODE3,
            org_farming = case_when(
-             AGBIO %in% c(2,4) ~ 1,
-             .default = 0
+             AGBIO %in% c(2,4) ~ T,
+             .default = F
            )) %>%
     filter(
       # keep only crops with areas
@@ -57,8 +57,8 @@ if (my_DB == "FADN") {
                  names_to = "crop",values_to = "area_ha") %>%
     mutate(crop = gsub("_TA","",crop),
            org_farming = case_when(
-             ORGANIC %in% c(2,4) ~ 1,
-             .default = 0
+             ORGANIC %in% c(2,4) ~ T,
+             .default = F
            )) %>%
     rename(farm_id = ID) %>%
     mutate(CONSOPEST = IPROT_V) %>%
