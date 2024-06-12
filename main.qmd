@@ -198,10 +198,22 @@ source("R/BVI_A51.R",local = knitr::knit_global())
 
 # GHGE
 To be completed
-## Enteric fermentation
+
+## Emissions from Livestock and Manure Management
+### Methane Emission from Enteric fermentation
+
+```{r CH4_from_enteric_fermentation}
+
+source("R/CH4_from_enteric_fermentation.R",local = knitr::knit_global())
+
+```
+
+### Methane Emission from Manure Management
 To be completed
-## Manure Management
+### N2O Emission from Manure Management
 To be completed
+
+
 ## Crop/Feed
 cf. Sarah Le Clerc 
 https://github.com/sarahkleclerc/GHGfromFADN

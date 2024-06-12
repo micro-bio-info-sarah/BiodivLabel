@@ -87,9 +87,19 @@ if (my_DB == "FADN") {
                 select(FADN_code_letter,UGB) %>%
                 distinct() %>%
                 rename(code_livestock = FADN_code_letter)) %>%
-
+    mutate(livestock_head = livestock_unit*UGB) %>%
     # remove livestock without population
-    filter(livestock_unit >0 )
+    filter(livestock_unit >0 ) %>%
+    ## milk production
+    left_join(
+      .,
+      FADN_18 %>%
+        # extract milk production
+        mutate(code_livestock = "LCOWDAIR",
+               prod_milk_kg = PMLKCOW_PRQ*10^3) %>%
+        rename(farm_id = ID) %>%
+        select(farm_id,code_livestock,prod_milk_kg))
+
 
 }
 
@@ -114,9 +124,53 @@ tmp_cattle_Nin <- tmp_input %>%
   filter(species == "cattle") %>% # 3053 farms
   # add feed intake data
   inner_join(.,tmp_feed_intake) %>%
-  # estimate N intake
+  # estimate CH4 emission from enteric fermentation
   rowwise() %>%
   mutate(
+
+    ## Digestibility
+
+    ## DE: digestibility of feed expressed as a fraction of gross energy (digestible energy/gross energy*100, i.e. DE%)
+    ## Tables 10A.1 & 10A.2
+    DE = case_when(
+      any(unlist(strsplit(IPCC_mix_cat,";")) %in% c("cows_milk_prod")) ~ 71,
+      any(unlist(strsplit(IPCC_mix_cat,";")) %in% c("bulls_breed")) ~ 60,
+      any(unlist(strsplit(IPCC_mix_cat,";")) %in% c("other_mature_cattle")) ~ 60, # as mature males
+      any(unlist(strsplit(IPCC_mix_cat,";")) %in% c("growing_cattle_postweaning")) ~ 65,
+      any(unlist(strsplit(IPCC_mix_cat,";")) %in% c("growing_cattle")) ~ 65,
+      any(unlist(strsplit(IPCC_mix_cat,";")) %in% c("calves_preweaning")) & code_livestock !=  932 ~ 95, # calves on milk
+      any(unlist(strsplit(IPCC_mix_cat,";")) %in% c("calves_preweaning")) & code_livestock == 932 ~ 73 # calves on forage (broutards only ???)
+    ),
+    # WIP !!! we could estimate DE = qté aliment - prod lait
+
+    #  MY = Methane yield, g CH4 kg DMI-1 (Table 10.12)
+    ## In Table 10.12, the MY of dairy cows is linked to annual milk production levels and to feed quantity and quality
+    ## diary cow productivity in kg milk /head/yr-1
+    MY = case_when(
+      # WIP /!\ should differentiate between high producing cows depending on Neutral Detergent Fibre (NDF, % DMI)
+      any(unlist(strsplit(IPCC_mix_cat,";")) %in% c("cows_milk_prod")) & prod_milk_kg/livestock_head > 8500 ~ (19+20)/2,
+      any(unlist(strsplit(IPCC_mix_cat,";")) %in% c("cows_milk_prod")) & prod_milk_kg/livestock_head <= 8500 & prod_milk_kg/livestock_head >= 5000 ~ 21,
+      any(unlist(strsplit(IPCC_mix_cat,";")) %in% c("cows_milk_prod")) & prod_milk_kg/livestock_head < 5000 ~ 21.4,
+
+
+      # WIPPP &
+      any(unlist(strsplit(IPCC_mix_cat,";")) %in% c("cows_milk_prod"))
+    )
+
+    # EQUATION 10.21A (NEW) METHANE EMISSION FACTORS FOR ENTERIC FERMENTATION FROM A LIVESTOCK CATEGORY
+    ## EF = DMI * (MY/1000) * 365
+    ### EF = emission factor, kg CH4 head-1 yr-1
+    ### DMI = kg DMI day-1
+    ### MY = Methane yield, g CH4 kg DMI-1 (Table 10.12)
+    ### 365 = days per year
+    ### 1000 = conversion from g CH4 to kg CH4
+    EF = DM_kg_animal * (MY / 1000)
+
+
+
+
+
+
 
     # N_intake from DMI
     ## daily N consumed per animal of category T, kg N animal-1 day-1, per growth stage-1 “i" when applicable
@@ -230,20 +284,6 @@ tmp_cattle_Nin <- tmp_input %>%
     ## Equation 10.13
     NE_p = C_preg * NE_m,
 
-    ## Digestibility
-
-    ## DE: digestibility of feed expressed as a fraction of gross energy (digestible energy/gross energy*100, i.e. DE%)
-    ## Tables 10A.1 & 10A.2
-    DE = case_when(
-      any(unlist(strsplit(IPCC_mix_cat,";")) %in% c("cows_milk_prod")) ~ 71,
-      any(unlist(strsplit(IPCC_mix_cat,";")) %in% c("bulls_breed")) ~ 60,
-      any(unlist(strsplit(IPCC_mix_cat,";")) %in% c("other_mature_cattle")) ~ 60, # as mature males
-      any(unlist(strsplit(IPCC_mix_cat,";")) %in% c("growing_cattle_postweaning")) ~ 65,
-      any(unlist(strsplit(IPCC_mix_cat,";")) %in% c("growing_cattle")) ~ 65,
-      any(unlist(strsplit(IPCC_mix_cat,";")) %in% c("calves_preweaning")) & code_livestock !=  932 ~ 95, # calves on milk
-      any(unlist(strsplit(IPCC_mix_cat,";")) %in% c("calves_preweaning")) & code_livestock == 932 ~ 73 # calves on forage (broutards only ???)
-    ),
-    # !!! we could estimate DE = qté aliment - prod lait
 
     ## Ratio of net energy for maintenance REM
 
