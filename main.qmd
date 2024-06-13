@@ -197,7 +197,7 @@ source("R/BVI_A51.R",local = knitr::knit_global())
 ```
 
 # GHGE
-To be completed
+ To estimate the green house gas emission from cropland, grassland, livestock and manure management, we followed the IPCC Guidelines 2019 Refinements.
 
 ## Emissions from Livestock and Manure Management
 ### Methane Emission from Enteric fermentation
@@ -212,7 +212,9 @@ source("R/CH4_from_enteric_fermentation.R",local = knitr::knit_global())
 ```
 
 ### Methane Emission from Manure Management
+
 To be completed
+
 ### N2O Emission from Manure Management
 To be completed
 
