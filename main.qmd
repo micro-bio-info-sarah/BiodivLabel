@@ -22,7 +22,7 @@ library(dplyr)
 library(tibble)
 
 rm(list = names(.GlobalEnv)[grep("tmp",names(.GlobalEnv))])
-rm(list = ls())
+#rm(list = ls())
 
 # which data base are you using? either "FADN" or "RICA"
 my_DB = "FADN"
@@ -201,6 +201,9 @@ To be completed
 
 ## Emissions from Livestock and Manure Management
 ### Methane Emission from Enteric fermentation
+
+Enteric fermentation is a process by which carbohydrates contained in food are converted to methane. Mostly ruminants, mammals with a multichamber stomach, produce methane through such process. Ruminants include cattle, sheep and goats.
+https://agledx.ccafs.cgiar.org/emissions-led-options/sources-sinks/enteric-fermentation/
 
 ```{r CH4_from_enteric_fermentation}
 

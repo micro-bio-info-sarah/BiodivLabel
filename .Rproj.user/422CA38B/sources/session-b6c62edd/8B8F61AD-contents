@@ -70,7 +70,7 @@ To estimate the impact of livestock on biodiversity, we first need to estimates 
 
 ```{r feed_purchased}
 
-source("scripts/feed_purchased.R",local = knitr::knit_global()) # concentrate + rough
+source("R/feed_purchased.R",local = knitr::knit_global()) # concentrate + rough
 
 ```
 
@@ -83,8 +83,9 @@ source("scripts/feed_purchased.R",local = knitr::knit_global()) # concentrate + 
 ## area in hectares for each crop
 ## production quantity in kg for each crop
 ## sales quantity in kg for each crop
+source("R/yield_crop.R")
 
-source("scripts/feed_produced.R",local = knitr::knit_global()) # crops + grassland
+source("R/feed_produced.R",local = knitr::knit_global()) # crops + grassland
 
 
 ```
@@ -110,7 +111,7 @@ $l$: a livestock category
 
 ```{r feed_by_livestock_category}
 
-source("scripts/feed_by_livestock_category.R",local = knitr::knit_global())
+source("R/feed_by_livestock_category.R",local = knitr::knit_global())
 
 ```
 
@@ -120,7 +121,7 @@ source("scripts/feed_by_livestock_category.R",local = knitr::knit_global())
 
 # NB : guidelines IPCC are for one animal, not for one livestock unit
 
-source("scripts/N_excretion_from_livestock.R",local = knitr::knit_global())
+source("R/N_excretion_from_livestock.R",local = knitr::knit_global())
 
 ### output => kg N yr-1 
 
@@ -142,7 +143,7 @@ We chose an area allocation on arable land use type.
 
 ```{r A.3.1}
 
-source("scripts/BVI_A31.R",local = knitr::knit_global())
+source("R/BVI_A31.R",local = knitr::knit_global())
 
 ```
 
@@ -167,7 +168,7 @@ For organic fertilization, we considered that farms without livestock apply a re
 
 ```{r A.4.5}
 
-source("scripts/BVI_A45.R",local = knitr::knit_global())
+source("R/BVI_A45.R",local = knitr::knit_global())
 
 ```
 
@@ -191,16 +192,31 @@ The TFI data were retrieve from Agreste "Pratiques culturales" studies and other
 
 ```{r A.5.1}
 
-source("scripts/BVI_A51.R",local = knitr::knit_global())
+source("R/BVI_A51.R",local = knitr::knit_global())
 
 ```
 
 # GHGE
 To be completed
-## Enteric fermentation
+
+## Emissions from Livestock and Manure Management
+### Methane Emission from Enteric fermentation
+
+Enteric fermentation is a process by which carbohydrates contained in food are converted to methane. Mostly ruminants, mammals with a multichamber stomach, produce methane through such process. Ruminants include cattle, sheep and goats.
+https://agledx.ccafs.cgiar.org/emissions-led-options/sources-sinks/enteric-fermentation/
+
+```{r CH4_from_enteric_fermentation}
+
+source("R/CH4_from_enteric_fermentation.R",local = knitr::knit_global())
+
+```
+
+### Methane Emission from Manure Management
 To be completed
-## Manure Management
+### N2O Emission from Manure Management
 To be completed
+
+
 ## Crop/Feed
 cf. Sarah Le Clerc 
 https://github.com/sarahkleclerc/GHGfromFADN
@@ -213,13 +229,13 @@ To be completed
 # Water
 To be completed
 
-# Biodiversity: BVI model
+# Biodiversity: BVIAS model
 
 ## Productions végétales
 
 ```{r BVI_to_RICA_crops}
 
-source("scripts/BVI_crops.R",local = knitr::knit_global())
+source("R/BVI_crops.R",local = knitr::knit_global())
 
 ```
 
@@ -269,12 +285,12 @@ WIP maybe I should write a script for estimating the pseudofarm
 
 ```{r BVi_per_herd}
 
-source("scripts/BVI_herd.R",local = knitr::knit_global())
+source("R/BVI_herd.R",local = knitr::knit_global())
 
 ```
 
-$$BVI^{herd} = \sum(DMI_{total} \cdot BVI_{ha} )$$
-$$BVI_{ha}^{feed} = \frac{\sum (\frac{DMI_{total}}{yield}  \cdot BVI_{ha} )} {\sum (\frac{DMI_{total}}{yield})  }$$
+$$BVI_{herd} = \sum(DMI_{total} \cdot BVI_{ha} )$$
+$$BVI_{ha_{feed}} = \frac{\sum (\frac{DMI_{total}}{yield}  \cdot BVI_{ha} )} {\sum (\frac{DMI_{total}}{yield})  }$$
 
 ### Milk
 
@@ -283,7 +299,7 @@ $GS^{milk}$: part du lait dans le chiffre d'affaire (%)
 
 ```{r BVI_to_RICA_milk}
 
-source("scripts/BVI_milk.R",local = knitr::knit_global())
+source("R/BVI_milk.R",local = knitr::knit_global())
 
 ```
 
@@ -303,7 +319,7 @@ To be completed
 
 ```{r import_matching}
 
-source("scripts/matching_RICA-RA-SIQO.R",local = knitr::knit_global())
+source("R/matching_RICA-RA-SIQO.R",local = knitr::knit_global())
 
 ```
 
@@ -311,7 +327,7 @@ source("scripts/matching_RICA-RA-SIQO.R",local = knitr::knit_global())
 
 ```{r Applying BVI to matched farms}
 
-source("scripts/SIQO_BVI.R")
+source("R/SIQO_BVI.R")
 
 ```
 

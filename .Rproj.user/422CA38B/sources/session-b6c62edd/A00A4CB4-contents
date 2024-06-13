@@ -103,17 +103,17 @@ tmp_ref_ration <- tmp_TT_livestock %>%
 
 # Theoretical ration by farm ----
 
-tmp_ration_th_pcode_livestock <- tmp_input %>%
+tmp_ration_th_code_livestock <- tmp_input %>%
   # add average ration
   left_join(., tmp_ref_ration %>% select(code_livestock,ref_DM_kg_LU)) %>% ungroup() %>%
   # calculate theoretical average ration per code_livestock
   mutate(th_DM_kg_code_livestock = ref_DM_kg_LU * livestock_unit)
 
-tmp_ration_th_pfarm <- tmp_ration_th_pcode_livestock %>%
+tmp_ration_th_farm <- tmp_ration_th_code_livestock %>%
   group_by(farm_id) %>%
-  summarise(th_DM_kg_pfarm = sum(th_DM_kg_code_livestock))
+  summarise(th_DM_kg_farm = sum(th_DM_kg_code_livestock))
 
-tmp_ration_th <- left_join(tmp_ration_th_pcode_livestock,tmp_ration_th_pfarm)
+tmp_ration_th <- left_join(tmp_ration_th_code_livestock,tmp_ration_th_farm)
 
 # Distribute ----
 
@@ -133,10 +133,12 @@ tmp_feed_by_livestock <- tmp_feed_by_farm %>%
   # distribute DM
   mutate(
     # DM of each crop by livestock type: kg DM y-1
-    DM_kg_crop_livestock = DM_kg_crop * th_DM_kg_code_livestock / th_DM_kg_pfarm,
+    DM_kg_crop_livestock = DM_kg_crop * th_DM_kg_code_livestock / th_DM_kg_farm,
+    GE_MJ_crop_livestock = GE_MJ_crop * th_DM_kg_code_livestock / th_DM_kg_farm,
     CP_kg_crop_livestock = CP_kg_crop * DM_kg_crop_livestock / DM_kg_crop,
     # DM of each crop by animal: kg DM animal-1 y-1
     DM_kg_crop_LU = DM_kg_crop_livestock / livestock_unit,
+    GE_MJ_crop_LU = GE_MJ_crop_livestock / livestock_unit,
     CP_kg_crop_LU = CP_kg_crop_livestock / livestock_unit)
 
 
@@ -146,20 +148,31 @@ tmp_check_farm_id = sample(tmp_feed_by_livestock$farm_id,size = 25)
 tmp = tmp_feed_by_livestock %>%
   filter(farm_id %in% tmp_check_farm_id) %>%
   group_by(farm_id,crop,feed_origin) %>%
-  summarise(DM_kg_crop = sum(unique(DM_kg_crop)),
-            DM_kg_crop_livestock = sum(DM_kg_crop_livestock),
-            DM_kg_crop_LU = sum(DM_kg_crop_LU*livestock_unit)) %>%
+  summarise(
+    DM_kg_crop = sum(unique(DM_kg_crop)),
+    DM_kg_crop_livestock = sum(DM_kg_crop_livestock),
+    DM_kg_crop_LU = sum(DM_kg_crop_LU*livestock_unit),
+    GE_MJ_crop = sum(unique(GE_MJ_crop)),
+    GE_MJ_crop_livestock = sum(GE_MJ_crop_livestock),
+    GE_MJ_crop_LU = sum(GE_MJ_crop_LU*livestock_unit)) %>%
   mutate(
     check1 = round(DM_kg_crop) == round(DM_kg_crop_livestock),
     check2 = round(DM_kg_crop) == round(DM_kg_crop_LU),
     check3 = round(DM_kg_crop_livestock) == round(DM_kg_crop_LU),
+    check4 = round(GE_MJ_crop) == round(GE_MJ_crop_livestock),
+    check5 = round(GE_MJ_crop) == round(GE_MJ_crop_LU),
+    check6 = round(GE_MJ_crop_livestock) == round(GE_MJ_crop_LU)
   )
 print("Everything's good if all TRUE")
 print(table(tmp$check1))
 print(table(tmp$check2))
 print(table(tmp$check3))
+print(table(tmp$check4))
+print(table(tmp$check5))
+print(table(tmp$check6))
 
 ## je retrouve bien les mêmes totaux OK
+
 
 # check for organic farms
 #tmp = tmp_feed_by_livestock %>% filter(farm_id %in% RICA_2020$farm_id[RICA_2020$AGBIO %in% c(2) & RICA_2020$OTEFDA %in% c(4500,4700,6184)])
@@ -187,7 +200,7 @@ feed_by_livestock <- tmp_feed_by_livestock %>% ungroup()
 # 4110 farms
 
 
-#rm(list = names(.GlobalEnv)[grep("tmp",names(.GlobalEnv))])
+rm(list = names(.GlobalEnv)[grep("tmp",names(.GlobalEnv))])
 
 
 
