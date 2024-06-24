@@ -213,7 +213,21 @@ source("R/CH4_from_enteric_fermentation.R",local = knitr::knit_global())
 
 ### Methane Emission from Manure Management
 
-To be completed
+As we do not have data about manure management practices in the FADN data, we used the National Inventories from the CCNUCC to estimate ratio of emission factors for each country and each year. Once the emission factors were estimated, we applied the Tiezr 2 method from the IPCC Guidelines (2006, 2019).
+
+National Inventories from the UNFCCC : https://unfccc.int/ghg-inventories-annex-i-parties/2023
+NB : France (FRK) and Danemark (DNM) should be used as they do not contain overseas territories
+
+
+We used the average annual temperature for each european country from https://www.eea.europa.eu/data-and-maps/data/external/monitoring-european-average-temperature-based-1.
+
+```{r CH4_from_manure_management}
+
+#source("R/manure_management_system.R",local = knitr::knit_global())
+
+source("R/CH4_from_manure_management.R",local = knitr::knit_global())
+
+```
 
 ### N2O Emission from Manure Management
 To be completed

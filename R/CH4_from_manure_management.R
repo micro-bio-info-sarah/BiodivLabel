@@ -93,6 +93,22 @@ if (my_DB == "FADN") {
 
 }
 
+
+
+
+# Manure Management System ----
+
+library(readxl)
+tmp_data_year = "2018"
+tmp_data_country =
+tmp_MMS <- unzip("data_raw/UNFCCC_ghg_inventories/dnm-2023-crf-14apr23_AR5.zip", "DNM_2023_2018_14042023_135925.xlsx")
+tmp_MMS <- read_excel(tmp_MMS,sheet = "Table3.B(a)s2", range = "A6:M93")
+
+
+
+
+
+
 ##### Feed intake ----
 
 tmp_feed_intake <- feed_by_livestock %>%
