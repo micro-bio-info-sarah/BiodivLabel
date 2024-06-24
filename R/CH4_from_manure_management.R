@@ -9,6 +9,7 @@ library(dplyr)
 library(tidyr)
 library(tidyverse)
 library(purrr)
+library(stringr)
 
 ##### Estimate livestock population and categories ----
 
@@ -99,11 +100,71 @@ if (my_DB == "FADN") {
 # Manure Management System ----
 
 library(readxl)
-tmp_data_year = "2018"
-tmp_data_country =
-tmp_MMS <- unzip("data_raw/UNFCCC_ghg_inventories/dnm-2023-crf-14apr23_AR5.zip", "DNM_2023_2018_14042023_135925.xlsx")
-tmp_MMS <- read_excel(tmp_MMS,sheet = "Table3.B(a)s2", range = "A6:M93")
+library(zip)
 
+tmp_data_year = "2018"
+tmp_MMS <- tibble()
+
+for (tmp_zip in list.files("data_raw/UNFCCC_ghg_inventories/")) {
+
+  tmp_files = zip_list(paste0("data_raw/UNFCCC_ghg_inventories/",tmp_zip))
+  tmp_data_country = str_sub(tmp_zip,1,3)
+  print(tmp_data_country)
+  tmp_unzip <- utils::unzip(paste0("data_raw/UNFCCC_ghg_inventories/",tmp_zip),
+                            tmp_files$filename[grep(tmp_data_year,tmp_files$filename)])
+
+  # MMS VS and Bo
+  ## Volatile Solis (VS)
+  ## maximum methane producing capacity (Bo)
+  tmp_range <- read_excel(tmp_unzip,sheet = "Table3.B(a)s1", range = "A9:J33",col_names = F)
+  tmp_colnames <- c(1:10) %>%
+    purrr::set_names(.,c("Animal_cat","Population__size",
+                         gsub(" ","_",colnames(read_excel(tmp_unzip,sheet = "Table3.B(a)s1", range = "C7:E7",col_names = T))),
+                         gsub(" ","_",colnames(read_excel(tmp_unzip,sheet = "Table3.B(a)s1", range = "F6:H6",col_names = T))),
+                         gsub(" ","_",colnames(read_excel(tmp_unzip,sheet = "Table3.B(a)s1", range = "I5:J5",col_names = T)))))
+  tmp_MMS1 <- tmp_range %>%
+    mutate(across(c(2:10), function(x) gsub("[a-zA-Z]+",NA,x))) %>%
+    mutate(across(c(2:10), as.numeric)) %>%
+    filter(!is.na(...7) & !is.na(...8)) %>%
+    rename(.,all_of(tmp_colnames)) %>%
+    mutate(
+      Animal_cat = gsub("\\([a-zA-Z0-9]+\\)","",Animal_cat)) %>%
+    pivot_longer(.,cols = c("Cool","Temperate","Warm"),names_to = "climate_region",values_to = "alloc_by_climate_region") %>%
+    filter(!is.na(alloc_by_climate_region)) %>%
+    pivot_longer(.,
+                 cols = c("Population__size","Typical_animal_mass_(average)","VS(2)_daily_excretion_(average)",
+                          "CH4_producing_potential_(Bo)(2)_(average)","IMPLIED_EMISSION_FACTORS","EMISSIONS"),
+                 names_to = "Indicator",values_to = "value") %>%
+    mutate(country = tmp_data_country)
+
+  # MMS allocation and MCF
+  ## Allocations
+  ## Methane Conversion Factor (MCF)
+  tmp_range <- read_excel(tmp_unzip,sheet = "Table3.B(a)s2", range = "A10:M39",col_names = F)
+  tmp_colnames <- c(1:13) %>%
+    purrr::set_names(.,c("Option","Animal_cat","Indicator","climate_region",
+                         gsub(" ","_",colnames(read_excel(tmp_unzip,sheet = "Table3.B(a)s2", range = "E7:M7",col_names = T)))))
+  tmp_MMS2 <- tmp_range %>%
+    mutate(across(c(5:13), function(x) gsub("[a-zA-Z]+",NA,x))) %>%
+    mutate(across(c(5:13), as.numeric)) %>%
+    rename(.,all_of(tmp_colnames)) %>%
+    mutate(
+      Indicator = rep(unique(na.omit(Indicator)),
+                      each = length(unique(na.omit(climate_region))),
+                      times = (length(unique(na.omit(Animal_cat))))),
+      Animal_cat = rep(unique(na.omit(Animal_cat)),
+                       each = (length(unique(na.omit(climate_region)))) * length(unique(na.omit(Indicator))))
+      ) %>%
+    filter(rowSums(across(c(5:13)),na.rm=T) >0) %>%
+    mutate(country = tmp_data_country)
+
+  # extract tibble
+  tmp_MMS <- tmp_MMS %>%
+    rbind(
+      full_join(tmp_MMS1,tmp_MMS2)
+    )
+
+}
 
 
 
