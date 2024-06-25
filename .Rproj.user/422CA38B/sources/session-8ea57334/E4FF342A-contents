@@ -136,12 +136,10 @@ tmp_feed_by_livestock <- tmp_feed_by_farm %>%
     DM_kg_crop_livestock = DM_kg_crop * th_DM_kg_code_livestock / th_DM_kg_farm,
     GE_MJ_crop_livestock = GE_MJ_crop * th_DM_kg_code_livestock / th_DM_kg_farm,
     CP_kg_crop_livestock = CP_kg_crop * DM_kg_crop_livestock / DM_kg_crop,
-    Ash_kg_crop_livestock = Ash_kg_crop * DM_kg_crop_livestock / DM_kg_crop,
     # DM of each crop by animal: kg DM animal-1 y-1
     DM_kg_crop_LU = DM_kg_crop_livestock / livestock_unit,
     GE_MJ_crop_LU = GE_MJ_crop_livestock / livestock_unit,
-    CP_kg_crop_LU = CP_kg_crop_livestock / livestock_unit,
-    Ash_kg_crop_LU = Ash_kg_crop_livestock / livestock_unit)
+    CP_kg_crop_LU = CP_kg_crop_livestock / livestock_unit)
 
 
 # quality check ----
