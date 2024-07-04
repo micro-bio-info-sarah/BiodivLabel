@@ -1,9 +1,9 @@
 {
     "id": "2289476A",
-    "path": "d:/users/srhuet/documents/FADN2Footprint/R/CH4_from_manure_management.R",
-    "project_path": "R/CH4_from_manure_management.R",
+    "path": "~/FADN2Footprint/R/N2O_from_manure_management.R",
+    "project_path": null,
     "type": "r_source",
-    "hash": "1733184398",
+    "hash": "0",
     "contents": "",
     "dirty": false,
     "created": 1719492275420.0,
@@ -12,16 +12,16 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "410,0",
-        "scrollLine": "357",
+        "cursorPosition": "197,13",
+        "scrollLine": "172",
         "docOutlineVisible": "1"
     },
     "folds": "",
-    "lastKnownWriteTime": 1720024627,
+    "lastKnownWriteTime": 1720083437,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1720024627492,
+    "last_content_update": 1720083437783,
     "read_only": false,
     "read_only_alternatives": []
 }

@@ -245,7 +245,7 @@ tmp_cattle_CH4_MM <- tmp_input %>%
   # filter cattle
   filter(species == "cattle") %>%
   # add country
-  inner_join(.,FADN_18 %>% dplyr::select(ID,COUNTRY) %>% rename(farm_id = ID)) %>%
+  left_join(.,FADN_18 %>% dplyr::select(ID,COUNTRY) %>% rename(farm_id = ID)) %>%
   # add feed intake data
   inner_join(.,tmp_feed_intake) %>%
     # add country specific values for:
