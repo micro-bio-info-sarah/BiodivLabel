@@ -143,7 +143,7 @@ We chose an area allocation on arable land use type.
 
 ```{r A.3.1}
 
-source("R/BVI_A31.R",local = knitr::knit_global())
+source("R/in_practice_A31.R",local = knitr::knit_global())
 
 ```
 
@@ -168,9 +168,18 @@ For organic fertilization, we considered that farms without livestock apply a re
 
 ```{r A.4.5}
 
-source("R/BVI_A45.R",local = knitr::knit_global())
+source("R/in_practice_A45.R",local = knitr::knit_global())
 
 ```
+
+## Share of artifical fertilizer
+
+```{r A.4.3}
+
+source("R/BVIAS_in_A43.R",local = knitr::knit_global())
+
+```
+
 
 ## Plant protection agents
 
@@ -192,7 +201,62 @@ The TFI data were retrieve from Agreste "Pratiques culturales" studies and other
 
 ```{r A.5.1}
 
-source("R/BVI_A51.R",local = knitr::knit_global())
+source("R/in_practice_A51.R",local = knitr::knit_global())
+
+```
+
+# Landscape metrics
+
+## Plot size
+
+## A.2.1	Elements of structure in the area: Semi-natural elements
+
+```{r}
+
+BV_A.2.1 <- BV_A.4.5 %>%
+  select(farm_id,crop) %>%
+  mutate(
+    A.2.1 = rnorm(nrow(BV_A.4.5),mean = 0.05,sd = 0.001)
+  )
+
+```
+
+
+## A.2.2	Field size
+
+```{r}
+
+BV_A.2.2 <- BV_A.4.5 %>%
+  select(farm_id,crop) %>%
+  mutate(
+    A.2.2 = rnorm(nrow(BV_A.4.5),mean = 0.05,sd = 0.001)
+  )
+
+```
+
+
+## A.3.2	Ground cover
+
+```{r}
+
+BV_A.3.2 <- BV_A.4.5 %>%
+  select(farm_id,crop) %>%
+  mutate(
+    A.3.2 = rnorm(nrow(BV_A.4.5),mean = 0.05,sd = 0.001)
+  )
+
+```
+
+
+## A.3.3	Crop rotation: Crop Diversity
+
+```{r}
+
+BV_A.3.3 <- BV_A.4.5 %>%
+  select(farm_id,crop) %>%
+  mutate(
+    A.3.3 = rnorm(nrow(BV_A.4.5),mean = 0.05,sd = 0.001)
+  )
 
 ```
 
@@ -229,7 +293,7 @@ source("R/CH4_from_manure_management.R",local = knitr::knit_global())
 
 ```
 
-### N2O Emission from Manure Management
+### N2O Emission from Manure Management WIP
 
 ```{r N2O_from_manure_management}
 
@@ -256,9 +320,9 @@ To be completed
 
 ## Productions végétales
 
-```{r BVI_to_RICA_crops}
+```{r BVIAS_to_RICA_crops}
 
-source("R/BVI_crops.R",local = knitr::knit_global())
+source("R/out_BVIAS_crops.R",local = knitr::knit_global())
 
 ```
 
@@ -276,17 +340,27 @@ All input variables are normalized to $[0,1]$.
 
 The generic expression of $y_i(x_i)$ is:
 
-$$y_i = \gamma + \epsilon \cdot \exp(-\frac{|(x_i^\delta - \beta)^\alpha|}{2\sigma^\alpha})$$
+$$y_{i,l,v}= \gamma_v + \epsilon_v \cdot \exp(-\frac{|(x_{i,v}^\delta_v - \beta_v)^\alpha_v|}{2\sigma_{v}^{\alpha_{v}}})$$
+
+where :
+$i$: observation for a crop in a farm
+$l$: land use type
+$v$: input variable
+$[\alpha_v,\beta_v,\delta_v,\epsilon_v,\gamma_v,\sigma_v]$: normalization function constant of variable $v$
 
 ### Land use specific biodiversity value
 
 All parameters together constitute a joint biodiversity value contribution which is the arithmetic mean of the individual value contribution.
 
+$$BV_{LU,i,l} = \sum_{v=1}^{n}(y_{i,v} \cdot z_v) $$
+where
+$z_v$: weighting coefficient of variable $v$ 
+
 ### Biodiversity value normalization
 
 The normalized biodiversity value $BV_{norm}$ is calculated from the land use specific biodiversity value $BV_{LU}$ by projecting $BV_{LU}$ into the value interval of the respective land use type.
 
-$$BV_{norm} = BV_{norm,j,min} + BV_{LU,j} \centerdot (BV_{norm,j,max} - BV_{norm,j,min})$$
+$$BV_{norm,i} = BV_{norm,j,min} + BV_{LU,i} \centerdot (BV_{norm,j,max} - BV_{norm,j,min})$$
 
 with $j= \{forestry,pasture,arable,mining\}$
 
@@ -294,35 +368,35 @@ with $j= \{forestry,pasture,arable,mining\}$
 
 The normalized biodiversity value $BV_{norm}$ is skewed by a function to calculate the local biodiversity value $BV_{loc}$ This function serves to push the less natural land uses further apart and to squeez the more natural land uses closer together.
 
-$$BV_{loc}=a \centerdot (1- e^{-b \centerdot BV_{norm}})$$
+$$BV_{loc,i}=a \centerdot (1- e^{-b \centerdot BV_{norm,i}})$$
 
 with $a = 1.017626088$ and $b = 4.055847776$ (Lindner & Knuepffer 2020)
 
-### BVI per kg
+### BVIAS per kg
 
-To obtain the BVI/kg, we estimated crop yields using the crop area and the crop production, for each crop in each farm. Then, we calculated the ratio between the BV_loc per ha and the yield.
+To obtain the BVIAS/kg, we estimated crop yields using the crop area and the crop production, for each crop in each farm. Then, we calculated the ratio between the BV_loc per ha and the yield.
 
 ## Productions animales
 
 WIP maybe I should write a script for estimating the pseudofarm
 
-```{r BVi_per_herd}
+```{r BVIAS_per_herd}
 
-source("R/BVI_herd.R",local = knitr::knit_global())
+source("R/out_BVIAS_herd.R",local = knitr::knit_global())
 
 ```
 
-$$BVI_{herd} = \sum(DMI_{total} \cdot BVI_{ha} )$$
-$$BVI_{ha_{feed}} = \frac{\sum (\frac{DMI_{total}}{yield}  \cdot BVI_{ha} )} {\sum (\frac{DMI_{total}}{yield})  }$$
+$$BVIAS_{herd} = \sum(DMI_{total} \cdot BVIAS_{ha} )$$
+$$BVIAS_{ha_{feed}} = \frac{\sum (\frac{DMI_{total}}{yield}  \cdot BVIAS_{ha} )} {\sum (\frac{DMI_{total}}{yield})  }$$
 
 ### Milk
 
-$$BVI_{kg}^{milk} = \frac{BVI^{herd} \cdot GS^{milk}}{production^{milk}_{kg}} $$ 
+$$BVIAS_{kg}^{milk} = \frac{BVIAS^{herd} \cdot GS^{milk}}{production^{milk}_{kg}} $$ 
 $GS^{milk}$: part du lait dans le chiffre d'affaire (%)
 
-```{r BVI_to_RICA_milk}
+```{r out_BVIAS_to_RICA_milk}
 
-source("R/BVI_milk.R",local = knitr::knit_global())
+source("R/out_BVIAS_milk.R",local = knitr::knit_global())
 
 ```
 
@@ -348,9 +422,9 @@ source("R/matching_RICA-RA-SIQO.R",local = knitr::knit_global())
 
 
 
-```{r Applying BVI to matched farms}
+```{r Applying BVIAS to matched farms}
 
-source("R/SIQO_BVI.R")
+source("R/SIQO_BVIAS.R")
 
 ```
 
@@ -358,7 +432,7 @@ source("R/SIQO_BVI.R")
 
 ```{r extract_result_file}
 
-# an excel file with identifiers (RA & RICA), groupement labels, BVI en colonnes
+# an excel file with identifiers (RA & RICA), groupement labels, BVIAS en colonnes
 
 # farm ----
 
@@ -366,11 +440,11 @@ tmp_output_farm <- RICA_RA
 
 # crops ----
 
-tmp_crops <- BVI_to_RICA_RA_SIQO_crops %>%
+tmp_crops <- BVIAS_to_RICA_RA_SIQO_crops %>%
   # add RA identifiers
   left_join(.,tmp_output_farm %>% select(NOM_DOSSIER,IDENT)) %>%
   # remove farms with NAs
-  filter(is.finite(BVI_ha+yield+BVI_kg)) %>%
+  filter(is.finite(BVIAS_ha+yield+BVIAS_kg)) %>%
   # add product code & label variables
   mutate(product_RICA_CODE = as.character(CODE3),
          label = FQS) %>%
@@ -379,25 +453,25 @@ tmp_crops <- BVI_to_RICA_RA_SIQO_crops %>%
   mutate(nobs = length(unique(IDENT))) %>%
   filter(nobs >= 30) %>%
   # select only products and results
-  select(NOM_DOSSIER,IDENT,product_RICA_CODE,label,BVI_ha,BVI_kg) 
+  select(NOM_DOSSIER,IDENT,product_RICA_CODE,label,BVIAS_ha,BVIAS_kg) 
 
 # milk ----
   
-tmp_milk <- BVI_to_RICA_RA_SIQO_milk %>%
+tmp_milk <- BVIAS_to_RICA_RA_SIQO_milk %>%
   # add RA identifiers
   left_join(.,tmp_output_farm %>% select(NOM_DOSSIER,IDENT)) %>%
   # remove farms with NAs
-  filter(is.finite(BVI_ha_feed+prod+BVI_kg)) %>%
+  filter(is.finite(BVIAS_ha_feed+prod+BVIAS_kg)) %>%
   # add product code & label variables
   mutate(product_RICA_CODE = "milk",
          label = app_fromage,
-         BVI_ha = BVI_ha_feed) %>%
+         BVIAS_ha = BVIAS_ha_feed) %>%
   # remove farms with labels < 30 farms
   group_by(label,product_RICA_CODE) %>%
   mutate(nobs = length(unique(IDENT))) %>%
   filter(nobs >= 30) %>%
   # select only products and results
-  select(NOM_DOSSIER,IDENT,product_RICA_CODE,label,BVI_ha,BVI_kg)
+  select(NOM_DOSSIER,IDENT,product_RICA_CODE,label,BVIAS_ha,BVIAS_kg)
 
 # product ----
 
