@@ -299,7 +299,7 @@ source("R/CH4_from_manure_management.R",local = knitr::knit_global())
 
 #source("R/manure_management_system.R",local = knitr::knit_global())
 
-source("R/N2O_from_manure_management.R",local = knitr::knit_global())
+#source("R/N2O_from_manure_management.R",local = knitr::knit_global())
 
 ```
 
@@ -416,7 +416,7 @@ To be completed
 
 ```{r import_matching}
 
-source("R/matching_RICA-RA-SIQO.R",local = knitr::knit_global())
+#source("R/matching_RICA-RA-SIQO.R",local = knitr::knit_global())
 
 ```
 
@@ -424,13 +424,13 @@ source("R/matching_RICA-RA-SIQO.R",local = knitr::knit_global())
 
 ```{r Applying BVIAS to matched farms}
 
-source("R/SIQO_BVIAS.R")
+#source("R/SIQO_BVIAS.R")
 
 ```
 
 # Export data
 
-```{r extract_result_file}
+#```{r extract_result_file,}
 
 # an excel file with identifiers (RA & RICA), groupement labels, BVIAS en colonnes
 
@@ -484,4 +484,4 @@ write.csv(tmp_output_product,"~/BiodivLabel/data_out/RICA_RA_SIQO_products.csv",
 
 rm(list = names(.GlobalEnv)[grep("tmp",names(.GlobalEnv))])
 
-```
+#```
