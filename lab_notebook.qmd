@@ -321,4 +321,216 @@ tmp2 = tmp_SAA_yield %>% group_by(Cultures_developpees_5) %>% summarise(mean = m
 
 ```
 
+# BVI
+
+From Lindner 2019
+
+Je veux afficher les courbes des fonctions de contribution à la valeur de biodiversité de chacune des métriques définies par Lindner.
+
+```{r 2024_07_10}
+# import constants of the biodiversity value contribution functions from Lindner 2019 SM
+tmp_param_BV_constant <-  read_excel("data_in/supp_data.xlsx",
+                               sheet = "Lindner_2019_BV_LU_function_con",
+                               col_types = c("text", "text", "numeric",
+                                             "numeric", "numeric", "numeric",
+                                             "numeric", "numeric"))
+
+tmp_param = tmp_param_BV_constant_optim
+
+# plot BV contribution fonctions
+tmp_test <- tibble(
+  x_norm = sample(seq(0,1,0.0001),length(tmp_param$metric_number)*100),
+  metric_number = rep(tmp_param$metric_number,100)) %>%
+  left_join(.,tmp_param) %>%
+  mutate(y = gamma + epsilon * exp(-(
+    abs((((x_norm)^delta) - beta) ^ alpha) /
+      (2*sigma^alpha))))
+library(ggplot2)
+ggplot(tmp_test) +
+  aes(x = x_norm, y = y) +
+  geom_point(colour = "#112446") +
+  geom_smooth(se = TRUE, colour = "#112446") +
+  theme_minimal() +
+  facet_wrap(vars(metric_number),scales = "free")
+
+```
+
+
+Je veux tester l'influence des paramètres de la fonction de contribution à la valeur de biodiversité.
+
+```{r 2024_07_10}
+
+tmp_param = tmp_param_BV_constant
+
+tmp_test_mean <- tmp_param %>%
+  select_if(.,is.numeric) %>%
+  summarise_all(mean) %>%
+  mutate(test = "mean")
+
+# alpha ----
+tmp_test_a <- tibble(
+  alpha = sort(sample(seq(min(tmp_param$alpha),max(tmp_param$alpha),tmp_test_mean$alpha/100),10)),
+  beta = rep(tmp_test_mean$beta,10),
+  delta = rep(tmp_test_mean$delta,10),
+  epsilon = rep(tmp_test_mean$epsilon,10),
+  gamma = rep(tmp_test_mean$gamma,10),
+  sigma = rep(tmp_test_mean$sigma,10)
+  ) %>%
+  mutate(test = paste0("alpha_",alpha))
+
+tmp_test1 <- tibble(
+  x_norm = sample(seq(0,1,0.0001),1000),
+  test = rep(tmp_test_a$test,100))%>%
+  left_join(., tmp_test_a) %>%
+  mutate(y = gamma + epsilon * exp(-(
+    abs((((x_norm)^delta) - beta) ^ alpha) /
+      (2*sigma^alpha))))
+
+ggplot(tmp_test1) +
+  aes(x = x_norm, y = y) +
+  geom_point(colour = "#112446") +
+  geom_smooth(se = TRUE, colour = "#112446") +
+#  geom_text(aes(0,0),alpha) +
+  theme_minimal() +
+  facet_wrap(vars(test),scales = "free")
+
+# beta ----
+tmp_test_a <- tibble(
+  alpha = rep(tmp_test_mean$alpha,10),
+  beta = sort(sample(seq(min(tmp_param$beta),max(tmp_param$beta),tmp_test_mean$beta/100),10)),
+  delta = rep(tmp_test_mean$delta,10),
+  epsilon = rep(tmp_test_mean$epsilon,10),
+  gamma = rep(tmp_test_mean$gamma,10),
+  sigma = rep(tmp_test_mean$sigma,10)
+  ) %>%
+  mutate(test = paste0("beta_",beta))
+
+tmp_test1 <- tibble(
+  x_norm = sample(seq(0,1,0.0001),1000),
+  test = rep(tmp_test_a$test,100))%>%
+  left_join(., tmp_test_a) %>%
+  mutate(y = gamma + epsilon * exp(-(
+    abs((((x_norm)^delta) - beta) ^ alpha) /
+      (2*sigma^alpha))))
+
+ggplot(tmp_test1) +
+  aes(x = x_norm, y = y) +
+  geom_point(colour = "#112446") +
+  geom_smooth(se = TRUE, colour = "#112446") +
+#  geom_text(aes(0,0),alpha) +
+  theme_minimal() +
+  facet_wrap(vars(test),scales = "free")
+
+# delta ----
+tmp_test_a <- tibble(
+  alpha = rep(tmp_test_mean$alpha,10),
+  beta = rep(tmp_test_mean$beta,10),
+  delta = sort(sample(seq(min(tmp_param$delta),max(tmp_param$delta),tmp_test_mean$delta/100),10)),
+  epsilon = rep(tmp_test_mean$epsilon,10),
+  gamma = rep(tmp_test_mean$gamma,10),
+  sigma = rep(tmp_test_mean$sigma,10)
+  ) %>%
+  mutate(test = paste0("delta_",delta))
+
+tmp_test1 <- tibble(
+  x_norm = sample(seq(0,1,0.0001),1000),
+  test = rep(tmp_test_a$test,100))%>%
+  left_join(., tmp_test_a) %>%
+  mutate(y = gamma + epsilon * exp(-(
+    abs((((x_norm)^delta) - beta) ^ alpha) /
+      (2*sigma^alpha))))
+
+ggplot(tmp_test1) +
+  aes(x = x_norm, y = y) +
+  geom_point(colour = "#112446") +
+  geom_smooth(se = TRUE, colour = "#112446") +
+#  geom_text(aes(0,0),alpha) +
+  theme_minimal() +
+  facet_wrap(vars(test),scales = "free")
+
+# epsilon ----
+tmp_test_a <- tibble(
+  alpha = rep(tmp_test_mean$alpha,10),
+  beta = rep(tmp_test_mean$beta,10),
+  delta = rep(tmp_test_mean$delta,10),
+  epsilon = sort(sample(seq(min(tmp_param$epsilon),max(tmp_param$epsilon),tmp_test_mean$epsilon/100),10)),
+  gamma = rep(tmp_test_mean$gamma,10),
+  sigma = rep(tmp_test_mean$sigma,10)
+  ) %>%
+  mutate(test = paste0("epsilon_",epsilon))
+
+tmp_test1 <- tibble(
+  x_norm = sample(seq(0,1,0.0001),1000),
+  test = rep(tmp_test_a$test,100))%>%
+  left_join(., tmp_test_a) %>%
+  mutate(y = gamma + epsilon * exp(-(
+    abs((((x_norm)^delta) - beta) ^ alpha) /
+      (2*sigma^alpha))))
+
+ggplot(tmp_test1) +
+  aes(x = x_norm, y = y) +
+  geom_point(colour = "#112446") +
+  geom_smooth(se = TRUE, colour = "#112446") +
+#  geom_text(aes(0,0),alpha) +
+  theme_minimal() +
+  facet_wrap(vars(test),scales = "free")
+
+# gamma ----
+tmp_test_a <- tibble(
+  alpha = rep(tmp_test_mean$alpha,10),
+  beta = rep(tmp_test_mean$beta,10),
+  delta = rep(tmp_test_mean$delta,10),
+  epsilon = rep(tmp_test_mean$epsilon,10),
+  gamma = sort(sample(seq(min(tmp_param$gamma),max(tmp_param$gamma),tmp_test_mean$gamma/100),10)),
+  sigma = rep(tmp_test_mean$sigma,10)
+  ) %>%
+  mutate(test = paste0("gamma_",gamma))
+
+tmp_test1 <- tibble(
+  x_norm = sample(seq(0,1,0.0001),1000),
+  test = rep(tmp_test_a$test,100))%>%
+  left_join(., tmp_test_a) %>%
+  mutate(y = gamma + epsilon * exp(-(
+    abs((((x_norm)^delta) - beta) ^ alpha) /
+      (2*sigma^alpha))))
+
+ggplot(tmp_test1) +
+  aes(x = x_norm, y = y) +
+  geom_point(colour = "#112446") +
+  geom_smooth(se = TRUE, colour = "#112446") +
+#  geom_text(aes(0,0),alpha) +
+  theme_minimal() +
+  facet_wrap(vars(test),scales = "free")
+
+# sigma ----
+tmp_test_a <- tibble(
+  alpha = rep(tmp_test_mean$alpha,10),
+  beta = rep(tmp_test_mean$beta,10),
+  delta = rep(tmp_test_mean$delta,10),
+  epsilon = rep(tmp_test_mean$epsilon,10),
+  gamma = rep(tmp_test_mean$gamma,10),
+  sigma = sort(sample(seq(min(tmp_param$sigma),max(tmp_param$sigma),tmp_test_mean$sigma/100),10))
+  ) %>%
+  mutate(test = paste0("sigma_",sigma))
+
+tmp_test1 <- tibble(
+  x_norm = sample(seq(0,1,0.0001),1000),
+  test = rep(tmp_test_a$test,100))%>%
+  left_join(., tmp_test_a) %>%
+  mutate(y = gamma + epsilon * exp(-(
+    abs((((x_norm)^delta) - beta) ^ alpha) /
+      (2*sigma^alpha))))
+
+ggplot(tmp_test1) +
+  aes(x = x_norm, y = y) +
+  geom_point(colour = "#112446") +
+  geom_smooth(se = TRUE, colour = "#112446") +
+#  geom_text(aes(0,0),alpha) +
+  theme_minimal() +
+  facet_wrap(vars(test),scales = "free")
+
+
+
+```
+
 

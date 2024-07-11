@@ -65,8 +65,7 @@ tmp_param_BV_constant <-  read_excel("data_in/supp_data.xlsx",
                                col_types = c("text", "text", "numeric",
                                              "numeric", "numeric", "numeric",
                                              "numeric", "numeric"))
-tmp_param_BV_constant <- tmp_param_BV_constant %>%
-  filter(metric_number %in% colnames(tmp_input))
+
 
 
 
@@ -97,7 +96,115 @@ tmp_param_LU_range <- tibble(
 
 # BVIAS ----
 
-source("d:/users/srhuet/documents/BiodivLabel/R/out_BVIAS_crops_functions.R")
+# first I need to prepare the data
+data_for_BVIAS <- function(input,id_cols,var_param) {
+
+  # test
+  #input = tmp
+  #id_cols = c("farm_id","crop","land_use_type")
+  #var_param = tmp_param_var
+
+  tmp_var <- intersect(var_param$metric_number,colnames(input))
+  tmp_x <- input %>%
+    dplyr::select(all_of(id_cols),all_of(tmp_var)) %>%
+    tidyr::pivot_longer(cols = all_of(tmp_var),names_to = "metric_number",values_to = "value")
+
+  # set 95th percentile as max
+  tmp_max <- tmp_x %>%
+    dplyr::group_by(metric_number) %>%
+    dplyr::summarise(max = as.vector(quantile(unique(value),0.95,na.rm = T))) %>% ungroup()
+
+  tmp_x_norm <- tmp_x %>%
+    # add max
+    dplyr::left_join(.,tmp_max) %>%
+    ## calculate BV
+    dplyr::rowwise() %>%
+    dplyr::mutate(
+      ## set max
+      x_max =
+        case_when(
+          value > max ~ max,
+          .default =  value ),
+      ## Normalize data
+      x_norm =
+        case_when(
+          value > max ~ 1,
+          .default =  value / max )) %>%
+    dplyr::ungroup()
+
+  return(tmp_x_norm)
+
+}
+
+# then I can estimate the BVIAS
+BVIAS <- function(input,id_cols,var_param,var_weight,print_plot) {
+
+  # test
+  #input = tmp_x_norm
+  #id_cols = c("farm_id","crop","land_use_type")
+  #var_param = tmp_param_BV_constant
+  #var_weight = tmp_param_var_weight
+  #LU_range = tmp_param_LU_range
+
+  tmp_var <- intersect(var_param$metric_number,colnames(input))
+
+  tmp_y <- input %>%
+    # add variable parameters
+    dplyr::left_join(.,var_param) %>%
+    ## calculate BV
+    dplyr::rowwise() %>%
+    dplyr::mutate(
+      ## calculate BV
+      y = gamma + epsilon * exp(-(
+        abs((((x_norm)^delta) - beta) ^ alpha) /
+          (2*sigma^alpha)))
+    ) %>%
+    dplyr::ungroup()
+
+  library(ggplot2)
+  tmp_plot <- ggplot(tmp_y) +
+    aes(x = x_max, y = y) +
+    geom_point(colour = "#112446") +
+    geom_smooth(se = TRUE, colour = "#112446") +
+    theme_minimal() +
+    facet_wrap(vars(metric_number),scales = "free")
+
+  tmp_BVIAS <- tmp_y %>%
+    # add variable weights
+    dplyr::left_join(.,var_weight) %>%
+    # BV LU
+    # aggregate variables
+    dplyr::group_by_at(all_of(id_cols)) %>%
+    dplyr::summarise(
+      BV_LU = weighted.mean(y,weight)
+    ) %>% ungroup() %>%
+    # BV NORM
+    # add land use type ranges
+    dplyr::left_join(.,tibble(
+      # set BV_norm min and max according to Lindner et al. (2019)
+      land_use_type = c("grassland","arable"),
+      LU_min = c(0.44,0.23),
+      LU_max = c(0.92,0.52)
+    )) %>%
+    # normalize BV
+    dplyr::mutate(
+      BV_norm = LU_min + BV_LU * (LU_max - LU_min)
+    ) %>%
+    # BV LOC
+    dplyr::mutate(
+      BV_loc = 1.017626088*(1-exp(-4.055847776*BV_norm)),
+      BVIAS_ha = 1- BV_loc
+    )
+
+
+  #return(list(tmp_plot,tmp_BVIAS))
+
+  if (print_plot == T) {
+  print(tmp_plot) # WIP pour A.2.1, je la trouve décroissante au lieu de croissante
+    }
+  return(list(y = tmp_y, BVIAS = tmp_BVIAS))
+
+}
 
 tmp <- head(tmp_input[tmp_input$land_use_type == "arable",],n = 100) %>%
   rbind(.,head(tmp_input[tmp_input$land_use_type == "grassland",],n = 100))
@@ -106,48 +213,20 @@ tmp_BVIAS <- BVIAS(tmp_x_norm,c("farm_id","crop","land_use_type"),tmp_param_BV_c
 
 # Model optimization ----
 
-# To optimize the BVIAS model, the convergence to the global minimum of the loss function based on the mean square error is obtained through stochastic gradient descent.
-source("d:/users/srhuet/documents/BiodivLabel/R/out_BVIAS_crops_functions.R")
+# To optimize the BVIAS model, the convergence to the global minimum of the loss function based on the mean square error is obtained throught stochastic gradient descent.
 
-## Parameter optimization ----
-
-tmp_param_BV_constant_optim <- sgd(tmp,c("farm_id","crop","land_use_type"),
-                                   tmp_param_BV_constant,tmp_param_var_weight,
-                                   learning_rate = 0.1, epochs = 1000, test_sample_size = 100)
-
-
-
-
-
-# compare MSE
-tmp_MSE <- BVIAS_cost_function_LU(tmp,c("farm_id","crop","land_use_type"),tmp_param_BV_constant,tmp_param_var_weight)
-tmp_MSE_optim <- BVIAS_cost_function_LU(tmp,c("farm_id","crop","land_use_type"),
-                                        tmp_param_BV_constant_optim,
-                                        tmp_param_var_weight)
-# rerun model with optimized parameters
-tmp_BVIAS <- BVIAS(tmp_x_norm,c("farm_id","crop","land_use_type"),
-                   tmp_param_BV_constant_optim,
-                   tmp_param_var_weight,T)
-
-
-
-
-
-## Calibration of metric weight ----
-
-### Loss function ----
-
+## Loss function ----
 
 # Mean Squared Error (MSE) as loss function
-BVIAS_loss_function_weight <- function(input,id_cols,var_param,var_weight) {
+BVIAS_cost_function_LU <- function(input,id_cols,var_param,var_weight) {
   library(dplyr)
 
-  #input = tmp
-  #id_cols = c("farm_id","crop","land_use_type")
-  #var_param = tmp_param_var
-  #var_weight = tmp_param_var_weight
+#input = tmp
+#id_cols = c("farm_id","crop","land_use_type")
+#var_param = tmp_param_var
+#var_weight = tmp_param_var_weight
 
-  # model output
+# model output
   tmp_x_norm <- data_for_BVIAS(input,id_cols,var_param)
   tmp_BVIAS <- BVIAS(tmp_x_norm,id_cols,var_param,var_weight,F)
 
@@ -169,17 +248,130 @@ BVIAS_loss_function_weight <- function(input,id_cols,var_param,var_weight) {
       distance = case_when(
         land_use_type == "arable" ~ (0.32 - BV_loc)^2,
         land_use_type == "grassland" ~ (0.57 - BV_loc)^2
-      )
+        )
     )
 
   # Erreur quadratique moyenne
   tmp_MSE = mean(tmp_distance$distance)
 
-  return(tmp_MSE)
+return(tmp_MSE)
 
 }
 
-### Weight calibration ----
+## parameter optimization ----
+
+
+# Stochastic Gradient Descent (SGD) algorithm
+## iteratively update model parameters based on sampled data points
+## https://www.geeksforgeeks.org/stochastic-gradient-descent-in-r/
+## https://www.statology.org/r-foreach/
+## https://berkeley-scf.github.io/tutorial-parallelization/parallel-R.html#3-parallel-loops-including-parallel-lapply-via-the-future-package
+
+
+# Parallel loops
+## https://datacolada.org/102
+library('groundhog')
+library('foreach')
+library('doParallel')
+#get the core processors ready to go
+registerDoParallel(cores=round(parallel::detectCores()*0.8)) #I leave 20% free to do things while R runs
+
+sgd <- function(input,id_cols,var_param,var_weight,learning_rate, epochs, test_sample_size) {
+
+  # test
+  #input = tmp
+  #id_cols = c("farm_id","crop","land_use_type")
+  #var_param = tmp_param_BV_constant
+  #var_weight = tmp_param_var_weight
+  #learning_rate = 0.01
+  #epochs = 10
+  #test_sample_size = 10
+
+
+  tmp_base_cost <- BVIAS_cost_function_LU(input, id_cols, var_param,var_weight)
+  tmp_var_param = var_param
+
+var_param_optim = foreach(epoch = 1:epochs) %dopar% {
+  #for (epoch in 1:epochs) {
+  library(dplyr)
+  library('groundhog')
+  library('foreach')
+  library('doParallel')
+  source("d:/users/srhuet/documents/BiodivLabel/R/out_BVIAS_crops_functions.R")
+
+
+    # Randomly sample some data point
+    index <- sample(1:nrow(input), test_sample_size)
+    input_i <- input[index,]
+
+      # Compute the gradient of the loss function
+      ## the gradient is obtained by calculating the partial derivative of the loss function
+    tmp_gradients = foreach(r = seq_len(nrow(tmp_var_param)), .combine = 'rbind') %dopar% {
+      library('groundhog')
+      library('foreach')
+      library('doParallel')
+      source("d:/users/srhuet/documents/BiodivLabel/R/out_BVIAS_crops_functions.R")
+
+      tmp_gradients_c = foreach(c = colnames(dplyr::select_if(tmp_var_param,is.numeric)),  # Ignorer les colonnes non-paramètres
+                      .combine='cbind') %dopar% {
+
+                        tmp_new_cost <-  BVIAS_cost_function_LU(input_i, id_cols, tmp_var_param,var_weight)
+
+          if (!is.na(tmp_new_cost) & tmp_new_cost < tmp_base_cost) {
+            tmp_gradients_c <- -2/test_sample_size *(tmp_new_cost - tmp_base_cost)
+            tmp_gradients_c
+          } else { tmp_gradients_c = 0}
+
+          tmp_gradients_c
+                      }
+      tmp_gradients <- tmp_var_param[r,colnames(dplyr::select_if(tmp_var_param,is.character))] %>% cbind(tmp_gradients_c)
+      colnames(tmp_gradients) <- colnames(tmp_var_param)
+      tmp_gradients
+      }
+
+
+      # Update model parameters
+    tmpl_var_param = foreach(r = seq_len(nrow(tmp_var_param)), .combine = 'rbind') %dopar% {
+      library('groundhog')
+      library('foreach')
+      library('doParallel')
+      source("d:/users/srhuet/documents/BiodivLabel/R/out_BVIAS_crops_functions.R")
+
+      tmp_c = foreach(c = colnames(dplyr::select_if(tmp_var_param,is.numeric)),  # Ignorer les colonnes non-paramètres
+                      .combine='cbind') %dopar% {
+
+                        tmp_c <- tmp_var_param[r,c] - learning_rate * tmp_gradients[r,c]
+                        tmp_c
+                      }
+
+      # test if new parameters give 0<y<1; else keep unchanged parameters
+      tmp_BV = tmp_c %>% mutate(y = gamma + epsilon * exp(-(abs((((0.5)^delta) - beta) ^ alpha) / (2*sigma^alpha))))
+      if(!(is.na(tmp_BV$y)) & tmp_BV$y>0 & tmp_BV$y<1) {
+        tmpl_var_param <- tmp_var_param[r,colnames(dplyr::select_if(tmp_var_param,is.character))] %>% cbind(.,tmp_c)
+        } else {
+        tmpl_var_param <- tmp_var_param[r,]
+        }
+        tmpl_var_param
+    }
+
+    # test if new parameters reduce MSE; else keep unchanged parameters
+    MSE_old <- BVIAS_cost_function_LU(input, id_cols, tmp_var_param,var_weight)
+    MSE_new <- BVIAS_cost_function_LU(input, id_cols, tmpl_var_param,var_weight)
+    if (MSE_new < MSE_old) {
+      var_param_optim <- tmp_var_param <- tmpl_var_param
+    } else {var_param_optim <- tmp_var_param}
+    var_param_optim
+    }
+  return(var_param_optim)
+}
+
+tmp_param_BV_constant_optim <- sgd(tmp,c("farm_id","crop","land_use_type"),
+                                   tmp_param_BV_constant,tmp_param_var_weight,
+                                   learning_rate = 0.01, epochs = 10, test_sample_size = 100)
+
+# compare MSE
+tmp_MSE <- BVIAS_cost_function_LU(tmp,c("farm_id","crop","land_use_type"),tmp_param_BV_constant,tmp_param_var_weight)
+tmp_MSE_optim <- BVIAS_cost_function_LU(tmp,c("farm_id","crop","land_use_type"),tmp_param_BV_constant_optim[[10]],tmp_param_var_weight)
 
 
 
@@ -204,7 +396,7 @@ BVIAS_loss_function_weight <- function(input,id_cols,var_param,var_weight) {
 
 
 
-# Test ----
+
 # Calcul des gradients (exemple simplifié)
 compute_gradients <- function(input, id_cols, var_param, epsilon = 1e-5) {
 
