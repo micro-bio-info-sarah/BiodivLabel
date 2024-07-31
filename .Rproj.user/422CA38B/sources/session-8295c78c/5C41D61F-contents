@@ -1,0 +1,190 @@
+---
+title: "BVIAS_optimization_ShinyApp"
+format: html
+editor: source
+author: Sarah HUET
+date: 2024-07-31
+---
+```{r inputs}
+
+# Set up ----
+
+library(dplyr)
+library(tidyr)
+library(readxl)
+
+# Input data ----
+
+if (my_DB == "RICA") {
+
+  # transfert table
+  tmp_TT_crops <- read_xlsx("d:/users/srhuet/documents/BiodivLabel/data_in/supp_data.xlsx",sheet = "TT_crops") %>%
+    rename(crop = RICA_code_number)
+}
+
+if (my_DB == "FADN") {
+
+  # transfert table
+  tmp_FADN_crops <- read_xlsx("d:/users/srhuet/documents/BiodivLabel/data_in/supp_data.xlsx",sheet = "FADN_crop_code")
+  tmp_TT_crops0 <- read_xlsx("d:/users/srhuet/documents/BiodivLabel/data_in/supp_data.xlsx",sheet = "TT_crops")
+  tmp_TT_crops <- left_join(
+    tmp_FADN_crops %>% rename(crop = code_letter),
+    tmp_TT_crops0 %>% rename(crop = FADN_code_letter) %>% select(crop,species)
+  ) %>% distinct()
+
+}
+
+# Input variables ----
+
+# WIP est-ce la bonne manière de joindre les df pour ne pas garder les fermes qu'on a retiré à chaque paramètre ???
+tmp_farms <- Reduce(intersect,list(
+  BV_A.2.1$farm_id,
+  BV_A.2.2$farm_id,
+  BV_A.3.1$farm_id,
+  BV_A.3.2$farm_id,
+  BV_A.3.3$farm_id,
+  BV_A.4.3$farm_id,
+  BV_A.4.5$farm_id,
+  BV_A.5.1$farm_id))
+# RICA2020: 6091 farms
+# FADN2018: 60221 farms / 81288
+
+tmp_input <- Reduce(inner_join,list(
+  BV_A.4.5 %>% filter(farm_id %in% tmp_farms),
+  BV_A.2.1 %>% filter(farm_id %in% tmp_farms),
+  BV_A.2.2 %>% filter(farm_id %in% tmp_farms),
+  BV_A.3.1 %>% filter(farm_id %in% tmp_farms),
+  BV_A.3.2 %>% filter(farm_id %in% tmp_farms),
+  BV_A.3.3 %>% filter(farm_id %in% tmp_farms),
+  BV_A.4.3 %>% filter(farm_id %in% tmp_farms),
+  BV_A.5.1 %>% filter(farm_id %in% tmp_farms)
+)) %>% ungroup() %>%
+  # add land use type
+  left_join(.,tmp_TT_crops %>% select(crop,land_use_type,species))
+
+# Model Parameters ----
+
+## Constants of the biodiversity value contribution functions ----
+
+# import constants of the biodiversity value contribution functions from Lindner 2019 SM
+tmp_param_BV_constant <-  read_excel("d:/users/srhuet/documents/BiodivLabel/data_in/supp_data.xlsx",
+                               sheet = "Lindner_2019_BV_LU_function_con",
+                               col_types = c("text", "text", "numeric",
+                                             "numeric", "numeric", "numeric",
+                                             "numeric", "numeric"))
+tmp_param_BV_constant <- tmp_param_BV_constant %>%
+  filter(metric_number %in% colnames(tmp_input))
+
+
+
+## Variable weighting coefficients ----
+
+tmp_param_var_weight <- tibble(
+  metric_number = c(
+    "A.2.1","A.2.2","A.3.1","A.3.2","A.3.3","A.4.3","A.4.5","A.5.1")
+  ) %>%
+  mutate(
+    weight = case_when(
+      metric_number %in% c("A.4.5","A.5.1") ~ 1/3,
+      .default = (1/3)/(8-2)
+
+    )
+  )
+sum(tmp_param_var_weight$weight) == 1
+
+## Land use range ----
+
+tmp_param_LU_range <- tibble(
+  # set BV_norm min and max according to Lindner et al. (2019)
+  land_use_type = c("grassland","arable"),
+  LU_min = c(0.44,0.23),
+  LU_max = c(0.92,0.52)
+)
+
+
+```
+
+```{r, eval=FALSE}
+library(shiny)
+library(ggplot2)
+
+# Read data:
+data <- tmp_input %>%
+  mutate(intensity = A.5.1,
+         landUse = land_use_type,
+         biodiversity = 0.5)
+
+# Define UI for application that draws a histogram
+ui <- fluidPage(
+  titlePanel("App to optimize model parameters"),
+  
+  # Sidebar with a slider input for the number of bins
+  sidebarLayout(
+    sidebarPanel(
+      h2("Slider inputs:"),
+      
+      sliderInput("slope", "Slope:", min = 0, max = 1, value = 0.5),
+      sliderInput("intercept", "Intercept:", min = -3, max = 3, value = 0)
+    ),
+    
+    # Show a plot of the generated distribution
+    mainPanel(
+      
+      h2("Mean squared error:"),
+      
+      htmlOutput('previous_mse'),
+      br(),
+      htmlOutput('new_mse')
+      
+    )
+  )
+)
+
+
+# Define server logic required to draw a histogram
+server <- function(input, output) {
+  
+  # Previous MSE:
+  output$previous_mse <- renderText({
+    
+    slope = 0.5
+    intercept = 0.4
+    
+    # Calculate model predictions for all farms:
+    data$predicted <- (slope*data$intensity)+intercept
+    
+    # Group and calculate average results obtained for each land use to predefined biodiversity values:
+    means = data %>% group_by(landUse) %>% summarise(mean = mean(predicted))
+    
+    # Calculate the MSE between these averages and the predefined values:
+    mse = sum((means$mean - data$biodiversity)^2)/length(data$biodiversity)
+    
+  })
+  
+  # New MSE:
+  output$new_mse <- renderText({
+    
+    slope = input$slope
+    intercept = input$intercept
+    
+    # Calculate model predictions for all farms:
+    data$predicted <- (slope*data$intensity)+intercept
+    
+    # Group and calculate average results obtained for each land use to predefined biodiversity values:
+    means = data %>% group_by(landUse) %>% summarise(mean = mean(predicted))
+    
+    # Calculate the MSE between these averages and the predefined values:
+    mse = sum((means$mean - data$biodiversity)^2)/length(data$biodiversity)
+    
+  })
+  
+  
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+
+```
+
+
+

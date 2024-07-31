@@ -1,0 +1,153 @@
+"0","tmp_new_param <- tibble(
+      ""metric_number"" = tmp_param_BV_constant$metric_number,
+      ""alpha"" = c( input$A.2.1__alpha, input$A.2.2__alpha, input$A.3.1__alpha, input$A.3.2__alpha, input$A.3.3__alpha, input$A.4.3__alpha, input$A.4.5__alpha, input$A.5.1__alpha),
+      ""sigma"" = c( input$A.2.1__sigma, input$A.2.2__sigma, input$A.3.1__sigma, input$A.3.2__sigma, input$A.3.3__sigma, input$A.4.3__sigma, input$A.4.5__sigma, input$A.5.1__sigma),
+      ""beta"" = c( input$A.2.1__beta, input$A.2.2__beta, input$A.3.1__beta, input$A.3.2__beta, input$A.3.3__beta, input$A.4.3__beta, input$A.4.5__beta, input$A.5.1__beta),
+      ""gamma"" = c( input$A.2.1__gamma, input$A.2.2__gamma, input$A.3.1__gamma, input$A.3.2__gamma, input$A.3.3__gamma, input$A.4.3__gamma, input$A.4.5__gamma, input$A.5.1__gamma),
+      ""delta"" = c( input$A.2.1__delta, input$A.2.2__delta, input$A.3.1__delta, input$A.3.2__delta, input$A.3.3__delta, input$A.4.3__delta, input$A.4.5__delta, input$A.5.1__delta),
+      ""epsilon"" = c( input$A.2.1__epsilon, input$A.2.2__epsilon, input$A.3.1__epsilon, input$A.3.2__epsilon, input$A.3.3__epsilon, input$A.4.3__epsilon, input$A.4.5__epsilon, input$A.5.1__epsilon))
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.2.1__alpha`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.2.2__alpha`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.3.1__alpha`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.3.2__alpha`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.3.3__alpha`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.4.3__alpha`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.4.5__alpha`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.5.1__alpha`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.2.1__sigma`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.2.2__sigma`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.3.1__sigma`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.3.2__sigma`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.3.3__sigma`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.4.3__sigma`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.4.5__sigma`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.5.1__sigma`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.2.1__beta`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.2.2__beta`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.3.1__beta`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.3.2__beta`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.3.3__beta`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.4.3__beta`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.4.5__beta`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.5.1__beta`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.2.1__gamma`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.2.2__gamma`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.3.1__gamma`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.3.2__gamma`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.3.3__gamma`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.4.3__gamma`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.4.5__gamma`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.5.1__gamma`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.2.1__delta`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.2.2__delta`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.3.1__delta`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.3.2__delta`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.3.3__delta`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.4.3__delta`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.4.5__delta`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.5.1__delta`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.2.1__epsilon`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.2.2__epsilon`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.3.1__epsilon`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.3.2__epsilon`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.3.3__epsilon`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.4.3__epsilon`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.4.5__epsilon`.
+"
+"2","Avis :"
+"2"," Unknown or uninitialised column: `A.5.1__epsilon`.
+"

@@ -1,4 +1,4 @@
-# N2O emissions from manure management
+# CH4 emissions from manure management
 
 ##### packages ----
 
@@ -99,8 +99,9 @@ library(zip)
 
 tmp_data_year = "2018"
 
-# empty tibble
-MMS_AWMS <- tibble()
+# empty tibbles
+tmp_MMS_Bo <- tibble()
+tmp_MMS_MCF <- tibble()
 
 for (loop_tmp_zip in list.files("data_raw/UNFCCC_ghg_inventories/")) {
 
@@ -111,12 +112,49 @@ for (loop_tmp_zip in list.files("data_raw/UNFCCC_ghg_inventories/")) {
   loop_tmp_unzip <- utils::unzip(paste0("data_raw/UNFCCC_ghg_inventories/",loop_tmp_zip),
                                  loop_tmp_files$filename[grep(tmp_data_year,loop_tmp_files$filename)])
 
-  # MMS allocation
+  # MMS VS and Bo
+  ## Volatile Solis (VS)
+  ## maximum methane producing capacity (Bo)
+  loop_tmp_range <- read_excel(loop_tmp_unzip,sheet = "Table3.B(a)s1", range = "A9:J33",col_names = F)
+  loop_tmp_colnames <- c(1:10) %>%
+    purrr::set_names(.,c("Animal_cat","Population__size",
+                         gsub(" ","_",colnames(read_excel(loop_tmp_unzip,sheet = "Table3.B(a)s1", range = "C7:E7",col_names = T))),
+                         gsub(" ","_",colnames(read_excel(loop_tmp_unzip,sheet = "Table3.B(a)s1", range = "F6:H6",col_names = T))),
+                         gsub(" ","_",colnames(read_excel(loop_tmp_unzip,sheet = "Table3.B(a)s1", range = "I5:J5",col_names = T)))))
+  loop_tmp_MMS1 <- loop_tmp_range %>%
+    mutate(across(c(2:10), function(x) gsub("[a-zA-Z]+",NA,x))) %>%
+    mutate(across(c(2:10), as.numeric)) %>%
+    filter(!is.na(...7) & !is.na(...8)) %>%
+    rename(.,all_of(loop_tmp_colnames)) %>%
+    mutate(
+      Animal_cat = gsub("\\([a-zA-Z0-9]+\\)","",Animal_cat),
+      species = case_when(
+        grepl("(?i)cattle|cow|calve|bull",Animal_cat) ~ "cattle"
+      ),
+      UNFCCC_cat = case_when(
+        species == "cattle" & grepl("(?i)non-dairy|non-lactating",Animal_cat,) ~ "other_mature_cattle",
+        species == "cattle" & grepl("(?i)dairy",Animal_cat) ~ "dairy_cattle",
+        species == "cattle" & grepl("(?i)growing|calve|suckler|young",Animal_cat) ~ "growing_cattle",
+        species == "cattle" & grepl("(?i)mature|bull|other",Animal_cat) ~ "other_mature_cattle"
+      )) %>%
+    pivot_longer(.,cols = c("Cool","Temperate","Warm"),names_to = "climate_region",values_to = "alloc_by_climate_region") %>%
+    filter(!is.na(alloc_by_climate_region)) %>%
+    mutate(COUNTRY = case_when(
+      loop_tmp_data_country == "dnm" ~ "DAN",
+      loop_tmp_data_country == "dnk" ~ "DAN_overseas",
+      loop_tmp_data_country == "fra" ~ "FRA_overseas",
+      loop_tmp_data_country == "frk" ~ "FRA",
+      .default = toupper(loop_tmp_data_country)
+    ))
+
+  # MMS allocation and MCF
+  ## Allocations
+  ## Methane Conversion Factor (MCF)
   loop_tmp_range <- read_excel(loop_tmp_unzip,sheet = "Table3.B(a)s2", range = "A10:M39",col_names = F)
   loop_tmp_colnames <- c(1:13) %>%
     purrr::set_names(.,c("Option","Animal_cat","Indicator","climate_region",
                          gsub(" ","_",colnames(read_excel(loop_tmp_unzip,sheet = "Table3.B(a)s2", range = "E7:M7",col_names = T)))))
-  loop_tmp_MMS <- loop_tmp_range %>%
+  loop_tmp_MMS2 <- loop_tmp_range %>%
     mutate(across(c(5:13), function(x) gsub("[a-zA-Z]+",NA,x))) %>%
     mutate(across(c(5:13), as.numeric)) %>%
     rename(.,all_of(loop_tmp_colnames)) %>%
@@ -142,23 +180,40 @@ for (loop_tmp_zip in list.files("data_raw/UNFCCC_ghg_inventories/")) {
       loop_tmp_data_country == "frk" ~ "FRA",
       .default = toupper(loop_tmp_data_country)
     )) %>%
-    filter(Indicator == "Allocation (%)") %>%
     pivot_longer(cols = gsub(" ","_",colnames(read_excel(loop_tmp_unzip,sheet = "Table3.B(a)s2", range = "E7:M7",col_names = T))),
-                 names_to = "MMS",values_to = "AWMS") %>%
-    filter(AWMS >0)
+                 names_to = "MMS",values_to = "value") %>%
+    pivot_wider(id_cols = c(COUNTRY,species,Animal_cat,UNFCCC_cat,climate_region,MMS),
+                names_from = Indicator,values_from = value) %>%
+    filter(`Allocation (%)`>0)
 
   # extract tibble
-  tmp_MMS_AWMS <- tmp_MMS_AWMS %>%
-    rbind(.,loop_tmp_MMS)
+  tmp_MMS_Bo <- tmp_MMS_Bo %>%
+    rbind(.,loop_tmp_MMS1 %>% filter(alloc_by_climate_region >0))
+  tmp_MMS_MCF <- tmp_MMS_MCF %>%
+    rbind(.,loop_tmp_MMS2)
 
   unlink(loop_tmp_unzip)
   rm(list = names(.GlobalEnv)[grep("loop",names(.GlobalEnv))])
 
 }
 
-# WIP for Sweden, less than 100% AWMS
-# tmp_MMS_AWMS %>% group_by(COUNTRY,UNFCCC_cat) %>% summarise(sum = sum(AWMS)) %>% filter(round(sum) != 100)
 # WIP adapt for overseas territories
+
+## Climate region by NUTS3 ----
+
+# which country have more than one climate region?
+tmp_MMS_Bo %>% aggregate(climate_region ~COUNTRY, function(x) length(unique(x))) %>% filter(climate_region >1)
+# for now, I use the climate region allocation in tmp_MMS_Bo
+
+
+
+# WIP see Mohamed code
+#source("R/worldclim.R")
+
+# IPCC 2019 Ref to 2006 Guidlines vol4 p10.127
+
+
+
 
 # Feed intake ----
 
@@ -186,38 +241,39 @@ tmp_feed_intake <- feed_by_livestock %>%
 
 # Animal waste management system (manure management systems) data have been collected for regions and countries by the FAO and average manure fractions treated by different management systems are presented in Annex 10A.2, Tables 10A.6 to 10A.9.
 
-tmp_cattle_N2O_MM <- tmp_input %>%
+tmp_cattle_CH4_MM <- tmp_input %>%
   # filter cattle
   filter(species == "cattle") %>%
   # add country
   inner_join(.,FADN_18 %>% dplyr::select(ID,COUNTRY) %>% rename(farm_id = ID)) %>%
   # add feed intake data
   inner_join(.,tmp_feed_intake) %>%
-  # add livestock N excretion
-  inner_join(.,N_excr %>% select(farm_id,code_livestock,Nex)) %>%
-  # add AWMS (  ## AWMS_{(T,S)} = fraction of total annual nitrogen excretion for each livestock species/category T that is managed in manure management system S in the country, dimensionless)
-  left_join(.,MMS_AWMS %>%
-              pivot_wider(id_cols = c(species,UNFCCC_cat,COUNTRY),
-                          names_from = c(climate_region,MMS),values_from = AWMS,values_fill = 0) %>%
-              mutate(rowsums = rowSums(across(where(is.numeric))))
-              )
-
-
-
-
-
     # add country specific values for:
+    ## Bo = maximum methane producing capacity for manure produced by livestock category T, m3 CH4 kg-1 of VS excreted
+    ## MCF = methane conversion factors for each manure management system S by climate region k, percent
     ## AWMS = fraction of livestock category T's manure handled using animal waste management system S in climate region k, dimensionless
+  # add VS, Bo, MCF and AWMS by livestock cat and country WIP and climate region
+  left_join(.,tmp_MMS_Bo %>%
+              dplyr::filter(species == "cattle") %>%
+              dplyr::group_by(UNFCCC_cat,COUNTRY) %>%
+              summarise(
+                VS = weighted.mean(`VS(2)_daily_excretion_(average)`,alloc_by_climate_region),
+                Bo = weighted.mean(`CH4_producing_potential_(Bo)(2)_(average)`,alloc_by_climate_region)
+              )
+            ) %>%
+  # estimate weigthed sum of MCF
+  ## MCF = methane conversion factors for each manure management system S by climate region k, percent
+  ## AWMS = fraction of livestock category T's manure handled using animal waste management system S in climate region k, dimensionless
   left_join(.,
-            tmp_MMS_AWMS %>%
+            tmp_MMS_MCF %>%
               dplyr::filter(species == "cattle") %>%
               # for empty MCF: average of same animal cat, climate region and MMS ???
               rowwise() %>%
               mutate(
                 MCF = case_when(
-                  is.na(`MCF(c)`) ~ mean(tmp_MMS_AWMS$`MCF(c)`[tmp_MMS_AWMS$UNFCCC_cat == UNFCCC_cat
-                                                              & tmp_MMS_AWMS$climate_region == climate_region
-                                                              & tmp_MMS_AWMS$MMS == MMS],
+                  is.na(`MCF(c)`) ~ mean(tmp_MMS_MCF$`MCF(c)`[tmp_MMS_MCF$UNFCCC_cat == UNFCCC_cat
+                                                              & tmp_MMS_MCF$climate_region == climate_region
+                                                              & tmp_MMS_MCF$MMS == MMS],
                                          na.rm = T),
                   .default = `MCF(c)`
                 )
@@ -236,83 +292,13 @@ tmp_cattle_N2O_MM <- tmp_input %>%
       is.na(Bo) ~ mean(tmp_MMS_Bo$`CH4_producing_potential_(Bo)(2)_(average)`[tmp_MMS_Bo$UNFCCC_cat == UNFCCC_cat],na.rm = T),
       .default = Bo),
     sum_MCF_AWMS = case_when(
-      is.na(sum_MCF_AWMS) ~ mean(sum(tmp_MMS_AWMS$`MCF(c)`[tmp_MMS_AWMS$UNFCCC_cat == UNFCCC_cat]/100
-                                     *tmp_MMS_AWMS$`Allocation (%)`[tmp_MMS_AWMS$UNFCCC_cat == UNFCCC_cat]/100,na.rm = T),
+      is.na(sum_MCF_AWMS) ~ mean(sum(tmp_MMS_MCF$`MCF(c)`[tmp_MMS_MCF$UNFCCC_cat == UNFCCC_cat]/100
+                                     *tmp_MMS_MCF$`Allocation (%)`[tmp_MMS_MCF$UNFCCC_cat == UNFCCC_cat]/100,na.rm = T),
                                  na.rm = T),
       .default = sum_MCF_AWMS)
   ) %>%
-  group_by() %>%
-  mutate(
-    # estimate sum by category of livestock (T) for EQUATION 10.25 (UPDATED) DIRECT N2O EMISSIONS FROM MANURE MANAGEMENT
-    ## N_T = number of head of livestock species/category T in the country
-    ## Nex_T = annual average N excretion per head of species/category T in the country, in kg N animal-1 yr-1
-    ## AWMS_{(T,S)} = fraction of total annual nitrogen excretion for each livestock species/category T that is managed in manure management system S in the country, dimensionless
-    N2O_D_MM_sum_T = ((N_T * Nex_T)*AWMS_TS),
-
-  ) %>%
   # estimate
   mutate(
-
-    # sum by category of livestock (T) for EQUATION 10.25 (UPDATED) DIRECT N2O EMISSIONS FROM MANURE MANAGEMENT
-    ## N_{(T,P)} = number of head of livestock species/category T in the country, for productivity system P, when applicable
-    ## Nex_{(T,P)} = annual average N excretion per head of species/category T in the country, for productivity system P, when applicable in kg N animal-1 yr-1
-    ## AWMS_{(T,S,P)} = fraction of total annual nitrogen excretion for each livestock species/category T that is managed in manure management system S in the country, dimensionless ; to consider productivity class P, if using a Tier 1a approach
-    N2O_D_MM_sum_T,
-
-    # sum by manure management system (S) for EQUATION 10.25 (UPDATED) DIRECT N2O EMISSIONS FROM MANURE MANAGEMENT
-    ## N_{cdg(s)} = annual nitrogen input via co-digestate in the country, kg N yr-1, where the system (s) refers exclusively to anaerobic digestion
-    N2O_D_MM_sum_S = sum(N2O_D_MM_sum_T),
-
-
-    # DIRECT N2O EMISSIONS
-
-    # EQUATION 10.25 (UPDATED) DIRECT N2O EMISSIONS FROM MANURE MANAGEMENT
-    ## N_2O_{D(mm)} = direct N2O emissions from Manure Management in the country, kg N2O yr-1
-    ## N_{(T,P)} = number of head of livestock species/category T in the country, for productivity system P, when applicable
-    ## Nex_{(T,P)} = annual average N excretion per head of species/category T in the country, for productivity system P, when applicable in kg N animal-1 yr-1
-    ## N_{cdg(s)} = annual nitrogen input via co-digestate in the country, kg N yr-1, where the system (s) refers exclusively to anaerobic digestion
-    ## AWMS_{(T,S,P)} = fraction of total annual nitrogen excretion for each livestock species/category T that is managed in manure management system S in the country, dimensionless ; to consider productivity class P, if using a Tier 1a approach
-    ## EF_{3(S)} = emission factor for direct N2O emissions from manure management system S in the country, kg N2O-N/kg N in manure management system S
-    ## S = manure management system
-    ## T = species/category of livestock
-    ## P = productivity class, high or low, to be considered if using the Tier 1a approach
-    ## 44/28 = conversion of N2O-N(mm) emissions to N2O(mm) emissions
-    N2O_D_MM = (N2O_D_MM_sum_S * EF_3S)*(44/28),
-
-    # INDIRECT N2O EMISSIONS
-
-    # EQUATION 10.26 (UPDATED) N LOSSES DUE TO VOLATILISATION FROM MANURE MANAGEMENT
-    ## N_{volatilization-MMS} = amount of manure nitrogen that is lost due to volatilisation of NH3 and NOx, kg N yr-1
-    ## Frac_{gasMS(T,S)} = fraction of managed manure nitrogen for livestock category T that volatilises as NH3 and NOx in the manure management system S
-    N2O_Id_MM_vol = ,
-
-    # EQUATION 10.27 (UPDATED) N LOSSES DUE TO LEACHING FROM MANURE MANAGEMENT
-    ## N_{leaching-MMS} = amount of manure nitrogen that is lost due to leaching, kg N yr-1
-    ## Frac_{LeachMS(T,S)} = fraction of managed manure nitrogen for livestock category T that is leached from the manure management system S (from Table 10.22)
-    N2O_Id_MM_leach = ,
-
-
-    # EQUATION 10.28 INDIRECT N2O EMISSIONS DUE TO VOLATILISATION OF N FROM MANURE MANAGEMENT
-    ## N_2O_{G(mm)} = indirect N2O emissions due to volatilization of N from Manure Management in the country, kg N2O yr-1
-    ## EF_4 = = emission factor for N2O emissions from atmospheric deposition of nitrogen on soils and water surfaces, kg N2O-N (kg NH3-N + NOx-N volatilised)-1 ; given in Chapter 11, Table 11.3
-    N2O_Id_MM_G = ,
-
-    # EQUATION 10.29 INDIRECT N2O EMISSIONS DUE TO LEACHING FROM MANURE MANAGEMENT
-    ## N_2O_{L(mm)} = indirect N2O emissions due to leaching and runoff from Manure Management in the country, kg N2O yr-1
-    ## EF_5 = emission factor for N2O emissions from nitrogen leaching and runoff, kg N 2O-N/kg N leached and runoff, given in Chapter 11, Table 11.3
-    N2O_Id_MM_L = ,
-
-
-
-
-
-
-
-
-
-
-
-
 
     ## Digestibility
     ## DE: digestibility of feed expressed as a fraction of gross energy (digestible energy/gross energy*100, i.e. DE%)

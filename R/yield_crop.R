@@ -1,6 +1,8 @@
 # Crop yields
 
-
+library(readxl)
+library(dplyr)
+library(tidyr)
 # Input data ----
 
 if (my_DB == "RICA") {

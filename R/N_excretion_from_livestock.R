@@ -350,7 +350,7 @@ if (my_DB == "FADN") {
                  select(farm_id,code_livestock,livestock_unit)) %>%
     # calculate MILK kg animal-1 day-1
     ## for diary cows, livestock unit coefficient =1 thus LU == number of animal
-    mutate(MILK = (MILK_total / livestock_unit)/365)
+    mutate(MILK = (MILK_total*10^3 / livestock_unit)/365) # Kassoum check if milk conversion from tonnes to kg
 
 
 
