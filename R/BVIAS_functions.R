@@ -11,9 +11,9 @@ library(readxl)
 data_for_BVIAS <- function(input,id_cols,var_param) {
 
   # test
-  #input = tmp
-  #id_cols = c("farm_id","crop","land_use_type")
-  #var_param = tmp_param_var
+#input = tmp_input
+#id_cols = c("farm_id","crop","land_use_type")
+#var_param = tmp_param_BV_constant
 
   tmp_var <- intersect(var_param$metric_number,colnames(input))
   tmp_x <- input %>%
@@ -27,9 +27,9 @@ data_for_BVIAS <- function(input,id_cols,var_param) {
 
   tmp_x_norm <- tmp_x %>%
     # add max
-    dplyr::left_join(.,tmp_max) %>%
+    dplyr::left_join(.,tmp_max,by = 'metric_number') %>%
     ## calculate BV
-    dplyr::rowwise() %>%
+    #dplyr::rowwise() %>%
     dplyr::mutate(
       ## set max
       x_max =
@@ -129,12 +129,12 @@ BVIAS <- function(input,id_cols,var_param,var_weight,print_plot) {
 
 # Mean Squared Error (MSE) as loss function
 ## WIP use maximum likelihood ratio
-BVIAS_loss_function_LU <- function(input,id_cols,var_param,var_weight) {
+BVIAS_loss_function_LU <- function(var_param,input,id_cols,var_weight) {
   library(dplyr)
 
   #input = tmp
   #id_cols = c("farm_id","crop","land_use_type")
-  #var_param = tmp_param_var
+  var_param = tmp_param
   #var_weight = tmp_param_var_weight
 
   # model output
@@ -165,12 +165,64 @@ BVIAS_loss_function_LU <- function(input,id_cols,var_param,var_weight) {
         land_use_type == "arable" ~ (litt_values - BVAS)^2,
         land_use_type == "grassland" ~ (litt_values - BVAS)^2
       )
-    )
+    ) %>% filter(land_use_type == "grassland")
 
   # Erreur quadratique moyenne
   tmp_MSE = sum(tmp_distance$distance)/length(tmp_distance$distance)
 
   return(list(MSE = tmp_MSE,input = tmp_BVIAS_median$y,distance_table = tmp_distance))
+
+}
+
+# loss function to use in optim function
+
+BVIAS_optim1 <- function(var_param_v) {
+  library(dplyr)
+
+  input = tmp_input
+  id_cols = c("farm_id","crop","land_use_type")
+  #var_param = tmp_param_BV_constant
+  #var_param_v = unlist(tmp_param_BV_constant[,3:8])
+  var_weight = tmp_param_var_weight
+
+  var_param <- tmp_param_BV_constant %>% select(metric_number) %>%
+    cbind(.,matrix(var_param_v,nrow = 8,ncol = 6))
+  colnames(var_param) <- colnames(tmp_param_BV_constant[c(1,3:8)])
+
+
+  # model output
+  tmp_x_norm <- data_for_BVIAS(input,id_cols,var_param)
+  tmp_BVIAS <- BVIAS(tmp_x_norm,id_cols,var_param,var_weight,F)
+
+  # least square difference between model output and average land use type values from Gallego et al., 2022
+
+  ## estimate variable median for each land use type
+  tmp_LU_median <- tmp_x_norm %>%
+    dplyr::group_by(land_use_type,metric_number) %>%
+    dplyr::summarise(
+      x_norm = median(x_norm,na.rm = T)
+    ) %>% ungroup()
+
+  tmp_BVIAS_median <- BVIAS(tmp_LU_median,c("land_use_type"),var_param,var_weight,F)
+
+  # calculate distance from expected values regarding Gallego et al,. 2022
+  tmp_distance <- tmp_BVIAS_median$BVIAS %>%
+    dplyr::mutate(
+      litt_values = case_when(
+        land_use_type == "arable" ~ 0.32,
+        land_use_type == "grassland" ~ 0.57
+      )) %>%
+    mutate(
+      distance = case_when(
+        land_use_type == "arable" ~ (litt_values - BVAS)^2,
+        land_use_type == "grassland" ~ (litt_values - BVAS)^2
+      )
+    ) %>% filter(land_use_type == "grassland")
+
+  # Erreur quadratique moyenne
+  tmp_MSE = sum(tmp_distance$distance)/length(tmp_distance$distance)
+
+  return(tmp_MSE)
 
 }
 

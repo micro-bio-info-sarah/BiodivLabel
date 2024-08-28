@@ -42,7 +42,7 @@ tmp_farms <- Reduce(intersect,list(
 # RICA2020: 6091 farms
 # FADN2018: 60221 farms / 81288
 
-tmp_input <- Reduce(inner_join,list(
+tmp_input <- Reduce(full_join,list(
   BV_A.4.5 %>% filter(farm_id %in% tmp_farms),
   BV_A.2.1 %>% filter(farm_id %in% tmp_farms),
   BV_A.2.2 %>% filter(farm_id %in% tmp_farms),
@@ -52,6 +52,7 @@ tmp_input <- Reduce(inner_join,list(
   BV_A.4.3 %>% filter(farm_id %in% tmp_farms),
   BV_A.5.1 %>% filter(farm_id %in% tmp_farms)
 )) %>% ungroup() %>%
+  filter(complete.cases(.)) %>%
   # add land use type
   left_join(.,tmp_TT_crops %>% select(crop,land_use_type,species))
 
@@ -104,18 +105,23 @@ tmp <- head(tmp_input[tmp_input$land_use_type == "arable" & tmp_input$org_farmin
   rbind(.,head(tmp_input[tmp_input$land_use_type == "arable" & tmp_input$org_farming == T,],n = 70)) %>%
   rbind(.,head(tmp_input[tmp_input$land_use_type == "grassland" & tmp_input$org_farming == T,],n = 30))
 
-tmp_x_norm <- data_for_BVIAS(tmp,c("farm_id","crop","land_use_type"),tmp_param_BV_constant)
+tmp_x_norm <- data_for_BVIAS(tmp_input,c("farm_id","crop","land_use_type"),tmp_param_BV_constant)
 tmp_BVIAS <- BVIAS(tmp_x_norm,c("farm_id","crop","land_use_type"),tmp_param_BV_constant,tmp_param_var_weight,T)
 
 # Model optimization ----
 
+## Parameter optimization with optim ----
+
+var_param_v = unlist(tmp_param_BV_constant[,3:8])
+tmp_optim = optim(var_param_v,BVIAS_optim1)
+
+## Parameter optimization with sgd ----
 library('groundhog')
 library('foreach')
 library('doParallel')
 library('doRNG')
 # To optimize the BVIAS model, the convergence to the global minimum of the loss function based on the mean square error is obtained through stochastic gradient descent.
 
-## Parameter optimization ----
 tmp_param_BV_constant_optim <- sgd_param(tmp,c("farm_id","crop","land_use_type"),
                                    tmp_param_BV_constant,tmp_param_var_weight,
                                    learning_rate = 0.1, epochs = 500, test_sample_size = 50,tolerance = 1e-5)

@@ -4,6 +4,8 @@ format: html
 editor: source
 author: Sarah HUET
 date: 2024-07-31
+editor_options: 
+  chunk_output_type: console
 ---
 ```{r inputs}
 
@@ -102,7 +104,7 @@ tmp_param_LU_range <- tibble(
 )
 
 source("d:/users/srhuet/documents/BiodivLabel/R/BVIAS_functions.R")
-tmp_x_norm <- data_for_BVIAS(input,id_cols,var_param)
+tmp_x_norm <- data_for_BVIAS(tmp_input,c("farm_id","crop","land_use_type"),tmp_param_BV_constant)
 
 
 
@@ -126,54 +128,54 @@ ui <- fluidPage(
     sidebarPanel(
       h2("Slider inputs:"),
       
-      sliderInput("A.2.1__alpha","A.2.1__alpha",min = -1, max = 10, value = tmp_param_BV_constant$alpha[1]),
-      sliderInput("A.2.2__alpha","A.2.2__alpha",min = -1, max = 10, value = tmp_param_BV_constant$alpha[2]),
-      sliderInput("A.3.1__alpha","A.3.1__alpha",min = -1, max = 10, value = tmp_param_BV_constant$alpha[3]),
-      sliderInput("A.3.2__alpha","A.3.2__alpha",min = -1, max = 10, value = tmp_param_BV_constant$alpha[4]),
-      sliderInput("A.3.3__alpha","A.3.3__alpha",min = -1, max = 10, value = tmp_param_BV_constant$alpha[5]),
-      sliderInput("A.4.3__alpha","A.4.3__alpha",min = -1, max = 10, value = tmp_param_BV_constant$alpha[6]),
-      sliderInput("A.4.5__alpha","A.4.5__alpha",min = -1, max = 10, value = tmp_param_BV_constant$alpha[7]),
-      sliderInput("A.5.1__alpha","A.5.1__alpha",min = -1, max = 10, value = tmp_param_BV_constant$alpha[8]),
-      sliderInput("A.2.1__sigma","A.2.1__sigma",min = -1, max = 10, value = tmp_param_BV_constant$sigma[1]),
-      sliderInput("A.2.2__sigma","A.2.2__sigma",min = -1, max = 10, value = tmp_param_BV_constant$sigma[2]),
-      sliderInput("A.3.1__sigma","A.3.1__sigma",min = -1, max = 10, value = tmp_param_BV_constant$sigma[3]),
-      sliderInput("A.3.2__sigma","A.3.2__sigma",min = -1, max = 10, value = tmp_param_BV_constant$sigma[4]),
-      sliderInput("A.3.3__sigma","A.3.3__sigma",min = -1, max = 10, value = tmp_param_BV_constant$sigma[5]),
-      sliderInput("A.4.3__sigma","A.4.3__sigma",min = -1, max = 10, value = tmp_param_BV_constant$sigma[6]),
-      sliderInput("A.4.5__sigma","A.4.5__sigma",min = -1, max = 10, value = tmp_param_BV_constant$sigma[7]),
-      sliderInput("A.5.1__sigma","A.5.1__sigma",min = -1, max = 10, value = tmp_param_BV_constant$sigma[8]),
-      sliderInput("A.2.1__beta","A.2.1__beta",min = -1, max = 10, value = tmp_param_BV_constant$beta[1]),
-      sliderInput("A.2.2__beta","A.2.2__beta",min = -1, max = 10, value = tmp_param_BV_constant$beta[2]),
-      sliderInput("A.3.1__beta","A.3.1__beta",min = -1, max = 10, value = tmp_param_BV_constant$beta[3]),
-      sliderInput("A.3.2__beta","A.3.2__beta",min = -1, max = 10, value = tmp_param_BV_constant$beta[4]),
-      sliderInput("A.3.3__beta","A.3.3__beta",min = -1, max = 10, value = tmp_param_BV_constant$beta[5]),
-      sliderInput("A.4.3__beta","A.4.3__beta",min = -1, max = 10, value = tmp_param_BV_constant$beta[6]),
-      sliderInput("A.4.5__beta","A.4.5__beta",min = -1, max = 10, value = tmp_param_BV_constant$beta[7]),
-      sliderInput("A.5.1__beta","A.5.1__beta",min = -1, max = 10, value = tmp_param_BV_constant$beta[8]),
-      sliderInput("A.2.1__gamma","A.2.1__gamma",min = -1, max = 10, value = tmp_param_BV_constant$gamma[1]),
-      sliderInput("A.2.2__gamma","A.2.2__gamma",min = -1, max = 10, value = tmp_param_BV_constant$gamma[2]),
-      sliderInput("A.3.1__gamma","A.3.1__gamma",min = -1, max = 10, value = tmp_param_BV_constant$gamma[3]),
-      sliderInput("A.3.2__gamma","A.3.2__gamma",min = -1, max = 10, value = tmp_param_BV_constant$gamma[4]),
-      sliderInput("A.3.3__gamma","A.3.3__gamma",min = -1, max = 10, value = tmp_param_BV_constant$gamma[5]),
-      sliderInput("A.4.3__gamma","A.4.3__gamma",min = -1, max = 10, value = tmp_param_BV_constant$gamma[6]),
-      sliderInput("A.4.5__gamma","A.4.5__gamma",min = -1, max = 10, value = tmp_param_BV_constant$gamma[7]),
-      sliderInput("A.5.1__gamma","A.5.1__gamma",min = -1, max = 10, value = tmp_param_BV_constant$gamma[8]),
-      sliderInput("A.2.1__delta","A.2.1__delta",min = -1, max = 10, value = tmp_param_BV_constant$delta[1]),
-      sliderInput("A.2.2__delta","A.2.2__delta",min = -1, max = 10, value = tmp_param_BV_constant$delta[2]),
-      sliderInput("A.3.1__delta","A.3.1__delta",min = -1, max = 10, value = tmp_param_BV_constant$delta[3]),
-      sliderInput("A.3.2__delta","A.3.2__delta",min = -1, max = 10, value = tmp_param_BV_constant$delta[4]),
-      sliderInput("A.3.3__delta","A.3.3__delta",min = -1, max = 10, value = tmp_param_BV_constant$delta[5]),
-      sliderInput("A.4.3__delta","A.4.3__delta",min = -1, max = 10, value = tmp_param_BV_constant$delta[6]),
-      sliderInput("A.4.5__delta","A.4.5__delta",min = -1, max = 10, value = tmp_param_BV_constant$delta[7]),
-      sliderInput("A.5.1__delta","A.5.1__delta",min = -1, max = 10, value = tmp_param_BV_constant$delta[8]),
-      sliderInput("A.2.1__epsilon","A.2.1__epsilon",min = -1, max = 10, value = tmp_param_BV_constant$epsilon[1]),
-      sliderInput("A.2.2__epsilon","A.2.2__epsilon",min = -1, max = 10, value = tmp_param_BV_constant$epsilon[2]),
-      sliderInput("A.3.1__epsilon","A.3.1__epsilon",min = -1, max = 10, value = tmp_param_BV_constant$epsilon[3]),
-      sliderInput("A.3.2__epsilon","A.3.2__epsilon",min = -1, max = 10, value = tmp_param_BV_constant$epsilon[4]),
-      sliderInput("A.3.3__epsilon","A.3.3__epsilon",min = -1, max = 10, value = tmp_param_BV_constant$epsilon[5]),
-      sliderInput("A.4.3__epsilon","A.4.3__epsilon",min = -1, max = 10, value = tmp_param_BV_constant$epsilon[6]),
-      sliderInput("A.4.5__epsilon","A.4.5__epsilon",min = -1, max = 10, value = tmp_param_BV_constant$epsilon[7]),
-      sliderInput("A.5.1__epsilon","A.5.1__epsilon",min = -1, max = 10, value = tmp_param_BV_constant$epsilon[8])
+      sliderInput("A.2.1__alpha","A.2.1__alpha",min = -1, max = 10, value = tmp_param_BV_constant$alpha[1],step = 1e-5),
+      sliderInput("A.2.2__alpha","A.2.2__alpha",min = -1, max = 10, value = tmp_param_BV_constant$alpha[2],step = 1e-5),
+      sliderInput("A.3.1__alpha","A.3.1__alpha",min = -1, max = 10, value = tmp_param_BV_constant$alpha[3],step = 1e-5),
+      sliderInput("A.3.2__alpha","A.3.2__alpha",min = -1, max = 10, value = tmp_param_BV_constant$alpha[4],step = 1e-5),
+      sliderInput("A.3.3__alpha","A.3.3__alpha",min = -1, max = 10, value = tmp_param_BV_constant$alpha[5],step = 1e-5),
+      sliderInput("A.4.3__alpha","A.4.3__alpha",min = -1, max = 10, value = tmp_param_BV_constant$alpha[6],step = 1e-5),
+      sliderInput("A.4.5__alpha","A.4.5__alpha",min = -1, max = 10, value = tmp_param_BV_constant$alpha[7],step = 1e-5),
+      sliderInput("A.5.1__alpha","A.5.1__alpha",min = -1, max = 10, value = tmp_param_BV_constant$alpha[8],step = 1e-5),
+      sliderInput("A.2.1__sigma","A.2.1__sigma",min = -1, max = 10, value = tmp_param_BV_constant$sigma[1],step = 1e-5),
+      sliderInput("A.2.2__sigma","A.2.2__sigma",min = -1, max = 10, value = tmp_param_BV_constant$sigma[2],step = 1e-5),
+      sliderInput("A.3.1__sigma","A.3.1__sigma",min = -1, max = 10, value = tmp_param_BV_constant$sigma[3],step = 1e-5),
+      sliderInput("A.3.2__sigma","A.3.2__sigma",min = -1, max = 10, value = tmp_param_BV_constant$sigma[4],step = 1e-5),
+      sliderInput("A.3.3__sigma","A.3.3__sigma",min = -1, max = 10, value = tmp_param_BV_constant$sigma[5],step = 1e-5),
+      sliderInput("A.4.3__sigma","A.4.3__sigma",min = -1, max = 10, value = tmp_param_BV_constant$sigma[6],step = 1e-5),
+      sliderInput("A.4.5__sigma","A.4.5__sigma",min = -1, max = 10, value = tmp_param_BV_constant$sigma[7],step = 1e-5),
+      sliderInput("A.5.1__sigma","A.5.1__sigma",min = -1, max = 10, value = tmp_param_BV_constant$sigma[8],step = 1e-5),
+      sliderInput("A.2.1__beta","A.2.1__beta",min = -1, max = 10, value = tmp_param_BV_constant$beta[1],step = 1e-5),
+      sliderInput("A.2.2__beta","A.2.2__beta",min = -1, max = 10, value = tmp_param_BV_constant$beta[2],step = 1e-5),
+      sliderInput("A.3.1__beta","A.3.1__beta",min = -1, max = 10, value = tmp_param_BV_constant$beta[3],step = 1e-5),
+      sliderInput("A.3.2__beta","A.3.2__beta",min = -1, max = 10, value = tmp_param_BV_constant$beta[4],step = 1e-5),
+      sliderInput("A.3.3__beta","A.3.3__beta",min = -1, max = 10, value = tmp_param_BV_constant$beta[5],step = 1e-5),
+      sliderInput("A.4.3__beta","A.4.3__beta",min = -1, max = 10, value = tmp_param_BV_constant$beta[6],step = 1e-5),
+      sliderInput("A.4.5__beta","A.4.5__beta",min = -1, max = 10, value = tmp_param_BV_constant$beta[7],step = 1e-5),
+      sliderInput("A.5.1__beta","A.5.1__beta",min = -1, max = 10, value = tmp_param_BV_constant$beta[8],step = 1e-5),
+      sliderInput("A.2.1__gamma","A.2.1__gamma",min = -1, max = 10, value = tmp_param_BV_constant$gamma[1],step = 1e-5),
+      sliderInput("A.2.2__gamma","A.2.2__gamma",min = -1, max = 10, value = tmp_param_BV_constant$gamma[2],step = 1e-5),
+      sliderInput("A.3.1__gamma","A.3.1__gamma",min = -1, max = 10, value = tmp_param_BV_constant$gamma[3],step = 1e-5),
+      sliderInput("A.3.2__gamma","A.3.2__gamma",min = -1, max = 10, value = tmp_param_BV_constant$gamma[4],step = 1e-5),
+      sliderInput("A.3.3__gamma","A.3.3__gamma",min = -1, max = 10, value = tmp_param_BV_constant$gamma[5],step = 1e-5),
+      sliderInput("A.4.3__gamma","A.4.3__gamma",min = -1, max = 10, value = tmp_param_BV_constant$gamma[6],step = 1e-5),
+      sliderInput("A.4.5__gamma","A.4.5__gamma",min = -1, max = 10, value = tmp_param_BV_constant$gamma[7],step = 1e-5),
+      sliderInput("A.5.1__gamma","A.5.1__gamma",min = -1, max = 10, value = tmp_param_BV_constant$gamma[8],step = 1e-5),
+      sliderInput("A.2.1__delta","A.2.1__delta",min = -1, max = 10, value = tmp_param_BV_constant$delta[1],step = 1e-5),
+      sliderInput("A.2.2__delta","A.2.2__delta",min = -1, max = 10, value = tmp_param_BV_constant$delta[2],step = 1e-5),
+      sliderInput("A.3.1__delta","A.3.1__delta",min = -1, max = 10, value = tmp_param_BV_constant$delta[3],step = 1e-5),
+      sliderInput("A.3.2__delta","A.3.2__delta",min = -1, max = 10, value = tmp_param_BV_constant$delta[4],step = 1e-5),
+      sliderInput("A.3.3__delta","A.3.3__delta",min = -1, max = 10, value = tmp_param_BV_constant$delta[5],step = 1e-5),
+      sliderInput("A.4.3__delta","A.4.3__delta",min = -1, max = 10, value = tmp_param_BV_constant$delta[6],step = 1e-5),
+      sliderInput("A.4.5__delta","A.4.5__delta",min = -1, max = 10, value = tmp_param_BV_constant$delta[7],step = 1e-5),
+      sliderInput("A.5.1__delta","A.5.1__delta",min = -1, max = 10, value = tmp_param_BV_constant$delta[8],step = 1e-5),
+      sliderInput("A.2.1__epsilon","A.2.1__epsilon",min = -1, max = 10, value = tmp_param_BV_constant$epsilon[1],step = 1e-5),
+      sliderInput("A.2.2__epsilon","A.2.2__epsilon",min = -1, max = 10, value = tmp_param_BV_constant$epsilon[2],step = 1e-5),
+      sliderInput("A.3.1__epsilon","A.3.1__epsilon",min = -1, max = 10, value = tmp_param_BV_constant$epsilon[3],step = 1e-5),
+      sliderInput("A.3.2__epsilon","A.3.2__epsilon",min = -1, max = 10, value = tmp_param_BV_constant$epsilon[4],step = 1e-5),
+      sliderInput("A.3.3__epsilon","A.3.3__epsilon",min = -1, max = 10, value = tmp_param_BV_constant$epsilon[5],step = 1e-5),
+      sliderInput("A.4.3__epsilon","A.4.3__epsilon",min = -1, max = 10, value = tmp_param_BV_constant$epsilon[6],step = 1e-5),
+      sliderInput("A.4.5__epsilon","A.4.5__epsilon",min = -1, max = 10, value = tmp_param_BV_constant$epsilon[7],step = 1e-5),
+      sliderInput("A.5.1__epsilon","A.5.1__epsilon",min = -1, max = 10, value = tmp_param_BV_constant$epsilon[8],step = 1e-5)
       ),
       
     
@@ -232,9 +234,8 @@ server <- function(input, output) {
     
   })
   
-  # New MSE:
-  output$new_mse <- renderText({
-    
+  # New parameters
+  output$new_param <- renderTable({
     # gather new parameters
     tmp_new_param <- tibble(
       "metric_number" = tmp_param_BV_constant$metric_number,
@@ -244,6 +245,11 @@ server <- function(input, output) {
       "gamma" = c( input$A.2.1__gamma, input$A.2.2__gamma, input$A.3.1__gamma, input$A.3.2__gamma, input$A.3.3__gamma, input$A.4.3__gamma, input$A.4.5__gamma, input$A.5.1__gamma),
       "delta" = c( input$A.2.1__delta, input$A.2.2__delta, input$A.3.1__delta, input$A.3.2__delta, input$A.3.3__delta, input$A.4.3__delta, input$A.4.5__delta, input$A.5.1__delta),
       "epsilon" = c( input$A.2.1__epsilon, input$A.2.2__epsilon, input$A.3.1__epsilon, input$A.3.2__epsilon, input$A.3.3__epsilon, input$A.4.3__epsilon, input$A.4.5__epsilon, input$A.5.1__epsilon))
+  })
+  
+  # New MSE:
+  output$new_mse <- renderText({
+    
 
           # model output
   tmp_BVIAS <- BVIAS(tmp_x_norm,id_cols,tmp_new_param,var_weight,F)
@@ -258,7 +264,7 @@ server <- function(input, output) {
     ) %>% ungroup()
 
 
-  tmp_BVIAS_median <- BVIAS(tmp_LU_median,c("land_use_type"),tmp_new_param,var_weight,F)
+  tmp_BVIAS_median <- BVIAS(tmp_LU_median,c("land_use_type"),output$new_param,var_weight,F)
 
   # calculate distance from expected values regarding Gallego et al,. 2022
   tmp_distance <- tmp_BVIAS_median$BVIAS %>%
@@ -297,5 +303,66 @@ shinyApp(ui = ui, server = server)
 
 ```
 
+```{r}
+
+library(shiny)
+library(shinydashboard)
+library(DT)
+library(diffHic)
+## ui.R ##
+
+dashboardPage(
+
+  dashboardHeader(title = "TEST reactive DT"),
+
+  dashboardSidebar(
+    sidebarMenu(
+      menuItem("See data", tabName = "db")
+      ),
+      radioButtons("rb1", label = "Select data", 
+                 choices = list("IRIS" = "iris", "CARS" = "cars"),
+                 selected = "iris")
+    ),
+
+  dashboardBody(
+    tabItems(
+      tabItem(tabName = "db",
+              h4("Show selected dataset"),
+              fluidRow(DT::dataTableOutput('tbl2'))
+              )
+      )
+    )
+)  
+
+## server.R ##
+
+
+server <- function(input, output, session) {
+
+  output$value <- renderPrint({ input$rb1 })
+
+  data <- reactive({
+    switch(input$rb1,
+           "iris" = iris,
+           cars)
+  })
+
+  action <- dataTableAjax(session, cars)
+  widget <- datatable(cars, 
+                     class = 'display cell-border compact',
+                     filter = 'top',
+                     server = TRUE,
+                     options = list(ajax = list(url = action))
+  )
+
+  output$tbl2 <- DT::renderDataTable({
+           DT::datatable(data())
+  })
+}
+
+# Run the application 
+shinyApp(ui = ui, server = server)
+
+```
 
 

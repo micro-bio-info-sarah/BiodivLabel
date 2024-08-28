@@ -1,0 +1,33 @@
+
+@article{lindner_valuing_2019,
+	title = {Valuing {Biodiversity} in {Life} {Cycle} {Impact} {Assessment}},
+	volume = {11},
+	copyright = {http://creativecommons.org/licenses/by/3.0/},
+	issn = {2071-1050},
+	url = {https://www.mdpi.com/2071-1050/11/20/5628},
+	doi = {10.3390/su11205628},
+	abstract = {In this article, the authors propose an impact assessment method for life cycle assessment (LCA) that adheres to established LCA principles for land use-related impact assessment, bridges current research gaps and addresses the requirements of different stakeholders for a methodological framework. The conservation of biodiversity is a priority for humanity, as expressed in the framework of the Sustainable Development Goals (SDGs). Addressing biodiversity across value chains is a key challenge for enabling sustainable production pathways. Life cycle assessment is a standardised approach to assess and compare environmental impacts of products along their value chains. The impact assessment method presented in this article allows the quantification of the impact of land-using production processes on biodiversity for several broad land use classes. It provides a calculation framework with degrees of customisation (e.g., to take into account regional conservation priorities), but also offers a default valuation of biodiversity based on naturalness. The applicability of the method is demonstrated through an example of a consumer product. The main strength of the approach is that it yields highly aggregated information on the biodiversity impacts of products, enabling biodiversity-conscious decisions about raw materials, production routes and end user products.},
+	language = {en},
+	number = {20},
+	urldate = {2023-06-08},
+	journal = {Sustainability},
+	author = {Lindner, Jan Paul and Fehrenbach, Horst and Winter, Lisa and Bloemer, Judith and Knuepffer, Eva},
+	month = jan,
+	year = {2019},
+	note = {Number: 20
+Publisher: Multidisciplinary Digital Publishing Institute},
+	keywords = {biodiversity, BiodivLabel\_base, environmental management, life cycle assessment, product evaluation},
+	pages = {5628},
+	file = {Lindner et al_2019_Valuing Biodiversity in Life Cycle Impact Assessment.pdf:C\:\\Users\\srhuet\\OneDrive\\Zotero\\Lindner et al_2019_Valuing Biodiversity in Life Cycle Impact Assessment.pdf:application/pdf},
+}
+
+@techreport{lindner_bringing_2022,
+	title = {Bringing the {Biodiversity} {Value} {Increment} method to {Agribalyse}},
+	shorttitle = {{BVI} to {AGB}},
+	institution = {ADEME},
+	author = {Lindner, Jan Paul and Koch, Peter and Fehrenbach, Horst and Buerck, Silvana},
+	year = {2022},
+	keywords = {BiodivLabel\_base, discussion, yield-impact trade-off},
+	pages = {60},
+	file = {Lindner_2022_Bringing the Biodiversity Value Increment method to Agribalyse.pdf:C\:\\Users\\srhuet\\OneDrive\\Zotero\\Lindner_2022_Bringing the Biodiversity Value Increment method to Agribalyse.pdf:application/pdf},
+}
