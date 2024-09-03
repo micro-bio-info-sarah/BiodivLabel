@@ -1,0 +1,164 @@
+{
+    "sources": [
+        {
+            "DOI": "10.3390/su11205628",
+            "ISSN": "2071-1050",
+            "URL": "https://www.mdpi.com/2071-1050/11/20/5628",
+            "abstract": "In this article, the authors propose an impact assessment method for life cycle assessment (LCA) that adheres to established LCA principles for land use-related impact assessment, bridges current research gaps and addresses the requirements of different stakeholders for a methodological framework. The conservation of biodiversity is a priority for humanity, as expressed in the framework of the Sustainable Development Goals (SDGs). Addressing biodiversity across value chains is a key challenge for enabling sustainable production pathways. Life cycle assessment is a standardised approach to assess and compare environmental impacts of products along their value chains. The impact assessment method presented in this article allows the quantification of the impact of land-using production processes on biodiversity for several broad land use classes. It provides a calculation framework with degrees of customisation (e.g., to take into account regional conservation priorities), but also offers a default valuation of biodiversity based on naturalness. The applicability of the method is demonstrated through an example of a consumer product. The main strength of the approach is that it yields highly aggregated information on the biodiversity impacts of products, enabling biodiversity-conscious decisions about raw materials, production routes and end user products.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2023,
+                        6,
+                        8
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Lindner",
+                    "given": "Jan Paul"
+                },
+                {
+                    "family": "Fehrenbach",
+                    "given": "Horst"
+                },
+                {
+                    "family": "Winter",
+                    "given": "Lisa"
+                },
+                {
+                    "family": "Bloemer",
+                    "given": "Judith"
+                },
+                {
+                    "family": "Knuepffer",
+                    "given": "Eva"
+                }
+            ],
+            "container-title": "Sustainability",
+            "id": "lindner_valuing_2019",
+            "issue": "20",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019,
+                        1
+                    ]
+                ]
+            },
+            "keyword": "biodiversity, BiodivLabel_base, environmental management, life cycle assessment, product evaluation",
+            "note": "Number: 20 Publisher: Multidisciplinary Digital Publishing Institute",
+            "page": "5628",
+            "title": "Valuing Biodiversity in Life Cycle Impact Assessment",
+            "type": "article-journal",
+            "volume": "11"
+        },
+        {
+            "author": [
+                {
+                    "family": "Lindner",
+                    "given": "Jan Paul"
+                },
+                {
+                    "family": "Koch",
+                    "given": "Peter"
+                },
+                {
+                    "family": "Fehrenbach",
+                    "given": "Horst"
+                },
+                {
+                    "family": "Buerck",
+                    "given": "Silvana"
+                }
+            ],
+            "id": "lindner_bringing_2022",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "keyword": "BiodivLabel_base, discussion, yield-impact trade-off",
+            "page": "60",
+            "publisher": "ADEME",
+            "title": "Bringing the Biodiversity Value Increment method to Agribalyse",
+            "title-short": "BVI to AGB",
+            "type": "report"
+        },
+        {
+            "author": [
+                {
+                    "family": "Rose",
+                    "given": "Steven"
+                },
+                {
+                    "family": "Diaz",
+                    "given": "Delavane"
+                },
+                {
+                    "family": "Carleton",
+                    "given": "Tamma"
+                },
+                {
+                    "family": "Drouet",
+                    "given": "Laurent"
+                },
+                {
+                    "family": "Guivarch",
+                    "given": "Celine"
+                },
+                {
+                    "family": "Méjean",
+                    "given": "Aurélie"
+                },
+                {
+                    "family": "Piontek",
+                    "given": "Franziska"
+                }
+            ],
+            "container-title": "Climate Change 2022 – Impacts, Adaptation and Vulnerability: Working Group II Contribution to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change",
+            "id": "rose_cross-working_2022",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "title": "Cross-Working Group Box ECONOMIC: Estimating Global Economic Impacts from Climate Change",
+            "title-short": "Cross-Working Group Box ECONOMIC",
+            "type": "chapter"
+        },
+        {
+            "author": [
+                {
+                    "family": "Shukla",
+                    "given": "Priyadarshi R"
+                },
+                {
+                    "family": "Skea",
+                    "given": "Jim"
+                },
+                {
+                    "family": "Slade",
+                    "given": "Raphael"
+                }
+            ],
+            "id": "shukla_climate_2022",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "title": "Climate Change 2022 - Mitigation of Climate Change: Working Group III Contribution to the Sixth Assessment Report of the Intergovernmental Panel on Climate Change",
+            "title-short": "Climate Change 2022 - Mitigation of Climate Change",
+            "type": "book"
+        }
+    ],
+    "project_biblios": []
+}

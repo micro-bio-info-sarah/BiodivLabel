@@ -1,0 +1,147 @@
+---
+title: |
+ **Supplementary Materials for: Estimating Agricultural Practices and their Impact on Biodiversity from Agricultural Statistics: A Proof-of-Concept Study on Food Labels in France**
+author: #"Sarah HUET, Clélia SIRAMI, Abdoul DIALLO, Julie REGOLO, doc Eric et Ludovic Arnaud, Valentin BELLASSEN"
+  - name: Sarah HUET
+    orcid: 0000-0002-5449-6959
+    corresponding: TRUE
+    email: sarah.huet@inare.fr
+    roles: 
+      - Model
+      - Manuscript writting and editing
+    affiliation:
+      - UMR1041 CESAER, INRAE - Institut Agro, France
+  - name: Clélia SIRAMI
+  - name: Abdoul DIALLO
+  - name: Julie REGOLO
+  - name: Ainhoa IHASUSTA
+  - name: Ludovic ARNAUD
+  - name: Valentin BELLASSEN
+#date: "`r format(Sys.time(), '%B %d, %Y')`"
+date: "2024-08-26"
+format:
+ docx:
+  reference-doc: custom-reference-doc.docx
+  toc: false
+  number-sections: true
+  highlight-style: github
+  default-image-extension: svg
+  fig-format: svg
+bibliography: references.bib
+editor_options: 
+ chunk_output_type: console
+---
+
+# Treatment protocol for the calculation of landscape variables
+
+To take into account the landscape dimension in the BVI model applied to environmental signage, we estimate three parameters: hedge area, agricultural plot size and cultural diversity. To calculate the variables necessary for estimating these parameters, we first extract from the 2020 Graphical Plot Register (RPG) all plots of farms in the 2020 FADN-AR-NAOS matched database.
+
+To do this extraction, we use the PACAGE plot numbers as primary join key. We are faced with three situations:
+
+-   the farm has the same PACAGE number in FADN and RA. Then the RPG plots of this PACAGE number are associated with that farm RICA-RA-INAO;
+
+-   the PACAGE numbers differ between RICA and RA and only one of them corresponds to a RPG PACAGE number. Then the RPG plots of this PACAGE number are associated with this exploitation RICA-RA-INAO;
+
+-   the PACAGE numbers are not entered in either the FADN or the AR, or differ between FADN and AR, and none of them corresponds to a RPG PACAGE number. Then, no parcel is associated with a FADN-AR-NAOI farm. This case is found for 443 and 318 metropolitan farms, respectively. These holdings are mainly concentrated in the OTEX viticulture, market gardening and pig and/or poultry farming.
+
+The result of this extraction will be a subsample of the RPG that we intersect with the hedge layer of the Topo database to calculate the variables necessary for the estimation of the three parameters.
+
+## Density of hedges
+
+Hedge density is the ratio of the sum in linear metres of hedge to the area of the holding (UAA). For the calculation of linear lengths, we will use the same procedure as previously used in ***a similar work*** at the scale of the regions of France. For this calculation, we will distinguish four categories for each variable (hedge area and SAU):
+-   Total
+-   Permanent grassland (including grasslands, moors and alpine pastures)
+-   Arboriculture (orchards and vineyards)
+-   Other crops
+
+## Average size of the plots
+
+The average size of the plots is the ratio of the UAA to the number of plots. We will distinguish four categories for each variable (UAA and number of plots):
+-   Total
+-   Permanent Grassland
+-   Arboriculture (orchards and vineyards)
+-   Other crops
+
+## Cultural diversity
+We calculate two indices here, the Shannon (@eq-shannon) and the Simpson reciprocal (@eq-simpson), using the number of crops as the number of species and the surface area as the abundance. For each index (Shannon and Simpson reciprocal), we will distinguish three categories:
+-   Total
+-   Other crops
+-   Other crops + permanent grassland
+
+$$
+H' = - \sum_{i=1}^{R} p_i ln p_i
+$${#eq-shannon}
+
+where $p_i$ is the ratio of the area of a crop $i \in R$ to the total area.
+
+$$
+²D = \frac{1}{ \sum^{R}_{i = 1} \bigg( \frac{n_i(n_i - 1)}{N(N-1)} \bigg)^2 }
+$${#eq-simpson}
+
+where $n$ is the area of the crop $i \in R$ and $N$ the total area.
+
+## Average annual plant cover in number of days
+
+From the raster data on plant cover in number of days in 2020 between 0 and 366, we calculated the average number of days in plant cover by pasture and crop category. To do this, we started by calculating the average number of days of the grazing plots using the area statistics algorithm in QGIS. Then we calculated the average number of days for each crop category by aggregating the average number of days of covered plots according to:
+-   Total
+-   Permanent Grassland
+-   Arboriculture (orchards and vineyards)
+-   Other crops
+
+
+# Calibration and validation of the model by comparison with in situ biodiversity measurements
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

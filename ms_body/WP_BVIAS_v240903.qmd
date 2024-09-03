@@ -1,0 +1,477 @@
+---
+title: |
+ **Estimating Agricultural Practices and their Impact on Biodiversity from Agricultural Statistics: A Proof-of-Concept Study on Food Quality Schemes in France**
+author: #"Sarah HUET, Clélia SIRAMI, Abdoul DIALLO, Julie REGOLO, doc Eric et Ludovic Arnaud, Valentin BELLASSEN"
+  - name: Sarah HUET
+    orcid: 0000-0002-5449-6959
+    corresponding: TRUE
+    email: sarah.huet@inrae.fr
+    roles: 
+      - Model
+      - Manuscript writting and editing
+    affiliation:
+      - CESAER UMR1041, INRAE, Institut Agro, Université Bourgogne Franche-Comté, Dijon, France
+  - name: Clélia SIRAMI
+    orcid: 0000-0003-1741-3082
+    email: clelia.sirami@inrae.fr
+    affiliation:
+      - Université de Toulouse, INRAE, UMR Dynafor, Castanet-Tolosan, France
+  - name: Abdoul DIALLO
+    email: abdoul.diallo@inrae.fr
+    affiliation:
+      - CESAER UMR1041, INRAE, Institut Agro, Université Bourgogne Franche-Comté, Dijon, France
+  - name: Julie REGOLO
+    email: julie.regolo@inrae.fr
+    affiliation:
+      - UMR
+  - name: Ainhoa IHASUSTA
+    email: ainhoa.ihasusta@inrae.fr
+    affiliation:
+      - CESBIO, Université de Toulouse, CNES/CNRS/INRAE/IRD/UPS, 18 Avenue Edouard Belin, bpi 2801, CEDEX 09, 31401 Toulouse, France
+  - name: Ludovic ARNAUD
+    email: ludovic.arnaud@inrae.fr
+    affiliation:
+      - CESBIO, Université de Toulouse, CNES/CNRS/INRAE/IRD/UPS, 18 Avenue Edouard Belin, bpi 2801, CEDEX 09, 31401 Toulouse, France
+  - name: Valentin BELLASSEN
+    email: valentin.bellassen@inrae.fr
+    affiliation:
+      - CESAER UMR1041, INRAE, Institut Agro, Université Bourgogne Franche-Comté, Dijon, France
+#date: "`r format(Sys.time(), '%B %d, %Y')`"
+keywords: certified food, farming practices, biodiversity, environmental footprint, agriculture sustainability
+date: "2024-08-26"
+format:
+ docx:
+  reference-doc: custom-reference-doc.docx
+  toc: false
+  number-sections: true
+  highlight-style: github
+  default-image-extension: svg
+  fig-format: svg
+bibliography: references.bib
+editor_options: 
+ chunk_output_type: console
+---
+
+# Abstract
+
+Biodiversity erosion is a major environmental crisis. Although our agri-food system contributes to the five main direct threats to biodiversity, the assessment of the impact of food products remains limited either to *in situ* measurements that do not allow for estimate generalization, or to systematic models that are not validated by *in situ* data. 
+Here we propose the BVIAS (Biodiversity Value Increment from Agricultural Statistics) method, which allows to calculate the impact of food products on biodiversity based on accounting data and public statistics. This method, applied here to renown French agricultural products, allows for a comparison of the main Food Quality Schemes (FQSs): Organic production, Label Rouge (LR) and Geographical Indications (GIs).
+Thus, among the 25 evaluated FQSs, only Organic products and some cheese GIs stand out from non-labelled (so-called conventional) agriculture by effectively different agricultural practices, Consistent with the requirements of the specifications. These different agricultural practices lead to a lower impact on biodiversity per hectare but lower yields, resulting in a similar impact per tonne.
+Taking into account the main determinants of biodiversity losses related to agriculture, relying on quantified data at the level of farms and validating our model based on consensual orders of magnitude of biodiversity in the literature, We therefore propose here an objective, robust and operational method to allow a generalized estimate of the impact on biodiversity of any agri-food production.
+
+# Introduction
+
+Biodiversity erosion is probably the most important environmental crisis with climate change. While the impacts of current climate change trajectories are estimated at several tens of percentage points of GDP (@rose_cross-working_2022), pollinator loss alone amount 1-2% of GDP, and about €4 billion for a country like Germany (@lippert_revisiting_2021). The IPBES groups and prioritizes five determinants of biodiversity loss (@ipbes_global_2019) : land use (30%), direct exploitation (23%), climate change (14%), pollution (14%) and invasive species (11%). Agriculture is mainly involved in three of these five determinants (land use, climate change and pollution), and is, with direct exploitation, one of the two main economic sectors responsible for the global erosion of biodiversity (@maxwell_biodiversity_2016 ; @tilman_future_2017).
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# WIP
+
+Environmental labelling on agricultural products is one of the policies that could reduce the impact of agriculture on biodiversity. Although consumer information appears to trigger only small short-term changes in food choices (De Marchi et al., 2023; Dubois et al., 2021), environmental signage opens the way to several indirect long-term effects. It encourages producers to change their practices, and processors to change product formulations to improve their ratings, and can be used as a support for other policies (e.g. minimum rating requirement for public order, tax based on rating, ...).
+
+At the European level, the Commission published a proposal for a regulation in March 2023 requiring all companies wishing to claim an environmental better-performing to use the life cycle analysis framework, and for example the EU Product and Organisation Environmental Footprint (PEF and PEO) method, to objectify the claim. France has taken a further step with the 2021 Climate and Resilience Act, which plans to make environmental labelling mandatory on all food products after an experiment scheduled to last for 5 years. Following the proposal of Ecoscore by ADEME, which should inspire the future government tool, several stakeholders reproach it for limiting itself to the analysis of the life cycle of products (Interbev, 2024) . Their main argument is that life cycle analysis fails to account for the impact of food products on biodiversity. The Scientific Council for Experimentation notes that life cycle analysis does address three of the five main determinants of biodiversity loss, but recognizes the value of complementing life cycle analysis on some points (Soler et al., 2021). In view of this controversy, it is urgent to propose an objective, robust and operational method for calculating the impact of food products on biodiversity. This is what this section is about.
+
+We believe that the environmental display should be based on a biodiversity indicator that meets five key requirements (@tab-1):
+
+-   *An explicit and operational definition of biodiversity.* The term biodiversity is very polysemous. For this reason, it is important to explain an operational definition adapted to the context (Santana, 2014). This definition must also keep an intuitive link with the main issues related to biodiversity erosion such as loss of species or ecosystems (and especially those that provide important services such as pollinators).
+
+-   *Addressing the main determinants of biodiversity loss related to agriculture*, namely land use, climate change and pollution.
+
+-   *Rely on data of biodiversity or practices that are measured and representative at the plot level* to estimate an impact of actual rather than potential practices on biodiversity.
+
+-   *Allow for evaluation of any food product.* The environmental labelling must be made mandatory and must be applicable to any product based on currently available data, differentiating both different products (e.g. lentils versus chicken) and different production modes of the same product (e.g. conventional versus organic wheat).
+
+-   *Rely on a validation of the estimated impact based on in situ biodiversity measurements.* There are always two ways to assess an impact: in situ measurement and modelling. In the second case, an essential criterion of robustness is the validation of the model, at least on predicted variables for which in situ measurements of biodiversity are available (e.g. biodiversity per unit area).
+
+***The literature review in chapter 2*** shows that three main types of methods for assessing the impact of food products on biodiversity can be distinguished: in situ observations of biodiversity by species counting in ecosystems, modelling the impact of agricultural practices on biodiversity, and modelling the impact of label specifications on biodiversity. The adequacy of these three methods with the requirements of environmental display is summarized in the following three paragraphs and summarized in @tab-1.
+
+*In situ observations* clearly meet the data and validation criteria. However, they are punctual in both space and time, making it difficult to estimate all food products. With a considerable effort, the most comprehensive meta-analyses in terms of taxa studied allow an average effect to be estimated by type of product and by differentiating some production modes. Tuck et al. (2014) distinguishes between organic and conventional agriculture for five agrosystems, and estimates that the specific diversity is on average 30% higher in organic farming. Specific diversity is a relatively explicit definition of biodiversity and has an intuitive link with the main issues related to biodiversity erosion as long as one remains within the same agro-system. This link is however less than true when comparing different ecosystems or agrosystems because we are then comparing completely different species groups (Santana, 2014; Sarkar, 2002). Finally, in situ observations have the major disadvantage of not taking into account the amount of anthropogenic surface. The measure of biodiversity is expressed per unit area in these studies, so it attributes the same impact to two identical productions (e.g. wheat), even if one occupies twice as much area as the other. This is a paradox that is difficult to manage in an environmental display because two tons of wheat have the same impact as one tonne of wheat, provided the amount of inputs per hectare is the same.
+
+*Modelling based on agricultural practices data* is the method used in life cycle analyses. Crenna et al. (2019) shows that the impact on biodiversity in the EU food system is mainly caused by animal products (70-75% of the total impact), and more specifically by pork (19-23%) and beef (21-25%). Read et al. (2022) shows that the risk of species extinction caused by American food consumption could be reduced by 30% by adopting the EAT-Lancet flexitarian diet (Willett et al., 2019), and up to 45% by reducing waste. The models used in these studies (e.g., Chaudhary et al., 2015; ReCiPe, see Curran et al., 2014; of Baan et al., 2013) however take into account differences in practices within the same production only frustratingly (typically by three levels of «intensity», without taking into account the landscape effects related to agroecological infrastructures, the size of the plots,... ). This results in very low sensitivity to differences in practices per unit area (Wermeille et al., 2024). To remedy this, Lindner et al. (2019) propose a model that takes into account 14 agricultural practices in addition to the type of agrosystem (prairie vs culture vs forest). Using a simplified version to fit the data limits of the Agribalyse life cycle inventory database, Lindner et al. (2022) concludes that organic farming reduces the biodiversity impact of the kilogram of wheat (-33%) or the litre of milk (-27%), but increases the value of the kilogram of chicken (+33%). In all cases, the predictions of these models are not or only little validated by comparing them with in situ observations of biodiversity.
+
+*Modelling from specifications*, for the moment confined to grey literature, offers an assessment of the potential impact of restrictions placed in the specifications of labels. Alliot et al. (2021) conclude that the specifications associated with organic farming (AB, Demeter, Nature and Progrès) strongly limit the damage to biodiversity (score between 3/5 and 4/5), that the AOP Comté and Bleu Blanc Cœur limit them moderately (2/5) and that the other labels (HVE, Zero Pesticides, Label Rouge,...) do not limit them. This approach has the advantage of being applicable to any label, but ignores the actual practices implemented. For example, the county’s specifications that limit mineral fertilization to 50 kgN ha-1 do not allow the quantities actually used to be known, nor, a fortiori, the possible effects on greater cultural diversity or on the ratio between organic and mineral nitrogen. Moreover, this approach suffers from the same limitation as in situ observations on the non-consideration of land tenure and the same limitation as other models on the absence of validation.
+
+```{r packages, echo=FALSE,include=FALSE}
+library(gt)
+library(dplyr)
+
+```
+
+::: {#tbl-intro}
+
+```{r tbl-intro, echo=FALSE, include=TRUE}
+
+tmp_table <- data.frame(
+ x1= c(
+   "",
+   "Explicit and operational definition of biodiversity",
+   "Addressing the main determinants of biodiversity loss related to agriculture",
+   "Land use",
+   "Climate change",
+   "Pollution",
+   "Based on measured data, biodiversity or practices at the farm level",
+   "Allow a default estimate on any food product",
+   "Validation based on biodiversity measurements"
+   ),
+ x2 = c(   
+   "In situ observations (e.g., Tuck et al., 2014)",
+   "Specific diversity (other studies present a plurality of indicators including abundance, diversity, presence of rare/endemic species,...).No systematic link with the sixth extinction crisis.",
+   "",
+   "Consideration of landscape effects. No consideration of yields",
+   "Not taken into account",
+   "Taking into account all pollution",
+   "Yes (biodiversity), but without guarantee on the representativeness of the plots (sample size often small, difficulty in covering all productions)",
+   "No (too few measurements to differentiate each product)",
+   "Yes (intrinsically)"
+   ),
+ x3 = c(
+   "Modelling from agricultural practices data (e.g. Lindner and Koch, 2022)",
+   "Degradation of natural state (or risk of extinction of species for other studies)",
+   "",
+   "No account taken of landscape effects. Consideration of yields",
+   "Not considered by Lindner et al. (2022), but considered by other models",
+   "Taking into account the main pollutions without effect size",
+   "Yes (practices), but often incomplete and without representativeness assurance (life cycle inventories)",
+   "Differentiates the main products, and the organic label",
+   "No"
+   ),
+ x4 = c(
+   "Modelling from specifications (e.g. Alliot et al., 2021) ",
+   "Implied definition",
+   "",
+   "Consideration of landscape effects. No consideration of yields",
+   "Not taken into account",
+   "Taking into account the main pollutions without effect size",
+   "No (specification)",
+   "Differentiates many labels, but not products between them",
+   "No"
+   ),
+ x5 = c(
+   "BVI AD (this study)",
+   "Degradation of natural state",
+   "",
+   "Consideration of landscape effects and yields",
+   "Not taken into account",
+   "Taking into account the main pollutions with effect size",
+   "Yes (practices, sample provided and representative: FADN, AC, LPIS)",
+   "Differentiates the main products, and labels sufficiently represented",
+   "Yes (consensus orders of magnitude in the literature)"
+   )
+ ) %>%
+  # add columns for color
+  mutate(
+    #col1 = c(0,0,0,0,0,0,0,0),
+    col2 = c(0,2,0,2,1,3,3,1,3),
+    col3 = c(0,3,0,2,2,2,2,3,1),
+    col4 = c(0,2,0,2,1,2,1,2,1),
+    col5 = c(0,3,0,3,1,3,3,3,3)
+  )
+
+tmp_palette = c("#FF9999","#FFCC99", "#99CC99")
+
+tmp_table %>%
+ gt() %>%
+    data_color(   columns = col2,
+                  target_columns = x2,
+                  rows = col2 >0,
+                method = "numeric",
+                  palette = tmp_palette,
+                domain = c(1,3)
+    ) %>% 
+    data_color(   columns = col3,
+                  target_columns = x3,
+                  rows = col3 >0,
+                method = "numeric",
+                  palette = tmp_palette,
+                domain = c(1,3)
+    ) %>% 
+    data_color(   columns = col4,
+                  target_columns =x4,
+                  rows = col4 >0,
+                method = "numeric",
+                  palette = tmp_palette,
+                domain = c(1,3)
+    ) %>% 
+    data_color(   columns = col5,
+                  target_columns = x5,
+                  rows = col5 >0,
+                method = "numeric",
+                  palette = tmp_palette,
+                domain = c(1,3)
+    ) %>% 
+  cols_hide(col2:col5)
+
+
+
+#rm(tmp_table)
+
+```
+
+**Environmental Labeling Requirements and Existing Methods.** The colour code gives the authors' judgement on the degree of adequacy of the type of method with each criterion (requirement [fulfilled]{style=color:#99CC99;}, [partially fulfilled]{style=color:#FFCC99;} or [not fulfilled]{style=color:#FF9999;}), based on the example cited at the top of the table.
+
+
+:::
+
+Finally, for the three families of methods, it is now difficult to judge the representativeness of the results proposed for a given product type or label. In situ measurements, such as life cycle surveys, are generally carried out on a limited number of farms without any explicit indication of their representativeness. This limit may become even more critical as the pressure of environmental labelling may lead technical institutes, leading providers of life cycle inventories, to choose examples that are flattering for their sector. The increasing availability of data collected for public statistics and agricultural policies now allows this risk to be avoided and the sample sizes increased tenfold. Some studies have already linked data from the Agricultural Accountancy Data Network (FADN) and the National Institute of Origin and Quality (INAO) to assess the effectiveness of certified farms. Jeanneaux et al. (2018) shows that some label sectors do not generate better profitability, because the premium product is fully compensated by a lower technical efficiency (e.g. Label Rouge or AB meat poultry). Sengel et al. (2022) estimates that dairy farms under geographical indications generate 30% higher income per unit of work than conventional farms. This difference, mainly due to the names of the Comtoises, rises to 40% after restriction of comparison to farms with comparable structure and location, following a «matching» procedure.
+
+Our study proposes an objective, robust and operational method to calculate the impact of food products on biodiversity. This method is applied to the main French agricultural productions, distinguishing the main traceable labels for an environmental display (organic farming, red label and geographical indications). It is modelled on the BVI model (Lindner et al., 2019), but allows for the three main limitations raised when applying it to environmental signage (Lindner and Koch, 2022). By relying on agricultural statistics (e.g. FADN, Agricultural Census), it has access to important sample sizes and operating characteristics that make it possible to objectify the choice of counterfactual to label holdings, following a “matching” procedure. We took landscape effects into account by mobilizing the french Land Parcel Information System (LPIS) and semi-natural elements data base (BD Haies XXX ref). Finally, by validating predicted differences in impacts against the orders of magnitude established from in situ measurements of biodiversity in the literature, it strengthens confidence in the robustness of estimated impacts.
+
+# Modelling the impact of crop practices on biodiversity
+
+## The BVI model
+
+The model chosen to estimate the impact of cultural practices on biodiversity is the BVI model as originally selected by ADEME for environmental display (Lindner 2022). This model considers biodiversity at the level of the plot and adjacent semi-natural elements (SNE), and takes into account land use (grassland versus crop), landscape effects and intensity of cropping practices. We estimate seven different parameters with a major impact on biodiversity within each land use category: tillage, application of nitrogen fertilizers (quantity and quality), use of plant protection agents, density of hedges, the size of agricultural parcels and cultural diversity.
+
+The BVI method introduces a standard biodiversity value with an emphasis on a naturalness objective. To aggregate the impact of these practices on this biodiversity standard and include them as input parameters for the BVI model (Lindner 2022), their intensity values are normalized in the interval \[0.1\], the minimum intensity corresponding to 0 and the maximum corresponding to 1. In order to exclude possible outliers, the 95th percentile of positive values is set as a threshold from which values are normalized to 1. The contribution to the biodiversity value of each practice is calculated by applying a function specific to each parameter (@lindner_valuing_2019, @lindner_bringing_2022; @eq-1).
+
+$$
+BVC_{i,l,v}= \gamma_{l,v} + \epsilon_{l,v} \cdot \exp(- \frac{ |(x_{i,l,v}^{\delta_{l,v}} - \beta_{l,v}) ^{\alpha_{l,v}}| }{2\sigma_{l,v}^{\alpha_{l,v}}})
+$$ {#eq-1}
+
+where $BVC$ is the biodiversity value contribution (without dimension, 1 = maximum contribution of practice, 0 = minimum contribution) of a practice $v$ for each observation $i$ in a land use type $l$, $x$ is the normalized practice intensity, and $[\alpha,\beta,\delta,\epsilon,\gamma,\sigma]$ are function constants.
+
+The average of these contributions provides the land use specific biodiversity value ($BV_{LU}$). To take into account that biodiversity levels are on average higher in grasslands than in crops, $BV_{LU}$ is then projected into the range of possible biodiversity for the land use type (i.e., crop or grassland), in order to obtain a standardized biodiversity value ($BV_{norm}$). A function is then applied to this normalized value to obtain the local biodiversity value ($BV_{loc}$, Equation 4.). The latter function aims to maximize the difference between the most anthropogenic land uses and, conversely, minimize the difference between the most natural land uses. For example, biodiversity is modeled as 1.5 times higher in the most intensive grassland ($BV_{loc}$ = 0.754) than in the most intensive crop ($BV_{loc}$ = 0.500).
+
+$$
+BV_{loc,i} = 1.017626088 \cdot (1 - \exp( -4.055847776 \cdot BV_{norm,i}))
+$$ {#eq-2}
+
+Finally, the impact on biodiversity value (BVI) of one hectare is defined as BVIha = 1 - BVloc.
+
+## Allocation of biodiversity impact to farm products
+
+To assign the previously calculated hectare impact to different farm products, we follow the common life cycle analysis (LCA) recommendations of restricting the scope when possible and allocating where not (JRC, 2010). Where applicable, we opt for the economic allocation of impact – that is to say in proportion to the turnover generated by each product – which is both the most common choice and the best approximation of the share of responsibility in generating the impact (ref???Hayo).
+
+For crop products, it is possible to narrow the scope, i.e., to relate farm variables to the scale of cultivation to calculate directly the impact of one hectare of crop (see 2.4). The impact on biodiversity of one kilogram of crop production is then simply calculated as: BVIkg = BVIha/ Y where Y is the yield of the crop in kg/ha.
+
+For animal products, the restriction of the perimeter allows to separate the different workshops of a farm (ex. production crops, cattle and pigs), but it does not allow to separate several productions of the same workshop (ex. milk and meat from the wild). The impact on biodiversity of one kilogram of animal production is therefore calculated in two steps. First, the impact of the workshop is obtained by summing up the impact of the food consumed by the workshop: we then speak of the pseudo-farm which corresponds to all the surfaces needed to feed the animals in the workshop, Summing up the farm areas for the food supply of the workshop and the areas necessary for the production of purchased food. The impact of the workshop is then distributed among the different products in the herd (e.g. milk and meat), in proportion to their economic value.
+
+## Data used
+
+### Source databases
+
+Reporting on specific impacts of labels on biodiversity requires first to identify farms with certified products and to estimate the cultivation practices applied in these farms.
+
+To identify farms with certified products, we use the National Institute of Designations of Origin (INAO) Quality and Origin Information Signs (SIQO) database linked to the Agricultural Census (AC).
+
+The estimation of agricultural practices requires data on the areas of different crop production, the quantity and type of inputs used, the average number and feed of different livestock categories and production volumes in quantity and value. The french Farm Accountancy Data Network (RICA), which collects these data annually on a representative sample of more than 7,500 large and medium-sized farms throughout metropolitan France, is used to estimate the practices applied on each farm (Figure 1). This large sample size allows for statistically robust comparisons between productions with and without label.
+
+To detail the crop routes of each production and husbandry practices for different categories of livestock, data from other studies are used as reference averages or as a distribution key (Figure 1; 2017 KPRT refs, Sailley et al. 2021, AROPAJ, INRAe feed tables).
+
+In order to take into account the landscape elements implemented on the farms, we use the Plot Register Graph and the Hedges layer of the BD TOPO® database (ref TOPO BD) to define the average size of the plots, the proportion of the area of the hedges and the cultural diversity. ***XXX add here data from Ludovic***
+
+::: {#fig-diagram}
+![](images/fig_diagram_simpl.svg)
+
+**Simplified diagram of the modelling of agricultural practices** from FADN data and their integration with the BVI model
+
+:::
+
+### Matching AC, SIQO and FADN databases
+
+The matching of AC data and INAO SIQO-enabled operator data is done, prior to this study, using the SIRET of the farms (Corre et al., 2023). It allows to know the name of the product under SIQO in which the company is involved. The 2020 FADN and AC vintage data are then matched by comparing the SIRET (System for Identification of Establishments), Pacage (identifier linked to the Common Agricultural Policy) and SIREN (System for Identification of Business Register) numbers of agricultural holdings. The matched data set thus includes 7292 farms, located throughout the metropolitan territory, or 99.14% of farms registered in FADN in 2020. A description of the matched data is provided in Table 2.
+
+::: {#tbl-stat_desc}
+
+**Descriptive statistics** (average) in terms of OTEX and labels
+
+:::
+
+### Matching the AC/SIQO/RICA database to the LPIS
+
+To calculate the variables necessary for taking into account landscape elements, we first extract from the 2020 french Land Parcel Information System (LPIS) all plots of farms included in the 2020 FADN-AC-SIQO database. This extraction provides us with a sub-sample of the LPIS that we intersect with the hedge layer of the Topo® BD to calculate the variables necessary for the estimation of the three parameters.
+
+## Estimation of crop practices from accounting data
+
+The BVI model estimate requires documenting the intensity of three main practices (see section 2.1): tillage, nitrogen fertilization (mineral and organic) and use of plant protection products.
+
+### Tillage
+
+Tillage intensity is estimated by the farm’s off-road diesel consumption, subtracted from the average amount of off-road diesel used for direct seeding (Chenu and Butault, 2015). This estimated amount of diesel used for ploughing is then distributed among the different crops in proportion to their area.
+
+### Nitrogen fertilization
+
+The intensity of nitrogen fertilization is estimated for mineral and organic fertilizers. For mineral fertilizers, the amount of mineral nitrogen brought to the farm, directly reported in the FADN, is allocated to the different crops using national mineral nitrogen input averages as a distribution key (Ministry of Agriculture (SSP), 2017; See "PKGC_N_ferti" sheet of supp_data.xlsx file). 
+
+For organic fertilizers, due to the fact that the FADN variable was not well-informed, we estimated these inputs in two different ways, depending on whether or not the farm has livestock. ***check paragraph***
+
+For farms without livestock, a flat rate value equal to the national average per crop of organic nitrogen input from non-organic manure producing farms (Ministère de l'Agriculture (SSP), 2017); See "PKGC_N_ferti" sheet of supp_data.xlsx file) is added to the different crops, distinguishing between organic and conventional farms.
+
+For husbandries, all manure is considered to be on-farm. The amount of nitrogen excreted by these animals is calculated in accordance with IPCC recommendations (IPCC Guidelines 2019) and then distributed among the different crops, using the national organic nitrogen input crop averages of organic manure farms as a distribution key (Enquête Pratiques Culturales 2017; see "PKGC_N_ferti_org" tab in supp_data.xlsx file). The calculation of nitrogen excretion by animals is based on the livestock population reported in FADN and the estimation of the quantity and nutritional quality of the ration provided to these animals (see section below). For farms that do not produce enough organic manure, we believe they should import and apply as much organic manure as farms that do not have livestock. To identify them, a minimum threshold of organic nitrogen input for each crop is defined below which this threshold value will be applied as a lump sum. This threshold is equal to the smallest value between the national average of organic nitrogen inputs and the average of organic nitrogen inputs from farms producing their own organic manure (Enquête Pratiques Culturales 2017.
+
+In addition, the proportion of mineral nitrogen on total nitrogen input to crops is used as a fully-fledged parameter of the model (Lindner et al., 2019).
+
+### Application of plant protection products
+
+The intensity of plant protection product application is estimated using the FADN load in plant protection products. This burden is distributed among the different crops using the national average processing frequency indices (IFT) as a distribution key (Enquête Pratiques Culturales 2017; see tab "IFT_ref" of supp_data.xlsx file). The lower toxicity of products used in organic farming is taken into account by correcting the load in plant protection products of organic farms by the ratio between the average toxicity of products used in organic farming and the Average toxicity of products used in conventional agriculture.
+
+To assess these average toxicities, we estimate the toxicity by dose of four of the top ten products in each of these production modes (BNV-D Traceability 2020). We select these four products for the availability of data to determine their toxicity, by multiplying their characterization factor "freshwater ecotoxicity" (Andreasi Bassi, S. et al., 2023) by their unit dose (in accordance with the Order of 27 April 2017). In line with the ADEME proposal for environmental labelling (ref???), the characterization factor is doubled for organic molecules compared to mineral molecules (e.g.: copper). For each production method, we then calculate the average toxicity of products used in organic or conventional agriculture as the weighted average of the toxicity of the four products by the number of unit doses (NODU) corresponding, used in France in 2020 (see tab "A.5.1_substance_top10" of supp_data.xlsx file).
+
+## Estimation of husbandry practices from accounting data
+
+Estimating the quantity and nutritional quality of livestock feed is necessary to estimate the amount of nitrogen excreted by livestock according to IPCC recommendations (IPCC Guidelines 20191). This estimate also allows for the quantification of crop practices associated with animal feed, either on-farm (in the case of on-farm produced and consumed food) or off-farm. We thus reconstitute a «pseudo-farm» gathering all the surfaces necessary for feeding the livestock.
+
+### Quantity and nutritional quality of livestock feed
+
+The quantity of feed purchased is estimated by dividing the value of the FADN feed concentrate and feed coarse feed variables by the 2020 Farm Inputs Purchase Price Index (FOPI) for animal feed (ref INSEE?). This total kg feed per farm is then allocated to different feed types (e.g. soft wheat grains, soybean meal and corn silage) using the volumes consumed nationally as a distribution key (Sailley et al., 20211; see tab "TT_feed_purchased" of supp_data.xlsx file).
+
+The amount of on-farm crop feed ingested by livestock is estimated by taking the quantity of crops sold and the quantity of crop produced, which are variables reported in FADN. The amount of grass produced on the farm’s grassland is estimated from national average grassland yields (Agreste SAA 20201; see tab "yield_SAA_Agreste_2020" in supp_data.xlsx file).
+
+The sum of the two above quantities gives the total amount of food consumed on the farm. This total feed quantity is then distributed among the different animals using the average French ration in tonnes of dry matter per animal and per year as a distribution key (AROPAJ1). The proportion of raw protein provided by the feed is estimated from the nutritional values in dry matter entered in the INRA-CIRAD-AFZ feed tables2 (ref. See tab "feed_table_all_as_DM" of supp_data.xlsx file).
+
+### Crop practices for animal feed production
+
+ The crop practices applied to the farm’s feed areas are derived directly from available data for the farm (see section 3.2.4). With the exception of soybean, the cultivation practices applied to the areas required for the production of purchased food are approximated to the average practices in France calculated per crop in our study, distinguishing organic and conventional agriculture. The purchased food component identified as soybean meal (Sailley et al., 20211) is assumed to be imported from Brazil (Overmars, Padella, et al. 20152). The BVI of Brazilian soybeans is taken from Lindner and Koch (2022)3 and scaled to the values estimated in our study by correcting for the BVI ratio of conventional French wheat calculated in our study on that estimated by Lindner and Koch (2022)4  ; Cf. tab "soybean" from supp_data.xlsx). ***change for landscape effect***
+ 
+## Landscape Effects Estimation
+
+***check section***
+*In order to take into account the landscape dimension in the BVI model, we estimate three parameters from the pairing between the RPG, the Hedge layer of the BD Topo® and the RA/SIQO/RICA matched base: the density of hedges, the size of agricultural parcels and cultural diversity. Hedge density is the ratio of the sum in linear metres of hedge to the area of the holding (UAA). For the calculation of linear lengths, we use the procedure detailed above in a similar work at the scale of the regions of France. The average size of the plots is the ratio of the UAA to the number of plots. For cultural diversity, we calculate the inverse Simpson index (2 D; Equation 7).*
+
+*Equation 7: where R is the number of different crops on the holding, nor the area of crop i and N is the total area of crops.*
+
+
+## Model calibration and validation according to litterature
+
+***write section***
+
+## Comparison of practices and their impact on biodiversity between certified and conventional products
+
+### Choice of labels
+
+The choice of labels studied was made on a representative criterion. Thus, labels for which more than 30 farms were registered in the FADN are retained. Labels with geographical overlap are grouped according to the most frequent designation, after verification that the «firm» sections of the specifications are similar. For example, all cheeses with a protected designation of origin (AOC & AOP) produced in Franche-Comté are grouped under the name "Comté & Morbier" (AOP & AOC Comté, AOP & AOC Morbier, AOP & AOC Mont d'Or or Vacherin du Haut-Doubs), those produced in Savoie are grouped under the name "Fromages de Savoie" (IGP Emmental de Savoie, IGP Raclette de Savoie, IGP Tomme de Savoie, AOP & AOC Reblochon or Reblochon de Savoie), those produced in Auvergne under the name "Bleu d'Auvergne & Cantal" (AOP & AOC Bleu d'Auvergne, AOP & AOC Cantal or Fourme de Cantal).
+
+### Comparison of averages between certified and conventional production
+
+The effect of labelling on agricultural practices and their impact on biodiversity is estimated by ANOVAs on a linear model, followed by Tukey HSD (p-value 0.05) tests using the agriculturae package under R (version 1.3-7; de Mendiburu F et al., 20201).
+
+Then, in order to compare the impact of equal farm production on all other things, we use a matching procedure. For this, we calculate a propensity score for each holding by checking for the standard gross production of the holding, the region in which it is located, whether it is located in a mountain area or not  («Mountain Area» category of the natural handicap compensation), the age and level of training of the manager of the holding. We then select for each certified farm three conventional counterfactual that are located in the same region and have the closest propensity scores. We then determine the difference between each variable of the certified production (biodiversity impact or practices) and the average value of its three counterfactual. We then perform a matched Student test on these differences by correcting the p-values obtained by the Bonferroni method.
+
+# Results
+
+We present here preliminary results, as not all elements of the method could be included in the time allotted. Specifically, only the parameters described in to 12 are included: tillage, intensity of fertilization and application of plant protection products. In order to properly inform the environmental display, it is essential to wait for the inclusion of all parameters described in the method, as well as the calibration and validation of the model by data from the literature (Chapter 2) and the analysis of the specifications (Chapter 5 part of the specifications). 
+
+## Certified farms in France
+
+While the FA recorded 416,478 farms in 2020, of which 108,702 declared a label for an OHSS, excluding organic farming (26% of the FA’s population), 2,920 of these farms were found among the 7,355 farms in the FADN 2020 (40% of the FADN population). Of these 2,920 farms, 42% reported a label for wines and other spirits only. Excluding the wine and other spirits sectors, FADN records 1,694 farms offering 289 different certified products, or 3% of the 50,845 French farms that declared a label, excluding wines and spirits and organic farming, identified in the AR. In addition, the FADN identifies 686 of the 37,661 organic farms reported in the AR (9% of the AR population), or just 2%. In this study, a BVIAS score could be estimated for the productions of 5,311 farms in the FADN, 7% of which were organic and 25% had declared a label for another SIQO, the rest of the workforce corresponding to holdings that had declared no labels and said «conventional». 
+
+## Comparison of impacts on biodiversity
+
+For a given area of production (e.g. one hectare), organic farming has on average twice the impact of conventional farming (Fig. 8). For cereals, the average impact of conventional crops (BVIASha) is 0.22 whereas organic produce has an average impact of 0.11. The same applies to milk production: while one hectare of conventional milk has an average impact of 0.17, the same hectare used for organic milk has an impact of 0.09. For milk production, only geographical indications (PDO - PDO and PGI) of mountain areas have an average impact per hectare lower than conventional. This is particularly the case for the AOP Comtoises, whose impact per hectare is 26% lower than the average French conventional milk production. When comparing these Comté & Morbier farms only to similar conventional farms (matching), the difference in impact per hectare is reduced by half (13%). Conversely, some dairy labels such as Beurre de Charentes – Poitou have an impact per hectare similar to that of conventional milk. This is also the case for the production of Label Rouge soft wheat. If we compare the products, it is clear that for one hectare, cereal production has a greater impact on biodiversity than milk production (Tab. 8).
+
+::: {#fig-results_ha}
+
+![](images/fig_diagram_simpl.svg)
+
+**Biodiversity impact per unit of area (hectare) for some labels and products.** The mean (point), 95% confidence interval (solid bar) and standard deviation (dotted bar) are presented here as well as the numbers (n), statistical groups of averages before matching (letters; Tukey HSD p-value 0.05) and the significance of comparisons after matching (* ; paired t-test p-value 0.05). The full results for all labels and products studied are presented in Table XXX.
+
+:::
+
+::: {#tab-comp_lindner_BVIAS}
+
+Comparison of average scores for common wheat and dairy products calculated from Agribalyse (Lindner and Koch (2022)1; detailed data available on request) and FADN
+
+'\*' Initial value for 1 kg of Comté, corrected for the ratio of XX litres of milk required to produce 1 kg of Comté (XXref)
+
+:::
+
+For a given weight of product (e.g. one tonne), certified and conventional productions have on average a similar impact (Fig. 9). Even among labels that had a lower impact per hectare, such as organic farming or Comté & Morbier labels, none has an average impact per tonne different from the average impact of conventional productions. This result is maintained when comparing similar farms (matching technique by propensity score), except for the impact of a tonne of common wheat which is higher in organic farming compared to conventional and vice versa, for the impact of one tonne of summer cereal mix which is lower in organic farming compared to conventional (Fig. 8,  and 10).
+
+When comparing products, it is found that for a given weight (e.g. one tonne of wheat vs. one tonne of cheese), the production of cereals has a lower impact on biodiversity than the production of milk (Tab. 8).
+
+::: {#fig-results_t}
+
+Biodiversity impact per unit of product (ton) for some labels and products. The mean (point), 95% confidence interval (solid bar) and standard deviation (dotted bar) are presented here as well as the numbers (n), statistical groups of averages before matching (letters; Tukey HSD p-value 0.05) and the significance of comparisons after matching (* ; paired t-test p-value 0.05). The full results for all labels and products studied are presented in Table XX.
+
+:::
+
+## Comparison of farming and husbandry practices
+
+For cereal production on arable crops, only those of organic farms differ significantly from those of conventional farms (Fig. 9). First, organic farms do not use nitrogen mineral fertilizers. However, organic fertilization on organic farms is more than three times higher than on conventional farms, leading to similar total nitrogen fertilization between these two production modes. Second, organic grain production consumes 96% less plant protection products than conventional production. This reduction in inputs is concomitant with lower yields of organic cereals. Conversely, no difference in input use or yield is recorded for soft wheat production under Red Label. As regards tillage, no difference is noted between conventional and certified production. 
+
+::: {#fig-results_practices_crops}
+
+Differences in crop cultivation between certified and conventional cereal production. '\*' Significant difference after matching (paired t-test, FDR p-value 0.05)
+
+
+:::
+
+For milk production, the proportion of grassland clearly differentiates between certified and conventional husbandries ( and Tab. 11). Conventional husbandries feed their livestock with 22% permanent grassland and 17% temporary grassland on average, then the share of grassland rises to 46% of permanent grasslands in Comté & Morbier and 34% of temporary grasslands in organic farming ( and Tab. 11). The labels are distinguished by the nature of the grasslands used for their livestock. Indeed, while the farms in organic farming use mostly temporary grasslands, the herds of farms under labels Comté & Morbier, Bleu d'Auvergne & Cantal, Fromages de Savoie and Munster graze mainly permanent grasslands. In addition, the farms under organic farming labels, Comté & Morbier, Bleu d'Auvergne & Cantal and Fromages de Savoie are distinguished by a lower loading rate than conventional farms (from 0.7 to 0.9 UGB/ha of SFP on average for these labels against 1.4 for conventional labels; and Tab. 11). The organic farming label also stands out for greater autonomy in feeding (lower proportion of concentrates in cow feed: 23% compared to 40% for conventional). However, some labels have lower yields, with lower milk productivity per hectare of pseudofarm. There are two different reasons for this decline in returns. For the organic label, the production of milk per cow is lower than that of conventional and other labels. For Comté & Morbier, Bleu d'Auvergne & Cantal and Fromages de Savoie, the cows are as productive as in conventional farms, but the loading rate, or the number of cows per hectare, is lower ( and Tab. 11). Unlike all other labels, the AOP Beurre de Charentes – Poitou does not differ in any way from conventional farming.
+
+In addition, the crop practices applied for the production of dairy cow feed differ according to the labels (Fig. S2). Thus, in organic farms, as with field crops, food is produced with fewer plant protection products and mineral fertilizers. Finally, contrary to what is observed for cereals, the total nitrogen input per hectare is lower than in conventional livestock. In addition, other labels use fewer inputs than conventional farms, such as Comté & Morbier and Fromage de Savoie where the farms use up to 26% less mineral fertilizer or Beurre de Charentes – Poitou label with 18% less plant protection products. Finally, organic farms, Beurre de Charente – Poitou, Comté & Morbier and Fromages de Savoie work less soil than conventional farms.
+
+::: {#fig-results_practices_}
+
+Differences in husbandry practices between certified and conventional dairy products. * Significant difference after matching (paired t-test, FDR p-value 0.05)
+
+:::
+
+# Discussion
+
+## Organic farming and county: practices and impacts different from those of conventional production
+
+Our preliminary results show differences in impact per hectare between some certified productions (organic farming, Comté & Morbier, Bleu d'Auvergne & Cantal, Savoie cheeses) and their conventional counterfactual. The observed differences between organic and conventional agriculture, and their order of magnitude, are consistent with literature (Gong et al., 20221; Lindner et al., 2022; Tuck et al., 20142). We find that on average, organic farming impacts 50% less biodiversity than conventional agriculture. The magnitude of this effect is similar to that found by applying the BVI method on the ICV Agribalyse database (Tab. 8; Lindner, 2022). Similarly, a 23% increase in biodiversity (Gong et al., 20223) and 30% more species (Tuck et al., 2014) are estimated by meta-analysis in organic versus conventional crops 4; Tuck et al., 2014). For the other labels, this study is, to our knowledge, the first to estimate the differences in impact on biodiversity between production modes.
+
+These differences in impact per hectare between organic and conventional agriculture are explained by the differences in estimated practices. For crop production, the use of plant protection products is the main factor differentiating organic farming practices from conventional ones. Indeed, while the cereals produced in organic farming do not use mineral nitrogen fertilizers but much more organic manure, their nitrogen balance per hectare is no different from that of conventional productions. Only the minor use of pesticides appears to be significantly different between the two modes of production. This is consistent with the specifications of organic farming, which prohibits the use of synthetic plant protection products but allows the use of organic nitrogen, regardless of whether it comes from a organic or conventional husbandry. Conversely, no difference in practices is observed for the production of soft wheat in Label Rouge, which is consistent with the specifications that focus mainly on the product quality and organoleptic properties without heavy constraint on wheat production (ref spec).
+
+For milk production, the share of grassland is the main practice which differs between certified and conventional husbandries. Thus, organic farms and those certified in Comté & Morbier have a ***share*** of permanent grassland twice as large as conventional farms.
+
+Again, it is reasonable to assume that the specifications explain some of these differences. For example, while the 60% threshold of self-sufficiency is a requirement in the specifications for organic husbandry practices, it does not set any requirements on the quantity of grassland (Production and labelling of organic products, 20181). The higher presence of temporary grassland may be thought to be an indirect practice induced by the organic farming label requirements on fertilization and pesticides. Indeed, the insertion of temporary grassland in rotation is an agro-ecological strategy recognized to offset the use of synthetic inputs (eg. Franzluebbers and Gastal, 2019)2. Conversely, the specification for the designation of origin "Comté" specifies that the basic ration of the herd "must be made up of forage from grassland in the geographical area", that each cow must have at least one hectare of grassland and that the share of temporary grasslands must represent “a maximum of 15% of the forage area of the holding” (Cahier des charges de l'appellation d’origine « Comté », 2015).
+
+## The delicate balance between biodiversity impact and yields
+
+The differences between impact per hectare and impact per tonne illustrate the importance of balancing direct releases to the environment with yields in quantifying an environmental impact compatible with a display on products. This delicate balance is well documented in the literature (Bellassen et al., 2021a1; Gong et al., 20222; Le Mouel et al., 2018)3 . Note that the differences in yields we observe (e.g. -XX% and -XX% for organic wheat and grain corn respectively, after matching) are higher than the gross results of global meta-analyses of -20% (Ponisio et al., 2015)4 to -25% (Seufert et al., 20125; Smith et al., 20196). These differences are explained by a double precaution to be taken in reading the meta-analysis results. On the one hand, meta-analyses did not weigh their results against the relative importance of crops in human food. For example, the average is as much for nuts where organic farming has almost no yield difference as for wheat where the difference within the same meta-analyses is in the range of -35 to -40% (Seufert et al., 20127; Smith et al., 20198). On the other hand, meta-analyses are mainly based on experimental plots where organic yields are probably overestimated compared to real farms where human labour is more difficult to replace inputs. Thus, our performance results are consistent with the in-farm surveys (CA Occitanie and CER Occitanie, 20169; Coinon, 202210).
+
+This balance between direct releases and yields is slightly less pronounced in husbandry. Meier et al. (2015)1 shows milk yields per hectare of XX% lower in organic farming on average, compared to XX% for Lambotte et al. (2023)2. For geographical indications in animal production, the median difference in yield per hectare of pseudo-farm as reported by Bellassen et al., 2021a3 is only -11%.
+
+Note that this important offsetting between direct releases and yields is also observed in Lindner et al. (2022)1, as well as for other environmental impacts such as the carbon footprint (Bellassen et al., 2021b)2 or the water footprint (Bodini et al., 2021)3. Within the model, the greater or lesser compensation between direct releases and yields is highly sensitive to the difference in levels of biodiversity in a natural space and in a cultivated plot (Gong et al., 20224). Beyond our modelling framework, in a general equilibrium model or consequential LCA, lower yields could be less damaging to biodiversity than in our model – for example if demand is elastic and supply increases at the intensive margin – or more damaging to biodiversity – if demand is inelastic and new production to meet this is extensive on the margins of ecosystems with higher diversity (e.g. tropical forest). To our knowledge, studies on this subject are rare for climate impact (Bellora and Bureau, 20165; Searchinger et al., 2018)6 and non-existent for biodiversity.
+
+## Two main limitations to be removed before informing the environmental signage: validation by literature and inclusion of landscape effects
+
+Our study goes beyond existing in situ measurement or life cycle surveys that often cover a small number of farms. Indeed, we estimate here the biodiversity value of dozens of productions throughout France and compared those from certified and conventional farms with similar geographical and technical-economic characteristics. This large scale survey is made possible by the use of FADN data, which provides a sample of production and holdings of an incomparable size with an empirical study. We therefore provide here a proof of concept for an objective, robust and operational method to calculate the impact of food products on biodiversity from agricultural accounting data. This method, applied here to the comparison of certified products, also allows for comparisons between different products (e.g. milk vs wheat), or other types of differences (e.g. between regions, between farm sizes, etc.) Provided that sufficient accounting data is available for each of the groups to be compared. It is also compatible with the environmental display and the LCA framework since the impacts on biodiversity cumulate with the quantities consumed.
+
+However, before informing the environmental display, more parameters must be included in the BVIAS model, including those related to landscape effects of agroecological infrastructure and crop heterogeneity. Here, only three cropping practices are estimated, the same as those applied to Agribalyse, whereas the initial model of Lindner et al. (2019)1 provides for up to 14. First, data in the databases we use, such as FADN and crop surveys, could go beyond the estimated intensity of fertilization here, thus detailing the fertilization procedures, in particular the portions of manure and liquid fertilizer. Then, the inclusion of other databases and in particular the intersection between RPG2 and the hedge layer of BD Topo®3 allows for an estimate of the average plot size, crop diversity and linear metre of average hedge at the farm scale. These landscape elements are crucial for agricultural biodiversity (Lüscher et al., 20164; Sirami et al., 2019)5, it is essential to consider them in the environmental display. Other landscape features also have a positive effect on biodiversity, such as the use of plant coverings (refs?), but they seem more complex to incorporate directly into the method because there is no available database to our knowledge that identifies them.
+
+## To Environmental Labelling and Beyond
+
+We show here that the use of accounting data to inform environmental signage is feasible, robust and promising. However, accounting data is often only a proxy for the intensity of a practice we are trying to characterize. For example, for tillage, although the estimated diesel consumption for ploughing is consistent with national averages (Chenu and Butault, 2015)1, we were unable to estimate whether it was deep or shallow. Similarly, for organic fertilizer inputs from farms without livestock - the FADN variable for this input is very poorly informed, we had no choice but to apply a flat rate value equal to the national average (Enquête Pratiques Culturales 20172). Recognising the potential of these accounting data for assessing the environmental impact of agriculture, members of the European Commission and the European Parliament reached an agreement to amend the FADN regulation (Conversion of the Farm Accountancy Data Network into a Farm Sustainability Data Network, 20233). This new text aims to transform FADN into a Farm Sustainability Information Network (RIDEA) in order to better reflect the objectives of the "From Farm to Table" strategy. This amendment extends the collection of data, previously limited to microeconomic and accounting data, to include environmental data that allows for the estimation of greenhouse gas emissions and carbon storage, soil health, water use and the adoption of agro-ecological practices. These inputs will not only allow for a more detailed estimation of the agricultural practices on the plot, but also include other variables impacting biodiversity ***(xxx give an example)***.
+
+In our study, two of the five main factors for biodiversity collapse listed by IPBES are taken into account: land use and pollution. Of the remaining three, only one is significantly influenced by agriculture: climate change. It is the third most important threat to biodiversity and is expected to become the main threat by the end of the century (IPBES, 2019)1. The food sector is responsible for 26% of global greenhouse gas emissions, and these emissions are mostly farm-based (Poore and Nemecek 2018). The estimation of greenhouse gas emissions from different agricultural products and its inclusion in a biodiversity impact model such as BVIAS seems essential in the medium term.
+
+
+
+
+
+
+
+
+
+# To check
+
+
+-   database name translation
+-   ref
+-   fig
+-   supp mat
+
+# comments
+
+24-05-07 Julie: D’une manière générale il me parait important de caler quelque part une discussion sur la représentativité du RICA. En effet, même s’il permet effectivement d’avoir des informations sur une grand nombre d’exploitation (par rapport à des études de cas ou autre), il n’est pas construit pour être représentatif des exploitations AB ni des exploitations AOP/LR ; encore moins AOP par AOP. A mon avis ce n’est pas du tout une limite négligeable, et cela nuance les résultats. Ainsi ce n’est pas parce qu’on trouve que les exploitations RICA du Comté ont en moyenne telle et telles dépenses que cela permet de conclure sur les exploitations impliquées en Comté (qui pourraient être en moyenne plus grandes/plus petites/ plus ou moins spécialisées…).
+
+
+# thanks
+
+Christian Bockstaller conseils et aide Fabrice Vinatier conseils et aide Yoann Morin for his help on econometrics
+
+# References

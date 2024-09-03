@@ -1,0 +1,1152 @@
+---
+title: "BiodivLabel Analysis Script"
+author: "Sarah Huet"
+format: pdf
+editor: source
+editor_options: 
+  chunk_output_type: console
+knitr: 
+  opts_chunk: 
+    collapse: true
+    comment: "#>"
+    R.options:
+      knitr.graphics.auto_pdf: true
+---
+
+
+# Set up
+
+We used the RICA 2020 data.
+
+```{r packages}
+
+library(readr)
+library(readxl)
+
+library(tidyr)
+library(dplyr)
+library(tibble)
+library(stringr)
+
+library(ggplot2)
+
+library(modelsummary)
+
+rm(list = ls())
+#rm(list = names(.GlobalEnv)[grep("tmp",names(.GlobalEnv))])
+
+```
+
+# Data
+
+```{r load_model_data}
+
+tmp_resp_var_w0_match <- read_csv("CASD_export/CASD_export_240514/tmp_resp_var_w0_match.csv")
+
+tmp_resp_var_w_match <- read_csv("CASD_export/CASD_export_240514/tmp_resp_var_w_match.csv")
+
+tmp_TukeyHSD <- read_csv("CASD_export/CASD_export_240514/tmp_TukeyHSD.csv")
+tmp_paired_ttest <- read_csv("CASD_export/CASD_export_240514/tmp_paired_ttest.csv")
+
+```
+
+# Plots
+
+## BVI
+
+```{r BVIAD_ha}
+
+# plot data ----
+
+tmp_plot_data <- tmp_resp_var_w0_match %>%
+  mutate(match = "no_match") %>%
+  filter(FQS == "Conventionnel") %>%
+  rbind(.,tmp_resp_var_w_match) %>%
+  # change matched counterfactual FQS for plot
+  mutate(
+    plot_y = case_when(
+      production_type == "crop" ~ paste0(product_name,match,FQS),
+      production_type == "milk" ~ paste0(match,product_name)),
+    # select my var
+    my_var = BVI_ha) %>%
+  # statistiques pivot wider
+  pivot_wider(.,id_cols = c(plot_y,production_type,product_name,FQS,match,n),names_from = statistique,values_from = my_var) %>%
+  # select only some products
+  filter(product_name %in% c("Ble tendre","Mais grain","Conventionnel","AB","Comte - Morbier","Beurre de Charentes-Poitou")
+         & match %in% c("no_match","Ble tendre__AB","Ble tendre__LR","Mais grain__AB",
+                        "NA__AB","NA__Beurre de Charentes-Poitou","NA__Comte - Morbier"))
+
+# plot stat ----
+
+tmp_plot_stat <- tmp_TukeyHSD %>%
+  mutate(match = "no_match") %>%
+  # select practice
+  filter(practice == "BVI_ha") %>%
+  # select only some products
+  filter(product_name %in% c("Ble tendre","Mais grain","Conventionnel","AB","Comte - Morbier","Beurre de Charentes-Poitou"))%>%
+  # change matched counterfactual FQS for plot
+  mutate(
+    plot_y = case_when(
+      production_type == "milk" & FQS == "Conventionnel" & match != "no_match" ~ gsub("NA__","",match),
+      .default = product_name),
+    plot_color = case_when(
+      FQS == "Conventionnel" & match == "Ble tendre__LR" ~ "Contrefactuel_LR",
+      FQS == "Conventionnel" & match != "no_match" ~ "Contrefactuel",
+      .default = FQS),
+    plot_facet = production_type)
+
+tmp_plot_stat <- tmp_plot_data %>%
+  rowwise() %>%
+  mutate(
+    Tukey_HSD_stat_grp = tmp_TukeyHSD$stat_grp[
+      tmp_TukeyHSD$production_type == production_type &
+        tmp_TukeyHSD$product_name
+    ]
+  )
+
+
+tmp_plot_stat <- tmp_TukeyHSD %>%
+  mutate(match = "no_match") %>%
+  left_join(.,tmp_paired_ttest %>% rename(FQS = label)) %>%
+  # select only some products
+  filter(product_name %in% c("Ble tendre","Mais grain","Conventionnel","AB","Comte - Morbier","Beurre de Charentes-Poitou")) %>%
+  # change matched counterfactual FQS
+  mutate(
+    plot_y = case_when(
+      production_type == "milk" & FQS == "Conventionnel" & match != "no_match" ~ gsub("NA__","",match),
+      .default = product_name),
+    plot_color = case_when(
+      FQS == "Conventionnel" & match == "Ble tendre__LR" ~ "Contrefactuel_LR",
+      FQS == "Conventionnel" & match != "no_match" ~ "Contrefactuel",
+      .default = FQS),
+    plot_facet = production_type,
+    # select my var
+    my_var = BVI_ha)
+  
+
+# extract FQS colors ----
+tmp_colors <- tibble(
+  FQS = c("AB","AB (en conversion)","AOP - AOC","Conventionnel","Contrefactuel","Contrefactuel_LR","IGP","IGP;LR","LR",
+          "Comte - Morbier","Bleu d'Auvergne - Cantal","Fromages de Savoie","Munster","Beurre de Charentes-Poitou"),
+  values = c("palegreen3","darkcyan","plum4","darkgrey","#333333","indianred4","goldenrod3","goldenrod3","indianred",
+             "plum4","plum4","goldenrod3","plum4","plum4"),
+  labels=c("AB","AB (en conversion)","AOP & AOC","Conventionnel","Contrefactuel","Contrefactuel_LR","IGP","IGP","Label Rouge",
+           "Comte - Morbier","Bleu d'Auvergne - Cantal","Fromages de Savoie","Munster","Beurre de Charentes-Poitou"))
+names(tmp_colors$values) <- tmp_colors$FQS 
+names(tmp_colors$labels) <- tmp_colors$FQS
+
+# plot ----
+
+ggplot() +
+  # mean
+  geom_point(data = tmp_plot_data,
+             aes(x = plot_y, y = mean, fill = FQS),
+             shape = 21, size=2, stroke = 1, position = position_dodge(width = 0.75)) +
+  # CI95%
+  geom_errorbar(data = tmp_plot_data,
+             aes(x = plot_y, ymin = mean-1.96*(sd/sqrt(n)), ymax = mean+1.96*(sd/sqrt(n)), colour = FQS),
+             linewidth=1,width = 0.5,position = position_dodge(width = 0.75)) +
+  # sd
+  geom_errorbar(data = tmp_plot_data,
+             aes(x = plot_y, ymin = mean-sd, ymax = mean+sd, colour = FQS),
+             linewidth=0.5,width = 0.5,linetype = "dashed",position = position_dodge(width = 0.75)) +
+  # n
+  geom_text(data = tmp_plot_stat,
+            aes(x = plot_y, y=max(mean+sd)*1.1,colour = FQS,label = paste0("n = ",n)),
+            size=4.5,position = position_dodge(width = 1)) +
+  # stat groups
+  #geom_text(data = tmp_stat_grp,
+   #         aes(x = product_name,y=0,colour = FQS,label = stat_grp),
+    #        size=4.5,position = position_dodge(width = 1))+
+  # theme
+  coord_flip() +
+  facet_wrap(vars(production_type),scales = "free_y",ncol = 1) +
+  scale_fill_manual(values = tmp_colors$values,labels = tmp_colors$labels) +
+  scale_colour_manual(values = tmp_colors$values,labels = tmp_colors$labels) +
+  theme_light()
+
+```
+
+```{r BVIAD_ha}
+
+# plot data ----
+
+tmp_plot_data <- tmp_resp_var_w0_match %>%
+  mutate(match = "no_match") %>%
+  filter(FQS == "Conventionnel") %>%
+  rbind(.,tmp_resp_var_w_match) %>%
+  # change matched counterfactual FQS for plot
+  mutate(
+#    plot_y = case_when(production_type == "milk" & FQS == "Conventionnel" & match != "no_match" ~ gsub("NA__","",match),.default = product_name),
+    plot_y = case_when(
+      production_type == "crop" ~ paste0(product_name,match,FQS),
+      production_type == "milk" ~ paste0(match,product_name)),
+    plot_color = case_when(
+      FQS == "Conventionnel" & match == "Ble tendre__LR" ~ "Contrefactuel_LR",
+      FQS == "Conventionnel" & match != "no_match" ~ "Contrefactuel",
+      .default = FQS),
+    plot_facet = production_type,
+    # select my var
+    my_var = BVI_ha) %>%
+  # statistiques pivot wider
+  pivot_wider(.,id_cols = c(plot_y,plot_color,plot_facet,match,n),names_from = statistique,values_from = my_var) %>%
+  # select only some products
+  filter(plot_y %in% c("Ble tendre","Mais grain","Conventionnel","AB","Comte - Morbier","Beurre de Charentes-Poitou"))
+
+# plot stat ----
+
+tmp_plot_stat <- tmp_TukeyHSD %>%
+  mutate(match = "no_match") %>%
+  # select practice
+  filter(practice == "BVI_ha") %>%
+  # select only some products
+  filter(product_name %in% c("Ble tendre","Mais grain","Conventionnel","AB","Comte - Morbier","Beurre de Charentes-Poitou"))%>%
+  # change matched counterfactual FQS for plot
+  mutate(
+    plot_y = case_when(
+      production_type == "milk" & FQS == "Conventionnel" & match != "no_match" ~ gsub("NA__","",match),
+      .default = product_name),
+    plot_color = case_when(
+      FQS == "Conventionnel" & match == "Ble tendre__LR" ~ "Contrefactuel_LR",
+      FQS == "Conventionnel" & match != "no_match" ~ "Contrefactuel",
+      .default = FQS),
+    plot_facet = production_type)
+
+tmp_plot_stat <- tmp_plot_data %>%
+  rowwise() %>%
+  mutate(
+    Tukey_HSD_stat_grp = tmp_TukeyHSD$stat_grp[
+      tmp_TukeyHSD$production_type == production_type &
+        tmp_TukeyHSD$product_name
+    ]
+  )
+
+
+tmp_plot_stat <- tmp_TukeyHSD %>%
+  mutate(match = "no_match") %>%
+  left_join(.,tmp_paired_ttest %>% rename(FQS = label)) %>%
+  # select only some products
+  filter(product_name %in% c("Ble tendre","Mais grain","Conventionnel","AB","Comte - Morbier","Beurre de Charentes-Poitou")) %>%
+  # change matched counterfactual FQS
+  mutate(
+    plot_y = case_when(
+      production_type == "milk" & FQS == "Conventionnel" & match != "no_match" ~ gsub("NA__","",match),
+      .default = product_name),
+    plot_color = case_when(
+      FQS == "Conventionnel" & match == "Ble tendre__LR" ~ "Contrefactuel_LR",
+      FQS == "Conventionnel" & match != "no_match" ~ "Contrefactuel",
+      .default = FQS),
+    plot_facet = production_type,
+    # select my var
+    my_var = BVI_ha)
+  
+
+# extract FQS colors ----
+tmp_colors <- tibble(
+  FQS = c("AB","AB (en conversion)","AOP - AOC","Conventionnel","Contrefactuel","Contrefactuel_LR","IGP","IGP;LR","LR",
+          "Comte - Morbier","Bleu d'Auvergne - Cantal","Fromages de Savoie","Munster","Beurre de Charentes-Poitou"),
+  values = c("palegreen3","darkcyan","plum4","darkgrey","#333333","indianred4","goldenrod3","goldenrod3","indianred",
+             "plum4","plum4","goldenrod3","plum4","plum4"),
+  labels=c("AB","AB (en conversion)","AOP & AOC","Conventionnel","Contrefactuel","Contrefactuel_LR","IGP","IGP","Label Rouge",
+           "Comte - Morbier","Bleu d'Auvergne - Cantal","Fromages de Savoie","Munster","Beurre de Charentes-Poitou"))
+names(tmp_colors$values) <- tmp_colors$FQS 
+names(tmp_colors$labels) <- tmp_colors$FQS
+
+# plot ----
+
+ggplot() +
+  # mean
+  geom_point(data = tmp_plot_data,
+             aes(x = plot_y, y = mean, fill = plot_color),
+             shape = 21, size=2, stroke = 1, position = position_dodge(width = 0.75)) +
+  # sd
+  geom_linerange(data = tmp_plot_data,
+             aes(x = plot_y, ymin = mean-sd, ymax = mean+sd, colour = plot_color),
+             size=0.5,position = position_dodge(width = 0.75)) +
+  # n
+  geom_text(data = tmp_plot_data,
+            aes(x = plot_y, y=max(mean+sd)*1.1,colour = plot_color,label = paste0("n = ",n)),
+            size=4.5,position = position_dodge(width = 1)) +
+  # stat groups
+  #geom_text(data = tmp_stat_grp,
+   #         aes(x = product_name,y=0,colour = FQS,label = stat_grp),
+    #        size=4.5,position = position_dodge(width = 1))+
+  # theme
+  coord_flip() +
+  facet_wrap(vars(plot_facet),scales = "free",ncol = 1) +
+  labs(y="BVI / ha", x="Productions",
+       title = "BVI par hectare",
+       subtitle = "Moyenne et écart interquartile, effectifs (n) et groupes statistiques (lettres pour HSD)",
+       caption = "Tukey HSD, p-value <= 0.05",
+       fill = "Label",colour = "Label")+
+  #scale_x_discrete(labels = tmp_crop_name$LIBELLE) +
+  scale_fill_manual(values = tmp_colors$values,labels = tmp_colors$labels) +
+  scale_colour_manual(values = tmp_colors$values,labels = tmp_colors$labels) +
+  theme_light()
+
+```
+
+```{r bvi_kg}
+
+# plot data ----
+
+tmp_plot_data <- tmp_ProdSIQO %>%
+  # rename variables
+  rename(FQS = label,my_var = BVI_kg) %>%
+  # add EXTR2 variable
+  left_join(.,RICA_2020 %>% select(IDENT,EXTR2))
+
+# plot data description ----
+
+tmp_plot_data_descript <- tmp_plot_data %>% 
+  # summarise BVI
+  group_by(production_type,product_name,FQS) %>%
+  summarise(
+    # export rules
+    n=n(),
+    max_percent=max(my_var)/sum(my_var),
+    n_w= sum(EXTR2),
+    max_percent_w=max(my_var*EXTR2)/sum(my_var*EXTR2),
+    
+    # var
+    mean = mean(my_var, na.rm = T),
+    sd = sd(my_var, na.rm = T),
+    se = sd(my_var, na.rm = T)/sqrt(n),
+    
+    #n_eff = sum(EXTR2)^2 / sum(EXTR2^2),
+    mean_w = weighted.mean(my_var,EXTR2),
+    sd_w = sqrt(sum(EXTR2 * ((my_var - mean_w)^2), na.rm = T)/
+                            (sum(EXTR2, na.rm = T)-1)),
+    se_w = 
+      sqrt(
+        ( ( (sum(EXTR2*my_var^2,na.rm = T)) / (sum(EXTR2,na.rm = T)) ) -  (mean_w^2) )
+        *
+          ( (sum(EXTR2^2,na.rm = T)) / ( (sum(EXTR2,na.rm = T)^2) - (sum(EXTR2^2,na.rm = T)) ) )
+      )
+    ) %>% ungroup()
+
+
+
+## extract FQS colors
+tmp_colors <- tibble(
+  FQS = c("AB","AB (en conversion)","AOP - AOC","Conventionnel","IGP","IGP;LR","LR",
+          "Comte - Morbier","Bleu d'Auvergne - Cantal","Fromages de Savoie","Munster","Beurre de Charentes-Poitou"),
+  values = c("palegreen3","darkcyan","plum4","darkgrey","goldenrod3","goldenrod3","indianred",
+             "plum4","plum4","goldenrod3","plum4","plum4"),
+  labels=c("AB","AB (en conversion)","AOP & AOC","Conventionnel","IGP","IGP","Label Rouge",
+           "Comte - Morbier","Bleu d'Auvergne - Cantal","Fromages de Savoie","Munster","Beurre de Charentes-Poitou"))
+names(tmp_colors$values) <- tmp_colors$FQS 
+names(tmp_colors$labels) <- tmp_colors$FQS 
+
+
+# stat ----
+
+#tmp = pairwise.t.test(tmp_plot_data$my_var[tmp_plot_data$product_RICA_CODE == 111],g = tmp_plot_data$FQS[tmp_plot_data$product_RICA_CODE == 111])
+
+# ANOVA + Tukey HSD test -- crops
+tmp_stat_data <- tmp_plot_data %>% filter(production_type != "milk")
+## lm
+tmp_lm = lm(tmp_stat_data$my_var ~ tmp_stat_data$product_name * tmp_stat_data$FQS)
+## anova
+tmp_aov = aov(tmp_lm)
+summary(tmp_aov)
+## post-hoc Tukey HSD test
+library(agricolae)
+tmp_comp = HSD.test(tmp_aov,trt = c('tmp_stat_data$product_name','tmp_stat_data$FQS'),alpha = 0.05, group = T)
+tmp_stat_grp1 <- tibble(
+  "trt" = rownames(tmp_comp[["groups"]]),
+  "stat_grp" = unlist(tmp_comp[["groups"]][["groups"]])
+) %>%
+    mutate(
+    product_name = unlist(str_split(trt,pattern = ":"))[seq(1,nrow(tmp_comp[["groups"]])*2,2)],
+    FQS = unlist(str_split(trt,pattern = ":"))[seq(2,nrow(tmp_comp[["groups"]])*2,2)]
+  ) %>%
+  # add crop / milk variable
+  left_join(.,tmp_plot_data_descript %>% select(production_type,product_name) %>% distinct())
+
+
+
+# ANOVA + Tukey HSD test -- milk
+tmp_stat_data <- tmp_plot_data %>% filter(production_type == "milk")
+## lm
+tmp_lm = lm(tmp_stat_data$my_var ~ tmp_stat_data$FQS)
+## anova
+tmp_aov = aov(tmp_lm)
+summary(tmp_aov)
+## post-hoc Tukey HSD test
+library(agricolae)
+tmp_comp = HSD.test(tmp_aov,trt = 'tmp_stat_data$FQS',alpha = 0.05, group = T)
+tmp_stat_grp2 <- tibble(
+  "trt" = rownames(tmp_comp[["groups"]]),
+  "stat_grp" = unlist(tmp_comp[["groups"]][["groups"]])
+) %>%
+    mutate(
+    product_name = trt,
+    FQS = trt
+  ) %>%
+  # add crop / milk variable
+  left_join(.,tmp_plot_data_descript %>% select(production_type,product_name) %>% distinct())
+
+tmp_stat_grp <- rbind(tmp_stat_grp1,tmp_stat_grp2)
+
+# boxplot ----
+
+tmp_plot <- ggplot() +
+  # boxplot
+  geom_boxplot(data = tmp_plot_data,
+               aes(x = as.character(product_name), y = my_var, fill = FQS),
+               alpha = 0.75,color = "#33333380",outlier.alpha = 0.5,outlier.size = 1) +
+  # weighted mean
+  geom_point(data = tmp_plot_data_descript,
+             aes(x = as.character(product_name), y = mean_w,fill = FQS),
+             shape = 21,size=2,stroke = 1,position = position_dodge(width = 0.75))+
+  # n
+  geom_text(data = tmp_plot_data_descript,
+            aes(x = product_name,y=max(tmp_plot_data$my_var)*1.1,colour = FQS,label = paste0("n = ",n)),
+            size=4.5,position = position_dodge(width = 1)
+  )+
+  # stat groups
+  geom_text(data = tmp_stat_grp,
+            aes(x = product_name,y=min(tmp_plot_data$my_var)*0.8,colour = FQS,label = stat_grp),
+            size=4.5,position = position_dodge(width = 1)
+  )+
+  # theme
+  coord_flip() +
+  scale_y_continuous(trans = "log")+
+  facet_wrap(vars(production_type),scales = "free",ncol = 1)+
+  labs(y="BVI / kg", x="Productions",
+       title = "BVI par kilo",
+       subtitle = "Ecart interquartile (tracé en boîte), moyenne pondérée par la représentativité (point central), effectifs non pondérés (n) et groupes statistiques (lettres)",
+       caption = "Tukey HSD, p-value <= 0.05",
+       fill = "Label",colour = "Label")+
+  #scale_x_discrete(labels = tmp_crop_name$LIBELLE) +
+  scale_fill_manual(values = tmp_colors$values,labels = tmp_colors$labels) +
+  scale_colour_manual(values = tmp_colors$values,labels = tmp_colors$labels) +
+  theme_light()
+
+tmp_plot
+
+tmp_plot_data %>% group_by(product_RICA_CODE,FQS) %>% summarise(mean=mean(my_var))
+
+ggsave(filename = "~/BiodivLabel/figure/fig3.svg",plot = tmp_plot, width = 297,height = 210, units = "mm")
+
+
+```
+
+## Practices
+
+### Crops
+
+```{r practice_cereals_q95_p100}
+
+
+# set practices names ----
+tmp_practice_names <- tibble(
+  practice = rev(c("A.3.1_max",
+               "A.4.5_max",
+               "A.4.5_min_max",
+               "A.4.5_org_max",
+               "A.5.1_max",
+               "yield")),
+  labels = rev(c("Travail du sol (L gazole / ha)",
+             "Fertilisation (kg N / ha)", 
+             "Fertilisation (minérale)", 
+             "Fertilisation (organique)",
+             "Produits phytosanitaires (€ / ha)",
+             "Rendement (kg / ha)")))
+names(tmp_practice_names$labels) <- tmp_practice_names$practice 
+
+# practice data ----
+# wrangle practice data
+tmp_practice_data <- tmp_ProdSIQO %>%
+  # keep only cereals
+  filter(product_RICA_CODE %in%
+           tmp_TT_crops$CODE3[tmp_TT_crops$species == "cereal" & !is.na(tmp_TT_crops$species)]) %>%
+  # add practice data
+  left_join(.,BVI_to_RICA_RA_SIQO_crops %>%
+              mutate(product_RICA_CODE = as.character(CODE3),
+                     label = FQS) %>%
+              select(IDENT,product_RICA_CODE,label,all_of(tmp_practice_names$practice))) %>%
+  # add yields
+  left_join(.,feed_by_pseudofarm %>%
+              filter(feed_origin == "feed_produced") %>%
+              mutate(product_RICA_CODE = as.character(CODE3)) %>%
+              select(IDENT,product_RICA_CODE,yield)) %>%
+  # add farm characteristic data
+  left_join(., RICA_2020 %>%
+              select(IDENT,OTEFDD,EXTR2)) %>%
+  # pivot longer
+  #pivot_longer(cols = all_of(tmp_practice_names$practice),
+   #            names_to = "practice",values_to = "value") %>%
+  # rename variables
+  rename(FQS = label)
+
+# stat Tukey ----
+
+tmp_stat_data <- tibble()
+
+for (tmp_var in tmp_practice_names$practice) {
+  
+  ## select variable
+  tmp = tmp_practice_data %>%
+    select(IDENT,product_name,FQS,all_of(tmp_var)) %>%
+    setNames(c("IDENT","product_name","FQS","value"))
+  
+  # ANOVA + Tukey HSD test
+  ## lm
+  tmp_lm = lm(tmp$value ~ tmp$product_name * tmp$FQS)
+  ## anova
+  tmp_aov = aov(tmp_lm)
+  summary(tmp_aov)
+  ## post-hoc Tukey HSD test
+  tmp_comp = HSD.test(tmp_aov,trt = c('tmp$product_name','tmp$FQS'),alpha = 0.05, group = T)
+  tmp_stat_grp = tibble(
+    "trt" = rownames(tmp_comp[["groups"]]),
+    "FQS_mean" = tmp_comp[["groups"]][["tmp$value"]],
+    "stat_grp" = unlist(tmp_comp[["groups"]][["groups"]])) %>%
+    # wrangle names
+    mutate(
+      practice = tmp_var,
+      product_name = unlist(str_split(trt,pattern = ":"))[seq(1,nrow(tmp_comp[["groups"]])*2,2)],
+      FQS = unlist(str_split(trt,pattern = ":"))[seq(2,nrow(tmp_comp[["groups"]])*2,2)],
+      max_value = max(tmp$value)
+    )
+  # compare with conventionnal
+  tmp_stat_grp <- tmp_stat_grp %>%
+    # add conventionnal stat group
+    left_join(.,tmp_stat_grp %>%
+                filter(FQS == "Conventionnel") %>%
+                select(product_name,stat_grp,FQS_mean) %>% 
+                rename(stat_grp_conv = stat_grp,
+                       conv_mean = FQS_mean)) %>%
+    # is group letter different than conventionnal?
+    rowwise() %>%
+    mutate(
+      stat_grp_conv_diff = length(intersect(unlist(strsplit(stat_grp,"")),unlist(strsplit(stat_grp_conv,"")))) == 0,
+      mean_conv_diff = (((FQS_mean - conv_mean)*100)/conv_mean)
+        )
+    
+    # extract tibble
+  tmp_stat_data <- tmp_stat_data %>%
+    rbind(tmp_stat_grp)
+  
+}
+
+tmp_plot_data <- tmp_stat_data %>% ungroup() %>%
+  mutate(FQS_signif = case_when(
+    stat_grp_conv_diff == T ~ mean_conv_diff,
+    .default = 0
+  ))
+
+# plot p100 ----
+
+tmp_title = "Pratiques des fermes labelisées par rapport aux conventionnelles - Céréales" 
+tmp_subtitle = "Pourcentage de différence entre les pratiques moyennes estimées significativement différentes entre fermes labelisées et conventionnelles"
+
+## extract FQS colors
+tmp_colors <- tibble(
+    FQS = c("AB","AB (en conversion)","AOP - AOC","Conventionnel","IGP","IGP;LR","LR"),
+  values = c("palegreen3","darkcyan","plum4","darkgrey","goldenrod3","goldenrod3","indianred"),
+  labels=c("AB","AB (en conversion)","AOP & AOC","Conventionnel","IGP","IGP","Label Rouge"))
+names(tmp_colors$values) <- tmp_colors$FQS 
+names(tmp_colors$labels) <- tmp_colors$FQS 
+
+tmp_plot <- tmp_plot_data %>%
+  # plot only wheat and corn
+  filter(product_name %in% c("Blé tendre","Maïs grain")) %>%
+  # plot
+  ggplot(.) +
+  geom_col(aes(x = practice, y = FQS_signif, fill = FQS),
+           position = "stack") +
+  geom_hline(yintercept = 0,colour = "#33333380") +
+  # theme
+  coord_flip() +
+  labs(y="% différence",x="Pratiques d'élevage",
+       title = tmp_title,
+       subtitle = tmp_subtitle,
+       caption = "t-test, Bonferonni corrected p-value <= 0.05",
+       fill = "Labels")+
+  ylim(c(min(c(-100,min(tmp_plot_data$FQS_signif))),max(c(-100,max(tmp_plot_data$FQS_signif)))))+
+  scale_x_discrete(labels = tmp_practice_names$labels) +
+  scale_fill_manual(values = tmp_colors$values,labels = tmp_colors$labels) +
+  scale_colour_manual(values = tmp_colors$values,labels = tmp_colors$labels) +
+  theme_minimal()+
+  facet_wrap(vars(product_name), nrow = 1L) +
+  theme(legend.position = "none")
+
+tmp_plot
+
+ggsave(filename = "~/BiodivLabel/figure/fig4.svg",plot = tmp_plot, width = 297,height = 210, units = "mm")
+
+
+
+```
+
+```{r practice_crops_q95_boxplot}
+
+# practice data ----
+
+# set practices names
+tmp_practice_names <- tibble(
+  practice = rev(c("A.3.1_max",
+               "A.4.5_max",
+               "A.4.5_min_max",
+               "A.4.5_org_max",
+               "A.5.1_max",
+               "yield")),
+  labels = rev(c("Travail du sol (L gazole / ha)",
+             "Fertilisation (kg N / ha)", 
+             "Fertilisation (minérale)", 
+             "Fertilisation (organique)",
+             "Produits phytosanitaires (€ / ha)",
+             "Rendement (kg / ha)")))
+names(tmp_practice_names$labels) <- tmp_practice_names$practice 
+
+# wrangle practice data
+tmp_practice_data <- tmp_ProdSIQO %>%
+  # keep only crops
+  filter(production_type == "crop") %>%
+  # add practice data
+  left_join(.,BVI_to_RICA_RA_SIQO_crops %>%
+              mutate(product_RICA_CODE = as.character(CODE3),
+                     label = FQS) %>%
+              select(IDENT,product_RICA_CODE,label,all_of(tmp_practice_names$practice))) %>%
+  # add farm characteristic data
+  left_join(., RICA_2020 %>%
+              select(IDENT,OTEFDD,EXTR2)) %>%
+  pivot_longer(cols = all_of(tmp_practice_names$practice),
+               names_to = "practice",values_to = "value") %>%
+  # rename variables
+  rename(FQS = label)
+  
+
+# plot data description ----
+
+tmp_plot_data_descript <- tmp_practice_data %>% 
+  group_by(product_name,FQS,practice) %>%
+  summarise(
+    # export rules
+    n=n(),
+    max_value = max(value),
+    min_vallue = min(value),
+    max_percent=max(value)/sum(value),
+    n_w= sum(EXTR2),
+    max_percent_w=max(value*EXTR2)/sum(value*EXTR2),
+    
+    # var
+    mean = mean(value, na.rm = T),
+    sd = sd(value, na.rm = T),
+    se = sd(value, na.rm = T)/sqrt(n),
+    
+    #n_eff = sum(EXTR2)^2 / sum(EXTR2^2),
+    mean_w = weighted.mean(value,EXTR2),
+    sd_w = sqrt(sum(EXTR2 * ((value - mean_w)^2), na.rm = T)/
+                            (sum(EXTR2, na.rm = T)-1)),
+    se_w = 
+      sqrt(
+        ( ( (sum(EXTR2*value^2,na.rm = T)) / (sum(EXTR2,na.rm = T)) ) -  (mean_w^2) )
+        *
+          ( (sum(EXTR2^2,na.rm = T)) / ( (sum(EXTR2,na.rm = T)^2) - (sum(EXTR2^2,na.rm = T)) ) )
+      )
+    ) %>% ungroup()
+
+# stat Tukey ----
+
+tmp_stat_data <- tibble()
+
+for (tmp_var in tmp_practice_names$practice) {
+  
+  ## select variable
+  tmp = tmp_practice_data %>%
+    filter(practice == tmp_var)
+  
+  # ANOVA + Tukey HSD test
+  ## lm
+  tmp_lm = lm(tmp$value ~ tmp$product_name * tmp$FQS)
+  ## anova
+  tmp_aov = aov(tmp_lm)
+  summary(tmp_aov)
+  ## post-hoc Tukey HSD test
+  tmp_comp = HSD.test(tmp_aov,trt = c('tmp$product_name','tmp$FQS'),alpha = 0.05, group = T)
+  tmp_stat_grp = tibble(
+    "trt" = rownames(tmp_comp[["groups"]]),
+    "stat_grp" = unlist(tmp_comp[["groups"]][["groups"]])
+  )%>%
+    mutate(
+      practice = tmp_var,
+      product_name = unlist(str_split(trt,pattern = ":"))[seq(1,nrow(tmp_comp[["groups"]])*2,2)],
+      FQS = unlist(str_split(trt,pattern = ":"))[seq(2,nrow(tmp_comp[["groups"]])*2,2)],
+      max_value = max(tmp$value)
+    )
+  
+  # extract tibble
+  tmp_stat_data <- tmp_stat_data %>%
+    rbind(tmp_stat_grp)
+
+}
+
+# plot ----
+
+tmp_title = "Pratiques des fermes labelisées et conventionnelles - Céréales" 
+tmp_subtitle = "Ecart interquartile (tracé en boîte), moyenne pondérée par la représentativité (point central), effectifs non pondérés (n) et groupes statistiques (lettres)"
+
+## extract FQS colors
+tmp_colors <- tibble(
+  FQS = c("AB","AB (en conversion)","AOP - AOC","Conventionnel","IGP","IGP;LR","LR",
+          "Comte - Morbier","Bleu d'Auvergne - Cantal","Fromages de Savoie","Munster","Beurre de Charentes-Poitou"),
+  values = c("palegreen3","darkcyan","plum4","darkgrey","goldenrod3","goldenrod3","indianred",
+             "plum4","plum4","goldenrod3","plum4","plum4"),
+  labels=c("AB","AB (en conversion)","AOP & AOC","Conventionnel","IGP","IGP","Label Rouge",
+           "Comte - Morbier","Bleu d'Auvergne - Cantal","Fromages de Savoie","Munster","Beurre de Charentes-Poitou"))
+names(tmp_colors$values) <- tmp_colors$FQS 
+names(tmp_colors$labels) <- tmp_colors$FQS 
+
+## plot
+
+tmp_plot <- ggplot() +
+  # boxplot
+  geom_boxplot(data = tmp_practice_data,
+               aes(x = product_name, y = value, fill = FQS),
+               alpha = 0.75,color = "#33333380",outlier.alpha = 0.5,outlier.size = 1) +
+  # weighted mean
+  geom_point(data = tmp_plot_data_descript,
+             aes(x = product_name, y = mean_w,fill = FQS),
+             shape = 21,size=2,stroke = 1,position = position_dodge(width = 0.75))+
+  # stat groups
+  geom_text(data = tmp_stat_data,
+            aes(x = product_name,y=max_value*0.9,colour = FQS,label = stat_grp),
+            size=4.5,position = position_dodge(width = 0.75))+
+  # theme
+  coord_flip() +
+  labs(y="Valeur estimée pour la pratique", x="Cultures",
+       title = tmp_title,
+       subtitle = tmp_subtitle,
+       caption = "Tukey HSD, p-value <= 0.05",
+       fill = "Label",colour = "Label")+
+  scale_fill_manual(values = tmp_colors$values,labels = tmp_colors$labels) +
+  scale_colour_manual(values = tmp_colors$values,labels = tmp_colors$labels) +
+  theme_minimal() +
+  facet_wrap(vars(practice), scales = "free", nrow = 1L, labeller = as_labeller(tmp_practice_names$labels)) +
+  theme(axis.text.y = element_blank())
+
+tmp_plot
+
+ggsave(filename = "~/BiodivLabel/figure/figS2.svg",plot = tmp_plot, width = 297,height = 210, units = "mm")
+
+
+
+```
+
+### Milk
+
+#### Herd
+
+
+```{r practice_milk_p100}
+
+# stat Tukey ----
+
+tmp_stat_data <- tibble()
+
+for (tmp_var in tmp_practice_names$practice) {
+  
+  ## select variable
+  tmp = tmp_practice_data %>%
+    select(IDENT,product_name,FQS,all_of(tmp_var)) %>%
+    setNames(c("IDENT","product_name","FQS","value"))
+  
+  # ANOVA + Tukey HSD test
+  ## lm
+  tmp_lm = lm(tmp$value ~ tmp$product_name)
+  ## anova
+  tmp_aov = aov(tmp_lm)
+  summary(tmp_aov)
+  ## post-hoc Tukey HSD test
+  tmp_comp = HSD.test(tmp_aov,trt = c('tmp$product_name'),alpha = 0.05, group = T)
+  tmp_stat_grp = tibble(
+    "product_name" = rownames(tmp_comp[["groups"]]),
+    "FQS" = rownames(tmp_comp[["groups"]]),
+    "FQS_mean" = tmp_comp[["groups"]][["tmp$value"]],
+    "stat_grp" = unlist(tmp_comp[["groups"]][["groups"]])) %>%
+    # wrangle names
+    mutate(
+      practice = tmp_var,
+      max_value = max(tmp$value)
+    )
+  # compare with conventionnal
+  tmp_stat_grp_conv <- tmp_stat_grp %>%
+    filter(FQS == "Conventionnel") %>%
+    select(product_name,stat_grp,FQS_mean)
+  tmp_stat_grp <- tmp_stat_grp %>%
+    # add conventionnal stat group
+    mutate(stat_grp_conv = tmp_stat_grp_conv$stat_grp,
+           conv_mean = tmp_stat_grp_conv$FQS_mean) %>%
+    # is group letter different than conventionnal?
+    rowwise() %>%
+    mutate(
+      stat_grp_conv_diff = length(intersect(unlist(strsplit(stat_grp,"")),unlist(strsplit(stat_grp_conv,"")))) == 0,
+      mean_conv_diff = (((FQS_mean - conv_mean)*100)/conv_mean)
+        )
+    
+    # extract tibble
+  tmp_stat_data <- tmp_stat_data %>%
+    rbind(tmp_stat_grp)
+  
+}
+
+tmp_plot_data <- tmp_stat_data %>% ungroup() %>%
+  mutate(FQS_signif = case_when(
+    stat_grp_conv_diff == T ~ mean_conv_diff,
+    .default = 0
+  ))
+
+# extract FQS colors ----
+tmp_colors <- tibble(
+  FQS = c("AB","AB (en conversion)","AOP - AOC","Conventionnel","IGP","IGP;LR","LR",
+          "Comte - Morbier","Bleu d'Auvergne - Cantal","Fromages de Savoie","Munster","Beurre de Charentes-Poitou"),
+  values = c("palegreen3","darkcyan","plum4","darkgrey","goldenrod3","goldenrod3","indianred",
+             "plum4","plum4","goldenrod3","plum4","plum4"),
+  labels=c("AB","AB (en conversion)","AOP & AOC","Conventionnel","IGP","IGP","Label Rouge",
+           "Comte - Morbier","Bleu d'Auvergne - Cantal","Fromages de Savoie","Munster","Beurre de Charentes-Poitou"))
+names(tmp_colors$values) <- tmp_colors$FQS 
+names(tmp_colors$labels) <- tmp_colors$FQS 
+
+tmp_title = "Pratiques des fermes labelisées et conventionnelles - Lait et produits laitiers" 
+tmp_subtitle = "Ecart interquartile (tracé en boîte), moyenne pondérée par la représentativité (point central), effectifs non pondérés (n) et groupes statistiques (lettres)"
+
+# plot ----
+
+tmp_plot <- tmp_plot_data %>%
+  #filter(FQS %in% c("AB","Conventionnel","Comte - Morbier","Beurre de Charentes-Poitou")) %>%
+  # plot
+  ggplot(.) +
+  geom_col(aes(x = practice, y = FQS_signif, fill = product_name),
+           position = "dodge") +
+  geom_hline(yintercept = 0,colour = "#33333380") +
+  # theme
+  coord_flip() +
+  labs(y="% différence",x="Pratiques d'élevage",
+       title = tmp_title,
+       subtitle = tmp_subtitle,
+       caption = "t-test, Bonferonni corrected p-value <= 0.05",
+       fill = "Labels")+
+  ylim(c(min(c(-100,min(tmp_plot_data$FQS_signif))),max(c(-100,max(tmp_plot_data$FQS_signif)))))+
+  scale_x_discrete(labels = tmp_practice_names$labels) +
+  scale_fill_manual(values = tmp_colors$values,labels = tmp_colors$labels) +
+  scale_colour_manual(values = tmp_colors$values,labels = tmp_colors$labels) +
+  theme_minimal()+
+  facet_wrap(vars(product_name), nrow = 1L) +
+  theme(legend.position = "none")
+
+tmp_plot
+
+ggsave(filename = "~/BiodivLabel/figure/fig5.svg",plot = tmp_plot, width = 297,height = 210, units = "mm")
+
+
+```
+
+```{r practice_milk_boxplot}
+
+# plot data description ----
+
+tmp_plot_data_descript <- tmp_practice_data %>%
+  pivot_longer()
+  group_by(product_name,FQS,practice) %>%
+  summarise(
+    # export rules
+    n=n(),
+    max_value = max(value),
+    min_vallue = min(value),
+    max_percent=max(value)/sum(value),
+    n_w= sum(EXTR2),
+    max_percent_w=max(value*EXTR2)/sum(value*EXTR2),
+    
+    # var
+    mean = mean(value, na.rm = T),
+    sd = sd(value, na.rm = T),
+    se = sd(value, na.rm = T)/sqrt(n),
+    
+    #n_eff = sum(EXTR2)^2 / sum(EXTR2^2),
+    mean_w = weighted.mean(value,EXTR2),
+    sd_w = sqrt(sum(EXTR2 * ((value - mean_w)^2), na.rm = T)/
+                            (sum(EXTR2, na.rm = T)-1)),
+    se_w = 
+      sqrt(
+        ( ( (sum(EXTR2*value^2,na.rm = T)) / (sum(EXTR2,na.rm = T)) ) -  (mean_w^2) )
+        *
+          ( (sum(EXTR2^2,na.rm = T)) / ( (sum(EXTR2,na.rm = T)^2) - (sum(EXTR2^2,na.rm = T)) ) )
+      )
+    ) %>% ungroup()
+
+# stat Tukey ----
+
+tmp_stat_data <- tibble()
+
+for (tmp_var in tmp_practice_names$practice) {
+  
+  ## select variable
+  tmp = tmp_practice_data %>%
+    select(IDENT,product_name,FQS,all_of(tmp_var)) %>%
+    setNames(c("IDENT","product_name","FQS","value"))
+  
+  # ANOVA + Tukey HSD test
+  ## lm
+  tmp_lm = lm(tmp$value ~ tmp$product_name * tmp$FQS)
+  ## anova
+  tmp_aov = aov(tmp_lm)
+  summary(tmp_aov)
+  ## post-hoc Tukey HSD test
+  tmp_comp = HSD.test(tmp_aov,trt = c('tmp$product_name','tmp$FQS'),alpha = 0.05, group = T)
+  tmp_stat_grp = tibble(
+    "trt" = rownames(tmp_comp[["groups"]]),
+    "FQS_mean" = tmp_comp[["groups"]][["tmp$value"]],
+    "stat_grp" = unlist(tmp_comp[["groups"]][["groups"]])) %>%
+    # wrangle names
+    mutate(
+      practice = tmp_var,
+      product_name = unlist(str_split(trt,pattern = ":"))[seq(1,nrow(tmp_comp[["groups"]])*2,2)],
+      FQS = unlist(str_split(trt,pattern = ":"))[seq(2,nrow(tmp_comp[["groups"]])*2,2)],
+      max_value = max(tmp$value)
+    )
+  # compare with conventionnal
+  tmp_stat_grp_conv <- tmp_stat_grp %>%
+    filter(FQS == "Conventionnel") %>%
+    select(product_name,stat_grp,FQS_mean)
+  tmp_stat_grp <- tmp_stat_grp %>%
+    # add conventionnal stat group
+    mutate(stat_grp_conv = tmp_stat_grp_conv$stat_grp,
+           conv_mean = tmp_stat_grp_conv$FQS_mean) %>%
+    # is group letter different than conventionnal?
+    rowwise() %>%
+    mutate(
+      stat_grp_conv_diff = length(intersect(unlist(strsplit(stat_grp,"")),unlist(strsplit(stat_grp_conv,"")))) == 0,
+      mean_conv_diff = (((FQS_mean - conv_mean)*100)/conv_mean)
+        )
+    
+    # extract tibble
+  tmp_stat_data <- tmp_stat_data %>%
+    rbind(tmp_stat_grp)
+  
+}
+
+
+# plot ----
+
+tmp_title = "Pratiques des fermes labelisées et conventionnelles - Céréales" 
+tmp_subtitle = "Ecart interquartile (tracé en boîte), moyenne pondérée par la représentativité (point central), effectifs non pondérés (n) et groupes statistiques (lettres)"
+
+## extract FQS colors
+tmp_colors <- tibble(
+  FQS = c("AB","AB (en conversion)","AOP - AOC","Conventionnel","IGP","IGP;LR","LR",
+          "Comte - Morbier","Bleu d'Auvergne - Cantal","Fromages de Savoie","Munster","Beurre de Charentes-Poitou"),
+  values = c("palegreen3","darkcyan","plum4","darkgrey","goldenrod3","goldenrod3","indianred",
+             "plum3","plum4","goldenrod3","plum4","plum4"),
+  labels=c("AB","AB (en conversion)","AOP & AOC","Conventionnel","IGP","IGP","Label Rouge",
+           "Comte - Morbier","Bleu d'Auvergne - Cantal","Fromages de Savoie","Munster","Beurre de Charentes-Poitou"))
+names(tmp_colors$values) <- tmp_colors$FQS 
+names(tmp_colors$labels) <- tmp_colors$FQS 
+
+## plot
+
+tmp_plot <- ggplot() +
+  # boxplot
+  geom_boxplot(data = tmp_practice_data %>%
+    # keep only AB, Comte, Bleu d'Auvergne, Savoie for milk
+  filter(product_name %in% 
+           c("AB","AB (en conversion)","Conventionnel","LR","Comte - Morbier","Beurre de Charentes-Poitou")),
+               aes(x = product_name, y = value, fill = FQS),
+               alpha = 0.75,color = "#33333380",outlier.alpha = 0.5,outlier.size = 1) +
+  # weighted mean
+  geom_point(data = tmp_plot_data_descript %>%
+    # keep only AB, Comte, Bleu d'Auvergne, Savoie for milk
+  filter(product_name %in% 
+           c("AB","AB (en conversion)","Conventionnel","LR","Comte - Morbier","Beurre de Charentes-Poitou")),
+             aes(x = product_name, y = mean_w,fill = FQS),
+             shape = 21,size=2,stroke = 1,position = position_dodge(width = 0.75))+
+  # stat groups
+  geom_text(data = tmp_stat_data%>%
+    # keep only AB, Comte, Bleu d'Auvergne, Savoie for milk
+  filter(product_name %in% 
+           c("AB","AB (en conversion)","Conventionnel","LR","Comte - Morbier","Beurre de Charentes-Poitou")),
+            aes(x = product_name,y=0,colour = FQS,label = stat_grp),
+            size=4.5,position = position_dodge(width = 0.75))+
+  # theme
+  coord_flip() +
+  labs(y="Valeur estimée pour la pratique", x="Cultures",
+       title = tmp_title,
+       subtitle = tmp_subtitle,
+       caption = "Tukey HSD, p-value <= 0.05",
+       fill = "Label",colour = "Label")+
+  scale_fill_manual(values = tmp_colors$values,labels = tmp_colors$labels) +
+  scale_colour_manual(values = tmp_colors$values,labels = tmp_colors$labels) +
+  theme_minimal() +
+  facet_wrap(vars(practice), scales = "free", nrow = 1L,
+             labeller = as_labeller(tmp_practice_names$labels),strip.position = "right") +
+  theme(axis.text.y = element_blank())
+
+tmp_plot
+
+ggsave(filename = "~/BiodivLabel/figure/figS2.svg",plot = tmp_plot, width = 297,height = 210, units = "mm")
+
+
+```
+
+
+#### Feed
+
+```{r practice_data}
+
+# agricultural practices to produce forage ----
+
+tmp_BVI_practice <- tmp_ProdSIQO %>%
+  filter(production_type == "milk") %>%
+  left_join(.,BVI_to_RICA_crops %>%
+              select(IDENT,CODE3,A.3.1_max,A.4.5_max,A.4.5_min_max,A.4.5_org_max,A.5.1_max,yield))
+
+  
+tmp_feed_farm <- feed_by_livestock %>%
+  # filter dairy cow
+  filter(CODE6 == 929) %>%
+  # filter purchased feed
+  #filter(feed_origin != "feed_purchased")
+  filter(feed_origin == "feed_produced")
+  
+tmp_feed_farm_BVI_practice <- tmp_feed_farm %>%
+  mutate(CODE3 = as.numeric(CODE3)) %>%
+  # add BVI practices
+  inner_join(.,tmp_BVI_practice)
+  
+tmp_practice_data <- tmp_feed_farm_BVI_practice %>%
+  # keep only farms in milk data
+  filter(IDENT %in% tmp_ProdSIQO$IDENT) %>%
+  # add FQS
+  inner_join(.,BVI_to_RICA_RA_SIQO_milk %>% select(IDENT,app_fromage)) %>%
+  rename(FQS = app_fromage)
+
+# set practices names ----
+
+tmp_practice_names <- tibble(
+  practice = rev(c("A.3.1_max",
+               "A.4.5_max",
+               "A.4.5_min_max",
+               "A.4.5_org_max",
+               "A.5.1_max",
+               "yield")),
+  labels = rev(c("Travail du sol (L gazole / ha)",
+             "Fertilisation (kg N / ha)", 
+             "Fertilisation (minérale)", 
+             "Fertilisation (organique)",
+             "Produits phytosanitaires (€ / ha)",
+             "Rendement (kg / ha)")))
+tmp_practice_names$practice <- factor(tmp_practice_names$practice)
+names(tmp_practice_names$labels) <- tmp_practice_names$practice 
+
+
+```
+
+```{r plot_p100}
+
+# stat Tukey ----
+
+tmp_stat_data <- tibble()
+
+for (tmp_var in tmp_practice_names$practice) {
+  
+  ## select variable
+  tmp = tmp_practice_data %>%
+    select(IDENT,product_name,FQS,all_of(tmp_var)) %>%
+    setNames(c("IDENT","product_name","FQS","value"))
+  
+  # ANOVA + Tukey HSD test
+  ## lm
+  tmp_lm = lm(tmp$value ~ tmp$product_name)
+  ## anova
+  tmp_aov = aov(tmp_lm)
+  summary(tmp_aov)
+  ## post-hoc Tukey HSD test
+  tmp_comp = HSD.test(tmp_aov,trt = c('tmp$product_name'),alpha = 0.05, group = T)
+  tmp_stat_grp = tibble(
+    "product_name" = rownames(tmp_comp[["groups"]]),
+    "FQS" = rownames(tmp_comp[["groups"]]),
+    "FQS_mean" = tmp_comp[["groups"]][["tmp$value"]],
+    "stat_grp" = unlist(tmp_comp[["groups"]][["groups"]])) %>%
+    # wrangle names
+    mutate(
+      practice = tmp_var,
+      max_value = max(tmp$value)
+    )
+  # compare with conventionnal
+  tmp_stat_grp_conv <- tmp_stat_grp %>%
+    filter(FQS == "Conventionnel") %>%
+    select(product_name,stat_grp,FQS_mean)
+  tmp_stat_grp <- tmp_stat_grp %>%
+    # add conventionnal stat group
+    mutate(stat_grp_conv = tmp_stat_grp_conv$stat_grp,
+           conv_mean = tmp_stat_grp_conv$FQS_mean) %>%
+    # is group letter different than conventionnal?
+    rowwise() %>%
+    mutate(
+      stat_grp_conv_diff = length(intersect(unlist(strsplit(stat_grp,"")),unlist(strsplit(stat_grp_conv,"")))) == 0,
+      mean_conv_diff = (((FQS_mean - conv_mean)*100)/conv_mean)
+        )
+    
+    # extract tibble
+  tmp_stat_data <- tmp_stat_data %>%
+    rbind(tmp_stat_grp)
+  
+}
+
+tmp_plot_data <- tmp_stat_data %>% ungroup() %>%
+  mutate(FQS_signif = case_when(
+    stat_grp_conv_diff == T ~ mean_conv_diff,
+    .default = 0
+  ))
+
+# extract FQS colors ----
+tmp_colors <- tibble(
+  FQS = c("AB","AB (en conversion)","AOP - AOC","Conventionnel","IGP","IGP;LR","LR",
+          "Comte - Morbier","Bleu d'Auvergne - Cantal","Fromages de Savoie","Munster","Beurre de Charentes-Poitou"),
+  values = c("palegreen3","darkcyan","plum4","darkgrey","goldenrod3","goldenrod3","indianred",
+             "plum4","plum4","goldenrod3","plum4","plum4"),
+  labels=c("AB","AB (en conversion)","AOP & AOC","Conventionnel","IGP","IGP","Label Rouge",
+           "Comte - Morbier","Bleu d'Auvergne - Cantal","Fromages de Savoie","Munster","Beurre de Charentes-Poitou"))
+names(tmp_colors$values) <- tmp_colors$FQS 
+names(tmp_colors$labels) <- tmp_colors$FQS 
+
+tmp_title = "Pratiques des fermes labelisées et conventionnelles - Lait et produits laitiers" 
+tmp_subtitle = "Ecart interquartile (tracé en boîte), moyenne pondérée par la représentativité (point central), effectifs non pondérés (n) et groupes statistiques (lettres)"
+
+# plot ----
+
+tmp_plot <- tmp_plot_data %>%
+  #filter(FQS %in% c("AB","Conventionnel","Comte - Morbier","Beurre de Charentes-Poitou")) %>%
+  # plot
+  ggplot(.) +
+  geom_col(aes(x = practice, y = FQS_signif, fill = product_name),
+           position = "dodge") +
+  geom_hline(yintercept = 0,colour = "#33333380") +
+  # theme
+  coord_flip() +
+  labs(y="% différence",x="Pratiques d'élevage",
+       title = tmp_title,
+       subtitle = tmp_subtitle,
+       caption = "Tukey HSD, p-value <= 0.05",
+       fill = "Labels")+
+  ylim(c(min(c(-100,min(tmp_plot_data$FQS_signif))),max(c(-100,max(tmp_plot_data$FQS_signif)))))+
+  scale_x_discrete(labels = tmp_practice_names$labels) +
+  scale_fill_manual(values = tmp_colors$values,labels = tmp_colors$labels) +
+  scale_colour_manual(values = tmp_colors$values,labels = tmp_colors$labels) +
+  theme_minimal()+
+  facet_wrap(vars(product_name), nrow = 1L) +
+  theme(legend.position = "none")
+
+tmp_plot
+
+ggsave(filename = "~/BiodivLabel/figure/fig5.svg",plot = tmp_plot, width = 297,height = 210, units = "mm")
+
+
+```
+
+
+
+

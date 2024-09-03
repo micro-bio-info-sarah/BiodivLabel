@@ -248,7 +248,7 @@ BV_A.3.2 <- BV_A.4.5 %>%
 ```
 
 
-## A.3.3	Crop rotation: Crop Diversity
+## A.3.3	Crop Diversity
 
 ```{r}
 
@@ -257,6 +257,9 @@ BV_A.3.3 <- BV_A.4.5 %>%
   mutate(
     A.3.3 = rnorm(nrow(BV_A.4.5),mean = 1,sd = 0.02)
   )
+
+source("R/in_practice_A33.R",local = knitr::knit_global())
+
 
 ```
 
