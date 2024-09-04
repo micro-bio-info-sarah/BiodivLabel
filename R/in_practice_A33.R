@@ -80,7 +80,7 @@ tmp_area_tot <- tmp_input %>%
   ungroup()
 
 hist(tmp_area_tot$area_tot_ha)
-quantile(tmp_area_tot$area_tot_ha)
+summary(tmp_area_tot$area_tot_ha)
 
 # Shannon ----
 
@@ -93,23 +93,29 @@ tmp_Shannon <- tmp_input %>%
   ungroup()
 
 hist(tmp_Shannon$Shannon)
-quantile(tmp_Shannon$Shannon)
+summary(tmp_Shannon$Shannon)
 
 # Reciprocal Simpson ----
 
 tmp_Simpson <- tmp_input %>%
   left_join(.,tmp_area_tot,by = join_by(farm_id)) %>%
+  mutate(
+    n = (area_ha*(area_ha-1))^2,
+    N = (area_tot_ha*(area_tot_ha-1))^2,
+    R = n / N
+  ) %>%
   group_by(farm_id) %>%
+  mutate(
+    sum_R = sum(R),
+    recip_simps = 1/sum_R
+  ) %>%
   summarise(
-    Simpson = 1/ sum((
-      area_ha*(area_ha-1)
-      / area_tot_ha*(area_tot_ha-1))^2
-    ),
+    Simpson = mean(recip_simps),
     .groups = "keep") %>%
   ungroup()
 
 hist(tmp_Simpson$Simpson)
-quantile(tmp_Simpson$Simpson)
+summary(tmp_Simpson$Simpson[is.finite(tmp_Simpson$Simpson)],na.rm = T)
 
 
 # Output ----
