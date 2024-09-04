@@ -246,7 +246,7 @@ To assign the previously calculated per hectare impact to different farm product
 
 
 
-For crop products, it is possible to narrow the scope, i.e., to relate farm variables to the scale of cultivation to calculate directly the impact of one hectare of crop (see 2.4). The impact on biodiversity of one kilogram of crop production is then simply calculated as: BVIkg = BVIha/ Y where Y is the yield of the crop in kg/ha.
+For crop products, narrowing the scope is possible, i.e., to relate farm variables to the scale of cultivation to calculate directly the impact of one hectare of crop (see 2.4). The impact on biodiversity of one kilogram of crop production is then simply calculated as: BVIkg = BVIha/ Y where Y is the yield of the crop in kg/ha.
 
 For animal products, the restriction of the perimeter allows to separate the different workshops of a farm (ex. production crops, cattle and pigs), but it does not allow to separate several productions of the same workshop (ex. milk and meat from the wild). The impact on biodiversity of one kilogram of animal production is therefore calculated in two steps. First, the impact of the workshop is obtained by summing up the impact of the food consumed by the workshop: we then speak of the pseudo-farm which corresponds to all the surfaces needed to feed the animals in the workshop, Summing up the farm areas for the food supply of the workshop and the areas necessary for the production of purchased food. The impact of the workshop is then distributed among the different products in the herd (e.g., milk and meat), in proportion to their economic value.
 
