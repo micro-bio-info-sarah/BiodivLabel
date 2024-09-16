@@ -4,6 +4,21 @@
     "index.out.ipynb": "8373de92",
     "index-preview.html": "2e96da10",
     "index.html": "a63be092",
-    "index.docx": "bb31b47c"
+    "index.docx": "bb31b47c",
+    "index.subarticle.xml": "0e00a5db"
+  },
+  "old/SM_BVIAS_v240829.qmd": {
+    "SM_BVIAS_v240829-preview.html": "5da107be",
+    "SM_BVIAS_v240829.embed.ipynb": "2cbcff42",
+    "SM_BVIAS_v240829.out.ipynb": "283f0a82"
+  },
+  "annex.qmd": {
+    "annex.embed.ipynb": "75187846",
+    "annex.out.ipynb": "97fc43b5",
+    "annex-preview.html": "b76664a3",
+    "annex.subarticle.xml": "bb78c077"
+  },
+  "annex.embed.ipynb": {
+    "annex.embed-preview.html": "e3dd58e4"
   }
 }
