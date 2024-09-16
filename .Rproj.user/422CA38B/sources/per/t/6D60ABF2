@@ -1,0 +1,28 @@
+{
+    "id": "6D60ABF2",
+    "path": "~/BiodivLabel/ms_body/WP_BVIAS_v240911.qmd",
+    "project_path": null,
+    "type": "quarto_markdown",
+    "hash": "264647717",
+    "contents": "",
+    "dirty": false,
+    "created": 1725878277758.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "chunk_output_type": "console",
+        "source_window_id": "",
+        "Source": "Source",
+        "docOutlineVisible": "1",
+        "cursorPosition": "485,8",
+        "scrollLine": "0"
+    },
+    "folds": "",
+    "lastKnownWriteTime": 1726236965,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1726236965892,
+    "read_only": false,
+    "read_only_alternatives": []
+}
