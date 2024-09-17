@@ -1,0 +1,422 @@
+---
+title: "BiodivLabel Analysis Script"
+author: "Sarah Huet"
+format: pdf
+editor: source
+editor_options: 
+  chunk_output_type: console
+knitr: 
+  opts_chunk: 
+    collapse: true
+    comment: "#>"
+    R.options:
+      knitr.graphics.auto_pdf: true
+---
+
+# Data
+
+```{r product_names, include=FALSE, echo=FALSE}
+library(tibble)
+
+tmp_product_names <- tibble(
+  product_name = c(
+    "Ble tendre",
+    "Mais grain",
+    "Triticale",
+    "Melange cereales d'ete",
+    "Autres cereales",
+    "Conventionnel",
+    "Agriculture Biologique",
+    "Comte - Morbier",
+    "Beurre de Charentes-Poitou",
+    "AOP - AOC",
+    "Bleu d'Auvergne - Cantal",
+    "Fromages de Savoie",
+    "Munster" 
+  ),
+  labels = c(
+    "Blé tendre",
+    "Maïs grain",
+    "Triticale",
+    "Mélange céréales d'été",
+    "Autres céréales",
+    "Conventionnel",
+    "AB",
+    "Comté - Morbier",
+    "Beurre de Charentes-Poitou",
+    "AOP - AOC",
+    "Bleu d'Auvergne - Cantal",
+    "Fromages de Savoie",
+    "Munster" 
+  )
+)
+
+tmp_FQS_names <- tibble(
+  FQS = c(
+    "Conventionnel",
+    "AB",
+    "LR",
+    "Comte - Morbier",
+    "Beurre de Charentes-Poitou",
+    "AOP - AOC",
+    "Bleu d'Auvergne - Cantal",
+    "Fromages de Savoie",
+    "Munster" 
+  ),
+  labels = c(
+    "Conventionnel",
+    "Agriculture Biologique",
+    "Label Rouge",
+    "Comté - Morbier",
+    "Beurre de Charentes-Poitou",
+    "AOP - AOC",
+    "Bleu d'Auvergne - Cantal",
+    "Fromages de Savoie",
+    "Munster" 
+  )
+)
+
+```
+
+```{r practice_names, include=FALSE, echo=FALSE}
+
+# BVIAS
+
+tmp_practice_names_BVIAS <- tibble(
+  practice = c("BVI_ha",
+               "BVI_kg"),
+  labels = c("BVIAS_ha",
+               "BVIAS_kg"))
+
+# crops
+
+tmp_practice_names_crops <- tibble(
+  practice = c("A.3.1_max",
+               "A.4.5_max",
+               "A.4.5_min_max",
+               "A.4.5_org_max",
+               "A.5.1_max",
+               "yield"),
+  labels = c("Travail du sol (L gazole / ha)",
+             "Fertilisation (kg N / ha)", 
+             "Fertilisation (minérale)", 
+             "Fertilisation (organique)",
+             "Produits phytosanitaires (€*/ ha)",
+             "Rendement (kg / ha)"))
+
+# herd
+
+tmp_practice_names_herd <- tibble(
+  practice = c("yield_l_pha",
+               "yield_l_panim",
+               "nb_cow_pha",
+               "cow_pMFA",
+               "feed_autonomy",
+               "kg_DM_panim_maize_produced",
+               #"kg_DM_panim_soy_meal",
+               "share_soybean",
+               #"share_concent_purchased",
+               "share_concent",
+               "MFA_pcow",
+               "MFA_pha_pseudofarm",
+               "ha_temp_pasture_pha_pseudofarm",
+               "grassland_share_pseudofarm"#,
+               #"grassland_share_farm"
+               ),
+  labels = c("Rendement (L lait / ha pseudoferme)",
+             "Rendement (L lait / vache laitière)",
+             "Taux de chargement (vache laitière / ha pseudoferme)",
+             "Taux de chargement (vache laitière / ha SFP)",
+             "Autonomie alimentaire (kg d'aliment produits / kg d'aliments)",
+             "Maïs fourrage (kg de maïs fourrage produit sur l'exploitation / vache laitière)",
+             #"Tourteau de soja (kg de tourteau de soja acheté / vache laitière)",
+             "Part du tourteau de soja importé (kg tourteau de soja / kg d'aliments)",
+             #"Part des concentrés dans les aliments achetés (kg de concentrés / kg d'aliments achetés)",
+             "Part des concentrés dans l'alimentation (kg de concentrés / kg d'aliments)",
+             "Surface Fourragère Principale (SFP / vache laitière)",
+             "Part de la Surface Fourragère Principale (ha SFP / ha pseudoferme)",
+             "Part des prairies temporaires (ha prairie / ha pseudoferme)",
+             "Part des prairies permanentes (ha prairie / ha pseudoferme)"#,
+             #"Part des prairies permanentes (ha prairie / ha ferme)"
+             ))
+
+# feed
+
+tmp_practice_names_feed <- tibble(
+  practice = c("feed_A.3.1_max",
+               "feed_A.4.5_max",
+               "feed_A.4.5_min_max",
+               "feed_A.4.5_org_max",
+               "feed_A.5.1_max",
+               "feed_yield"),
+  labels = c("Travail du sol (L gazole / ha)",
+             "Fertilisation (kg N / ha)", 
+             "Fertilisation (minérale)", 
+             "Fertilisation (organique)",
+             "Produits phytosanitaires (€* / ha)",
+             "Rendement (kg / ha)"))
+
+# all
+tmp_practice_names <- Reduce(rbind,list(
+  tmp_practice_names_BVIAS,
+  tmp_practice_names_crops,
+  tmp_practice_names_herd,
+  tmp_practice_names_feed
+))
+
+```
+
+```{r tbl-results, include=FALSE, echo=FALSE}
+
+library(dplyr)
+library(tidyr)
+
+# data -----
+tmp_TukeyHSD <- read.csv("../CASD_export/tmp_TukeyHSD.csv") %>%
+  mutate(
+    product_name = case_when(
+      product_name == "Maïs grain" ~ "Mais grain",.default = product_name),
+    pval_tukey = as.numeric(pval))
+tmp_paired_ttest <- read.csv("../CASD_export/tmp_paired_ttest.csv")
+tmp_paired_ttest_adjust <- tmp_paired_ttest %>%
+  mutate(padjust_bonf = p.adjust(pval_pttest,method = "bonferroni"),
+         padjust_fdr = p.adjust(pval_pttest,method = "fdr"))
+
+# Table ----
+
+tmp_table0 <- tmp_TukeyHSD %>%
+  mutate(diff_sans_match = loop2.my_var - conv_mean) %>%
+  select(practice,product_name,FQS,
+         production_type,practice_subset,
+         FQS_mean,std,r,diff_sans_match,pval_tukey) %>%
+  mutate(
+    diff_sans_match = case_when(
+      FQS == "Conventionnel" ~ NA,
+      .default = diff_sans_match
+    )
+  ) %>%
+  # add matching results
+  left_join(.,
+            tmp_paired_ttest_adjust %>% 
+              rename(FQS = label) %>%
+              filter(FQS != "Conventionnel") %>%
+              select(FQS,product_name,practice,
+                     n_matched,mean_diff_match,padjust_fdr),
+            by = join_by(product_name, FQS, practice)
+  ) %>%
+  # order factors
+  mutate(
+    practice = factor(practice,levels = tmp_practice_names$practice,labels = tmp_practice_names$labels,ordered = T),
+    product_name = factor(product_name,levels = tmp_product_names$product_name,labels = tmp_product_names$labels,ordered = T),
+    FQS = factor(FQS,levels = tmp_FQS_names$FQS,labels = tmp_FQS_names$labels,ordered = T)
+  )
+
+```
+
+# SM
+
+## Tables
+
+```{r tbl-results_crops}
+
+#| label: tbl-results_crops
+
+library(gt)
+
+tmp_table <- tmp_table0 %>%
+  filter(production_type == "crop"
+         & practice %in% c(tmp_practice_names_BVIAS$labels,
+                           tmp_practice_names_crops$labels)) %>%
+  select(!c(production_type,practice_subset)) %>%
+  arrange(practice,product_name,FQS)
+
+tmp_table %>%
+  # groups
+  mutate(product_name = ifelse(row_number() == 1,
+                               as.character(product_name), ""),
+         .by = c(practice, product_name)) %>%
+  gt(groupname_col = "practice") %>%
+  tab_style(
+      style = list(
+        cell_fill(color = "gray"),
+        cell_text(weight = "bolder")
+      ),
+      locations = cells_row_groups(groups = everything())
+    ) %>%
+  # format numbers
+  fmt_auto() %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+      ),
+    locations = cells_body(
+      columns = c(diff_sans_match,pval_tukey),
+      rows = pval_tukey <= 0.05
+    )
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+      ),
+    locations = cells_body(
+      columns = c(mean_diff_match,padjust_fdr),
+      rows = padjust_fdr <= 0.05
+    )
+  ) %>%
+  # replace NAs
+  sub_missing(missing_text = "-") %>%
+  # column labels
+  tab_style(
+    style = list(
+      cell_text(weight = "bolder",size = "large")
+      ),
+    locations = cells_column_labels(everything())
+  ) %>%
+  cols_label(
+    practice = "Pratiques",
+    product_name = "Production",
+    FQS = "Label",
+    FQS_mean = "Moyenne",
+    std = "Ecart-Type",
+    r = "Effectif",
+    diff_sans_match = "Différence avec la moyenne conventionnelle",
+    pval_tukey = "Tukey HSD p-value",
+    n_matched = "Effectif apparié",
+    mean_diff_match = "Différence avec la moyenne contrefactuelle",
+    padjust_fdr = "FDR adjusted t-test p-value"
+  )
+  
+```
+```{r tbl-results_diary_feed}
+
+tmp_table <- tmp_table0 %>%
+  filter(production_type == "milk"
+         & practice %in% c(tmp_practice_names_BVIAS$labels,
+                           tmp_practice_names_feed$labels)) %>%
+  select(!c(production_type,practice_subset,FQS)) %>%
+  arrange(practice,product_name)
+
+tmp_table %>%
+  # groups
+  mutate(product_name = ifelse(row_number() == 1,
+                               as.character(product_name), ""),
+         .by = c(practice, product_name)) %>%
+  gt(groupname_col = "practice") %>%
+  tab_style(
+      style = list(
+        cell_fill(color = "gray"),
+        cell_text(weight = "bolder")
+      ),
+      locations = cells_row_groups(groups = everything())
+    ) %>%
+  # format numbers
+  fmt_auto() %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+      ),
+    locations = cells_body(
+      columns = c(diff_sans_match,pval_tukey),
+      rows = pval_tukey <= 0.05
+    )
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+      ),
+    locations = cells_body(
+      columns = c(mean_diff_match,padjust_fdr),
+      rows = padjust_fdr <= 0.05
+    )
+  ) %>%
+  # replace NAs
+  sub_missing(missing_text = "-") %>%
+  # column labels
+  tab_style(
+    style = list(
+      cell_text(weight = "bolder",size = "large")
+      ),
+    locations = cells_column_labels(everything())
+  ) %>%
+  cols_label(
+    practice = "Pratiques",
+    product_name = "Label",
+    FQS_mean = "Moyenne",
+    std = "Ecart-Type",
+    r = "Effectif",
+    diff_sans_match = "Différence avec la moyenne conventionnelle",
+    pval_tukey = "Tukey HSD p-value",
+    n_matched = "Effectif apparié",
+    mean_diff_match = "Différence avec la moyenne contrefactuelle",
+    padjust_fdr = "FDR adjusted t-test p-value"
+  )
+
+```
+```{r tbl-results_diary_herd}
+
+tmp_table <- tmp_table0 %>%
+  filter(production_type == "milk"
+         & practice %in% c(tmp_practice_names_BVIAS$labels,
+                           tmp_practice_names_herd$labels)) %>%
+  select(!c(production_type,practice_subset,FQS)) %>%
+  arrange(practice,product_name)
+
+tmp_table %>%
+  # groups
+  mutate(product_name = ifelse(row_number() == 1,
+                               as.character(product_name), ""),
+         .by = c(practice, product_name)) %>%
+  gt(groupname_col = "practice") %>%
+  tab_style(
+      style = list(
+        cell_fill(color = "gray"),
+        cell_text(weight = "bolder")
+      ),
+      locations = cells_row_groups(groups = everything())
+    ) %>%
+  # format numbers
+  fmt_auto() %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+      ),
+    locations = cells_body(
+      columns = c(diff_sans_match,pval_tukey),
+      rows = pval_tukey <= 0.05
+    )
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+      ),
+    locations = cells_body(
+      columns = c(mean_diff_match,padjust_fdr),
+      rows = padjust_fdr <= 0.05
+    )
+  ) %>%
+  # replace NAs
+  sub_missing(missing_text = "-") %>%
+  # column labels
+  tab_style(
+    style = list(
+      cell_text(weight = "bolder",size = "large")
+      ),
+    locations = cells_column_labels(everything())
+  ) %>%
+  cols_label(
+    practice = "Pratiques",
+    product_name = "Label",
+    FQS_mean = "Moyenne",
+    std = "Ecart-Type",
+    r = "Effectif",
+    diff_sans_match = "Différence avec la moyenne conventionnelle",
+    pval_tukey = "Tukey HSD p-value",
+    n_matched = "Effectif apparié",
+    mean_diff_match = "Différence avec la moyenne contrefactuelle",
+    padjust_fdr = "FDR adjusted t-test p-value"
+  )
+
+```
+
+
+

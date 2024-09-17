@@ -4,6 +4,7 @@ title: |
 editor: source
 editor_options: 
   chunk_output_type: console
+
 ---
 
 # Abstract
@@ -49,9 +50,9 @@ library(gt)
 library(dplyr)
 
 tmp_table <- data.frame(
+ c0 = c("",rep("Addressing the main determinants of biodiversity loss related to agriculture",6)),
  c1= c(
    "Explicit and operational definition of biodiversity",
-   "Addressing the main determinants of biodiversity loss related to agriculture",
    "Land use",
    "Climate change",
    "Pollution",
@@ -61,7 +62,6 @@ tmp_table <- data.frame(
    ),
  c2 = c(   
    "Specific diversity (other studies present a plurality of indicators including abundance, diversity, presence of rare/endemic species, etc.).No systematic link with the sixth extinction crisis.",
-   "",
    "Consideration of landscape effects. No consideration of yields",
    "Not taken into account",
    "Taking into account all pollution",
@@ -71,7 +71,6 @@ tmp_table <- data.frame(
    ),
  c3 = c(
    "Degradation of natural state (or risk of extinction of species for other studies)",
-   "",
    "No account taken of landscape effects. Consideration of yields",
    "Not considered by Lindner *et al.* (2022), but considered by other models",
    "Taking into account the main pollutions without effect size",
@@ -81,7 +80,6 @@ tmp_table <- data.frame(
    ),
  c4 = c(
    "Implied definition",
-   "",
    "Consideration of landscape effects. No consideration of yields",
    "Not taken into account",
    "Taking into account the main pollutions without effect size",
@@ -91,7 +89,6 @@ tmp_table <- data.frame(
    ),
  c5 = c(
    "Degradation of natural state",
-   "",
    "Consideration of landscape effects and yields",
    "Not taken into account",
    "Taking into account the main pollutions with effect size",
@@ -103,16 +100,16 @@ tmp_table <- data.frame(
   # add columns for color
   mutate(
     #col1 = c(0,0,0,0,0,0,0,0),
-    col2 = c(2,0,2,1,3,3,1,3),
-    col3 = c(3,0,2,2,2,2,3,1),
-    col4 = c(2,0,2,1,2,1,2,1),
-    col5 = c(3,0,3,1,3,3,3,3)
+    col2 = c(2,2,1,3,3,1,3),
+    col3 = c(3,2,2,2,2,3,1),
+    col4 = c(2,2,1,2,1,2,1),
+    col5 = c(3,3,1,3,3,3,3)
   )
 
 tmp_palette = c("#FF9999","#FFCC99", "#99CC99")
 
 tmp_table %>%
- gt() %>%
+ gt(groupname_col = "c0") %>%
     data_color(   columns = col2,
                   target_columns = c2,
                   rows = col2 >0,
@@ -150,6 +147,7 @@ tmp_table %>%
     c5 = "BVIAS (this study)"
   )
 
+# https://gt.rstudio.com/reference/tab_row_group.html
 #rm(tmp_table)
 
 ```
@@ -217,24 +215,53 @@ In order to take into account the landscape elements implemented on the farms, w
 
 The matching of AC and FQS (SIQO from INAO) data is done, prior to this study, using the SIRET number (French System for Identification of Establishments) of the farms [@corre_methode_2023], allowing to identify farms involved in FQSs and for which certified product. The 2020 FADN and AC data are then matched by comparing the SIRET, Pacage (identifier linked to the Common Agricultural Policy) and SIREN (French System for Identification of Business Register) numbers of agricultural holdings. The matched data set thus includes ***7292*** farms, located throughout the metropolitan territory, representing ***99.14%*** of farms registered in the 2020 FADN. A description of the matched data is provided in @tbl-stat_desc.
 
+
 ::: {#tbl-stat_desc}
 
 ```{r tbl_stat_desc}
+
 library(gt)
 library(dplyr)
-tmp_table <- data.frame(
-  c1 = c("1500",rep("",5),"4500",rep("",5),"4700",rep("",5),"6184",rep("",5)),
-  c2 = c(
-rep(c("Nombre de fermes","Surface cultivée (ha)","Surface en prairie permanente (ha)","Effectif de vaches laitières (nombre de tête)","Rendement en blé (kg/ha)","Rendement en lait (L/vache)"),4))
-  )
+library(tidyr)
+
+tmp_data <- read.csv("../CASD_export/tmp_data_RICA_RA_SIQO_summary.csv")
+
+tmp_table <- tmp_data %>%
+    pivot_longer(cols = !c(OTEFDD,FQS),
+                 names_to = "Variable",
+                 values_to = "value") %>%
+    mutate(
+        Variable = case_when(
+            Variable == "IDENT" ~ "Nombre de fermes",
+            Variable == "crop_area_ha" ~ "Surface cultivée (ha)",
+            Variable == "grassland_area_ha" ~ "Surface en prairie permanente (ha)",
+            Variable == "nb_dairy_cow" ~ "Effectif de vaches laitières (nombre de tête)",
+            Variable == "wheat_yield_kg_ha" ~ "Rendement en blé (kg/ha)",
+            Variable == "milk_yield_kg_cow" ~ "Rendement en lait (L/vache)"
+        )
+    ) %>%
+    pivot_wider(
+        id_cols = c(OTEFDD,Variable),
+        names_from = FQS,
+        values_from = value
+    )
 
 tmp_table %>%
- gt() %>%
-  cols_label(
-    c1 = "OTEX",
-    c2 = "Variable"
-  )
-
+    # groups
+    mutate(OTEFDD = ifelse(row_number() == 1,
+                           as.character(OTEFDD), ""),
+           .by = OTEFDD) %>%
+    select(OTEFDD,Variable,Conventionnel,AB,SIQO) %>%
+    gt() %>%
+    cols_label(
+        OTEFDD = "OTEX",
+        AB = "Agriculture Biologique",
+        SIQO = "Autres SIQO"
+    ) %>%
+    # replace NAs
+    sub_missing(missing_text = "-") %>%
+    # format numbers
+    fmt_auto()
 
 ```
 
@@ -439,15 +466,6 @@ In our study, two of the five main factors for biodiversity collapse listed by I
 
 In a near future, the method we present here could be broaden at the European scale. It could also help inform other policies than informational ones. However, food products consumed on the European market are not made up only from European commodities. To assess the environmental impact of all food products and use this assessment to inform policies aiming at reducing the agri-food system footprint, an assessment of the impact of foodstuffs produced outside of Europe should also be implemented. Indeed, reducing the impact of food production at the global scale need to implement uniform policies worldwide, which seems impossible today. Implementing European policies that aim to reduce food production impact could lead to an impact leakage (i.e., footprint reduction in regulated countries lead to footprint increase in non regulated countries embedded trough EU imports). While completely avoiding some leakage seems impossible and not necessary desirable, assessing the environmental impact of foodstuff produced outside Europe is necessary to insure that the impact reduction in Europe is not offset by a footprint increase outside Europe and does lead to a global footprint reduction.
 
-
-
-{{< embed annex.qmd#tbl-results_crops >}}
-
-
-
-
-
-
 # To check
 
 -   fig
@@ -464,3 +482,4 @@ We would like to warmly thank Christian Bockstaller for his advice, help and pro
 
 ::: {#refs}
 :::
+

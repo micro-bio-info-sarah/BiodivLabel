@@ -5,7 +5,8 @@
     "index-preview.html": "2e96da10",
     "index.html": "a63be092",
     "index.docx": "bb31b47c",
-    "index.subarticle.xml": "0e00a5db"
+    "index.subarticle.xml": "0e00a5db",
+    "index.xml": "b9fe2b68"
   },
   "old/SM_BVIAS_v240829.qmd": {
     "SM_BVIAS_v240829-preview.html": "5da107be",
@@ -20,5 +21,13 @@
   },
   "annex.embed.ipynb": {
     "annex.embed-preview.html": "e3dd58e4"
+  },
+  "visuals.qmd": {
+    "visuals.embed.ipynb": "2e034939",
+    "visuals.out.ipynb": "64e59705",
+    "visuals-preview.html": "91ddc259"
+  },
+  ".quarto/embed/visuals.embed.ipynb": {
+    "visuals.embed-preview.html": "3a7864db"
   }
 }

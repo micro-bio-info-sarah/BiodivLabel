@@ -1,0 +1,630 @@
+---
+title: |
+ **Supplementary Materials for: Estimating Agricultural Practices and their Impact on Biodiversity from Agricultural Statistics: A Proof-of-Concept Study on Food Labels in France**
+editor: source
+editor_options: 
+  chunk_output_type: console
+crossref:
+  custom:
+    - kind: float
+      key: suppfig
+      latex-env: suppfig
+      reference-prefix: Figure S
+      space-before-numbering: false
+      latex-list-of-description: Supplementary Figure
+---
+
+# Supplementary Methods
+
+## Landscape variables
+
+To take into account the landscape dimension in the BVIAS model applied to environmental labeling, we estimate three parameters: hedge area, agricultural plot size and cultural diversity. To calculate the variables necessary for estimating these parameters, we first extract from the 2020 Graphical Plot Register (RPG) all plots of farms in the 2020 FADN-AR-NAOS matched database.
+
+To do this extraction, we use the PACAGE plot numbers as primary join key. We are faced with three situations:
+
+-   the farm has the same PACAGE number in FADN and RA. Then the RPG plots of this PACAGE number are associated with that farm RICA-RA-INAO;
+
+-   the PACAGE numbers differ between RICA and RA and only one of them corresponds to a RPG PACAGE number. Then the RPG plots of this PACAGE number are associated with this exploitation RICA-RA-INAO;
+
+-   the PACAGE numbers are not entered in either the FADN or the AR, or differ between FADN and AR, and none of them corresponds to a RPG PACAGE number. Then, no parcel is associated with a FADN-AR-NAOI farm. This case is found for 443 and 318 metropolitan farms, respectively. These holdings are mainly concentrated in the OTEX viticulture, market gardening and pig and/or poultry farming.
+
+The result of this extraction will be a subsample of the RPG that we intersect with the hedge layer of the Topo database to calculate the variables necessary for the estimation of the three parameters.
+
+### Density of hedges
+
+Hedge density is the ratio of the sum in linear metres of hedge to the area of the holding (UAA). For the calculation of linear lengths, we will use the same procedure as previously used in ***a similar work*** at the scale of the regions of France. For this calculation, we will distinguish four categories for each variable (hedge area and SAU):
+-   Total
+-   Permanent grassland (including grasslands, moors and alpine pastures)
+-   Arboriculture (orchards and vineyards)
+-   Other crops
+
+### Average size of the plots
+
+The average size of the plots is the ratio of the UAA to the number of plots. We will distinguish four categories for each variable (UAA and number of plots):
+-   Total
+-   Permanent Grassland
+-   Arboriculture (orchards and vineyards)
+-   Other crops
+
+### Cultural diversity
+We calculate two indices here, the Shannon (@eq-shannon) and the Simpson reciprocal (@eq-simpson), using the number of crops as the number of species and the surface area as the abundance. For each index (Shannon and Simpson reciprocal), we will distinguish three categories:
+-   Total
+-   Other crops
+-   Other crops + permanent grassland
+
+$$
+H' = - \sum_{i=1}^{R} p_i ln p_i
+$${#eq-shannon}
+
+where $p_i$ is the ratio of the area of a crop $i \in R$ to the total area.
+
+$$
+²D = \frac{1}{ \sum^{R}_{i = 1} \bigg( \frac{n_i(n_i - 1)}{N(N-1)} \bigg)^2 }
+$${#eq-simpson}
+
+where $n$ is the area of the crop $i \in R$ and $N$ the total area.
+
+### Average annual plant cover in number of days
+
+From the raster data on plant cover in number of days in 2020 between 0 and 366, we calculated the average number of days in plant cover by pasture and crop category. To do this, we started by calculating the average number of days of the grazing plots using the area statistics algorithm in QGIS. Then we calculated the average number of days for each crop category by aggregating the average number of days of covered plots according to:
+-   Total
+-   Permanent Grassland
+-   Arboriculture (orchards and vineyards)
+-   Other crops
+
+
+## Calibration and validation of the model by comparison with in situ biodiversity measurements
+
+# Supplementary Tables
+
+
+```{r product_names, include=FALSE, echo=FALSE}
+
+tmp_product_names <- tibble(
+  product_name = c(
+    "Ble tendre",
+    "Mais grain",
+    "Triticale",
+    "Melange cereales d'ete",
+    "Autres cereales",
+    "Conventionnel",
+    "AB",
+    "Comte - Morbier",
+    "Beurre de Charentes-Poitou",
+    "AOP - AOC",
+    "Bleu d'Auvergne - Cantal",
+    "Fromages de Savoie",
+    "Munster" 
+  ),
+  labels = c(
+    "Blé tendre",
+    "Maïs grain",
+    "Triticale",
+    "Mélange céréales d'été",
+    "Autres céréales",
+    "Conventionnel",
+    "AB",
+    "Comté - Morbier",
+    "Beurre de Charentes-Poitou",
+    "AOP - AOC",
+    "Bleu d'Auvergne - Cantal",
+    "Fromages de Savoie",
+    "Munster" 
+  )
+)
+
+tmp_FQS_names <- tibble(
+  FQS = c(
+    "Conventionnel",
+    "AB",
+    "LR",
+    "Comte - Morbier",
+    "Beurre de Charentes-Poitou",
+    "AOP - AOC",
+    "Bleu d'Auvergne - Cantal",
+    "Fromages de Savoie",
+    "Munster" 
+  ),
+  labels = c(
+    "Conventionnel",
+    "Agriculture Biologique",
+    "Label Rouge",
+    "Comté - Morbier",
+    "Beurre de Charentes-Poitou",
+    "AOP - AOC",
+    "Bleu d'Auvergne - Cantal",
+    "Fromages de Savoie",
+    "Munster" 
+  )
+)
+
+```
+
+```{r practice_names, include=FALSE, echo=FALSE}
+
+# BVIAS
+
+tmp_practice_names_BVIAS <- tibble(
+  practice = c("BVI_ha",
+               "BVI_kg"),
+  labels = c("BVIAS_ha",
+               "BVIAS_kg"))
+
+# crops
+
+tmp_practice_names_crops <- tibble(
+  practice = c("A.3.1_max",
+               "A.4.5_max",
+               "A.4.5_min_max",
+               "A.4.5_org_max",
+               "A.5.1_max",
+               "yield"),
+  labels = c("Travail du sol (L gazole / ha)",
+             "Fertilisation (kg N / ha)", 
+             "Fertilisation (minérale)", 
+             "Fertilisation (organique)",
+             "Produits phytosanitaires (€*/ ha)",
+             "Rendement (kg / ha)"))
+
+# herd
+
+tmp_practice_names_herd <- tibble(
+  practice = c("yield_l_pha",
+               "yield_l_panim",
+               "nb_cow_pha",
+               "cow_pMFA",
+               "feed_autonomy",
+               "kg_DM_panim_maize_produced",
+               #"kg_DM_panim_soy_meal",
+               "share_soybean",
+               #"share_concent_purchased",
+               "share_concent",
+               "MFA_pcow",
+               "MFA_pha_pseudofarm",
+               "ha_temp_pasture_pha_pseudofarm",
+               "grassland_share_pseudofarm"#,
+               #"grassland_share_farm"
+               ),
+  labels = c("Rendement (L lait / ha pseudoferme)",
+             "Rendement (L lait / vache laitière)",
+             "Taux de chargement (vache laitière / ha pseudoferme)",
+             "Taux de chargement (vache laitière / ha SFP)",
+             "Autonomie alimentaire (kg d'aliment produits / kg d'aliments)",
+             "Maïs fourrage (kg de maïs fourrage produit sur l'exploitation / vache laitière)",
+             #"Tourteau de soja (kg de tourteau de soja acheté / vache laitière)",
+             "Part du tourteau de soja importé (kg tourteau de soja / kg d'aliments)",
+             #"Part des concentrés dans les aliments achetés (kg de concentrés / kg d'aliments achetés)",
+             "Part des concentrés dans l'alimentation (kg de concentrés / kg d'aliments)",
+             "Surface Fourragère Principale (SFP / vache laitière)",
+             "Part de la Surface Fourragère Principale (ha SFP / ha pseudoferme)",
+             "Part des prairies temporaires (ha prairie / ha pseudoferme)",
+             "Part des prairies permanentes (ha prairie / ha pseudoferme)"#,
+             #"Part des prairies permanentes (ha prairie / ha ferme)"
+             ))
+
+# feed
+
+tmp_practice_names_feed <- tibble(
+  practice = c("feed_A.3.1_max",
+               "feed_A.4.5_max",
+               "feed_A.4.5_min_max",
+               "feed_A.4.5_org_max",
+               "feed_A.5.1_max",
+               "feed_yield"),
+  labels = c("Travail du sol (L gazole / ha)",
+             "Fertilisation (kg N / ha)", 
+             "Fertilisation (minérale)", 
+             "Fertilisation (organique)",
+             "Produits phytosanitaires (€* / ha)",
+             "Rendement (kg / ha)"))
+
+# all
+tmp_practice_names <- Reduce(rbind,list(
+  tmp_practice_names_BVIAS,
+  tmp_practice_names_crops,
+  tmp_practice_names_herd,
+  tmp_practice_names_feed
+))
+
+```
+
+```{r tbl-results, include=FALSE, echo=FALSE}
+
+library(dplyr)
+library(tidyr)
+
+# data -----
+tmp_TukeyHSD <- read.csv("../CASD_export/tmp_TukeyHSD.csv") %>%
+  mutate(
+    product_name = case_when(
+      product_name == "Maïs grain" ~ "Mais grain",.default = product_name),
+    pval_tukey = as.numeric(pval))
+tmp_paired_ttest <- read.csv("../CASD_export/tmp_paired_ttest.csv")
+tmp_paired_ttest_adjust <- tmp_paired_ttest %>%
+  mutate(padjust_bonf = p.adjust(pval_pttest,method = "bonferroni"),
+         padjust_fdr = p.adjust(pval_pttest,method = "fdr"))
+
+# Table ----
+
+tmp_table0 <- tmp_TukeyHSD %>%
+  mutate(diff_sans_match = loop2.my_var - conv_mean) %>%
+  select(practice,product_name,FQS,
+         production_type,practice_subset,
+         FQS_mean,std,r,diff_sans_match,pval_tukey) %>%
+  mutate(
+    diff_sans_match = case_when(
+      FQS == "Conventionnel" ~ NA,
+      .default = diff_sans_match
+    )
+  ) %>%
+  # add matching results
+  left_join(.,
+            tmp_paired_ttest_adjust %>% 
+              rename(FQS = label) %>%
+              filter(FQS != "Conventionnel") %>%
+              select(FQS,product_name,practice,
+                     n_matched,mean_diff_match,padjust_fdr),
+            by = join_by(product_name, FQS, practice)
+  ) %>%
+  # order factors
+  mutate(
+    practice = factor(practice,levels = tmp_practice_names$practice,labels = tmp_practice_names$labels,ordered = T),
+    product_name = factor(product_name,levels = tmp_product_names$product_name,labels = tmp_product_names$labels,ordered = T),
+    FQS = factor(FQS,levels = tmp_FQS_names$FQS,labels = tmp_FQS_names$labels,ordered = T)
+  )
+
+```
+
+```{r tbl-results_crops}
+
+
+tmp_table <- tmp_table0 %>%
+  filter(production_type == "crop"
+         & practice %in% c(tmp_practice_names_BVIAS$labels,
+                           tmp_practice_names_crops$labels)) %>%
+  select(!c(production_type,practice_subset)) %>%
+  arrange(practice,product_name,FQS)
+
+tmp_table %>%
+  mutate(product_name = ifelse(row_number() == 1,
+                               as.character(product_name), ""),
+         .by = c(practice, product_name)) %>%
+  mutate(practice = ifelse(row_number() == 1, as.character(practice), ""),
+         .by = practice) %>%
+  gt() %>%
+  fmt_auto() %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+      ),
+    locations = cells_body(
+      columns = c(diff_sans_match,pval_tukey),
+      rows = pval_tukey <= 0.05
+    )
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+      ),
+    locations = cells_body(
+      columns = c(mean_diff_match,padjust_fdr),
+      rows = padjust_fdr <= 0.05
+    )
+  ) %>%
+  cols_label(
+    practice = "Pratiques",
+    product_name = "Production",
+    FQS = "Label",
+    FQS_mean = "Moyenne",
+    std = "Ecart-Type",
+    r = "Effectif",
+    diff_sans_match = "Différence avec la moyenne conventionnelle",
+    pval_tukey = "Tukey HSD p-value",
+    n_matched = "Effectif apparié",
+    mean_diff_match = "Différence avec la moyenne contrefactuelle",
+    padjust_fdr = "FDR adjusted t-test p-value"
+  )
+  
+```
+
+
+::: {#tbl-results_crops}
+
+```{r tbl-results_crops}
+
+library(dplyr)
+library(tidyr)
+
+# data -----
+tmp_TukeyHSD <- read.csv("../CASD_export/tmp_TukeyHSD.csv") %>%
+  mutate(
+    product_name = case_when(
+      product_name == "Maïs grain" ~ "Mais grain",.default = product_name),
+    pval_tukey = as.numeric(pval))
+tmp_paired_ttest <- read.csv("../CASD_export/tmp_paired_ttest.csv")
+tmp_paired_ttest_adjust <- tmp_paired_ttest %>%
+  mutate(padjust_bonf = p.adjust(pval_pttest,method = "bonferroni"),
+         padjust_fdr = p.adjust(pval_pttest,method = "fdr"))
+
+# Wrangle ----
+tmp_table0 <- tmp_TukeyHSD %>%
+  select(production_type,product_name,FQS,practice,loop2.my_var) %>% 
+  pivot_wider(names_from = practice,values_from = loop2.my_var) %>%
+  mutate(Statistique = "Moyenne",
+         order = case_when(FQS == "Conventionnel" ~1, .default = 3)) %>%
+  # sd
+  rbind(
+    tmp_TukeyHSD %>%
+      select(production_type,product_name,FQS,practice,std) %>%
+      pivot_wider(names_from = practice,values_from = std) %>%
+      mutate(Statistique = "Ecart-type",
+             order = case_when(FQS == "Conventionnel" ~2, .default = 4))  ) %>%
+  # "Différence sans matching"
+  rbind(
+    tmp_TukeyHSD %>%
+      mutate(diff_sans_match = loop2.my_var - conv_mean) %>%
+      select(production_type,product_name,FQS,practice,diff_sans_match) %>%
+      pivot_wider(names_from = practice,values_from = diff_sans_match) %>%
+      filter(FQS != "Conventionnel") %>%
+      mutate(Statistique = "Différence sans matching",
+             order = 5)  ) %>%
+  # "Tukey HSD p-value"
+  rbind(
+    tmp_TukeyHSD %>%
+      select(production_type,product_name,FQS,practice,pval) %>%
+      pivot_wider(names_from = practice,values_from = pval) %>%
+      filter(FQS != "Conventionnel") %>%
+      mutate(Statistique = "Tukey HSD p-value",
+             order = 6)) %>%
+  # ***
+  rbind(
+    tmp_TukeyHSD %>%
+      mutate(Significance = case_when(pval <= 0.001 ~ "***",
+                                      pval <= 0.01 ~ "**",
+                                      pval <= 0.05 ~ "*",
+                                      .default = "")) %>%
+      select(production_type,product_name,FQS,practice,Significance) %>%
+      pivot_wider(names_from = practice,values_from = Significance) %>%
+      filter(FQS != "Conventionnel") %>%
+      mutate(Statistique = "Significance",
+             order = 7)) %>%
+  # "Différence post matching"
+  rbind(
+    tmp_paired_ttest_adjust %>%
+      mutate(production_type = case_when(
+        product_RICA_CODE != "milk" ~ "crop", .default = "milk")) %>%
+      rename(FQS = label) %>%
+      filter(FQS != "Conventionnel") %>%
+      select(production_type,product_name,FQS,practice,mean_diff_match) %>%
+      pivot_wider(names_from = practice,values_from = mean_diff_match) %>%
+      mutate(Statistique = "Différence post matching",
+             order = 8)) %>%
+  # "T-test apparié, FDR p-value"
+  rbind(
+    tmp_paired_ttest_adjust %>%
+      mutate(production_type = case_when(
+        product_RICA_CODE != "milk" ~ "crop", .default = "milk")) %>%
+      rename(FQS = label) %>%
+      filter(FQS != "Conventionnel") %>%
+      select(production_type,product_name,FQS,practice,padjust_fdr) %>%
+      pivot_wider(names_from = practice,values_from = padjust_fdr) %>%
+      mutate(Statistique = "T-test apparié FDR p-value",
+             order = 9)) %>%
+  # ***
+  rbind(
+    tmp_paired_ttest_adjust %>%
+      mutate(production_type = case_when(
+        product_RICA_CODE != "milk" ~ "crop", .default = "milk")) %>%
+      rename(FQS = label) %>%
+      filter(FQS != "Conventionnel") %>%
+      mutate(Significance = case_when(padjust_fdr <= 0.001 ~ "***",
+                                      padjust_fdr <= 0.01 ~ "**",
+                                      padjust_fdr <= 0.05 ~ "*",
+                                      .default = "")) %>%
+      select(production_type,product_name,FQS,practice,Significance) %>%
+      pivot_wider(names_from = practice,values_from = Significance) %>%
+      mutate(Statistique = "Significance",
+             order = 10))
+
+# TABLE -----
+library(gt)
+
+tmp_table0 %>%
+  # select variables
+  filter(production_type == "crop") %>%
+  select(production_type,order,product_name,FQS,Statistique,
+         BVI_ha,BVI_kg,
+         yield,A.3.1_max,A.4.5_max,A.4.5_min_max,A.4.5_org_max,A.5.1_max) %>%
+  # add order
+  mutate(order = case_when(
+    FQS == "Conventionnel"~ order + 100,
+    FQS == "AB" ~ order + 200,
+    FQS == "LR" ~ order + 300
+    )) %>%
+  mutate(order = case_when(
+    product_name == "Ble tendre"~ order + 1000,
+    product_name == "Mais grain"~ order + 2000,
+    product_name == "Triticale"~ order + 3000,
+    product_name == "Melange cereales d'ete"~ order + 4000,
+    product_name == "Autres cereales"~ order + 5000
+    )) %>%
+  group_by(product_name,FQS) %>%
+  mutate(min_order = min(order)) %>% ungroup() %>%
+  # arrange
+  arrange(order) %>%
+  mutate(
+    c1 = case_when(order == min_order ~ product_name,.default = ""),
+    c2 = case_when(order == min_order ~ FQS, .default = "")) %>%
+  select(c1,c2,Statistique,
+         BVI_ha,BVI_kg,
+         yield,A.3.1_max,A.4.5_max,A.4.5_min_max,A.4.5_org_max,A.5.1_max) %>%
+  # plot
+  gt() %>%
+  cols_label(
+    c1 = "Production",
+    c2 = "Labels et Effectifs",
+    Statistique = "Statistics",
+    BVI_ha = "BVIAS_ha",
+    BVI_kg = "BVIAS_kg",
+    yield = "Yield (kg/ha)",
+    A.3.1_max = "Tillage (€ diesel/ha)",
+    A.4.5_max = "Total fertilization (kg N/ha)",
+    A.4.5_min_max = "Mineral fertilization (kg N/ha)",
+    A.4.5_org_max = "Organic fertilization (kg N/ha)",
+    A.5.1_max = "Plant protection products (adjusted € / ha)"
+    ) #%>%  fmt_number(decimals = 3)
+
+```
+
+**Descriptive statistics and test results on estimated practices and their impact BVIAS for cereal crops** (in bold the significant differences and their p-value)
+
+:::
+
+
+::: {#tbl-results_diary_feed}
+
+```{r tbl-results_diary_feed}
+
+# extract feed
+tmp_table <- tmp_tableS1 %>%
+  filter(production_type == "milk") %>%
+  select(production_type,order,product_name,FQS,Statistique,
+         BVI_ha,BVI_kg,
+feed_yield,feed_A.3.1_max,feed_A.4.5_max,feed_A.4.5_min_max,feed_A.4.5_org_max,feed_A.5.1_max)
+
+
+tmp_table0 %>%
+  # select variables
+  filter(production_type == "milk") %>%
+  select(production_type,order,product_name,FQS,Statistique,
+         BVI_ha,BVI_kg,
+         feed_yield,feed_A.3.1_max,feed_A.4.5_max,feed_A.4.5_min_max,feed_A.4.5_org_max,feed_A.5.1_max) %>%
+  # add order
+  mutate(order = case_when(
+    FQS == "Conventionnel"~ order + 100,
+    FQS == "AB" ~ order + 200,
+    FQS == "Comte - Morbier" ~ order + 300,
+    FQS == "Beurre de Charentes-Poitou" ~ order + 400,
+    FQS == "Bleu d'Auvergne - Cantal" ~ order + 500,
+    FQS == "Fromages de Savoie" ~ order + 600,
+    FQS == "Munster" ~ order + 700,
+    FQS == "AOP - AOC" ~ order + 800
+    )) %>%
+  group_by(FQS) %>%
+  mutate(min_order = min(order)) %>% ungroup() %>%
+  # arrange
+  arrange(order) %>%
+  mutate(
+    c1 = case_when(order == min_order ~ product_name,.default = ""),
+    c2 = case_when(order == min_order ~ FQS, .default = "")) %>%
+  select(c1,c2,Statistique,
+         BVI_ha,BVI_kg,
+         feed_yield,feed_A.3.1_max,feed_A.4.5_max,feed_A.4.5_min_max,feed_A.4.5_org_max,feed_A.5.1_max) %>%
+  # plot
+  gt() %>%
+  cols_label(
+    c1 = "Production",
+    c2 = "Labels et Effectifs",
+    Statistique = "Statistics",
+    BVI_ha = "BVIAS_ha",
+    BVI_kg = "BVIAS_kg",
+    feed_yield = "Yield (kg/ha)",
+    feed_A.3.1_max = "Tillage (€ diesel/ha)",
+    feed_A.4.5_max = "Total fertilization (kg N/ha)",
+    feed_A.4.5_min_max = "Mineral fertilization (kg N/ha)",
+    feed_A.4.5_org_max = "Organic fertilization (kg N/ha)",
+    feed_A.5.1_max = "Plant protection products (adjusted € / ha)"
+    ) #%>%  fmt_number(decimals = 3)
+
+
+```
+
+
+**Descriptive statistics and test results on estimated practices and their impact BVIAS for the production of dairy cow feed** (in bold the significant differences and their p-value)
+
+:::
+
+
+Tableau 6: Statistiques descriptives et résultats des tests sur les pratiques estimées et leur impact BVIAS pour l'élevage des vaches laitières
+```{r tbl-results_diary_husbandry}
+
+# extract herd
+tmp_table <- tmp_tableS1 %>%
+  filter(production_type == "milk") %>%
+  select(production_type,order,product_name,FQS,Statistique,
+         feed_autonomy,grassland_share_pseudofarm,ha_temp_pasture_pha_pseudofarm,MFA_pha_pseudofarm,cow_pMFA,nb_cow_pha,
+         kg_DM_panim_maize_produced,share_concent,share_soybean,yield_l_panim,yield_l_pha)
+write.csv(tmp_table,paste0(tmp_output_folder,"/tmp_tableS1c.csv"),
+          row.names = F,quote = F)
+```
+::: {#tbl-results_diary_husbandry}
+
+**Descriptive statistics and test results on estimated practices and their impact BVIAS for dairy cow rearing** (in bold the significant differences and their p-value)
+
+:::
+
+
+# Supplementary Figures
+
+Figure 6: Diagramme détaillé de la modélisation des pratiques agricoles à partir des données du RICA et de leur intégration avec le modèle BVI
+
+::: {#fig-diagram_detailed}
+
+![](images/fig_diagram_simpl.svg)
+
+**BVIAS detailed diagram**: modelling of agricultural practices from FADN data and their integration with the BVI model
+
+:::
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

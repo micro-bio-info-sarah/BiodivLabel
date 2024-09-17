@@ -77,170 +77,22 @@ From the raster data on plant cover in number of days in 2020 between 0 and 366,
 
 # Supplementary Tables
 
-Tableau 4: Statistiques descriptives et résultats des tests sur les pratiques estimées et leur impact BVIAS pour les cultures céréalières (en gras les différences significatives et leur p-value)
-
 ::: {#tbl-results_crops}
-```{r tbl-results_crops}
 
-library(dplyr)
-library(tidyr)
+{{< embed visuals.qmd#tbl-results_crops >}}
 
-# data -----
-tmp_TukeyHSD <- read.csv("../CASD_export/tmp_TukeyHSD.csv") %>%
-  mutate(
-    product_name = case_when(
-      product_name == "Maïs grain" ~ "Mais grain",.default = product_name),
-    pval_tukey = as.numeric(pval))
-tmp_paired_ttest <- read.csv("../CASD_export/tmp_paired_ttest.csv")
-tmp_paired_ttest_adjust <- tmp_paired_ttest %>%
-  mutate(padjust_bonf = p.adjust(pval_pttest,method = "bonferroni"),
-         padjust_fdr = p.adjust(pval_pttest,method = "fdr"))
-
-# Wrangle ----
-tmp_table <- tmp_TukeyHSD %>%
-  select(production_type,product_name,FQS,practice,loop2.my_var) %>% 
-  pivot_wider(names_from = practice,values_from = loop2.my_var) %>%
-  mutate(Statistique = "Moyenne",
-         order = case_when(FQS == "Conventionnel" ~1, .default = 3)) %>%
-  # sd
-  rbind(
-    tmp_TukeyHSD %>%
-      select(production_type,product_name,FQS,practice,std) %>%
-      pivot_wider(names_from = practice,values_from = std) %>%
-      mutate(Statistique = "Ecart-type",
-             order = case_when(FQS == "Conventionnel" ~2, .default = 4))  ) %>%
-  # "Différence sans matching"
-  rbind(
-    tmp_TukeyHSD %>%
-      mutate(diff_sans_match = loop2.my_var - conv_mean) %>%
-      select(production_type,product_name,FQS,practice,diff_sans_match) %>%
-      pivot_wider(names_from = practice,values_from = diff_sans_match) %>%
-      filter(FQS != "Conventionnel") %>%
-      mutate(Statistique = "Différence sans matching",
-             order = 5)  ) %>%
-  # "Tukey HSD p-value"
-  rbind(
-    tmp_TukeyHSD %>%
-      select(production_type,product_name,FQS,practice,pval) %>%
-      pivot_wider(names_from = practice,values_from = pval) %>%
-      filter(FQS != "Conventionnel") %>%
-      mutate(Statistique = "Tukey HSD p-value",
-             order = 6)) %>%
-  # ***
-  rbind(
-    tmp_TukeyHSD %>%
-      mutate(Significance = case_when(pval <= 0.001 ~ "***",
-                                      pval <= 0.01 ~ "**",
-                                      pval <= 0.05 ~ "*",
-                                      .default = "")) %>%
-      select(production_type,product_name,FQS,practice,Significance) %>%
-      pivot_wider(names_from = practice,values_from = Significance) %>%
-      filter(FQS != "Conventionnel") %>%
-      mutate(Statistique = "Significance",
-             order = 7)) %>%
-  # "Différence post matching"
-  rbind(
-    tmp_paired_ttest_adjust %>%
-      mutate(production_type = case_when(
-        product_RICA_CODE != "milk" ~ "crop", .default = "milk")) %>%
-      rename(FQS = label) %>%
-      filter(FQS != "Conventionnel") %>%
-      select(production_type,product_name,FQS,practice,mean_diff_match) %>%
-      pivot_wider(names_from = practice,values_from = mean_diff_match) %>%
-      mutate(Statistique = "Différence post matching",
-             order = 8)) %>%
-  # "T-test apparié, FDR p-value"
-  rbind(
-    tmp_paired_ttest_adjust %>%
-      mutate(production_type = case_when(
-        product_RICA_CODE != "milk" ~ "crop", .default = "milk")) %>%
-      rename(FQS = label) %>%
-      filter(FQS != "Conventionnel") %>%
-      select(production_type,product_name,FQS,practice,padjust_fdr) %>%
-      pivot_wider(names_from = practice,values_from = padjust_fdr) %>%
-      mutate(Statistique = "T-test apparié FDR p-value",
-             order = 9)) %>%
-  # ***
-  rbind(
-    tmp_paired_ttest_adjust %>%
-      mutate(production_type = case_when(
-        product_RICA_CODE != "milk" ~ "crop", .default = "milk")) %>%
-      rename(FQS = label) %>%
-      filter(FQS != "Conventionnel") %>%
-      mutate(Significance = case_when(padjust_fdr <= 0.001 ~ "***",
-                                      padjust_fdr <= 0.01 ~ "**",
-                                      padjust_fdr <= 0.05 ~ "*",
-                                      .default = "")) %>%
-      select(production_type,product_name,FQS,practice,Significance) %>%
-      pivot_wider(names_from = practice,values_from = Significance) %>%
-      mutate(Statistique = "Significance",
-             order = 10)) %>%
-  # select variables
-  filter(production_type == "crop") %>%
-  select(production_type,order,product_name,FQS,Statistique,
-         BVI_ha,BVI_kg,
-         yield,A.3.1_max,A.4.5_max,A.4.5_min_max,A.4.5_org_max,A.5.1_max) %>%
-  # add order
-  mutate(order = case_when(
-    FQS == "Conventionnel"~ order + 100,
-    FQS == "AB" ~ order + 200,
-    FQS == "LR" ~ order + 300
-    )) %>%
-  mutate(order = case_when(
-    product_name == "Ble tendre"~ order + 1000,
-    product_name == "Mais grain"~ order + 2000,
-    product_name == "Triticale"~ order + 3000,
-    product_name == "Melange cereales d'ete"~ order + 4000,
-    product_name == "Autres cereales"~ order + 5000
-    )) %>%
-  group_by(product_name,FQS) %>%
-  mutate(min_order = min(order)) %>% ungroup()
-
-# TABLE -----
-library(gt)
-
-tmp_table %>%
-  arrange(order) %>%
-  mutate(
-    c1 = case_when(order == min_order ~ product_name,.default = ""),
-    c2 = case_when(order == min_order ~ FQS, .default = "")) %>%
-  select(c1,c2,Statistique,
-         BVI_ha,BVI_kg,
-         yield,A.3.1_max,A.4.5_max,A.4.5_min_max,A.4.5_org_max,A.5.1_max) %>%
-  gt() %>%
-  cols_label(
-    c1 = "Production",
-    c2 = "Labels et Effectifs",
-    Statistique = "Statistics",
-    BVI_ha = "BVIAS_ha",
-    BVI_kg = "BVIAS_kg",
-    yield = "Yield (kg/ha)",
-    A.3.1_max = "Tillage (€ diesel/ha)",
-    A.4.5_max = "Total fertilization (kg N/ha)",
-    A.4.5_min_max = "Mineral fertilization (kg N/ha)",
-    A.4.5_org_max = "Organic fertilization (kg N/ha)",
-    A.5.1_max = "Plant protection products (adjusted € / ha)"
-    ) #%>%  fmt_number(decimals = 3)
-
-```
-
-**Descriptive statistics and test results on estimated practices and their impact BVIAS for cereal crops** (in bold the significant differences and their p-value)
+**Descriptive statistics and test results on estimated practices and their impact BVIAS for cereal crops** (significant differences and corresponding p-values in bold)
 
 :::
-
-
-Tableau 5: Statistiques descriptives et résultats des tests sur les pratiques estimées et leur impact BVIAS pour la production de l'alimentation des vaches laitières (en gras les différences significatives et leur p-value)
 
 ::: {#tbl-results_diary_feed}
 
-**Descriptive statistics and test results on estimated practices and their impact BVIAS for the production of dairy cow feed** (in bold the significant differences and their p-value)
+
+**Descriptive statistics and test results on estimated practices and their impact BVIAS for the production of dairy cow feed** (significant differences and corresponding p-values in bold)
 
 :::
 
-
-Tableau 6: Statistiques descriptives et résultats des tests sur les pratiques estimées et leur impact BVIAS pour l'élevage des vaches laitières
-
-::: {#tbl-results_diary_husbandry}
+::: {#tbl-results_diary_herd}
 
 **Descriptive statistics and test results on estimated practices and their impact BVIAS for dairy cow rearing** (in bold the significant differences and their p-value)
 
