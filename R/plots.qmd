@@ -42,9 +42,9 @@ tmp_output_folder = paste0(getwd(),"/data_out")
 
 ```{r load_model_data}
 
-tmp_resp_var_w0_match <- read_csv("CASD_export/tmp_resp_var_w0_match.csv")
+tmp_resp_var_w0_match <- read_csv("../CASD_export/tmp_resp_var_w0_match.csv")
 
-tmp_resp_var_w_match <- read_csv("CASD_export/tmp_resp_var_w_match.csv")
+tmp_resp_var_w_match <- read_csv("../CASD_export/tmp_resp_var_w_match.csv")
 
 tmp_TukeyHSD <- read_csv("../CASD_export/tmp_TukeyHSD.csv")
 tmp_paired_ttest <- read_csv("../CASD_export/tmp_paired_ttest.csv")
@@ -52,7 +52,7 @@ tmp_paired_ttest <- read_csv("../CASD_export/tmp_paired_ttest.csv")
 tmp_paired_ttest_adjust <- tmp_paired_ttest %>%
   mutate(padjust_bonf = p.adjust(pval_pttest,method = "bonferroni"),
          padjust_fdr = p.adjust(pval_pttest,method = "fdr"))
-write.csv(tmp_paired_ttest_adjust,"CASD_export/tmp_paired_ttest_adjust.csv",
+write.csv(tmp_paired_ttest_adjust,"../CASD_export/tmp_paired_ttest_adjust.csv",
           row.names = F,quote = F)
 
 ```
@@ -580,8 +580,6 @@ tmp_plot_data %>%
 
 
 ```
-
-
 
 ```{r practices_matched_paired_t_test}
 

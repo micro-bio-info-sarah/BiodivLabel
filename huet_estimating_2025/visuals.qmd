@@ -15,6 +15,7 @@ knitr:
 
 # Data
 
+
 ```{r product_names, include=FALSE, echo=FALSE}
 library(tibble)
 
@@ -212,6 +213,7 @@ tmp_table0 <- tmp_TukeyHSD %>%
   )
 
 ```
+
 
 # SM
 

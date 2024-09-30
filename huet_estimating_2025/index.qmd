@@ -4,15 +4,11 @@ title: |
 editor: source
 editor_options: 
   chunk_output_type: console
-
 ---
 
 # Abstract
 
-Biodiversity erosion is a major environmental crisis. Although our agri-food system contributes to the five main direct threats to biodiversity, the assessment of the impact of food products remains limited either to *in situ* measurements that do not allow for estimate generalization, or to systematic models that are not validated by *in situ* data. 
-Here we propose the BVIAS (Biodiversity Value Increment from Agricultural Statistics) method, which allows to calculate the impact of food products on biodiversity based on accounting data and public statistics. This method, applied here to renown French agricultural products, allows for a comparison of the main Food Quality Schemes (FQSs): Organic production, Label Rouge (LR) and Geographical Indications (GIs).
-Thus, among the 25 evaluated FQSs, only Organic products and some cheese GIs stand out from non-certified (so-called conventional) agriculture by effectively different agricultural practices, Consistent with the requirements of the specifications. These different agricultural practices lead to a lower impact on biodiversity per hectare but lower yields, resulting in a similar impact per tonne.
-Taking into account the main determinants of biodiversity losses related to agriculture, relying on quantified data at the level of farms and validating our model based on consensual orders of magnitude of biodiversity in the literature, We therefore propose here an objective, robust and operational method to allow a generalized estimate of the impact on biodiversity of any agri-food production.
+Biodiversity erosion is a major environmental crisis. Although our agri-food system contributes to the five main direct threats to biodiversity, the assessment of the impact of food products remains limited either to *in situ* measurements that do not allow for estimate generalization, or to systematic models that are not validated by *in situ* data. Here we propose the BVIAS (Biodiversity Value Increment from Agricultural Statistics) method, which allows to calculate the impact of food products on biodiversity based on accounting data and public statistics. This method, applied here to renown French agricultural products, allows for a comparison of the main Food Quality Schemes (FQSs): Organic production, Label Rouge (LR) and Geographical Indications (GIs). Thus, among the 25 evaluated FQSs, only Organic products and some cheese GIs stand out from non-certified (so-called conventional) agriculture by effectively different agricultural practices, Consistent with the requirements of the specifications. These different agricultural practices lead to a lower impact on biodiversity per hectare but lower yields, resulting in a similar impact per tonne. Taking into account the main determinants of biodiversity losses related to agriculture, relying on quantified data at the level of farms and validating our model based on consensual orders of magnitude of biodiversity in the literature, We therefore propose here an objective, robust and operational method to allow a generalized estimate of the impact on biodiversity of any agri-food production.
 
 # Introduction
 
@@ -43,7 +39,6 @@ Three main types of methods for assessing the impact of food products on biodive
 *Modelling from specifications*, for the moment confined to grey literature, offers an assessment of the potential impact of restrictions placed in the specifications of FQSs. @alliot_etude_2021 conclude that the specifications associated with organic farming (AB, Demeter, and Nature et Progrès FQSs) strongly limit the damage to biodiversity (score between 3/5 and 4/5), that the Protected Designation of Origin (PDO) Comté and the Bleu Blanc Cœur FQS limit them moderately (2/5) and that the other FQSs (e.g., HVE, Zero Pesticides, Label Rouge) do not limit them. This approach has the advantage of being applicable to any FQS, but ignores the practices actually implemented. For example, the Comté PDO’s specifications that limit mineral fertilization to $50 kg N ha^-1$ do not allow the quantities actually used to be known, let alone the possible effects on greater cultural diversity or on the ratio between organic and mineral nitrogen. Moreover, this approach suffers from the same limitation as *in situ* observations on the non-consideration of land consumption and the same limitation as other models on the absence of validation.
 
 ::: {#tbl-intro}
-
 ```{r tbl_intro, echo=FALSE, include=T}
 
 library(gt)
@@ -152,8 +147,7 @@ tmp_table %>%
 
 ```
 
-**Environmental Labeling Requirements and Existing Methods.** The color code gives the authors' judgement on the degree of adequacy of the type of method with each criterion (requirement [fulfilled]{style=color:#99CC99;}, [partially fulfilled]{style=color:#FFCC99;} or [not fulfilled]{style=color:#FF9999;}), based on the example cited at the top of the table.
-
+**Environmental Labeling Requirements and Existing Methods.** The color code gives the authors' judgement on the degree of adequacy of the type of method with each criterion (requirement [fulfilled]{style="color:#99CC99;"}, [partially fulfilled]{style="color:#FFCC99;"} or [not fulfilled]{style="color:#FF9999;"}), based on the example cited at the top of the table.
 :::
 
 Finally, for the three families of methods, appraising the representativeness of their results for a given product type or FQS is currently challenging. *In situ* measurements, such as life cycle surveys, are generally carried out on a limited number of farms without any explicit indication of their representativeness. This limit may become even more critical as the pressure of environmental labeling may lead some stakeholders to provide life cycle inventories with flattering examples for their sector. The increasing availability of data collected for public statistics and agricultural policies now allows to avoid this risk and to increase the sample sizes tenfold. Some studies have already linked data from the Agricultural Accountancy Data Network (FADN) and the National Institute of Origin and Quality (INAO) to assess the effectiveness of certified farms. @jeanneaux_competitivite_2018 shows that some sectors do not generate better profitability, because the premium product is fully compensated by a lower technical efficiency (e.g., Label Rouge or organic broilers). @sengel_performances_2022 estimates that dairy farms under GI generate 30% higher income per unit of work than conventional farms. This difference, mainly due to Franche-Comté GIs, rises to 40% after restriction of comparison to farms with comparable structure and location, following a «matching» procedure.
@@ -208,16 +202,13 @@ In order to take into account the landscape elements implemented on the farms, w
 ![](images/fig_diagram_simpl.svg)
 
 **Simplified diagram of agricultural practice modelling** from FADN data and their integration with the BVIAS model
-
 :::
 
 ### Matching AC, SIQO and FADN databases
 
 The matching of AC and FQS (SIQO from INAO) data is done, prior to this study, using the SIRET number (French System for Identification of Establishments) of the farms [@corre_methode_2023], allowing to identify farms involved in FQSs and for which certified product. The 2020 FADN and AC data are then matched by comparing the SIRET, Pacage (identifier linked to the Common Agricultural Policy) and SIREN (French System for Identification of Business Register) numbers of agricultural holdings. The matched data set thus includes ***7292*** farms, located throughout the metropolitan territory, representing ***99.14%*** of farms registered in the 2020 FADN. A description of the matched data is provided in @tbl-stat_desc.
 
-
 ::: {#tbl-stat_desc}
-
 ```{r tbl_stat_desc}
 
 library(gt)
@@ -265,7 +256,7 @@ tmp_table %>%
 
 ```
 
-**Descriptive statistics** (average) in terms of OTEX and FQSs
+**Descriptive statistics** (average) in terms of OTEX and FQSs. The technical-economic orientations (OTEX) displayed here include farms specialized in cereals and/or oleaginous protein (1500), other field crops (1600), dairy cattle (4500), mixed cattle (4700) and polyculture and/or polybreeding (6184).
 :::
 
 ### Matching the AC/FQS/FADN database with the LPIS
@@ -282,7 +273,7 @@ Tillage intensity is estimated by the farm’s off-road diesel consumption, subt
 
 ### Nitrogen fertilization
 
-The intensity of nitrogen fertilization is estimated for both mineral and organic fertilizers. For mineral fertilizers, the amount of mineral nitrogen brought to the farm, directly reported in the FADN, is allocated to the different crops using national mineral nitrogen input averages as a distribution key [@ministere_de_lagriculture_ssp_pratiques_2019; See "PKGC_N_ferti" sheet of supp_data.xlsx file]. 
+The intensity of nitrogen fertilization is estimated for both mineral and organic fertilizers. For mineral fertilizers, the amount of mineral nitrogen brought to the farm, directly reported in the FADN, is allocated to the different crops using national mineral nitrogen input averages as a distribution key [@ministere_de_lagriculture_ssp_pratiques_2019; See "PKGC_N_ferti" sheet of supp_data.xlsx file].
 
 For organic fertilizers,as the FADN variable is not well-informed, we estimate these inputs in two different ways, depending on whether or not the farm has livestock.
 
@@ -300,7 +291,7 @@ In addition, the proportion of mineral nitrogen on total nitrogen input to crops
 
 The intensity of the application of plant protection products is estimated using the purchased value (€) in plant protection products registered in the FADN. This value is allocated to the different crops using the national average Treatment Frequency Index (TFI) as a distribution key [@ministere_de_lagriculture_ssp_pratiques_2019; see "IFT_ref" sheet of supp_data.xlsx file]. We accounted for the lower toxicity of products used in organic farming by correcting the value in plant protection products of organic farms by the ratio between the average toxicity of products used in organic farming and the average toxicity of products used in conventional agriculture.
 
-To assess the average toxicities of products used either in organic or conventional farming, we estimate the toxicity by dose of four among the top ten best-selling products in each of these production modes [@eau_france_bnv-d_2020]. We select these four products for the availability of data to determine their toxicity, by multiplying their "freshwater ecotoxicity" characterization factor  [@andreasi_bassi_updated_2023] by their unit dose [in accordance with @noauthor_arrete_2017]. In line with the ADEME proposal for environmental labeling [@noauthor_ingredients_2024], the characterization factor is doubled for organic molecules compared to inorganic molecules (e.g., copper). Then, we calculate the average toxicity of products used in organic or conventional agriculture as the weighted average of the toxicity of the four products by the corresponding number of unit doses (NODU) used in France in 2020 (see "A.5.1_substance_top10" sheet of supp_data.xlsx file)***put sheet in file***.
+To assess the average toxicities of products used either in organic or conventional farming, we estimate the toxicity by dose of four among the top ten best-selling products in each of these production modes [@eau_france_bnv-d_2020]. We select these four products for the availability of data to determine their toxicity, by multiplying their "freshwater ecotoxicity" characterization factor [@andreasi_bassi_updated_2023] by their unit dose [in accordance with @noauthor_arrete_2017]. In line with the ADEME proposal for environmental labeling [@noauthor_ingredients_2024], the characterization factor is doubled for organic molecules compared to inorganic molecules (e.g., copper). Then, we calculate the average toxicity of products used in organic or conventional agriculture as the weighted average of the toxicity of the four products by the corresponding number of unit doses (NODU) used in France in 2020 (see "A.5.1_substance_top10" sheet of supp_data.xlsx file)***put sheet in file***.
 
 ## Estimation of husbandry practices from accounting data
 
@@ -316,12 +307,11 @@ The sum of the on- and off-farm feed quantities gives the total amount of feed c
 
 ### Crop practices for animal feed production
 
- The crop practices applied to on-farm feed areas are derived directly from available data for the farm (see section ***3.2.4***). With the exception of soybean, the crop practices applied to the areas cultivated for the production of purchased feed are approximated to the average practices in France calculated per crop in our study, distinguishing organic and conventional agriculture. The share of purchased feed allocated to soybean meal (see section ***nutritional quality of feed***) is assumed to be imported from Brazil [@overmars_estimates_2015]. The BVI of Brazilian soybeans is taken from @lindner_bringing_2022 and scaled to the values estimated in our study by correcting for the BVI ratio of conventional French wheat calculated in our study on that estimated by @lindner_bringing_2022  (See "soybean" sheet from supp_data.xlsx). ***change for new value with landscape effect***
- 
+The crop practices applied to on-farm feed areas are derived directly from available data for the farm (see section ***3.2.4***). With the exception of soybean, the crop practices applied to the areas cultivated for the production of purchased feed are approximated to the average practices in France calculated per crop in our study, distinguishing organic and conventional agriculture. The share of purchased feed allocated to soybean meal (see section ***nutritional quality of feed***) is assumed to be imported from Brazil [@overmars_estimates_2015]. The BVI of Brazilian soybeans is taken from @lindner_bringing_2022 and scaled to the values estimated in our study by correcting for the BVI ratio of conventional French wheat calculated in our study on that estimated by @lindner_bringing_2022 (See "soybean" sheet from supp_data.xlsx). ***change for new value with landscape effect***
+
 ## Landscape Effects Estimation
 
-***check section***
-In order to take into account the landscape dimension in the BVIAS model, we estimate three parameters from the pairing between the LPIS, the Hedge layer of the BD Topo® and the FADN-AC-FQS matched base: the density of hedges, the average plot size and crop diversity. Hedge density is the ratio of the sum in linear meters of hedge to the utilized agricultural area (UAA) (***See Supplementary Material***). The average size of the plots is the ratio of the UAA to the number of plots. For cultural diversity, we use the number of crop as a proxy.
+***check section*** In order to take into account the landscape dimension in the BVIAS model, we estimate three parameters from the pairing between the LPIS, the Hedge layer of the BD Topo® and the FADN-AC-FQS matched base: the density of hedges, the average plot size and crop diversity. Hedge density is the ratio of the sum in linear meters of hedge to the utilized agricultural area (UAA) (***See Supplementary Material***). The average size of the plots is the ratio of the UAA to the number of plots. For cultural diversity, we use the number of crop as a proxy.
 
 ## Model calibration and validation according to litterature
 
@@ -337,9 +327,207 @@ The choice of FQSs studied was made on a representativeness criterion. Thus, FQS
 
 The effect of FQSs on agricultural practices and their impact on biodiversity is estimated by ANOVAs on a linear model, followed by Tukey HSD (p-value 0.05) tests using the *agriculturae* package under R (version 1.3-7; @de_mendiburu_agricolae_2020).
 
-Then, in order to compare the impact of farm production *ceteris paribus*, we use a matching procedure. Hence, we calculate a propensity score for each farm by checking for their standard gross production, their location (NUTS2), whether it is located in a mountain area or not  («Mountain Area» category of the natural handicap compensation from the Common Agricultural Policy), the farmer age and educational level. We then select for each certified farm three conventional counterfactual that are located in the same NUTS2 region and have the closest propensity scores. Thus, we determine the difference between each variable of the certified production (biodiversity impact or practices) and the average value of its three counterfactual, and perform a paired t-test with a Bonferroni correction on p-values.
+Then, in order to compare the impact of farm production *ceteris paribus*, we use a matching procedure. Hence, we calculate a propensity score for each farm by checking for their standard gross production, their location (NUTS2), whether it is located in a mountain area or not («Mountain Area» category of the natural handicap compensation from the Common Agricultural Policy), the farmer age and educational level. We then select for each certified farm three conventional counterfactual that are located in the same NUTS2 region and have the closest propensity scores. Thus, we determine the difference between each variable of the certified production (biodiversity impact or practices) and the average value of its three counterfactual, and perform a paired t-test with a Bonferroni correction on p-values.
 
 # Results
+
+```{r product_names, include=FALSE, echo=FALSE}
+library(tibble)
+
+tmp_product_names <- tibble(
+  product_name = c(
+    "Ble tendre",
+    "Mais grain",
+    "Triticale",
+    "Melange cereales d'ete",
+    "Autres cereales",
+    "Conventionnel",
+    "Agriculture Biologique",
+    "Comte - Morbier",
+    "Beurre de Charentes-Poitou",
+    "AOP - AOC",
+    "Bleu d'Auvergne - Cantal",
+    "Fromages de Savoie",
+    "Munster" 
+  ),
+  labels = c(
+    "Blé tendre",
+    "Maïs grain",
+    "Triticale",
+    "Mélange céréales d'été",
+    "Autres céréales",
+    "Conventionnel",
+    "AB",
+    "Comté - Morbier",
+    "Beurre de Charentes-Poitou",
+    "AOP - AOC",
+    "Bleu d'Auvergne - Cantal",
+    "Fromages de Savoie",
+    "Munster" 
+  )
+)
+
+tmp_FQS_names <- tibble(
+  FQS = c(
+    "Conventionnel",
+    "AB",
+    "LR",
+    "Comte - Morbier",
+    "Beurre de Charentes-Poitou",
+    "AOP - AOC",
+    "Bleu d'Auvergne - Cantal",
+    "Fromages de Savoie",
+    "Munster" 
+  ),
+  labels = c(
+    "Conventionnel",
+    "Agriculture Biologique",
+    "Label Rouge",
+    "Comté - Morbier",
+    "Beurre de Charentes-Poitou",
+    "AOP - AOC",
+    "Bleu d'Auvergne - Cantal",
+    "Fromages de Savoie",
+    "Munster" 
+  )
+)
+
+```
+
+```{r practice_names, include=FALSE, echo=FALSE}
+
+# BVIAS
+
+tmp_practice_names_BVIAS <- tibble(
+  practice = c("BVI_ha",
+               "BVI_kg"),
+  labels = c("BVIAS_ha",
+               "BVIAS_kg"))
+
+# crops
+
+tmp_practice_names_crops <- tibble(
+  practice = c("A.3.1_max",
+               "A.4.5_max",
+               "A.4.5_min_max",
+               "A.4.5_org_max",
+               "A.5.1_max",
+               "yield"),
+  labels = c("Travail du sol (L gazole / ha)",
+             "Fertilisation (kg N / ha)", 
+             "Fertilisation (minérale)", 
+             "Fertilisation (organique)",
+             "Produits phytosanitaires (€*/ ha)",
+             "Rendement (kg / ha)"))
+
+# herd
+
+tmp_practice_names_herd <- tibble(
+  practice = c("yield_l_pha",
+               "yield_l_panim",
+               "nb_cow_pha",
+               "cow_pMFA",
+               "feed_autonomy",
+               "kg_DM_panim_maize_produced",
+               #"kg_DM_panim_soy_meal",
+               "share_soybean",
+               #"share_concent_purchased",
+               "share_concent",
+               "MFA_pcow",
+               "MFA_pha_pseudofarm",
+               "ha_temp_pasture_pha_pseudofarm",
+               "grassland_share_pseudofarm"#,
+               #"grassland_share_farm"
+               ),
+  labels = c("Rendement (L lait / ha pseudoferme)",
+             "Rendement (L lait / vache laitière)",
+             "Taux de chargement (vache laitière / ha pseudoferme)",
+             "Taux de chargement (vache laitière / ha SFP)",
+             "Autonomie alimentaire (kg d'aliment produits / kg d'aliments)",
+             "Maïs fourrage (kg de maïs fourrage produit sur l'exploitation / vache laitière)",
+             #"Tourteau de soja (kg de tourteau de soja acheté / vache laitière)",
+             "Part du tourteau de soja importé (kg tourteau de soja / kg d'aliments)",
+             #"Part des concentrés dans les aliments achetés (kg de concentrés / kg d'aliments achetés)",
+             "Part des concentrés dans l'alimentation (kg de concentrés / kg d'aliments)",
+             "Surface Fourragère Principale (SFP / vache laitière)",
+             "Part de la Surface Fourragère Principale (ha SFP / ha pseudoferme)",
+             "Part des prairies temporaires (ha prairie / ha pseudoferme)",
+             "Part des prairies permanentes (ha prairie / ha pseudoferme)"#,
+             #"Part des prairies permanentes (ha prairie / ha ferme)"
+             ))
+
+# feed
+
+tmp_practice_names_feed <- tibble(
+  practice = c("feed_A.3.1_max",
+               "feed_A.4.5_max",
+               "feed_A.4.5_min_max",
+               "feed_A.4.5_org_max",
+               "feed_A.5.1_max",
+               "feed_yield"),
+  labels = c("Travail du sol (L gazole / ha)",
+             "Fertilisation (kg N / ha)", 
+             "Fertilisation (minérale)", 
+             "Fertilisation (organique)",
+             "Produits phytosanitaires (€* / ha)",
+             "Rendement (kg / ha)"))
+
+# all
+tmp_practice_names <- Reduce(rbind,list(
+  tmp_practice_names_BVIAS,
+  tmp_practice_names_crops,
+  tmp_practice_names_herd,
+  tmp_practice_names_feed
+))
+
+```
+
+```{r tbl-results, include=FALSE, echo=FALSE}
+
+library(dplyr)
+library(tidyr)
+
+# data -----
+tmp_TukeyHSD <- read.csv("../CASD_export/tmp_TukeyHSD.csv") %>%
+  mutate(
+    product_name = case_when(
+      product_name == "Maïs grain" ~ "Mais grain",.default = product_name),
+    pval_tukey = as.numeric(pval))
+tmp_paired_ttest <- read.csv("../CASD_export/tmp_paired_ttest.csv")
+tmp_paired_ttest_adjust <- tmp_paired_ttest %>%
+  mutate(padjust_bonf = p.adjust(pval_pttest,method = "bonferroni"),
+         padjust_fdr = p.adjust(pval_pttest,method = "fdr"))
+
+# Table ----
+
+tmp_table0 <- tmp_TukeyHSD %>%
+  mutate(diff_sans_match = loop2.my_var - conv_mean) %>%
+  select(practice,product_name,FQS,
+         production_type,practice_subset,
+         FQS_mean,std,r,diff_sans_match,pval_tukey) %>%
+  mutate(
+    diff_sans_match = case_when(
+      FQS == "Conventionnel" ~ NA,
+      .default = diff_sans_match
+    )
+  ) %>%
+  # add matching results
+  left_join(.,
+            tmp_paired_ttest_adjust %>% 
+              rename(FQS = label) %>%
+              filter(FQS != "Conventionnel") %>%
+              select(FQS,product_name,practice,
+                     n_matched,mean_diff_match,padjust_fdr),
+            by = join_by(product_name, FQS, practice)
+  ) %>%
+  # order factors
+  mutate(
+    practice = factor(practice,levels = tmp_practice_names$practice,labels = tmp_practice_names$labels,ordered = T),
+    product_name = factor(product_name,levels = tmp_product_names$product_name,labels = tmp_product_names$labels,ordered = T),
+    FQS = factor(FQS,levels = tmp_FQS_names$FQS,labels = tmp_FQS_names$labels,ordered = T)
+  )
+
+```
 
 ## Certified farms in France
 
@@ -350,15 +538,182 @@ In 2020, 26% of the French AC’s population declared an FQS, excluding organic 
 For a given area of production (e.g., one hectare), organic farming has on average twice the impact of conventional agriculture (@fig-results_ha). For cereals, the average impact of conventional crops ($BVIAS_{ha}$) is 0.22 whereas organic products has an average impact of 0.11. The same applies to milk production: while one hectare for conventional milk production has an average impact of 0.17, the same hectare used for organic milk production has an impact of 0.09. For milk production, only geographical indications (PDO and PGI) of mountain areas have an average impact per hectare lower than conventional. This is particularly the case for Franche-Comté PDOs, whose impact per hectare is 26% lower than the average French conventional milk production. However, when comparing these Comté & Morbier farms only to similar conventional farms (conterfactuals), the difference in impact per hectare is reduced by half (13%). Conversely, some dairy FQSs such as Beurre de Charentes – Poitou have an impact per hectare similar to that of conventional milk. This is also the case for the production of Label Rouge soft wheat. If we compare the products, we note that for one hectare, cereal production has a greater impact on biodiversity than milk production (@tbl-comp_lindner_BVIAS).
 
 ::: {#fig-results_ha}
+```{r fig-results_ha}
 
-![](images/fig_diagram_simpl.svg)
+```
 
-**Biodiversity impact per unit of area (hectare) for some FQSs and products.** The mean (point), 95% confidence interval (solid bar) and standard deviation (dotted bar) are presented here as well as the numbers (n), statistical groups of averages before matching (letters; Tukey HSD p-value 0.05) and the significance of comparisons after matching (*; paired t-test p-value 0.05). The full results for all FQSs and products studied are presented in Table XXX.
+```{r BVIAS_ha}
 
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+tmp_resp_var_w0_match <- readr::read_csv("../CASD_export/tmp_resp_var_w0_match.csv")
+tmp_resp_var_w_match <- readr::read_csv("../CASD_export/tmp_resp_var_w_match.csv")
+
+
+# plot data ----
+
+tmp_plot_data <- tmp_resp_var_w0_match %>%
+  mutate(match = "no_match") %>%
+  rbind(.,tmp_resp_var_w_match %>%
+          # select only counterfactuals
+          filter(FQS == "Conventionnel")) %>%
+  # change matched counterfactual FQS for plot
+  mutate(
+    plot_x = case_when(
+      production_type == "crop" ~ paste0(product_name,match,FQS),
+      production_type == "milk" ~ paste0(match,product_name)),
+    # select my var
+    my_var = BVI_ha) %>%
+  # pivot wider
+  pivot_wider(.,id_cols = c(plot_x,production_type,product_name,FQS,match,n),names_from = statistique,values_from = my_var) %>%
+  # select only some products
+  filter(product_name %in% c("Ble tendre","Mais grain","Conventionnel","AB","Comte - Morbier","Beurre de Charentes-Poitou")
+         & match %in% c("no_match","Ble tendre__AB","Ble tendre__LR","Mais grain__AB",
+                        "NA__AB","NA__Beurre de Charentes-Poitou","NA__Comte - Morbier"))
+
+# plot stat ----
+
+tmp_plot_stat_TukeyHSD <- tmp_TukeyHSD %>%
+  mutate(match = "no_match") %>%
+  # select practice
+  filter(practice == "BVI_ha") %>%
+  # change matched counterfactual FQS for plot
+  mutate(
+    plot_x = case_when(
+      production_type == "crop" ~ paste0(product_name,match,FQS),
+      production_type == "milk" ~ paste0(match,product_name)))
+
+tmp_plot_stat_pttest <- tmp_paired_ttest %>%
+  # select practice
+  filter(practice == "BVI_ha") %>%
+  # remove conterfactuals
+  filter(label != "Conventionnel") %>%
+  # add match
+  mutate(match = case_when(
+    product_RICA_CODE != "milk" ~ paste0(product_name,"__",label),
+    product_RICA_CODE == "milk" ~ paste0("NA__",label)
+  )) %>%
+  # add asterisk when signif
+  mutate(stat_grp = case_when(
+    pval_pttest <= 0.05 ~ "*",.default = ""
+  )) %>%
+  # change as matched counterfactual FQS for plot
+  mutate(
+    product_name = case_when(
+      product_RICA_CODE == "milk" ~ "Conventionnel",
+      product_RICA_CODE != "milk" ~ product_name),
+    FQS = "Conventionnel",
+    plot_x = case_when(
+      product_RICA_CODE != "milk" ~ paste0(product_name,match,"Conventionnel"),
+      product_RICA_CODE == "milk" ~ paste0(match,"Conventionnel"))) 
+
+tmp_plot_stat <- rbind(
+  tmp_plot_stat_TukeyHSD %>% select(plot_x,product_name,FQS,match,stat_grp),
+  tmp_plot_stat_pttest %>% select(plot_x,product_name,FQS,match,stat_grp)) %>%
+  # select only some products
+  filter(product_name %in% c("Ble tendre","Mais grain","Conventionnel","AB","Comte - Morbier","Beurre de Charentes-Poitou")
+         & match %in% c("no_match","Ble tendre__AB","Ble tendre__LR","Mais grain__AB",
+                        "NA__AB","NA__Beurre de Charentes-Poitou","NA__Comte - Morbier"))
+
+tmp_plot_data <- left_join(tmp_plot_data,tmp_plot_stat)
+
+# plot colors ----
+tmp_colors <- tibble(
+  FQS = c("AB","AB (en conversion)","AOP - AOC","Conventionnel","Contrefactuel","Contrefactuel_LR","IGP","IGP;LR","LR",
+          "Comte - Morbier","Bleu d'Auvergne - Cantal","Fromages de Savoie","Munster","Beurre de Charentes-Poitou"),
+  values = c("palegreen3","darkcyan","plum4","darkgrey","#333333","indianred4","goldenrod3","goldenrod3","indianred",
+             "plum4","plum4","goldenrod3","plum4","plum4"),
+  labels=c("AB","AB (en conversion)","AOP & AOC","Conventionnel","Contrefactuel","Contrefactuel_LR","IGP","IGP","Label Rouge",
+           "Comte - Morbier","Bleu d'Auvergne - Cantal","Fromages de Savoie","Munster","Beurre de Charentes-Poitou"))
+names(tmp_colors$values) <- tmp_colors$FQS 
+names(tmp_colors$labels) <- tmp_colors$FQS
+
+tmp_plot_data <- tmp_plot_data %>%
+  mutate(plot_color = case_when(
+    match != "no_match" & FQS == "Conventionnel" ~ "Contrefactuel",
+    .default = FQS
+  ))
+
+# plot order ----
+
+tmp_plot_order <- tibble(
+  plot_x = rev(c("Ble tendreno_matchConventionnel",
+                 "Ble tendreno_matchAB",
+                 "Ble tendreBle tendre__ABConventionnel",
+                 "Ble tendreno_matchLR",
+                 "Ble tendreBle tendre__LRConventionnel",
+                 "Mais grainno_matchConventionnel",
+                 "Mais grainno_matchAB",
+                 "Mais grainMais grain__ABConventionnel",
+                 "no_matchConventionnel",
+                 "no_matchAB",
+                 "NA__ABConventionnel",
+                 "no_matchBeurre de Charentes-Poitou",
+                 "NA__Beurre de Charentes-PoitouConventionnel",
+                 "no_matchComte - Morbier",
+                 "NA__Comte - MorbierConventionnel")),
+  labels = rev(c("Blé tendre - Conventionnel",
+                 "Blé tendre - AB",
+                 "Blé tendre - Contrefactuel AB",
+                 "Blé tendre - LR",
+                 "Blé tendre - Contrefactuel LR",
+                 "Maïs grain - Conventionnel",
+                 "Maïs grain - AB",
+                 "Maïs grain - Contrefactuel AB",
+                 "Lait - Conventionnel",
+                 "Lait - AB",
+                 "Lait - Contrefactuel AB",
+                 "Lait - Beurre de Charentes-Poitou",
+                 "Lait - Contrefactuel Beurre de Charentes-Poitou",
+                 "Lait - Comte - Morbier",
+                 "Lait - Contrefactuel Comte - Morbier")))
+
+tmp_plot_data$plot_x <- factor(tmp_plot_data$plot_x,
+                               levels = tmp_plot_order$plot_x,
+                               labels = tmp_plot_order$labels)
+
+# plot ----
+
+ggplot() +
+  # mean
+  geom_point(data = tmp_plot_data,
+             aes(x = plot_x, y = mean, fill = plot_color,colour = plot_color),
+             shape = 21, size=2, stroke = 1, position = position_dodge(width = 0.75)) +
+  # CI95%
+  geom_errorbar(data = tmp_plot_data,
+             aes(x = plot_x, ymin = mean-1.96*(sd/sqrt(n)), ymax = mean+1.96*(sd/sqrt(n)), colour = plot_color),
+             linewidth=1,width = 0.5,position = position_dodge(width = 0.75)) +
+  # sd
+  geom_errorbar(data = tmp_plot_data,
+             aes(x = plot_x, ymin = mean-sd, ymax = mean+sd, colour = plot_color),
+             linewidth=0.5,width = 0.5,linetype = "dashed",position = position_dodge(width = 0.75)) +
+  # n
+  geom_text(data = tmp_plot_data,
+            aes(x = plot_x, y=max(mean+sd)*1.1,colour = plot_color,label = paste0("n = ",as.character(n))),
+            size=3,position = position_dodge(width = 1)) +
+  # stat groups
+  geom_text(data = tmp_plot_data,
+            aes(x = plot_x,y=0,colour = plot_color,label = stat_grp),
+            size=3,position = position_dodge(width = 1))+
+  # theme
+  coord_flip() +
+  ylim(c(0,max(tmp_plot_data$mean+tmp_plot_data$sd)*1.2)) +
+  facet_wrap(vars(production_type),scales = "free_y",ncol = 1) +
+  labs(y = "BVIAS_ha",x= "Produits") +
+  scale_fill_manual(values = tmp_colors$values,labels = tmp_colors$labels,) +
+  scale_colour_manual(values = tmp_colors$values,labels = tmp_colors$labels) +
+  theme_light() +
+  theme(legend.position = c(0,0),
+        legend.direction = "horizontal",legend.title = element_blank())
+
+```
+
+**Biodiversity impact per unit of area (hectare) for some FQSs and products.** The mean (point), 95% confidence interval (solid bar) and standard deviation (dotted bar) are presented here as well as the numbers (n), statistical groups of averages before matching (letters; Tukey HSD p-value 0.05) and the significance of comparisons after matching (\*; paired t-test p-value 0.05). The full results for all FQSs and products studied are presented in Table XXX.
 :::
 
 ::: {#tbl-comp_lindner_BVIAS}
-
 ```{r tbl_comp_lindner_BVIAS}
 library(gt)
 library(dplyr)
@@ -390,7 +745,6 @@ tmp_table %>%
 ```
 
 **Comparison of average scores for common wheat and dairy products** calculated from Agribalyse [@lindner_bringing_2022]; detailed data available on request) and FADN. \* Initial value for 1 kg of Comté, corrected for the ratio of 10 liters of milk required to produce 1 kg of Comté [@husson_pdo_2019]
-
 :::
 
 For a given weight of product (e.g., one tonne), certified and conventional productions have on average a similar impact (@fig-results_t). Even among FQSs that had a lower impact per hectare, such as organic farming or Comté & Morbier PDOs, none has an average impact per tonne different from the average impact of conventional productions. This result remains when comparing similar farms (matching technique by propensity score), except for the impact of a tonne of common wheat which is higher in organic farming compared to conventional, and conversely, for the impact of one tonne of summer cereal mix which is lower in organic farming compared to conventional (@fig-results_t).
@@ -398,24 +752,238 @@ For a given weight of product (e.g., one tonne), certified and conventional prod
 When comparing products for a given weight (e.g., one tonne of wheat vs. one tonne of cheese), the production of cereals has a lower impact on biodiversity than the production of milk (@tbl-comp_lindner_BVIAS).
 
 ::: {#fig-results_t}
+```{r BVIAS_t}
 
-![](images/fig_diagram_simpl.svg)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
 
-Biodiversity impact per unit of product (ton) for some FQSs and products. The mean (point), 95% confidence interval (solid bar) and standard deviation (dotted bar) are presented here as well as the numbers (n), statistical groups of averages before matching (letters; Tukey HSD p-value 0.05) and the significance of comparisons after matching (*; paired t-test p-value 0.05). The full results for all FQSs and products studied are presented in Table XX.
+tmp_resp_var_w0_match <- readr::read_csv("../CASD_export/tmp_resp_var_w0_match.csv")
+tmp_resp_var_w_match <- readr::read_csv("../CASD_export/tmp_resp_var_w_match.csv")
 
+# plot data ----
+
+tmp_plot_data <- tmp_resp_var_w0_match %>%
+  mutate(match = "no_match") %>%
+  rbind(.,tmp_resp_var_w_match %>%
+          # select only counterfactuals
+          filter(FQS == "Conventionnel")) %>%
+  # change matched counterfactual FQS for plot
+  mutate(
+    plot_x = case_when(
+      production_type == "crop" ~ paste0(product_name,match,FQS),
+      production_type == "milk" ~ paste0(match,product_name)),
+    # select my var
+    my_var = BVI_kg*10^3) %>%
+  # pivot wider
+  pivot_wider(.,id_cols = c(plot_x,production_type,product_name,FQS,match,n),names_from = statistique,values_from = my_var) %>%
+  # select only some products
+  filter(product_name %in% c("Ble tendre","Mais grain","Conventionnel","AB","Comte - Morbier","Beurre de Charentes-Poitou")
+         & match %in% c("no_match","Ble tendre__AB","Ble tendre__LR","Mais grain__AB",
+                        "NA__AB","NA__Beurre de Charentes-Poitou","NA__Comte - Morbier"))
+
+# plot stat ----
+
+tmp_plot_stat_TukeyHSD <- tmp_TukeyHSD %>%
+  mutate(match = "no_match") %>%
+  # select practice
+  filter(practice == "BVI_kg") %>%
+  # change matched counterfactual FQS for plot
+  mutate(
+    plot_x = case_when(
+      production_type == "crop" ~ paste0(product_name,match,FQS),
+      production_type == "milk" ~ paste0(match,product_name)))
+
+tmp_plot_stat_pttest <- tmp_paired_ttest %>%
+  # select practice
+  filter(practice == "BVI_kg") %>%
+  # remove conterfactuals
+  filter(label != "Conventionnel") %>%
+  # add match
+  mutate(match = case_when(
+    product_RICA_CODE != "milk" ~ paste0(product_name,"__",label),
+    product_RICA_CODE == "milk" ~ paste0("NA__",label)
+  )) %>%
+  # add asterisk when signif
+  mutate(stat_grp = case_when(
+    pval_pttest <= 0.05 ~ "*",.default = ""
+  )) %>%
+  # change as matched counterfactual FQS for plot
+  mutate(
+    product_name = case_when(
+      product_RICA_CODE == "milk" ~ "Conventionnel",
+      product_RICA_CODE != "milk" ~ product_name),
+    FQS = "Conventionnel",
+    plot_x = case_when(
+      product_RICA_CODE != "milk" ~ paste0(product_name,match,"Conventionnel"),
+      product_RICA_CODE == "milk" ~ paste0(match,"Conventionnel"))) 
+
+tmp_plot_stat <- rbind(
+  tmp_plot_stat_TukeyHSD %>% select(plot_x,product_name,FQS,match,stat_grp),
+  tmp_plot_stat_pttest %>% select(plot_x,product_name,FQS,match,stat_grp)) %>%
+  # select only some products
+  filter(product_name %in% c("Ble tendre","Mais grain","Conventionnel","AB","Comte - Morbier","Beurre de Charentes-Poitou")
+         & match %in% c("no_match","Ble tendre__AB","Ble tendre__LR","Mais grain__AB",
+                        "NA__AB","NA__Beurre de Charentes-Poitou","NA__Comte - Morbier"))
+
+tmp_plot_data <- left_join(tmp_plot_data,tmp_plot_stat)
+
+# practice labels ----
+
+tmp_plot_data$production_type <- factor(tmp_plot_data$production_type,
+                               levels = rev(unique(tmp_plot_data$production_type)),
+                               labels = rev(c("Productions laitières","Productions céréalières")))
+
+
+# plot colors ----
+tmp_colors <- tibble(
+  FQS = c("AB","AB (en conversion)","AOP - AOC","Conventionnel","Contrefactuel","Contrefactuel_LR","IGP","IGP;LR","LR",
+          "Comte - Morbier","Bleu d'Auvergne - Cantal","Fromages de Savoie","Munster","Beurre de Charentes-Poitou"),
+  values = c("palegreen3","darkcyan","plum4","darkgrey","#333333","indianred4","goldenrod3","goldenrod3","indianred",
+             "plum4","plum4","goldenrod3","plum4","plum4"),
+  labels=c("AB","AB (en conversion)","AOP & AOC","Conventionnel","Contrefactuel","Contrefactuel_LR","IGP","IGP","Label Rouge",
+           "Comte - Morbier","Bleu d'Auvergne - Cantal","Fromages de Savoie","Munster","Beurre de Charentes-Poitou"))
+names(tmp_colors$values) <- tmp_colors$FQS 
+names(tmp_colors$labels) <- tmp_colors$FQS
+
+tmp_plot_data <- tmp_plot_data %>%
+  mutate(plot_color = case_when(
+    match != "no_match" & FQS == "Conventionnel" ~ "Contrefactuel",
+    .default = FQS
+  ))
+
+# plot order ----
+
+tmp_plot_order <- tibble(
+  plot_x = rev(c("Ble tendreno_matchConventionnel",
+                 "Ble tendreno_matchAB",
+                 "Ble tendreBle tendre__ABConventionnel",
+                 "Ble tendreno_matchLR",
+                 "Ble tendreBle tendre__LRConventionnel",
+                 "Mais grainno_matchConventionnel",
+                 "Mais grainno_matchAB",
+                 "Mais grainMais grain__ABConventionnel",
+                 "no_matchConventionnel",
+                 "no_matchAB",
+                 "NA__ABConventionnel",
+                 "no_matchBeurre de Charentes-Poitou",
+                 "NA__Beurre de Charentes-PoitouConventionnel",
+                 "no_matchComte - Morbier",
+                 "NA__Comte - MorbierConventionnel")),
+  labels = rev(c("Blé tendre - Conventionnel",
+                 "Blé tendre - AB",
+                 "Blé tendre - Contrefactuel AB",
+                 "Blé tendre - LR",
+                 "Blé tendre - Contrefactuel LR",
+                 "Maïs grain - Conventionnel",
+                 "Maïs grain - AB",
+                 "Maïs grain - Contrefactuel AB",
+                 "Lait - Conventionnel",
+                 "Lait - AB",
+                 "Lait - Contrefactuel AB",
+                 "Lait - Beurre de Charentes-Poitou",
+                 "Lait - Contrefactuel Beurre de Charentes-Poitou",
+                 "Lait - Comte - Morbier",
+                 "Lait - Contrefactuel Comte - Morbier")))
+
+tmp_plot_data$plot_x <- factor(tmp_plot_data$plot_x,
+                               levels = tmp_plot_order$plot_x,
+                               labels = tmp_plot_order$labels)
+
+# plot ----
+
+ggplot() +
+  # mean
+  geom_point(data = tmp_plot_data,
+             aes(x = plot_x, y = mean, fill = plot_color,colour = plot_color),
+             shape = 21, size=2, stroke = 1, position = position_dodge(width = 0.75)) +
+  # CI95%
+  geom_errorbar(data = tmp_plot_data,
+             aes(x = plot_x, ymin = mean-1.96*(sd/sqrt(n)), ymax = mean+1.96*(sd/sqrt(n)), colour = plot_color),
+             linewidth=1,width = 0.5,position = position_dodge(width = 0.75)) +
+  # sd
+  geom_errorbar(data = tmp_plot_data,
+             aes(x = plot_x, ymin = mean-sd, ymax = mean+sd, colour = plot_color),
+             linewidth=0.5,width = 0.5,linetype = "dashed",position = position_dodge(width = 0.75)) +
+  # n
+  geom_text(data = tmp_plot_data,
+            aes(x = plot_x, y=max(mean+sd)*1.1,colour = plot_color,label = paste0("n = ",as.character(n))),
+            size=3,position = position_dodge(width = 1)) +
+  # stat groups
+  geom_text(data = tmp_plot_data,
+            aes(x = plot_x,y=min(mean-sd)*1.02,colour = plot_color,label = stat_grp),
+            size=3,position = position_dodge(width = 1))+
+  # theme
+  coord_flip() +
+  ylim(c(min(tmp_plot_data$mean-tmp_plot_data$sd)*1.03,max(tmp_plot_data$mean+tmp_plot_data$sd)*1.2)) +
+  facet_wrap(vars(production_type),scales = "free_y",ncol = 1) +
+  labs(y = "BVIAS_t",x= "Produits") +
+  scale_fill_manual(values = tmp_colors$values,labels = tmp_colors$labels,) +
+  scale_colour_manual(values = tmp_colors$values,labels = tmp_colors$labels) +
+  theme_light() +
+  theme(legend.position = c(0,0),
+        legend.direction = "horizontal",legend.title = element_blank())
+
+```
+
+**Biodiversity impact per unit of product (ton) for some FQSs and products.** The mean (point), 95% confidence interval (solid bar) and standard deviation (dotted bar) are presented here as well as the numbers (n), statistical groups of averages before matching (letters; Tukey HSD p-value 0.05) and the significance of comparisons after matching (\*; paired t-test p-value 0.05). The full results for all FQSs and products studied are presented in Table XX.
 :::
 
 ## Comparison of farming and husbandry practices
 
-For cereal production, only practices from organic farms differ significantly from conventional production (@fig-results_practices_crops). First, organic farms do not use nitrogen mineral fertilizers. However, organic fertilization on organic farms is more than three times higher than on conventional farms, resulting in similar total nitrogen fertilization between these two production modes. Second, organic grain production consumes 96% less plant protection products than conventional one. This reduction in inputs is concomitant with lower yields of organic cereals. Conversely, no difference in input use or yield is recorded for soft wheat production under Label Rouge. As regards tillage, no difference is noted between conventional and certified production. 
+For cereal production, only practices from organic farms differ significantly from conventional production (@fig-results_practices_crops). First, organic farms do not use nitrogen mineral fertilizers. However, organic fertilization on organic farms is more than three times higher than on conventional farms, resulting in similar total nitrogen fertilization between these two production modes. Second, organic grain production consumes 96% less plant protection products than conventional one. This reduction in inputs is concomitant with lower yields of organic cereals. Conversely, no difference in input use or yield is recorded for soft wheat production under Label Rouge. As regards tillage, no difference is noted between conventional and certified production.
 
 ::: {#fig-results_practices_crops}
+```{r fig-results_practices_crops}
 
-![](images/fig_diagram_simpl.svg)
+
+library(dplyr)
+library(tidyr)
+
+# data -----
+tmp_TukeyHSD <- read.csv("../CASD_export/tmp_TukeyHSD.csv") %>%
+  mutate(
+    product_name = case_when(
+      product_name == "Maïs grain" ~ "Mais grain",.default = product_name),
+    pval_tukey = as.numeric(pval))
+tmp_paired_ttest <- read.csv("../CASD_export/tmp_paired_ttest.csv")
+tmp_paired_ttest_adjust <- tmp_paired_ttest %>%
+  mutate(padjust_bonf = p.adjust(pval_pttest,method = "bonferroni"),
+         padjust_fdr = p.adjust(pval_pttest,method = "fdr"))
+
+# Table ----
+
+tmp_table0 <- tmp_TukeyHSD %>%
+  mutate(diff_sans_match = loop2.my_var - conv_mean) %>%
+  select(practice,product_name,FQS,
+         production_type,practice_subset,
+         FQS_mean,std,r,diff_sans_match,pval_tukey) %>%
+  mutate(
+    diff_sans_match = case_when(
+      FQS == "Conventionnel" ~ NA,
+      .default = diff_sans_match
+    )
+  ) %>%
+  # add matching results
+  left_join(.,
+            tmp_paired_ttest_adjust %>% 
+              rename(FQS = label) %>%
+              filter(FQS != "Conventionnel") %>%
+              select(FQS,product_name,practice,
+                     n_matched,mean_diff_match,padjust_fdr),
+            by = join_by(product_name, FQS, practice)
+  ) %>%
+  # order factors
+  mutate(
+    practice = factor(practice,levels = tmp_practice_names$practice,labels = tmp_practice_names$labels,ordered = T),
+    product_name = factor(product_name,levels = tmp_product_names$product_name,labels = tmp_product_names$labels,ordered = T),
+    FQS = factor(FQS,levels = tmp_FQS_names$FQS,labels = tmp_FQS_names$labels,ordered = T)
+  )
+
+
+```
 
 Differences in crop cultivation between certified and conventional cereal production. '\*' Significant difference after matching (paired t-test, FDR p-value 0.05)
-
-
 :::
 
 For milk production, the proportion of grassland clearly differentiates between certified and conventional husbandries (@fig-results_practices_husbandry and Tab. 11). Conventional husbandries feed their livestock with 22% permanent grassland and 17% temporary grassland on average, then the share of grassland rises to 46% of permanent grasslands in Comté & Morbier and 34% of temporary grasslands in organic farming (@fig-results_practices_husbandry and Tab. 11). The FQSs are distinguished by the nature of the grasslands used for their livestock. Indeed, while the farms in organic farming use mostly temporary grasslands, the herds of farms under FQSs Comté & Morbier, Bleu d'Auvergne & Cantal, Savoie cheeses and Munster graze mainly permanent grasslands. In addition, the farms under organic farming FQSs, Comté & Morbier, Bleu d'Auvergne & Cantal and Savoie cheeses are distinguished by a lower grazing pressure than conventional farms (from 0.7 to 0.9 UGB/ha of SFP on average for these FQSs against 1.4 for conventional FQSs; and Tab. 11). The organic farming FQS also stands out for greater autonomy in feeding (lower proportion of concentrates in cow feed: 23% compared to 40% for conventional). However, some FQSs have lower yields, with lower milk productivity per hectare of pseudofarm. There are two different reasons for this decline in returns. For the organic FQS, the production of milk per cow is lower than that of conventional and other FQSs. For Comté & Morbier, Bleu d'Auvergne & Cantal and Savoie cheeses, the cows are as productive as in conventional farms, but the grazing pressure, or the number of cows per hectare, is lower (@fig-results_practices_husbandry and Tab. 11). Unlike all other FQSs, the AOP Beurre de Charentes – Poitou does not differ in any way from conventional farming.
@@ -423,11 +991,9 @@ For milk production, the proportion of grassland clearly differentiates between 
 In addition, the crop practices applied for the production of dairy cow feed differ according to the FQSs (Fig. S2). Thus, in organic farms, as with field crops, food is produced with fewer plant protection products and mineral fertilizers. Finally, contrary to what is observed for cereals, the total nitrogen input per hectare is lower than in conventional livestock. In addition, other FQSs use fewer inputs than conventional farms, such as Comté & Morbier and Fromage de Savoie where the farms use up to 26% less mineral fertilizer or Beurre de Charentes – Poitou FQS with 18% less plant protection products. Finally, organic farms, Beurre de Charente – Poitou, Comté & Morbier and Savoie cheeses practice less tillage than conventional farms.
 
 ::: {#fig-results_practices_husbandry}
-
 ![](images/fig_diagram_simpl.svg)
 
-Differences in husbandry practices between certified and conventional dairy products. * Significant difference after matching (paired t-test, FDR p-value 0.05)
-
+Differences in husbandry practices between certified and conventional dairy products. \* Significant difference after matching (paired t-test, FDR p-value 0.05)
 :::
 
 # Discussion
@@ -460,7 +1026,7 @@ To inform environmental labeling, our study distinguishes between production mod
 
 ## To Environmental labeling and Beyond
 
-We show here that the use of accounting data to inform environmental labeling is reachable, robust and promising. However, accounting data is often only a proxy for the intensity of a practice we are trying to characterize. For example, for tillage, although the estimated diesel consumption for ploughing is consistent with national averages [@pellerin_action_2015], we were unable to estimate whether it was deep or shallow. Similarly, for organic fertilizer inputs from farms without livestock, as the FADN variable for this input is very poorly informed, we had no choice but to apply a standard value equal to the national average [@ministere_de_lagriculture_ssp_pratiques_2019]. Recognizing the potential of these accounting data for assessing the environmental impact of agriculture, members of the European Commission and the European Parliament reached an agreement to amend the FADN regulation [@noauthor_regulation_2023]. This new text aims to transform FADN into a Farm Sustainability Data Network (FSDN) to better reflect the objectives of the "From Farm to Fork" strategy. This amendment extends the collection of data, previously limited to microeconomic and accounting data, to include environmental data that allows for the estimation of greenhouse gas emissions and carbon storage, soil health, water use and the adoption of agro-ecological practices. These inputs will not only allow for a more detailed estimation of the agricultural practices on the plot, but could also include other variables impacting biodiversity such as semi-natural elements, plot size and soil cover.
+We show here that the use of accounting data to inform environmental labeling is reachable, robust and promising. However, accounting data is often only a proxy for the intensity of a practice we are trying to characterize. For example, for tillage, although the estimated diesel consumption for ploughing is consistent with national averages [@pellerin_action_2015], we were unable to estimate whether it was deep or shallow. Similarly, for organic fertilizer inputs from farms without livestock, as the FADN variable for this input is very poorly informed, we had no choice but to apply a standard value equal to the national average [@ministere_de_lagriculture_ssp_pratiques_2019]. Recognizing the potential of these accounting data for assessing the environmental impact of agriculture, members of the European Commission and the European Parliament reached an agreement to amend the FADN regulation [@noauthor_regulation_2023]. This new text aims to transform FADN into a Farm Sustainability Data Network (FSDN) to better reflect the objectives of the "From Farm to Fork" strategy. This amendment extends the collection of data, previously limited to microeconomic and accounting data, to include environmental data that allows for the estimation of greenhouse gas emissions and carbon storage, soil health, water use and the adoption of agro-ecological practices. These inputs will not only allow for a more detailed estimation of the agricultural practices on the plot, but could also include other variables impacting biodiversity such as soil cover and landscape features.
 
 In our study, two of the five main factors for biodiversity collapse listed by IPBES are taken into account: land use and pollution. Of the remaining three, only one is significantly influenced by agriculture: climate change. It is the third most important threat to biodiversity and is expected to become the main threat by the end of the century [@ipbes_global_2019]. The food sector is responsible for 26% of global greenhouse gas emissions, and these emissions are mostly farm-based [@poore_reducing_2018]. The estimation of greenhouse gas emissions from different agricultural products and its inclusion in a biodiversity impact model such as BVIAS seems essential in the medium term.
 
@@ -469,17 +1035,219 @@ In a near future, the method we present here could be broaden at the European sc
 # To check
 
 -   fig
--   supp mat
-https://quarto.org/docs/authoring/cross-references-custom.html#example-supplemental-figures
-
+-   supp mat https://quarto.org/docs/authoring/cross-references-custom.html#example-supplemental-figures
 
 # Acknowledgements
 
 We would like to warmly thank Christian Bockstaller for his advice, help and proofreading. We would also like to thank Fabrice Vinatier for his valuable feedback on the impact of practices on biodiversity. More generally, we would like to thank all the members of the BiodivLabel collective expertise who contributed by their proofreading or discussions to enrich this work, especially Cecile Bessou, Emmanuelle Porcher, Anne Farugia, Catherine Donnars and Guy Richard. Finally, we would like to thank Yoann Morin for his enlightening discussions on econometrics and modelling.
 
-
 # References
 
 ::: {#refs}
 :::
+
+# SM
+
+## Tables
+
+```{r tbl-results_crops}
+
+#| label: tbl-results_crops
+
+library(gt)
+
+tmp_table <- tmp_table0 %>%
+  filter(production_type == "crop"
+         & practice %in% c(tmp_practice_names_BVIAS$labels,
+                           tmp_practice_names_crops$labels)) %>%
+  select(!c(production_type,practice_subset)) %>%
+  arrange(practice,product_name,FQS)
+
+tmp_table %>%
+  # groups
+  mutate(product_name = ifelse(row_number() == 1,
+                               as.character(product_name), ""),
+         .by = c(practice, product_name)) %>%
+  gt(groupname_col = "practice") %>%
+  tab_style(
+      style = list(
+        cell_fill(color = "gray"),
+        cell_text(weight = "bolder")
+      ),
+      locations = cells_row_groups(groups = everything())
+    ) %>%
+  # format numbers
+  fmt_auto() %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+      ),
+    locations = cells_body(
+      columns = c(diff_sans_match,pval_tukey),
+      rows = pval_tukey <= 0.05
+    )
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+      ),
+    locations = cells_body(
+      columns = c(mean_diff_match,padjust_fdr),
+      rows = padjust_fdr <= 0.05
+    )
+  ) %>%
+  # replace NAs
+  sub_missing(missing_text = "-") %>%
+  # column labels
+  tab_style(
+    style = list(
+      cell_text(weight = "bolder",size = "large")
+      ),
+    locations = cells_column_labels(everything())
+  ) %>%
+  cols_label(
+    practice = "Pratiques",
+    product_name = "Production",
+    FQS = "Label",
+    FQS_mean = "Moyenne",
+    std = "Ecart-Type",
+    r = "Effectif",
+    diff_sans_match = "Différence avec la moyenne conventionnelle",
+    pval_tukey = "Tukey HSD p-value",
+    n_matched = "Effectif apparié",
+    mean_diff_match = "Différence avec la moyenne contrefactuelle",
+    padjust_fdr = "FDR adjusted t-test p-value"
+  )
+  
+```
+```{r tbl-results_diary_feed}
+
+tmp_table <- tmp_table0 %>%
+  filter(production_type == "milk"
+         & practice %in% c(tmp_practice_names_BVIAS$labels,
+                           tmp_practice_names_feed$labels)) %>%
+  select(!c(production_type,practice_subset,FQS)) %>%
+  arrange(practice,product_name)
+
+tmp_table %>%
+  # groups
+  mutate(product_name = ifelse(row_number() == 1,
+                               as.character(product_name), ""),
+         .by = c(practice, product_name)) %>%
+  gt(groupname_col = "practice") %>%
+  tab_style(
+      style = list(
+        cell_fill(color = "gray"),
+        cell_text(weight = "bolder")
+      ),
+      locations = cells_row_groups(groups = everything())
+    ) %>%
+  # format numbers
+  fmt_auto() %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+      ),
+    locations = cells_body(
+      columns = c(diff_sans_match,pval_tukey),
+      rows = pval_tukey <= 0.05
+    )
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+      ),
+    locations = cells_body(
+      columns = c(mean_diff_match,padjust_fdr),
+      rows = padjust_fdr <= 0.05
+    )
+  ) %>%
+  # replace NAs
+  sub_missing(missing_text = "-") %>%
+  # column labels
+  tab_style(
+    style = list(
+      cell_text(weight = "bolder",size = "large")
+      ),
+    locations = cells_column_labels(everything())
+  ) %>%
+  cols_label(
+    practice = "Pratiques",
+    product_name = "Label",
+    FQS_mean = "Moyenne",
+    std = "Ecart-Type",
+    r = "Effectif",
+    diff_sans_match = "Différence avec la moyenne conventionnelle",
+    pval_tukey = "Tukey HSD p-value",
+    n_matched = "Effectif apparié",
+    mean_diff_match = "Différence avec la moyenne contrefactuelle",
+    padjust_fdr = "FDR adjusted t-test p-value"
+  )
+
+```
+```{r tbl-results_diary_herd}
+
+tmp_table <- tmp_table0 %>%
+  filter(production_type == "milk"
+         & practice %in% c(tmp_practice_names_BVIAS$labels,
+                           tmp_practice_names_herd$labels)) %>%
+  select(!c(production_type,practice_subset,FQS)) %>%
+  arrange(practice,product_name)
+
+tmp_table %>%
+  # groups
+  mutate(product_name = ifelse(row_number() == 1,
+                               as.character(product_name), ""),
+         .by = c(practice, product_name)) %>%
+  gt(groupname_col = "practice") %>%
+  tab_style(
+      style = list(
+        cell_fill(color = "gray"),
+        cell_text(weight = "bolder")
+      ),
+      locations = cells_row_groups(groups = everything())
+    ) %>%
+  # format numbers
+  fmt_auto() %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+      ),
+    locations = cells_body(
+      columns = c(diff_sans_match,pval_tukey),
+      rows = pval_tukey <= 0.05
+    )
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+      ),
+    locations = cells_body(
+      columns = c(mean_diff_match,padjust_fdr),
+      rows = padjust_fdr <= 0.05
+    )
+  ) %>%
+  # replace NAs
+  sub_missing(missing_text = "-") %>%
+  # column labels
+  tab_style(
+    style = list(
+      cell_text(weight = "bolder",size = "large")
+      ),
+    locations = cells_column_labels(everything())
+  ) %>%
+  cols_label(
+    practice = "Pratiques",
+    product_name = "Label",
+    FQS_mean = "Moyenne",
+    std = "Ecart-Type",
+    r = "Effectif",
+    diff_sans_match = "Différence avec la moyenne conventionnelle",
+    pval_tukey = "Tukey HSD p-value",
+    n_matched = "Effectif apparié",
+    mean_diff_match = "Différence avec la moyenne contrefactuelle",
+    padjust_fdr = "FDR adjusted t-test p-value"
+  )
+
+```
 
