@@ -259,6 +259,27 @@
         {
             "author": [
                 {
+                    "family": "Team",
+                    "given": "R Core"
+                }
+            ],
+            "id": "r_core_team_r_2020",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "publisher": "R Foundation for Statistical Computing",
+            "publisher-place": "Vienna, Austria",
+            "title": "R: A Language and Environment for Statistical Computing",
+            "title-short": "R software",
+            "type": ""
+        },
+        {
+            "author": [
+                {
                     "dropping-particle": "de",
                     "family": "Mendiburu",
                     "given": "Felipe"
@@ -2723,6 +2744,140 @@
             "type": "thesis"
         },
         {
+            "DOI": "10.1111/ddi.13476",
+            "ISSN": "1472-4642",
+            "URL": "https://onlinelibrary.wiley.com/doi/abs/10.1111/ddi.13476",
+            "abstract": "Aim The effects of land use and atmospheric nitrogen (N) deposition on plant species richness are typically studied in isolation. Here, we quantified the combined effects of these two pressures on terrestrial plant species richness at a 0.25º spatial resolution across the globe. Location Global. Methods We first used local monitoring and experimental data to determine the proportional changes in plant species richness in relation to different land-use types and N addition levels according to a meta-analytical approach. We then developed a new multi-pressure species–area relationship (mp-SAR) model to combine the site-level responses resulting from the meta-analyses with global land use and N deposition maps to calculate changes in plant species richness at a resolution of 0.25º across the globe. Results Both pressures combined resulted in an average plant species richness decline of 26% (± 12% SD) across the grid cells. The combined impact was the largest in Europe, with an average decline of 34% (± 8%), and the smallest in South America (16% ± 11%). Overall, species declines due to land use were considerably larger (19% ± 11%) than declines due to N deposition (6% ± 6%). Main conclusions Our new species–area model allows for systematic large-scale assessments of the combined effects of multiple pressures on species richness based on easily retrievable input data. Overall, land use is a more important driver of plant species richness decline than N deposition, but N deposition may have considerable additional impact in specific regions of Europe, Asia and North America. These findings imply that conservation efforts should simultaneously tackle both pressures to ensure their effectiveness in preserving plant biodiversity.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        6,
+                        26
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Gallego-Zamorano",
+                    "given": "Juan"
+                },
+                {
+                    "family": "Huijbregts",
+                    "given": "Mark A. J."
+                },
+                {
+                    "family": "Schipper",
+                    "given": "Aafke M."
+                }
+            ],
+            "container-title": "Diversity and Distributions",
+            "id": "gallego-zamorano_changes_2022",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "keyword": "biodiversity, countryside SAR, eutrophication, habitat loss, species–area relationship, vascular plants",
+            "note": "_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/ddi.13476",
+            "page": "745-755",
+            "title": "Changes in plant species richness due to land use and nitrogen deposition across the globe",
+            "type": "article-journal",
+            "volume": "28"
+        },
+        {
+            "DOI": "10.1073/pnas.1305618110",
+            "URL": "https://www.pnas.org/doi/full/10.1073/pnas.1305618110",
+            "abstract": "The biodiversity crisis is one of the greatest challenges facing humanity, but our understanding of the drivers remains limited. Thus, after decades of studies and regulation efforts, it remains unknown whether to what degree and at what concentrations modern agricultural pesticides cause regional-scale species losses. We analyzed the effects of pesticides on the regional taxa richness of stream invertebrates in Europe (Germany and France) and Australia (southern Victoria). Pesticides caused statistically significant effects on both the species and family richness in both regions, with losses in taxa up to 42% of the recorded taxonomic pools. Furthermore, the effects in Europe were detected at concentrations that current legislation considers environmentally protective. Thus, the current ecological risk assessment of pesticides falls short of protecting biodiversity, and new approaches linking ecology and ecotoxicology are needed.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        7,
+                        8
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Beketov",
+                    "given": "Mikhail A."
+                },
+                {
+                    "family": "Kefford",
+                    "given": "Ben J."
+                },
+                {
+                    "family": "Schäfer",
+                    "given": "Ralf B."
+                },
+                {
+                    "family": "Liess",
+                    "given": "Matthias"
+                }
+            ],
+            "container-title": "Proceedings of the National Academy of Sciences",
+            "id": "beketov_pesticides_2013",
+            "issue": "27",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013,
+                        7
+                    ]
+                ]
+            },
+            "note": "Publisher: Proceedings of the National Academy of Sciences",
+            "page": "11039-11043",
+            "title": "Pesticides reduce regional biodiversity of stream invertebrates",
+            "type": "article-journal",
+            "volume": "110"
+        },
+        {
+            "DOI": "10.1016/j.biocon.2019.01.020",
+            "ISSN": "0006-3207",
+            "URL": "https://www.sciencedirect.com/science/article/pii/S0006320718313636",
+            "abstract": "Biodiversity of insects is threatened worldwide. Here, we present a comprehensive review of 73 historical reports of insect declines from across the globe, and systematically assess the underlying drivers. Our work reveals dramatic rates of decline that may lead to the extinction of 40% of the world’s insect species over the next few decades. In terrestrial ecosystems, Lepidoptera, Hymenoptera and dung beetles (Coleoptera) appear to be the taxa most affected, whereas four major aquatic taxa (Odonata, Plecoptera, Trichoptera and Ephemeroptera) have already lost a considerable proportion of species. Affected insect groups not only include specialists that occupy particular ecological niches, but also many common and generalist species. Concurrently, the abundance of a small number of species is increasing; these are all adaptable, generalist species that are occupying the vacant niches left by the ones declining. Among aquatic insects, habitat and dietary generalists, and pollutant-tolerant species are replacing the large biodiversity losses experienced in waters within agricultural and urban settings. The main drivers of species declines appear to be in order of importance: i) habitat loss and conversion to intensive agriculture and urbanisation; ii) pollution, mainly that by synthetic pesticides and fertilisers; iii) biological factors, including pathogens and introduced species; and iv) climate change. The latter factor is particularly important in tropical regions, but only affects a minority of species in colder climes and mountain settings of temperate zones. A rethinking of current agricultural practices, in particular a serious reduction in pesticide usage and its substitution with more sustainable, ecologically-based practices, is urgently needed to slow or reverse current trends, allow the recovery of declining insect populations and safeguard the vital ecosystem services they provide. In addition, effective remediation technologies should be applied to clean polluted waters in both agricultural and urban environments.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        7,
+                        8
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Sánchez-Bayo",
+                    "given": "Francisco"
+                },
+                {
+                    "family": "Wyckhuys",
+                    "given": "Kris A. G."
+                }
+            ],
+            "container-title": "Biological Conservation",
+            "id": "sanchez-bayo_worldwide_2019",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019,
+                        4
+                    ]
+                ]
+            },
+            "keyword": "Agriculture, Aquatic insects, Ecosystem services, Extinction, Global change ecology, Pesticides, Pollinators",
+            "page": "8-27",
+            "title": "Worldwide decline of the entomofauna: A review of its drivers",
+            "title-short": "Worldwide decline of the entomofauna",
+            "type": "article-journal",
+            "volume": "232"
+        },
+        {
             "DOI": "10.1016/S0140-6736(18)31788-4",
             "ISSN": "0140-6736, 1474-547X",
             "PMID": "30660336",
@@ -3518,7 +3673,8 @@
                     ]
                 ]
             },
-            "title": "Ingrédients agricoles - inventaires mobilisés (impacts ACV)  Ecobalyse",
+            "title": "Ingrédients agricoles - inventaires mobilisés (impacts ACV) : Ecobalyse",
+            "title-short": "Ingrédients agricoles - inventaires mobilisés (impacts ACV) ",
             "type": ""
         },
         {
@@ -3830,6 +3986,35 @@
             "publisher-place": "Cham",
             "title": "PDO Comté Cheese in France",
             "type": "chapter"
+        },
+        {
+            "DOI": "10.5270/S2_-znk9xsj",
+            "URL": "https://sentinels.copernicus.eu/web/sentinel/sentinel-data-access/sentinel-products/sentinel-2-data-products/collection-1-level-2a",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        10,
+                        3
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "literal": "European Space Agency"
+                }
+            ],
+            "id": "european_space_agency_sentinel-2_2022",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "note": "Institution: European Space Agency",
+            "title": "Sentinel-2 MSI Level-2A BOA Reflectance",
+            "type": ""
         }
     ],
     "project_biblios": [
