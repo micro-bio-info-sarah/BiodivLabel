@@ -263,11 +263,11 @@
                     "given": "R Core"
                 }
             ],
-            "id": "r_core_team_r_2020",
+            "id": "r_core_team_r_2023",
             "issued": {
                 "date-parts": [
                     [
-                        2020
+                        2023
                     ]
                 ]
             },
@@ -607,6 +607,99 @@
             "title-short": "Organic Farming Provides Reliable Environmental Benefits but Increases Variability in Crop Yields",
             "type": "article-journal",
             "volume": "3"
+        },
+        {
+            "DOI": "10.1093/ajcn/nqy361",
+            "ISSN": "1938-3207",
+            "PMID": "30982857",
+            "abstract": "BACKGROUND: Organic food consumption has steadily increased over the past decade in westernized countries. OBJECTIVE: The aim of this study, based on observational data, was to compare some sustainability features of diets from consumers with varying levels of organic food. METHODS: The diet sustainability among 29,210 participants of the NutriNet-Santé study was estimated using databases developed within the BioNutriNet project. Four dimensions (nutrition, environment, economy, and toxicology) of diet sustainability were assessed using: 1) nutritional indicators through dietary intakes and dietary scores, and BMI; 2) environmental indicators (greenhouse gas emissions, cumulative energy demand, and land occupation); 3) economic indicators via diet monetary costs; and 4) estimated daily food exposures to 15 pesticides. Adjusted means (95% CI) across weighted quintiles of organic food consumption in the diet were estimated via ANCOVA. Breakdown methods were used to disentangle the contribution of the production system (organic compared with conventional) from the dietary pattern in the variation of diet-related environmental impacts, monetary costs, and pesticide exposure, between the 2 extreme quintiles. RESULTS: Higher organic food consumption was associated with higher plant-food and lower animal-food consumption, overall nutritional quality (higher dietary scores), and lower BMI. Diet-related greenhouse-gas emissions, cumulative energy demand, and land occupation gradually decreased with increasing organic food consumption, whereas total diet monetary cost increased. Diet exposure to most pesticides decreased across quintiles. CONCLUSIONS: Diets of high organic food consumers were generally characterized by strong nutritional and environmental benefits. The latter were mostly driven by the low consumption of animal-based foods, whereas the production system was responsible for the higher diet monetary costs, and the overall reduced dietary pesticide exposure.",
+            "author": [
+                {
+                    "family": "Baudry",
+                    "given": "Julia"
+                },
+                {
+                    "family": "Pointereau",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Seconda",
+                    "given": "Louise"
+                },
+                {
+                    "family": "Vidal",
+                    "given": "Rodolphe"
+                },
+                {
+                    "family": "Taupier-Letage",
+                    "given": "Bruno"
+                },
+                {
+                    "family": "Langevin",
+                    "given": "Brigitte"
+                },
+                {
+                    "family": "Allès",
+                    "given": "Benjamin"
+                },
+                {
+                    "family": "Galan",
+                    "given": "Pilar"
+                },
+                {
+                    "family": "Hercberg",
+                    "given": "Serge"
+                },
+                {
+                    "family": "Amiot",
+                    "given": "Marie-Josèphe"
+                },
+                {
+                    "family": "Boizot-Szantai",
+                    "given": "Christine"
+                },
+                {
+                    "family": "Hamza",
+                    "given": "Oualid"
+                },
+                {
+                    "family": "Cravedi",
+                    "given": "Jean-Pierre"
+                },
+                {
+                    "family": "Debrauwer",
+                    "given": "Laurent"
+                },
+                {
+                    "family": "Soler",
+                    "given": "Louis-Georges"
+                },
+                {
+                    "family": "Lairon",
+                    "given": "Denis"
+                },
+                {
+                    "family": "Kesse-Guyot",
+                    "given": "Emmanuelle"
+                }
+            ],
+            "container-title": "The American Journal of Clinical Nutrition",
+            "id": "baudry_improvement_2019",
+            "issue": "4",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019,
+                        4
+                    ]
+                ]
+            },
+            "keyword": "Adolescent, Adult, Aged, Cohort Studies, cumulative energy demand, Diet, diet monetary cost, dietary greenhouse gas emissions, dietary pesticide exposure, dietary score, Feeding and Eating Disorders, Female, Food, Food Contamination, Food, Organic, France, Humans, Male, Middle Aged, Nutrition Surveys, Nutritive Value, observational data, organic food consumption, Surveys and Questionnaires, sustainability indicators, Young Adult",
+            "page": "1173-1188",
+            "title": "Improvement of diet sustainability with increased level of organic food in the diet: Findings from the BioNutriNet cohort",
+            "title-short": "Improvement of diet sustainability with increased level of organic food in the diet",
+            "type": "article-journal",
+            "volume": "109"
         },
         {
             "DOI": "10.1093/erae/jbac031",
@@ -2744,6 +2837,195 @@
             "type": "thesis"
         },
         {
+            "DOI": "10.15454/1.5433098269609653E12",
+            "URL": "https://hal.inrae.fr/hal-02284521",
+            "abstract": "N",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        6,
+                        12
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Pellerin",
+                    "given": "Sylvain"
+                },
+                {
+                    "family": "Bamière",
+                    "given": "Laure"
+                },
+                {
+                    "family": "Launay",
+                    "given": "Camille"
+                },
+                {
+                    "family": "Martin",
+                    "given": "Raphaël"
+                },
+                {
+                    "family": "Schiavo",
+                    "given": "Michele"
+                },
+                {
+                    "family": "Angers",
+                    "given": "Denis"
+                },
+                {
+                    "family": "Augusto",
+                    "given": "Laurent"
+                },
+                {
+                    "family": "Balesdent",
+                    "given": "Jérôme"
+                },
+                {
+                    "family": "Basile-Doelsch",
+                    "given": "Isabelle"
+                },
+                {
+                    "family": "Bellassen",
+                    "given": "Valentin"
+                },
+                {
+                    "family": "Cardinael",
+                    "given": "Rémi"
+                },
+                {
+                    "family": "Cécillon",
+                    "given": "Lauric"
+                },
+                {
+                    "family": "Ceschia",
+                    "given": "Eric"
+                },
+                {
+                    "family": "Chenu",
+                    "given": "Claire"
+                },
+                {
+                    "family": "Constantin",
+                    "given": "Julie"
+                },
+                {
+                    "family": "Daroussin",
+                    "given": "Joël"
+                },
+                {
+                    "family": "Delacote",
+                    "given": "Philippe"
+                },
+                {
+                    "family": "Delame",
+                    "given": "Nathalie"
+                },
+                {
+                    "family": "Gastal",
+                    "given": "Francois"
+                },
+                {
+                    "family": "Gilbert",
+                    "given": "Daniel"
+                },
+                {
+                    "family": "Graux",
+                    "given": "Anne-Isabelle"
+                },
+                {
+                    "family": "Guenet",
+                    "given": "Bertrand"
+                },
+                {
+                    "family": "Houot",
+                    "given": "Sabine"
+                },
+                {
+                    "family": "Klumpp",
+                    "given": "Katja"
+                },
+                {
+                    "family": "Letort",
+                    "given": "Elodie"
+                },
+                {
+                    "family": "Litrico",
+                    "given": "Isabelle"
+                },
+                {
+                    "family": "Martin",
+                    "given": "Manuel"
+                },
+                {
+                    "family": "Menasseri-Aubry",
+                    "given": "Safya"
+                },
+                {
+                    "family": "Meziere",
+                    "given": "Delphine"
+                },
+                {
+                    "family": "Morvan",
+                    "given": "Thierry"
+                },
+                {
+                    "family": "Mosnier",
+                    "given": "Claire"
+                },
+                {
+                    "family": "Roger-Estrade",
+                    "given": "Jean"
+                },
+                {
+                    "family": "Saint-André",
+                    "given": "Laurent"
+                },
+                {
+                    "family": "Sierra",
+                    "given": "Jorge"
+                },
+                {
+                    "family": "Therond",
+                    "given": "Olivier"
+                },
+                {
+                    "family": "Viaud",
+                    "given": "Valérie"
+                },
+                {
+                    "family": "Grateau",
+                    "given": "Regis"
+                },
+                {
+                    "family": "Perchec",
+                    "given": "Sophie Le"
+                },
+                {
+                    "family": "Savini",
+                    "given": "Isabelle"
+                },
+                {
+                    "family": "Rechauchère",
+                    "given": "Olivier"
+                }
+            ],
+            "genre": "report",
+            "id": "pellerin_stocker_2020",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "note": "Pages: 114 p.",
+            "publisher": "Agence de l’Environnement et de la Maîtrise de l’Energie",
+            "title": "Stocker du carbone dans les sols français, quel potentiel au regard de l’objectif 4 pour 1000 et à quel coût ?",
+            "type": "report"
+        },
+        {
             "DOI": "10.1111/ddi.13476",
             "ISSN": "1472-4642",
             "URL": "https://onlinelibrary.wiley.com/doi/abs/10.1111/ddi.13476",
@@ -2781,7 +3063,7 @@
                     ]
                 ]
             },
-            "keyword": "biodiversity, countryside SAR, eutrophication, habitat loss, species–area relationship, vascular plants",
+            "keyword": "biodiversity, vascular plants, species–area relationship, eutrophication, countryside SAR, habitat loss",
             "note": "_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/ddi.13476",
             "page": "745-755",
             "title": "Changes in plant species richness due to land use and nitrogen deposition across the globe",
@@ -2870,7 +3152,7 @@
                     ]
                 ]
             },
-            "keyword": "Agriculture, Aquatic insects, Ecosystem services, Extinction, Global change ecology, Pesticides, Pollinators",
+            "keyword": "Agriculture, Ecosystem services, Pesticides, Pollinators, Aquatic insects, Extinction, Global change ecology",
             "page": "8-27",
             "title": "Worldwide decline of the entomofauna: A review of its drivers",
             "title-short": "Worldwide decline of the entomofauna",
@@ -3623,7 +3905,7 @@
                 ]
             },
             "page": "131-155",
-            "title": "Defining “Biodiversity”; Assessing Biodiversity1",
+            "title": "Defining “Biodiversity”; Assessing Biodiversity",
             "type": "article-journal",
             "volume": "85"
         },
@@ -3870,15 +4152,15 @@
             },
             "author": [
                 {
-                    "family": "DUBOSC",
+                    "family": "Dubosc",
                     "given": "Nelly"
                 },
                 {
-                    "family": "GLANDIÈRES",
+                    "family": "Glandières",
                     "given": "Anne"
                 },
                 {
-                    "family": "ROUBIÈRE",
+                    "family": "Roubière",
                     "given": "Magali"
                 }
             ],
@@ -4015,6 +4297,487 @@
             "note": "Institution: European Space Agency",
             "title": "Sentinel-2 MSI Level-2A BOA Reflectance",
             "type": ""
+        },
+        {
+            "DOI": "10.15454/ns4w-a314",
+            "URL": "https://hal.inrae.fr/hal-03190579",
+            "abstract": "Le développement de méthodes d’évaluation multicritère est une des étapes pour accompagner et soutenir la transition agroécologique en cours. La mise en œuvre d’indicateurs agri-environnementaux au niveau territorial se heurte à un obstacle opérationnel qui est la phase d’acquisition des données sur les pratiques, la description des sols, la végétation voire des données climatiques et ceci que ce soit à des résolutions fines (parcelles, exploitation) ou sur de grandes étendues (département, région ou pays). Le recours à des données satellitaires constitue une piste majeure pour lever ce verrou, notamment avec l’arrivée à partir de 2014 d’une nouvelle génération de satellites à haute résolution d’observation de la terre : les Sentinel. Après un bref état de l’art des possibilités offertes par ces nouveaux satellites, l’article présente les avancées sur le développement d’indicateurs agri-environnementaux calculables au moyen de la télédétection. Un focus est mis sur trois indicateurs dans le cadre du projet H2020 NIVA: bilan carbone, risque de lixiviation des nitrates et biodiversité.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        10,
+                        3
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Bockstaller",
+                    "given": "Christian"
+                },
+                {
+                    "family": "Sirami",
+                    "given": "Clélia"
+                },
+                {
+                    "family": "Sheeren",
+                    "given": "David"
+                },
+                {
+                    "family": "Keichinger",
+                    "given": "Olivier"
+                },
+                {
+                    "family": "Arnaud",
+                    "given": "Ludovic"
+                },
+                {
+                    "family": "Favreau",
+                    "given": "Arthur"
+                },
+                {
+                    "family": "Angevin",
+                    "given": "Frédérique"
+                },
+                {
+                    "family": "Laurent",
+                    "given": "Dominique"
+                },
+                {
+                    "family": "Marchand",
+                    "given": "Guillaume"
+                },
+                {
+                    "family": "Delaroche",
+                    "given": "Emmanuel"
+                },
+                {
+                    "family": "Ceschia",
+                    "given": "Eric"
+                }
+            ],
+            "container-title": "Innovations Agronomiques",
+            "id": "bockstaller_apports_2021",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "page": "43",
+            "title": "Apports de la télédétection au calcul d’indicateurs agri-environnementaux au service de la PAC, des agriculteurs et porteurs d’enjeu",
+            "type": "article-journal",
+            "volume": "83"
+        },
+        {
+            "DOI": "10.1016/j.ecoinf.2018.05.006",
+            "ISSN": "1574-9541",
+            "URL": "https://www.sciencedirect.com/science/article/pii/S1574954117301644",
+            "abstract": "Remotely sensed vegetation indices to measure crop growth through phenological metrics have a high potential for use in agricultural management. However, implementing the analytical routines from remote sensing data acquisition to relating vegetation index information to in-situ plant development and management is complex to even the most experienced user. We present the CropPhenology package, a free, easy to use package designed in the R environment that enables flexibility and interoperability that allows users to progress from downloading remote sensing images to crop phenology analysis and visualisation with only minor processing steps. Furthermore, this environment allowing users to easily incorporate other R packages to form a seamless chain of functions to undertake more complex pre or post image processing and analysis. The package computes 15 phenological metrics based on satellite-based NDVI measurements over the season which can be easily visualised and used for successive spatio-temporal analysis. The metrics are theoretically related to Zadoks growth stages which explicitly characterise cereal crop growth conditions, including new leaf emergence, flowering, ripening, and yield. These metrics provide a systematic understanding of characterisation of the plant-soil-climate interactions. We present examples that illustrate the utility of our package in a Southern Australian broad-acre, rain-fed cereal cropping region.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        10,
+                        3
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Araya",
+                    "given": "Sofanit"
+                },
+                {
+                    "family": "Ostendorf",
+                    "given": "Bertram"
+                },
+                {
+                    "family": "Lyle",
+                    "given": "Gregory"
+                },
+                {
+                    "family": "Lewis",
+                    "given": "Megan"
+                }
+            ],
+            "container-title": "Ecological Informatics",
+            "id": "araya_cropphenology_2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018,
+                        7
+                    ]
+                ]
+            },
+            "keyword": "Agriculture, Remote sensing, Cereals, MODIS, Phenological metrics, R package, Spatio-temporal analysis, Zadoks growth stage",
+            "page": "45-56",
+            "title": "CropPhenology: An R package for extracting crop phenology from time series remotely sensed vegetation index imagery",
+            "title-short": "CropPhenology",
+            "type": "article-journal",
+            "volume": "46"
+        },
+        {
+            "URL": "http://qgis.osgeo.org",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        10,
+                        4
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Team",
+                    "given": "QGIS Development"
+                }
+            ],
+            "id": "qgis_development_team_qgis_2022",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022,
+                        10
+                    ]
+                ]
+            },
+            "publisher": "Open Source Geospatial Foundation Project",
+            "title": "QGIS Geographic Information System",
+            "type": ""
+        },
+        {
+            "author": [
+                {
+                    "literal": "Felipe de Mendiburu"
+                },
+                {
+                    "literal": "Muhammad Yaseen"
+                }
+            ],
+            "id": "felipe_de_mendiburu_agricolae_2020",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020
+                    ]
+                ]
+            },
+            "title": "Agricolae: Statistical Procedures for Agricultural Research",
+            "title-short": "Agricolae",
+            "type": ""
+        },
+        {
+            "URL": "https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Extra-EU_trade_in_agricultural_goods",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        10,
+                        4
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Eurostat"
+                }
+            ],
+            "id": "eurostat_extra-eu_2024",
+            "issued": {
+                "date-parts": [
+                    [
+                        2024,
+                        5
+                    ]
+                ]
+            },
+            "title": "Extra-EU trade in agricultural goods",
+            "type": ""
+        },
+        {
+            "DOI": "10.22004/ag.econ.321162",
+            "abstract": "The European Green Deal has the ambition to bring about a more sustainable food system. Trade policy is required to be coherent with and supportive of the objectives of the Green Deal. Various legislative and other initiatives have been introduced or proposed to use trade policy measures to support the move to higher sustainability standards in the food system both in the EU and globally. Mandatory due diligence requirements for companies are proposed to ensure they have “clean” supply chains. Mirror clauses have been proposed in agri-food trade to require that imported products meet similar regulatory standards as EU producers. Promoting this agenda is a priority of the French EU Presidency in the first half of 2022. Higher sustainability standards and accompanying trade measures will have a significant impact on the competitiveness of EU producers as well as international trade in food. This paper provides a preliminary assessment of this debate, with a particular focus on vulnerable developing countries for which the EU is an important market",
+            "editor": [
+                {
+                    "family": "Matthews",
+                    "given": "Alan"
+                }
+            ],
+            "id": "matthews_implications_2022",
+            "issued": {
+                "date-parts": [
+                    [
+                        2022
+                    ]
+                ]
+            },
+            "keyword": "sustainability, agri-food trade, Agricultural and Food Policy, developing countries, Environmental Economics and Policy, Food Consumption/Nutrition/Food Safety, International Relations/Trade, mirror clauses, non-tariff barriers, Reciprocity",
+            "title": "Implications of the European Green Deal for agri-food trade with developing countries",
+            "type": "book"
+        },
+        {
+            "DOI": "10.34724/CASD.66.4159.V1",
+            "URL": "http://datapresentation.casd.eu/10.34724/CASD.66.4159.V1",
+            "abstract": "Le Réseau d’Information Comptable Agricole (RICA), mis en œuvre en France depuis 1968, est une enquête annuelle réalisée dans les Etats membres de l’Union européenne selon des règles et des principes communs. Il permet notamment de recueillir des données comptables et technico-économiques en vue d’analyser la diversité des revenus et de leur formation dans les exploitations agricoles, de dresser des diagnostics économiques et financiers et de simuler l’impact des mesures prises au titre de la politique agricole commune. Les principaux sujets traités concernent les structures (surface et cheptel) des exploitations, la main d’œuvre (effectif, temps de travail, nature du contrat…), les caractéristiques sociodémographiques des chefs des exploitations (âge, formation, sexe…). Le RICA fournit également des données sur les résultats économiques de production, sur la consommation intermédiaire, sur la valeur ajoutée… Enfin, il contient des éléments du bilan d’actif immobilisé des exploitations (foncier, matériel, animaux de reproduction), d’actif circulant, de capitaux, de dettes, de produits et de charges. Les données sont collectées par l’intermédiaire des « offices comptables » agricoles par saisie directe sur une application informatique nationale et la collecte nécessite le consentement de l’exploitant. Le champ du RICA comprend les exploitations agricoles exploitées par une comptabilité et ayant une certaine dimension économique. Ces exploitations doivent couvrir plus de 95% du potentiel de l’agriculture du pays. En pratique, il s’agit des exploitations agricoles dont la production brute standard (PBS) est d’au moins 25 000 euros en France métropolitaine et 15 000 euros dans les DOM.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        10,
+                        21
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "literal": "Ministère De L’Agriculture (SSP)"
+                }
+            ],
+            "id": "ministere_de_lagriculture_ssp_reseau_2021",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021
+                    ]
+                ]
+            },
+            "keyword": "Agriculture",
+            "publisher": "Centre d’Accès Sécurisé aux Données (CASD)",
+            "title": "Réseau d’Information Comptable Agricole - 2020",
+            "type": ""
+        },
+        {
+            "DOI": "10.3389/fpubh.2017.00361",
+            "ISSN": "2296-2565",
+            "URL": "https://www.frontiersin.org/journals/public-health/articles/10.3389/fpubh.2017.00361/full",
+            "abstract": "<p>Commercial formulations of pesticides are invariably not single ingredients. Instead they are cocktails of chemicals, composed of a designated pesticidal “active principle” and “other ingredients,” with the latter collectively also known as “adjuvants.” These include surfactants, antifoaming agents, dyes, etc. Some adjuvants are added to influence the absorption and stability of the active principle and thus promote its pesticidal action. Currently, the health risk assessment of pesticides in the European Union and in the United States focuses almost exclusively on the stated active principle. Nonetheless, adjuvants can also be toxic in their own right with numerous negative health effects having been reported in humans and on the environment. Despite the known toxicity of adjuvants, they are regulated differently from active principles, with their toxic effects being generally ignored. Adjuvants are not subject to an acceptable daily intake, and they are not included in the health risk assessment of dietary exposures to pesticide residues. Here, we illustrate this gap in risk assessment by reference to glyphosate, the most used pesticide active ingredient. We also investigate the case of neonicotinoid insecticides, which are strongly suspected to be involved in bee and bumblebee colony collapse disorder. Authors of studies sometimes use the name of the active principle (for example glyphosate) when they are testing a commercial formulation containing multiple (active principle plus adjuvant) ingredients. This results in confusion in the scientific literature and within regulatory circles and leads to a misrepresentation of the safety profile of commercial pesticides. Urgent action is needed to lift the veil on the presence of adjuvants in food and human bodily fluids, as well as in the environment (such as in air, water, and soil) and to characterize their toxicological properties. This must be accompanied by regulatory precautionary measures to protect the environment and general human population from some toxic adjuvants that are currently missing from risk assessments.</p>",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        10,
+                        26
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Mesnage",
+                    "given": "Robin"
+                },
+                {
+                    "family": "Antoniou",
+                    "given": "Michael N."
+                }
+            ],
+            "container-title": "Frontiers in Public Health",
+            "id": "mesnage_ignoring_2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018,
+                        1
+                    ]
+                ]
+            },
+            "keyword": "adjuvants, Cocktail effect, Endocrine Disruptors, pesticide, Pesticides, Risk Assessment, surfactants, Toxicity Tests",
+            "note": "Publisher: Frontiers",
+            "title": "Ignoring Adjuvant Toxicity Falsifies the Safety Profile of Commercial Pesticides",
+            "type": "article-journal",
+            "volume": "5"
+        },
+        {
+            "DOI": "10.1371/journal.pone.0096580",
+            "ISSN": "1932-6203",
+            "URL": "https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0096580",
+            "abstract": "Cocktail effects and synergistic interactions of chemicals in mixtures are an area of great concern to both the public and regulatory authorities. The main concern is whether some chemicals can enhance the effect of other chemicals, so that they jointly exert a larger effect than predicted. This phenomenon is called synergy. Here we present a review of the scientific literature on three main groups of environmentally relevant chemical toxicants: pesticides, metal ions and antifouling compounds. The aim of the review is to determine 1) the frequency of synergy, 2) the extent of synergy, 3) whether any particular groups or classes of chemicals tend to induce synergy, and 4) which physiological mechanisms might be responsible for this synergy. Synergy is here defined as mixtures with minimum two-fold difference between observed and predicted effect concentrations using Concentration Addition (CA) as a reference model and including both lethal and sub-lethal endpoints. The results showed that synergy occurred in 7%, 3% and 26% of the 194, 21 and 136 binary pesticide, metal and antifoulants mixtures included in the data compilation on frequency. The difference between observed and predicted effect concentrations was rarely more than 10-fold. For pesticides, synergistic mixtures included cholinesterase inhibitors or azole fungicides in 95% of 69 described cases. Both groups of pesticides are known to interfere with metabolic degradation of other xenobiotics. For the four synergistic metal and 47 synergistic antifoulant mixtures the pattern in terms of chemical groups inducing synergy was less clear. Hypotheses in terms of mechanisms governing these interactions are discussed. It was concluded that true synergistic interactions between chemicals are rare and often occur at high concentrations. Addressing the cumulative rather than synergistic effect of co-occurring chemicals, using standard models as CA, is therefore regarded as the most important step in the risk assessment of chemical cocktails.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        10,
+                        26
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Cedergreen",
+                    "given": "Nina"
+                }
+            ],
+            "container-title": "PLOS ONE",
+            "id": "cedergreen_quantifying_2014",
+            "issue": "5",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014,
+                        5
+                    ]
+                ]
+            },
+            "keyword": "Azoles, Cocktail effect, Fungicides, Herbicides, Organophosphates, pesticide, Pesticides, Synergy testing, Toxicity, Xenobiotic metabolism",
+            "note": "Publisher: Public Library of Science",
+            "page": "e96580",
+            "title": "Quantifying Synergy: A Systematic Review of Mixture Toxicity Studies within Environmental Toxicology",
+            "title-short": "Quantifying Synergy",
+            "type": "article-journal",
+            "volume": "9"
+        },
+        {
+            "DOI": "10.3389/fendo.2018.00582",
+            "ISSN": "1664-2392",
+            "URL": "https://www.frontiersin.org/journals/endocrinology/articles/10.3389/fendo.2018.00582/full",
+            "abstract": "<p>Obesity and diabetes have reached epidemic proportions the past few decades and continue to progress worldwide with no clear sign of decline of the epidemic. Obesity is of high concern because it is the main risk factor for a number of non-communicable diseases such as cardiovascular diseases and type 2 diabetes. Metabolic diseases constitute a major challenge as they are associated with an overall reduced quality of life and impose a heavy economic burden on countries. These are multifactorial diseases and it is now recognized that environmental exposure to man-made chemical pollutants is part of the equation. Yet, risk assessment procedures are based on a one-by-one chemical evaluation which does not meet the specificities of the multi-exposure scenario of life, e.g., a combined and long-term exposure to even the smallest amounts of chemicals. Indeed, it is assumed that environmental exposure to chemicals will be negligible based on the low potency of each chemical and that they do not interact. Within this mini-review, strong evidences are brought that exposure to low levels of multiple chemicals especially those shown to interfere with hormonal action, the so-called endocrine disrupting compounds do trigger metabolic disturbances in conditions in which no effect was expected if considering the concentration of each individual chemical in the mixture. This is known as the cocktail effect. It means that risk assessment procedures are not protective enough and thus that it should be revisited for the sake of Public Health.</p>",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        10,
+                        26
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Le Magueresse-Battistoni",
+                    "given": "Brigitte"
+                },
+                {
+                    "family": "Vidal",
+                    "given": "Hubert"
+                },
+                {
+                    "family": "Naville",
+                    "given": "Danielle"
+                }
+            ],
+            "container-title": "Frontiers in Endocrinology",
+            "id": "le_magueresse-battistoni_environmental_2018",
+            "issued": {
+                "date-parts": [
+                    [
+                        2018,
+                        10
+                    ]
+                ]
+            },
+            "keyword": "Cocktail effect, Endocrine disrupting compounds (EDCs), mixture, pesticide, pollutants, Sex-dimorphism",
+            "note": "Publisher: Frontiers",
+            "title": "Environmental Pollutants and Metabolic Disorders: The Multi-Exposure Scenario of Life",
+            "title-short": "Environmental Pollutants and Metabolic Disorders",
+            "type": "article-journal",
+            "volume": "9"
+        },
+        {
+            "DOI": "10.1007/s00442-008-1213-9",
+            "ISSN": "1432-1939",
+            "URL": "https://doi.org/10.1007/s00442-008-1213-9",
+            "abstract": "The ubiquity of anthropogenic chemicals in nature poses a challenge to understanding how ecological communities are impacted by them. While we are rapidly gaining an understanding of how individual contaminants affect communities, communities are exposed to suites of contaminants yet investigations of the effects of diverse contaminant mixtures in aquatic communities are rare. I examined how a single application of five insecticides (malathion, carbaryl, chlorpyrifos, diazinon, and endosulfan) and five herbicides (glyphosate, atrazine, acetochlor, metolachlor, and 2,4-D) at low concentrations (2–16 p.p.b.) affected aquatic communities composed of zooplankton, phytoplankton, periphyton, and larval amphibians (gray tree frogs, Hyla versicolor, and leopard frogs, Rana pipiens). Using outdoor mesocosms, I examined each pesticide alone, a mix of insecticides, a mix of herbicides, and a mix of all ten pesticides. Individual pesticides had a wide range of direct and indirect effects on all trophic groups. For some taxa (i.e., zooplankton and algae), the impact of pesticide mixtures could largely be predicted from the impacts of individual pesticides; for other taxa (i.e., amphibians) it could not. For amphibians, there was an apparent direct toxic effect of endosulfan that caused 84% mortality of leopard frogs and an indirect effect induced by diazinon that caused 24% mortality of leopard frogs. When pesticides were combined, the mix of herbicides had no negative effects on the survival and metamorphosis of amphibians, but the mix of insecticides and the mix of all ten pesticides eliminated 99% of leopard frogs. Interestingly, these mixtures did not cause mortality in the gray tree frogs and, as a result, the gray tree frogs grew nearly twice as large due to reduced competition with leopard frogs. In short, wetland communities can be dramatically impacted by low concentrations of pesticides (both separate and combined) and these results offer important insights for the conservation of wetland communities.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        10,
+                        26
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Relyea",
+                    "given": "Rick A."
+                }
+            ],
+            "container-title": "Oecologia",
+            "id": "relyea_cocktail_2009",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2009,
+                        3
+                    ]
+                ]
+            },
+            "keyword": "Amphibian decline, aquatic, Cocktail effect, Environmental Chemistry, Food web, Multiple pesticides, pesticide, Pesticide mixture, Synergistic",
+            "page": "363-376",
+            "title": "A cocktail of contaminants: How mixtures of pesticides at low concentrations affect aquatic communities",
+            "title-short": "A cocktail of contaminants",
+            "type": "article-journal",
+            "volume": "159"
+        },
+        {
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        10,
+                        26
+                    ]
+                ]
+            },
+            "id": "noauthor_loi_2009",
+            "issued": {
+                "date-parts": [
+                    [
+                        2009,
+                        8
+                    ]
+                ]
+            },
+            "title": "LOI n° 2009-967 du 3 août 2009 de programmation relative à la mise en œuvre du Grenelle de l’environnement (1)",
+            "type": ""
+        },
+        {
+            "DOI": "10.1016/j.scitotenv.2016.09.009",
+            "ISSN": "0048-9697",
+            "URL": "https://www.sciencedirect.com/science/article/pii/S004896971631926X",
+            "abstract": "Pesticides are used widely to control weeds and insect infestation in agricultural fields and various pests and disease carriers (e.g., mosquitoes, ticks, rats, and mice) in houses, offices, malls, and streets. As the modes of action for pesticides are not species-specific, concerns have been raised about environmental risks associated with their exposure through various routes (e.g., residues in food and drinking water). Although such hazards range from short-term (e.g., skin and eye irritation, headaches, dizziness, and nausea) to chronic impacts (e.g., cancer, asthma, and diabetes), their risks are difficult to elucidate due to the involvement of various factors (e.g., period and level of exposure, type of pesticide (regarding toxicity and persistence), and the environmental characteristics of the affected areas). There are no groups in the human population that are completely unexposed to pesticides while most diseases are multi-causal to add considerable complexity to public health assessments. Hence, development of eco-friendly pesticide alternatives (e.g., EcoSMART) and Integrated Pest Management (IPM) techniques is desirable to reduce the impacts of pesticides. This paper was hence organized to present a comprehensive review on pesticides with respect to their types, environmental distribution, routes of exposure, and health impacts.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        10,
+                        26
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Kim",
+                    "given": "Ki-Hyun"
+                },
+                {
+                    "family": "Kabir",
+                    "given": "Ehsanul"
+                },
+                {
+                    "family": "Jahan",
+                    "given": "Shamin Ara"
+                }
+            ],
+            "container-title": "Science of The Total Environment",
+            "id": "kim_exposure_2017",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017,
+                        1
+                    ]
+                ]
+            },
+            "keyword": "Environmental effect, Health hazards, pesticide, Pesticide toxicity, Route of exposure",
+            "page": "525-535",
+            "title": "Exposure to pesticides and the associated human health effects",
+            "type": "article-journal",
+            "volume": "575"
         }
     ],
     "project_biblios": [

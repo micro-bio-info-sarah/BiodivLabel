@@ -1,0 +1,33 @@
+{
+    "id": "CA920BC2",
+    "path": "d:/users/srhuet/documents/BiodivLabel/huet_estimating_2025/index.qmd",
+    "project_path": "index.qmd",
+    "type": "quarto_markdown",
+    "hash": "749394471",
+    "contents": "",
+    "dirty": false,
+    "created": 1726584741530.0,
+    "source_on_save": false,
+    "relative_order": 3,
+    "properties": {
+        "source_window_id": "",
+        "Source": "Source",
+        "cursorPosition": "359,0",
+        "scrollLine": "358",
+        "chunk_output_type": "inline",
+        "rmdVisualMode": "false",
+        "rmdVisualWrapConfigured": "true",
+        "docOutlineVisible": "1",
+        "rmdVisualModeLocation": "103048:42040",
+        "rmdVisualCollapsedChunks": "",
+        "docOutlineSize": "173"
+    },
+    "folds": "1109|24|1155|0|\n1165|30|1202|0|\n1308|39|1399|0|\n1408|39|1499|0|\n",
+    "lastKnownWriteTime": 1729959024,
+    "encoding": "UTF-8",
+    "collab_server": "",
+    "source_window": "",
+    "last_content_update": 1730714865699,
+    "read_only": false,
+    "read_only_alternatives": []
+}

@@ -17,12 +17,19 @@ format:
     number-sections: true
     comments:
       hypothesis: true
+    default-image-extension: svg
+    fig-format: svg
   docx:
     reference-doc: custom-reference-doc.docx
     toc: false
     number-sections: true
-    default-image-extension: svg
-    fig-format: svg
+    #default-image-extension: svg
+    fig-format: jpeg
+    fig-align: center
+    fig-width: 7.5
+    df-print: paged
+    link-citations: true
+    link-bibliography: true
   jats: default
 
   # (other formats)
@@ -72,7 +79,7 @@ author: #"Sarah HUET, Clélia SIRAMI, Abdoul DIALLO, Julie REGOLO, Ainhoa IHASUS
 keywords: certified food, farming practices, biodiversity, environmental footprint, agriculture sustainability
 date: last-modified
 bibliography: references.bib
-#csl: ecological-economics.csl
+csl: ecological-economics.csl
 
 
 execute:
