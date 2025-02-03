@@ -1,0 +1,152 @@
+# Comparison of cultural diversity between our results and those from OFB
+
+
+library(tibble)
+library(dplyr)
+library(tidyr)
+library(readr)
+library(readxl)
+library(stringi)
+library(stringr)
+
+# here we estimated two diversity indices: Shannon index and Reciprocal Simpson index
+
+# Input data ----
+
+if (my_DB == "RICA") {
+
+  # transfert table
+  tmp_TT_crops <- read_xlsx("data_in/supp_data.xlsx",sheet = "TT_crops") %>%
+    rename(crop = RICA_code_number)
+
+  tmp_input <- RICA_2020_veg %>%
+    # summaries areas by crops
+    group_by(IDENT,CODE3)%>%
+    summarise(
+      area_ha = sum(SUPER3*10^-2,na.rm = T)
+    ) %>%
+    # add mineral nitrogen consumption (kg N)
+    left_join(.,RICA_2020 %>% select(IDENT,CONSON,AGBIO)) %>%
+    mutate(crop = CODE3,
+           org_farming = case_when(
+             AGBIO %in% c(2,4) ~ T,
+             .default = F
+           )) %>%
+    filter(
+      # keep only crops & grasslands with areas
+      area_ha > 0, # 7264 farms
+      # remove organic farms with CONSON>0, as mineral fertilization is supposed to be null in organic farms
+      !(org_farming == 1 & CONSON >0)
+    )
+  # 7069 farms
+
+}
+
+if (my_DB == "FADN") {
+
+  # transfert table
+  tmp_FADN_crops <- read_xlsx("data_in/supp_data.xlsx",sheet = "FADN_crop_code")
+
+  tmp_input <- FADN_18 %>%
+    # area in hectares for each crop
+    select(ID,ORGANIC, all_of(intersect(paste0(tmp_FADN_crops$code_letter,"_TA"),colnames(FADN_18)))) %>%
+    pivot_longer(cols = all_of(intersect(paste0(tmp_FADN_crops$code_letter,"_TA"),colnames(FADN_18))),
+                 names_to = "crop",values_to = "area") %>%
+    mutate(
+      crop = gsub("_TA","",crop),
+      org_farming = case_when(ORGANIC %in% c(2,4) ~ T,.default = F),
+      area_ha = area
+    ) %>%
+    rename(farm_id = ID) %>%
+    # select variables and obs
+    select(farm_id,org_farming,crop,area_ha) %>%
+    filter(
+      # keep only crops & grasslands with areas
+      area_ha > 0
+    )
+
+}
+
+# OFB data ----
+
+tmp_OFB_data <- readr::read_delim("C:/Users/srhuet/Downloads/surf_nbpar_haie_bio_nonbio/surf_nbpar_haie_bio_nonbio_dep.csv",
+                                  delim = ";", escape_double = FALSE, trim_ws = TRUE) %>%
+  rename(spatial_scale = insee_departement)
+
+## Shannon ----
+
+tmp_OFB_Shannon <- tmp_OFB_data %>%
+  filter(!is.na(surface_tot)) %>%
+  group_by(spatial_scale,mode_prod) %>%
+  summarise(
+    Shannon = - sum( (surface_tot / sum(surface_tot)) * log(surface_tot/sum(surface_tot))),
+    .groups = "keep") %>%
+  ungroup()
+
+## Reciprocal Simpson ----
+
+tmp_OFB_Simpson <-tmp_OFB_data %>%
+  filter(!is.na(surface_tot)) %>%
+  group_by(spatial_scale,mode_prod) %>%
+  summarise(
+    Simpson = sum(surface_tot^2 / sum(surface_tot)^2),
+    Gini_Simpson = 1 - Simpson,
+    R_Simpson = 1/Simpson,
+    .groups = "keep") %>%
+  ungroup()
+
+## weighted mean ----
+
+tmp_div_mean <- tmp_OFB_data %>%
+  filter(!is.na(surface_tot)) %>%
+  left_join(.,tmp_OFB_Shannon,by = join_by(spatial_scale, mode_prod)) %>%
+  left_join(.,tmp_OFB_Simpson,by = join_by(spatial_scale, mode_prod)) %>%
+  group_by(mode_prod,gpe_culture_rpg) %>%
+  summarise(
+    Shannon = weighted.mean(Shannon,surface_tot),
+    Simspon = weighted.mean(Simpson,surface_tot),
+    Gini_Simpson = weighted.mean(Gini_Simpson,surface_tot),
+    R_Simpson = weighted.mean(R_Simpson,surface_tot),
+    .groups = "keep"
+  )
+
+esquisse::esquisser(tmp_div_mean)
+
+# area proportion ----
+
+tmp_p100 <- tmp_OFB_data %>%
+  group_by(spatial_scale,mode_prod) %>%
+  mutate(area_p100 = surface_tot / sum(surface_tot,na.rm = T) *100)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

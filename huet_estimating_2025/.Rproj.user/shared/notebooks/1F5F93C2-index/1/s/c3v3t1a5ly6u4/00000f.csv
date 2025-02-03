@@ -1,0 +1,102 @@
+"0",""
+"0","library(dplyr)"
+"2","
+Attachement du package : ‘dplyr’
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:stats’:
+
+    filter, lag
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+"
+"0","library(tidyr)"
+"0","library(gt)"
+"2","Avis :"
+"2"," le package ‘gt’ a été compilé avec la version R 4.4.2
+"
+"2","Registered S3 methods overwritten by 'htmltools':
+  method               from         
+  print.html           tools:rstudio
+  print.shiny.tag      tools:rstudio
+  print.shiny.tag.list tools:rstudio
+"
+"0","source(""~/BiodivLabel/huet_estimating_2025/result_tables.R"")"
+"1","[1mRows: [22m[34m2129[39m [1mColumns: [22m[34m18[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (7): production_type, product_name, FQS, product_FQS, practice, match, practice_subset
+[32mdbl[39m (11): mean, sd, nobs, q0, q5, q25, q50, q75, q95, q100, se
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"1","[1mRows: [22m[34m611[39m [1mColumns: [22m[34m24[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m (10): trt, stat_grp, practice_subset, practice, production_type, product_name, FQS, product_FQS, stat_grp_conv, pva...
+[32mdbl[39m (13): trt_mean, std, r, se, Min, Max, Q25, Q50, Q75, FQS_mean, max_value, conv_mean, mean_conv_diff
+[33mlgl[39m  (1): stat_grp_conv_diff
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"1","[1mRows: [22m[34m884[39m [1mColumns: [22m[34m16[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m  (5): production_type, product_name, FQS, match, practice
+[32mdbl[39m (11): mean, sd, min, max, q25, q50, q75, n_matched, mean_diff_match, pval_pttest, padjust_bonf
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","tmp_data <- readr::read_csv(""~/BiodivLabel/CASD_export/CASD_export_250122//table_ES_table_2025-01-22.csv"")"
+"1","[38;5;255mNew names:
+[36m•[38;5;255m `` -> `...1`[39m
+"
+"1","[1mRows: [22m[34m32[39m [1mColumns: [22m[34m10[39m
+"
+"1","[36m──[39m [1mColumn specification[22m [36m───────────────────────────────────────────────────────────────────────────────────────────────────[39m
+[1mDelimiter:[22m "",""
+[31mchr[39m (3): id_col, land_use_type, set
+[32mdbl[39m (7): ...1, q25, q5, q75, q95, BVIAS_ES_25_75, BVIAS_ES_5_95
+"
+"1","
+[36mℹ[39m Use `spec()` to retrieve the full column specification for this data.
+[36mℹ[39m Specify the column types or set `show_col_types = FALSE` to quiet this message.
+"
+"0","tmp_table <- tmp_data %>%"
+"0","    left_join(.,practice_names$crops, by = join_by(id_col == practice)) %>%"
+"0","    select(land_use_type,id_col,labels,BVIAS_ES_5_95,set) %>%"
+"0","    pivot_wider(id_cols = c(land_use_type,id_col,labels),names_from = set,values_from = BVIAS_ES_5_95) %>%"
+"0","    arrange(.,land_use_type) %>%"
+"0","    filter(init != 0) %>%"
+"0","    mutate(ES_diff = optim/init)"
+"0",""
+"0","tmp_table %>%"
+"0","    # groups"
+"0","    mutate(land_use_type = ifelse(row_number() == 1,"
+"0","                           stringr::str_to_title(land_use_type), """"),"
+"0","           .by = land_use_type) %>%"
+"0","    gt() %>%"
+"0","    cols_label("
+"0","        land_use_type = ""Land use type"","
+"0","        id_col = ""Variable"","
+"0","        labels = ""Description"","
+"0","        init = ""Effect size before optimization"","
+"0","        optim = ""Effect size after optimization"","
+"0","        ES_diff = ""Change in effect size (after / before)"") %>%"
+"0","    # replace NAs"
+"0","    sub_missing(missing_text = ""-"") %>%"
+"0","    # format numbers"
+"0","    fmt_auto()"

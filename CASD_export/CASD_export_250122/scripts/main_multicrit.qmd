@@ -1,0 +1,718 @@
+---
+title: "FADN Analysis Script"
+author: "Sarah Huet"
+date: 2024/05/29
+format: pdf
+editor: source
+editor_options: 
+  chunk_output_type: console
+---
+
+# Import data
+
+We used the RICA 2020 data.
+
+```{r packages}
+
+library(readr)
+library(readxl)
+
+library(tidyr)
+library(dplyr)
+library(tibble)
+
+rm(list = names(.GlobalEnv)[grep("tmp",names(.GlobalEnv))])
+#rm(list = ls())
+
+# which data base are you using? either "FADN" or "RICA"
+my_DB = "RICA"
+
+```
+
+```{r load_data}
+
+if (my_DB == "RICA") {
+  
+  
+  #RICA_2020 <- read_delim("~/BiodivLabel/data_CASD/RICA_RICA_2020/RICA2020_tables_CSV/rica20.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE, col_types = cols(IDENT = col_character(), SIRET = col_character()))
+  
+  #RICA_2020_veg <- read_delim("~/BiodivLabel/data_CASD/RICA_RICA_2020/RICA2020_tables_CSV/veg20.csv", delim = ";", escape_double = FALSE, trim_ws = TRUE, col_types = cols(IDENT = col_character()))
+  
+  #RICA_2020_ani <- read_delim("~/BiodivLabel/data_CASD/RICA_RICA_2020/RICA2020_tables_CSV/ani20.csv",delim = ";", escape_double = FALSE, trim_ws = TRUE,col_types = cols(IDENT = col_character(),CODE6 = col_number()))
+  
+  #RICA_2020_pan <- read_delim("~/BiodivLabel/data_CASD/RICA_RICA_2020/RICA2020_tables_CSV/pan20.csv",delim = ";", escape_double = FALSE, trim_ws = TRUE,col_types = cols(IDENT = col_character(),CODE7 = col_number()))
+  
+  load("~/BiodivLabel/data_CASD/raw_RICA20.RData")
+  
+  #PACAGE_landscape_metrics <- read_csv("data_in/PACAGE_landscape_metrics.csv")
+  
+  # match RICA with RA-SIQO
+  source("R/matching_RICA-RA-SIQO.R",local = knitr::knit_global())
+}
+
+
+if (my_DB == "FADN") {
+  
+  # Get the files names
+  #tmp_ls_files = paste0(getwd(),"/FADN_LIFT_2004-2018/raw_data/",list.files(path = paste0(getwd(),"/FADN_LIFT_2004-2018/raw_data/"),pattern = "*.csv"))
+  # First apply read.csv, then rbind
+  #FADN_04_18 = lapply(tmp_ls_files, read_csv) %>% bind_rows()
+  
+  # Get the files names
+  #tmp_ls_files = paste0(getwd(),"/FADN_LIFT_2004-2018/raw_data/",list.files(path = paste0(getwd(),"/FADN_LIFT_2004-2018/raw_data/"),pattern = "*2018.csv"))
+  # First apply read.csv, then rbind
+  #FADN_18 = lapply(tmp_ls_files, read_csv) %>% bind_rows() %>% mutate(ID = as.character(ID))
+  
+  load("data_in/FADN_2018.RData")
+  
+}
+
+
+```
+
+# Livestock
+
+To estimate the impact of livestock on biodiversity, we first need to estimates the impact of their feed intake. Specifically, for purchased feed, we need to estimate the practices that were implemented in the farms that produced it. For that purpose, we will:
+1. Estimate how much of each feed type have been purchased based on an average livestock ration
+2. Estimate the ration nutritional value
+2. Estimate the average practices implemented to produce each type of feed
+
+## Estimer la ration (quantité et qualité des aliments)
+
+### Calculer la quantité ingérée d'aliments par ferme
+
+```{r feed_purchased}
+
+source("R/feed_purchased.R",local = knitr::knit_global()) # concentrate + rough
+
+```
+
+```{r feed_produced}
+
+# As input, a table with:
+## farm Unique Identifier
+## farm region
+## crop code
+## area in hectares for each crop
+## production quantity in kg for each crop
+## sales quantity in kg for each crop
+source("R/yield_crop.R")
+
+source("R/feed_produced.R",local = knitr::knit_global()) # crops + grassland
+
+
+```
+
+
+### Répartir la quantité ingérée d'aliments par type de bétail
+
+As feeding practices differ between livestock categories, we considered that the proportion of feed supplied for a livestock category $l$ on the total value of feed in the farm $i$ is equal to the proportion of the average ration for that livestock category $l$ on the sum of the average ration of all farm herd, such as:
+
+$$\frac{x_{i,l}}{x_i} = \frac{ration_l \cdot pop_{i,l}}{ \sum_{l} (ration_l \cdot pop_{i,l}) }$$
+
+Thus, we estimated the amount of feed supplied to each livestock category $l$ as follow:
+
+$$x_{i,l} = x_i \cdot \frac{ ration_l \cdot pop_{i,l}}{ \sum_{l} \big(ration_l \cdot pop_{i,l} \big) }$$
+
+where:
+
+$x$: the amount of feed provided (kg)
+$ration$: the average ration as determined by AROPAJ (ref ???)
+$pop$: number of animals
+$i$: a farm
+$l$: a livestock category
+
+```{r feed_by_livestock_category}
+
+source("R/feed_by_livestock_category.R",local = knitr::knit_global())
+
+```
+
+## Estimer la quantité d'azote excrété par le bétail
+
+```{r N_excretion}
+
+# NB : guidelines IPCC are for one animal, not for one livestock unit
+
+source("R/N_excretion_from_livestock.R",local = knitr::knit_global())
+
+### output => kg N yr-1 
+
+```
+
+# Pratiques culturales
+
+## Intensity of soil movement
+
+We estimated the intensity of soil movement by comparing the off-road diesel volume used to the average consumption on non-tillage farms, as established by Pellerin et al. (2013).
+
+$$Y_{i} = \frac{x_{i}}{SAU_{i}} - \overline{x}$$
+
+Where:
+
+$i$: a farm $Y$: the volume of off-road diesel used for tillage per hectare (L/ha) $x$: the volume of off-road diesel used (L) $SAU$: the useful arable area (ha) $\overline{x}$: the average off-road diesel use without tillage (L ha-1) as determined by Pellerin et al. (2015)
+
+We chose an area allocation on arable land use type.
+
+```{r A.3.1}
+
+source("R/in_practice_A31.R",local = knitr::knit_global())
+
+```
+
+## Intensity of Fertilizing
+
+As mineral fertilization practices differ between crops, land use type and farm certification, we considered that the proportion of mineral fertilizer used for the crop $c$ on the total value of mineral fertilizer input in the farm $i$ is equal to the proportion of the average mineral fertilizer input for that crop $c$ on the sum of average mineral fertilizer inputs of all farm crops, such as:
+
+$$\frac{x_{i,c}}{x_i} = \frac{ M_{c} \cdot SAU_{i,c} }{ \sum_{i} (M_{c} \cdot SAU_{i,c} ) }$$
+
+Thus, we estimated the value of mineral fertilizer input used per hectares as follow:
+
+$$ Y_{i,c}^{min} = \frac{x_i \cdot \frac{ M_c \cdot SAU_{i,c}}{ \sum_{c} \big(M_c \cdot SAU_{i,c} \big) }}{SAU_{i,c}} $$
+
+where: $Y^{min}$: the quantity of mineral fertilizer input per hectares (kg N/ha) $x$: the quantity of mineral fertilizer input (kg) $M$: the average mineral fertilizer input as determined by the EPK studies (2017) 
+$SAU$: the useful arable area (ha) $i$: a farm $c$: a crop or grassland
+
+with $M_{c} = 0$ for certified organic crops
+
+For organic fertilization, we considered that farms without livestock apply a reference  average of organic fertilizer across both their croplands and grasslands, as determined by the EPK studies (2017). In the case of farms with livestock, we calculated the total nitrogen excretion from their livestock following the IPCC Guidelines. We then estimated the quantity of this organic nitrogen applied to cropland and grassland $Y^{org}$ as for $Y^{min}$.
+
+/!\ WIP add threshold min and max
+
+```{r A.4.5}
+
+source("R/in_practice_A45.R",local = knitr::knit_global())
+
+```
+
+## Share of artifical fertilizer
+
+```{r A.4.3}
+
+source("R/in_practice_A43.R",local = knitr::knit_global())
+
+```
+
+
+## Plant protection agents
+
+As plant protection agent practices differ between crops, we considered that the proportion of pesticides used for the crop $c$ on the total value of pesticides in the farm $i$ is equal to the proportion of the average TFI for that crop $c$ on the sum of the average TFI of all farm crops, such as:
+
+$$\frac{x_{i,c}}{x_i} = \frac{TFI_c \cdot SAU_{i,c}}{ \sum_{c} (TFI_c \cdot SAU_{i,c}) }$$
+
+Thus, we estimated the value of pesticides used per hectares of the crop $c$ as follow:
+
+$$Y_{i,c} = \frac{x_i \cdot \frac{ TFI_c \cdot SAU_{i,c}}{ \sum_{c} \big(TFI_c \cdot SAU_{i,c} \big) }}{SAU_{i,c}}$$
+
+where:
+
+$x$: the value of pesticides used (€) $TFI$: the average treatment frequency index (IFT) as determined by the EPK studies (2017,2018) $SAU$: the useful arable area (ha) used to cultivate crop $c$ $Y$: the value of pesticides used per hectares (€/ha) $i$: a farm $c$: a crop
+
+Consequently, we chose a crop area allocation on arable land use type.
+
+The TFI data were retrieve from Agreste "Pratiques culturales" studies and other local studies (all data source are mentioned in file)
+
+```{r A.5.1}
+
+source("R/in_practice_A51.R",local = knitr::knit_global())
+
+```
+
+# Landscape metrics
+
+## Overview
+
+```{r}
+
+library(readr)
+PACAGE_landscape_metrics <- read_csv("data_in/PACAGE_landscape_metrics.csv")
+
+library(modelsummary)
+
+datasummary_skim(PACAGE_landscape_metrics)
+
+tmp <-  RICA_RA %>% select(IDENT,PACAGE) %>%
+  # add socio-economic charac
+  left_join(.,RICA_2020 %>% select(IDENT,OTEFDA)) %>%
+  # add landscape metrics
+  inner_join(., PACAGE_landscape_metrics %>%
+               rename(PACAGE = pacage),
+             by = "PACAGE")
+
+datasummary_balance(~OTEFDA,tmp)
+
+
+```
+
+Some plots are not registered in LPIS but are registered in FADN. We consider that FADN data are more exhaustive than LPIS data regarding plots as farmers might not declare plots in LPIS for which they will not have any subsidies while such plot would be registered in their accountancy.
+
+```{r diff_FADN_LPIS}
+
+tmp <- RICA_2020_veg %>%
+  # add land use type
+  left_join(.,tmp_TT_crops %>% select(crop,land_use_type), by = join_by(CODE3 == crop)) %>%
+  # summaries areas
+  group_by(IDENT,CODE3,land_use_type)%>%
+  summarise(
+    area_ha = sum(SUPER3*10^-2,na.rm = T)
+  ) %>% ungroup() %>%
+  filter(
+    # keep only crops with areas
+    area_ha > 0
+  ) %>%
+  # add PACAGE
+  inner_join(., RICA_RA %>% select(IDENT,PACAGE), by = "IDENT") %>%
+  # add landscape metrics
+  inner_join(., PACAGE_landscape_metrics %>%
+               select(pacage,area_tot,parcelle_tot,
+                      densite_ln_haie_tot,densitelnhaie_pprlandes,densitelnhaie_arbocultvigne,densitelnhaie_culture) %>%
+               rename(PACAGE = pacage),
+             by = "PACAGE") %>%
+  # add land use types used in landscape metric estimation
+  rename(farm_id = IDENT,crop = CODE3) %>%
+  inner_join(.,tmp_TT_crops %>% select(crop,LIBELLE,landscape_LU), by ="crop") %>%
+  filter(!is.na(landscape_LU)) %>%
+  # select plots registered in FADN but not in LPIS
+  filter(((landscape_LU == "culture" & is.na(densitelnhaie_culture))
+          | (landscape_LU == "prairie" & is.na(densitelnhaie_pprlandes))
+          | (landscape_LU == "arboriculture" & is.na(densitelnhaie_arbocultvigne))))
+
+modelsummary::datasummary_skim(tmp)
+esquisse::esquisser(tmp %>% mutate(crop = as.character(crop)))
+
+tmp %>% mutate(crop = as.character(crop)) %>%
+  ggplot(.) +
+  aes(x = LIBELLE, fill = landscape_LU) +
+  geom_bar() +
+  scale_fill_hue(direction = 1) +
+  coord_flip() +
+  theme_minimal()
+
+
+```
+
+Compare areas calculated in RICA to areas calculated in LPIS.
+
+```{r comp_area_RICA_LPIS}
+
+tmp <- RICA_2020_veg %>%
+  # add land use type
+  left_join(.,tmp_TT_crops %>% select(crop,land_use_type), by = join_by(CODE3 == crop)) %>%
+  # summaries areas
+  group_by(IDENT)%>%
+  summarise(
+    area_ha = sum(SUPER3*10^-2,na.rm = T),
+  ) %>% ungroup() %>%
+  # add PACAGE
+  inner_join(., RICA_RA %>% select(IDENT,PACAGE), by = "IDENT") %>%
+  # add landscape metrics
+  inner_join(., PACAGE_landscape_metrics %>%
+               select(pacage,area_tot,parcelle_tot,
+                      densite_ln_haie_tot,densitelnhaie_pprlandes,densitelnhaie_arbocultvigne,densitelnhaie_culture) %>%
+               rename(PACAGE = pacage),
+             by = "PACAGE")
+
+plot(tmp$area_tot,tmp$area_ha)
+cor(tmp$area_tot,tmp$area_ha)
+
+```
+
+## A.2.1	Elements of structure in the area: Semi-natural elements
+
+```{r}
+
+# transfert table
+tmp_TT_crops <- read_xlsx("data_in/supp_data.xlsx",sheet = "TT_crops") %>%
+  rename(crop = RICA_code_number)
+
+BV_A.2.1 <- RICA_2020_veg %>%
+  # add land use type
+  left_join(.,tmp_TT_crops %>% select(crop,land_use_type), by = join_by(CODE3 == crop)) %>%
+  # summaries areas
+  group_by(IDENT,CODE3,land_use_type)%>%
+  summarise(
+    area_ha = sum(SUPER3*10^-2,na.rm = T),
+    
+  ) %>% ungroup() %>%
+  filter(
+    # keep only crops with areas
+    area_ha > 0
+  ) %>%
+  # add PACAGE
+  inner_join(., RICA_RA %>% select(IDENT,PACAGE), by = "IDENT") %>%
+  # add landscape metrics
+  inner_join(., PACAGE_landscape_metrics %>%
+               select(pacage,area_tot,parcelle_tot,
+                      densite_ln_haie_tot,densitelnhaie_pprlandes,densitelnhaie_arbocultvigne,densitelnhaie_culture) %>%
+               rename(PACAGE = pacage),
+             by = "PACAGE") %>%
+  # add land use types used in landscape metric estimation
+  rename(farm_id = IDENT,crop = CODE3) %>%
+  inner_join(.,tmp_TT_crops %>% select(crop,landscape_LU), by ="crop") %>%
+  filter(!is.na(landscape_LU)) %>%
+  # estimate parameter
+  mutate(
+    # calculate A.2.1
+    A.2.1 = case_when(
+      landscape_LU == "culture" ~ densitelnhaie_culture,
+      landscape_LU == "prairie" ~ densitelnhaie_pprlandes,
+      landscape_LU == "arboriculture" ~ densitelnhaie_arbocultvigne)) %>%
+  # case when there is no value for the corresponding land use type => use farm average
+  ## we considered that FADN data are more exhaustive than LPIS data regarding crops as farmers might not declare crops in LPIS for which they will not have any subsidies while such crop would be registered in their accountancy
+  mutate(
+    A.2.1 = case_when(
+      ((landscape_LU == "culture" & is.na(densitelnhaie_culture))
+       | (landscape_LU == "prairie" & is.na(densitelnhaie_pprlandes))
+       | (landscape_LU == "arboriculture" & is.na(densitelnhaie_arbocultvigne)))
+      ~ densite_ln_haie_tot,
+      .default = A.2.1
+      
+    )
+  )
+
+```
+
+
+## A.2.2	Field size
+
+```{r}
+
+# transfert table
+tmp_TT_crops <- read_xlsx("data_in/supp_data.xlsx",sheet = "TT_crops") %>%
+  rename(crop = RICA_code_number)
+
+BV_A.2.2 <- RICA_2020_veg %>%
+  # add land use type
+  left_join(.,tmp_TT_crops %>% select(crop,land_use_type), by = join_by(CODE3 == crop)) %>%
+  # summaries areas
+  group_by(IDENT,CODE3,land_use_type) %>%
+  summarise(
+    area_ha = sum(SUPER3*10^-2,na.rm = T)
+  ) %>% ungroup() %>%
+  filter(
+    # keep only crops with areas
+    area_ha > 0
+  ) %>%
+  # add PACAGE
+  inner_join(., RICA_RA %>% select(IDENT,PACAGE), by = "IDENT") %>%
+  # add landscape metrics
+  inner_join(., PACAGE_landscape_metrics %>%
+               select(pacage,area_tot,parcelle_tot,
+                      moy_parcelle_tot,moy_parcelle_pprlandes,moy_parcelle_arbocultvigne,moy_parcelle_culture) %>%
+               rename(PACAGE = pacage),
+             by = "PACAGE") %>%
+  # add land use types used in landscape metric estimation
+  rename(farm_id = IDENT,crop = CODE3) %>%
+  inner_join(.,tmp_TT_crops %>% select(crop,landscape_LU), by ="crop") %>%
+  filter(!is.na(landscape_LU)) %>%
+  # estimate parameter
+  mutate(
+    # calculate A.2.2
+    A.2.2 = case_when(
+      landscape_LU == "culture" ~ moy_parcelle_culture,
+      landscape_LU == "prairie" ~ moy_parcelle_pprlandes,
+      landscape_LU == "arboriculture" ~ moy_parcelle_arbocultvigne
+    )) %>%
+  # case when there is no value for the corresponding land use type => use farm average
+  ## we considered that FADN data are more exhaustive than LPIS data regarding crops as farmers might not declare crops in LPIS for which they will not have any subsidies while such crop would be registered in their accountancy
+  mutate(
+    A.2.2 = case_when(
+      ((landscape_LU == "culture" & is.na(moy_parcelle_culture))
+       | (landscape_LU == "prairie" & is.na(moy_parcelle_pprlandes))
+       | (landscape_LU == "arboriculture" & is.na(moy_parcelle_arbocultvigne)))
+      ~ moy_parcelle_tot,
+      .default = A.2.2
+      
+    )
+  )
+
+```
+
+
+## A.3.2	Ground cover
+
+```{r}
+
+
+# transfert table
+tmp_TT_crops <- read_xlsx("data_in/supp_data.xlsx",sheet = "TT_crops") %>%
+  rename(crop = RICA_code_number)
+
+BV_A.3.2 <- RICA_2020_veg %>%
+  # add land use type
+  left_join(.,tmp_TT_crops %>% select(crop,land_use_type), by = join_by(CODE3 == crop)) %>%
+  # summaries areas
+  group_by(IDENT,CODE3,land_use_type)%>%
+  summarise(
+    area_ha = sum(SUPER3*10^-2,na.rm = T)
+  ) %>% ungroup() %>%
+  filter(
+    # keep only crops with areas
+    area_ha > 0
+  ) %>%
+  # add PACAGE
+  inner_join(., RICA_RA %>% select(IDENT,PACAGE), by = "IDENT") %>%
+  # add landscape metrics
+  inner_join(., PACAGE_landscape_metrics %>%
+               select(pacage,area_tot,parcelle_tot,
+                      moy_pacage_cvegetale,moy_cvegetale_pprlandes,moy_cvegetale_arbocultvigne,moy_cvegetale_culture) %>%
+               rename(PACAGE = pacage),
+             by = "PACAGE") %>%
+  # add land use types used in landscape metric estimation
+  rename(farm_id = IDENT,crop = CODE3) %>%
+  inner_join(.,tmp_TT_crops %>% select(crop,landscape_LU), by ="crop") %>%
+  filter(!is.na(landscape_LU)) %>%
+  # estimate parameter
+  mutate(
+    # calculate A.3.2
+    A.3.2 = case_when(
+      landscape_LU == "culture" ~ moy_cvegetale_culture,
+      landscape_LU == "prairie" ~ moy_cvegetale_pprlandes,
+      landscape_LU == "arboriculture" ~ moy_cvegetale_arbocultvigne
+    )) %>%
+  # case when there is no value for the corresponding land use type => use farm average
+  ## we considered that FADN data are more exhaustive than LPIS data regarding crops as farmers might not declare crops in LPIS for which they will not have any subsidies while such crop would be registered in their accountancy
+  mutate(
+    A.3.2 = case_when(
+      ((landscape_LU == "culture" & is.na(moy_cvegetale_culture))
+       | (landscape_LU == "prairie" & is.na(moy_cvegetale_pprlandes))
+       | (landscape_LU == "arboriculture" & is.na(moy_cvegetale_arbocultvigne)))
+      ~ moy_pacage_cvegetale,
+      .default = A.3.2
+      
+    )
+  ) %>%
+  # /!\ for ground cover A.3.2, the BV contribution function is decreasing, thus we take the inverse of A.3.2 as the number of day of uncovered soil
+  # 2020 had 366 days
+  mutate(A.3.2 = 366 - A.3.2)
+
+
+
+```
+
+
+## A.3.3	Crop Diversity
+
+```{r A.3.3}
+
+source("R/in_practice_A33.R",local = knitr::knit_global())
+
+```
+
+# GHGE
+To estimate the green house gas emission from cropland, grassland, livestock and manure management, we followed the IPCC Guidelines 2019 Refinements.
+
+## Emissions from Livestock and Manure Management
+### Methane Emission from Enteric fermentation
+
+Enteric fermentation is a process by which carbohydrates contained in food are converted to methane. Mostly ruminants, mammals with a multichamber stomach, produce methane through such process. Ruminants include cattle, sheep and goats.
+https://agledx.ccafs.cgiar.org/emissions-led-options/sources-sinks/enteric-fermentation/
+
+```{r CH4_from_enteric_fermentation}
+
+source("R/CH4_from_enteric_fermentation.R",local = knitr::knit_global())
+
+```
+
+### Methane Emission from Manure Management
+
+As we do not have data about manure management practices in the FADN data, we used the National Inventories from the CCNUCC to estimate ratio of emission factors for each country and each year. Once the emission factors were estimated, we applied the Tiezr 2 method from the IPCC Guidelines (2006, 2019).
+
+National Inventories from the UNFCCC : https://unfccc.int/ghg-inventories-annex-i-parties/2023
+NB : France (FRK) and Danemark (DNM) should be used as they do not contain overseas territories
+
+
+We used the average annual temperature for each european country from https://www.eea.europa.eu/data-and-maps/data/external/monitoring-european-average-temperature-based-1.
+
+```{r CH4_from_manure_management}
+
+#source("R/manure_management_system.R",local = knitr::knit_global())
+
+source("R/CH4_from_manure_management.R",local = knitr::knit_global())
+
+```
+
+### N2O Emission from Manure Management WIP
+
+```{r N2O_from_manure_management}
+
+#source("R/manure_management_system.R",local = knitr::knit_global())
+
+#source("R/N2O_from_manure_management.R",local = knitr::knit_global())
+
+```
+
+
+## Crop/Feed
+cf. Sarah Le Clerc 
+https://github.com/sarahkleclerc/GHGfromFADN
+To be completed
+### Crop/Feed emission
+To be completed
+### Carbon storage
+To be completed
+
+# Water
+To be completed
+
+# Biodiversity: BVIAS model
+
+## Productions végétales
+
+```{r BVIAS_to_RICA_crops}
+
+source("R/BVIAS_out_crops.R",local = knitr::knit_global())
+
+```
+
+### Biodiversity Value Contribution
+
+We define biodiversity value contribution functions such as Lindner (Lindner et al., 2019, 2022):
+
+-   $BV \in [0,1]$ with $f(min) = \{0,1\}$ & $f(max) = \{1,0\}$
+
+-   function constants are retained from Lindner 2019 and are identical for arable and pasture land use types
+
+-   function are define based on the 95% of the lowest values for each parameters (i.e. the 5% highest values are cut off).
+
+All input variables are normalized to $[0,1]$.
+
+The generic expression of $y_i(x_i)$ is:
+
+$$y_{i,l,v}= \gamma_v + \epsilon_v \cdot \exp(-\frac{|(x_{i,v}^\delta_v - \beta_v)^\alpha_v|}{2\sigma_{v}^{\alpha_{v}}})$$
+
+where :
+$i$: observation for a crop in a farm
+$l$: land use type
+$v$: input variable
+$[\alpha_v,\beta_v,\delta_v,\epsilon_v,\gamma_v,\sigma_v]$: normalization function constant of variable $v$
+
+### Land use specific biodiversity value
+
+All parameters together constitute a joint biodiversity value contribution which is the arithmetic mean of the individual value contribution.
+
+$$BV_{LU,i,l} = \sum_{v=1}^{n}(y_{i,v} \cdot z_v) $$
+where
+$z_v$: weighting coefficient of variable $v$ 
+
+### Biodiversity value normalization
+
+The normalized biodiversity value $BV_{norm}$ is calculated from the land use specific biodiversity value $BV_{LU}$ by projecting $BV_{LU}$ into the value interval of the respective land use type.
+
+$$BV_{norm,i} = BV_{norm,j,min} + BV_{LU,i} \centerdot (BV_{norm,j,max} - BV_{norm,j,min})$$
+
+with $j= \{forestry,pasture,arable,mining\}$
+
+### Local biodiversity value
+
+Unlike Lindner's model whose normalized biodiversity value $BV_{norm}$ is skewed by a function to push the less natural land uses further apart and to squeeze the more natural land uses closer together, we calculate the local biodiversity value $BV_{loc}$ as the normalized biodiversity value.
+
+$$BV_{loc,i}= BV_{norm,i}$$
+
+### BVIAS per kg
+
+To obtain the BVIAS/kg, we estimated crop yields using the crop area and the crop production, for each crop in each farm. Then, we calculated the ratio between the BV_loc per ha and the yield.
+
+## Productions animales
+
+WIP maybe I should write a script for estimating the pseudofarm
+
+```{r BVIAS_per_herd}
+
+source("R/BVIAS_out_herd.R",local = knitr::knit_global())
+
+```
+
+$$BVIAS_{herd} = \sum(DMI_{total} \cdot BVIAS_{ha} )$$
+$$BVIAS_{ha_{feed}} = \frac{\sum (\frac{DMI_{total}}{yield}  \cdot BVIAS_{ha} )} {\sum (\frac{DMI_{total}}{yield})  }$$
+
+### Milk
+
+$$BVIAS_{kg}^{milk} = \frac{BVIAS^{herd} \cdot GS^{milk}}{production^{milk}_{kg}} $$ 
+$GS^{milk}$: part du lait dans le chiffre d'affaire (%)
+
+```{r out_BVIAS_to_RICA_milk}
+
+source("R/out_BVIAS_milk.R",local = knitr::knit_global())
+
+```
+
+### Meat
+#### Beef
+To be completed
+
+#### Pork
+To be completed
+#### Poultry
+To be completed
+
+### Eggs
+To be completed
+
+# Match with RICA with RA-SIQO
+
+
+```{r Applying BVIAS to matched farms}
+
+source("R/SIQO_BVIAS.R")
+
+```
+
+# Export data
+
+```{r extract_result_file,}
+
+# an excel file with identifiers (RA & RICA), groupement labels, BVIAS en colonnes
+
+# farm ----
+
+tmp_output_farm <- RICA_RA %>%
+  rename(farm_id=IDENT)
+
+# crops ----
+
+tmp_crops <- BVIAS_to_RICA_RA_SIQO_crops %>%
+  mutate(crop = as.character(crop)) %>%
+  # add RA identifiers
+  left_join(.,tmp_output_farm %>% select(NOM_DOSSIER,farm_id),
+            by = join_by(farm_id, NOM_DOSSIER)) %>%
+  # remove farms with NAs
+  filter(is.finite(BVIAS_ha+yield+BVIAS_kg)) %>%
+  # remove farms with labels < 30 farms
+  group_by(FQS,crop) %>%
+  mutate(nobs = length(unique(farm_id))) %>%
+  filter(nobs >= 30) %>%
+  # select only products and results
+  select(NOM_DOSSIER,farm_id,crop,FQS,BVIAS_ha,BVIAS_kg) 
+
+# milk ----
+
+tmp_milk <- BVIAS_to_RICA_RA_SIQO_milk %>%
+  # add RA identifiers
+  left_join(.,tmp_output_farm %>% select(NOM_DOSSIER,farm_id),
+            by = join_by(farm_id, NOM_DOSSIER)) %>%
+  # remove farms with NAs
+  filter(is.finite(BVIAS_ha_feed+prod_kg+BVIAS_kg)) %>%
+  # add product code & label variables
+  mutate(crop = "22",
+         FQS = app_fromage,
+         BVIAS_ha = BVIAS_ha_feed) %>%
+  # remove farms with labels < 30 farms
+  group_by(FQS,crop) %>%
+  mutate(nobs = length(unique(farm_id))) %>%
+  filter(nobs >= 30) %>%
+  # select only products and results
+  select(NOM_DOSSIER,farm_id,crop,FQS,BVIAS_ha,BVIAS_kg) 
+
+# product ----
+
+tmp_output_product <- rbind(tmp_crops,tmp_milk)
+
+# extract ----
+
+write.csv(tmp_output_farm,"~/BiodivLabel/data_out/RICA_RA_SIQO_farms_241007.csv",row.names = F,quote = F)
+write.csv(tmp_output_product,"~/BiodivLabel/data_out/RICA_RA_SIQO_products_241007.csv",row.names = F,quote = F)
+
+rm(list = names(.GlobalEnv)[grep("tmp",names(.GlobalEnv))])
+
+```

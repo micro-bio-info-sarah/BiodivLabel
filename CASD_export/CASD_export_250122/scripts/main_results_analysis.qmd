@@ -1,0 +1,1158 @@
+---
+title: "BiodivLabel Analysis Script"
+author: "Sarah Huet"
+format: pdf
+editor: source
+editor_options: 
+  chunk_output_type: console
+knitr: 
+  opts_chunk: 
+    collapse: true
+    comment: "#>"
+    R.options:
+      knitr.graphics.auto_pdf: true
+---
+
+
+# Import data
+
+We used the RICA 2020 data.
+
+```{r packages}
+
+library(readr)
+library(readxl)
+
+library(tidyr)
+library(dplyr)
+library(tibble)
+library(stringr)
+
+library(ggplot2)
+
+library(agricolae)
+
+library(MatchIt)
+
+library(lmtest)
+library(sandwich)
+library(cobalt)
+
+library(modelsummary)
+
+#rm(list = ls())
+rm(list = names(.GlobalEnv)[grep("tmp",names(.GlobalEnv))])
+
+tmp_output_dir = c("~/BiodivLabel/data_out/")
+
+```
+
+```{r load_model_data}
+
+#load("~/BiodivLabel/data_CASD/main_241009.RData")
+
+```
+
+# Data
+
+## Wrangle
+
+```{r data}
+
+# transfert table
+tmp_TT_crops <- readxl::read_xlsx("data_in/supp_data.xlsx",sheet = "TT_crops") %>%
+  rename(crop = RICA_code_number)
+# data ----
+
+tmp_read <- read_csv("~/BiodivLabel/data_out/RICA_RA_SIQO_products_2024-10-14.csv",
+                     col_types = cols(NOM_DOSSIER = col_character(),
+                                      farm_id = col_character(),
+                                      crop = col_character()))
+
+tmp_ProdSIQO <- tmp_read %>%
+  # filter FQS with <30 farms
+  left_join(.,tmp_read %>%
+              aggregate(farm_id ~FQS*crop,FUN = function(x) length(unique(x))) %>%
+              rename(nb_farm = farm_id),
+            by = join_by(crop, FQS)) %>%  
+  filter(nb_farm >= 30) %>%
+  # add crop Libelle and species
+  left_join(.,tmp_TT_crops %>%
+              mutate(crop = as.character(crop)) %>%
+              select(crop,Libelle,species),
+            by = join_by(crop)) %>%
+  # filter milk and cereals
+  filter(crop=="22"|species == "cereal") %>%
+  # add crop / milk variable
+  mutate(
+    production_type = case_when(
+      crop == "22" ~ "milk",
+      .default = "crop"
+    )) %>%
+  # add product name var
+  mutate(product_name = case_when(
+    crop == "22" ~ "Lait",
+    crop != "22" ~ Libelle,
+    .default = crop
+  )) %>%
+  # remove crops without labels
+  filter(crop %in% unique(tmp_read$crop[tmp_read$FQS != "Conventionnel"])) %>%
+  # add unique id for product-FQS
+  mutate(product_FQS = case_when(
+    production_type == "crop" ~ paste0(Libelle," - ",FQS),
+    production_type == "milk" ~ paste0("Lait - ",FQS),
+    
+  ))
+
+```
+
+## Overview
+
+```{r numbers}
+
+# Farm numbers ----
+
+# FQS
+length(unique(RICA_RA_SIQO_product_all$IDENT[!is.na(RICA_RA_SIQO_product_all$CODE_PRODUIT)]))
+# FQS excluding wine
+length(unique(RICA_RA_SIQO_product$IDENT[!is.na(RICA_RA_SIQO_product$CODE_PRODUIT)]))
+length(unique(RICA_RA_SIQO_product$LIBELLE_PRODUIT[!is.na(RICA_RA_SIQO_product$CODE_PRODUIT)]))
+length(unique(RICA_RA_SIQO_product$CODE_PRODUIT[!is.na(RICA_RA_SIQO_product$CODE_PRODUIT)]))
+
+# RICA-RA-SIQO
+length(unique(BVIAS_input$farm_id))
+# organic
+length(unique(RICA_2020$IDENT[RICA_2020$AGBIO %in% c(2,4)]))
+length(unique(BVIAS_input$farm_id[BVIAS_input$org_farming == T]))
+
+# other SIQO (excluding wine and alcool)
+length(intersect(unique(BVIAS_input$farm_id),
+                 unique(RICA_RA_SIQO_product$IDENT[!is.na(RICA_RA_SIQO_product$CODE_PRODUIT)])))
+# other SIQO (excluding organic farming, wine and alcool)
+length(intersect(unique(BVIAS_input$farm_id[BVIAS_input$org_farming == F]),
+                 unique(RICA_RA_SIQO_product$IDENT[!is.na(RICA_RA_SIQO_product$CODE_PRODUIT)])))
+
+# Average impact on biodiversity ----
+
+# transfert table
+tmp_TT_crops <- readxl::read_xlsx("data_in/supp_data.xlsx",sheet = "TT_crops") %>%
+  rename(crop = RICA_code_number)
+
+# average impact of cereals
+mean(BVIAS_to_RICA_RA_SIQO_crops$BVIAS_ha[
+  BVIAS_to_RICA_RA_SIQO_crops$crop %in% tmp_TT_crops$crop[tmp_TT_crops$species == "cereal"]
+  & BVIAS_to_RICA_RA_SIQO_crops$org_farming == F])
+mean(BVIAS_to_RICA_RA_SIQO_crops$BVIAS_ha[
+  BVIAS_to_RICA_RA_SIQO_crops$crop %in% tmp_TT_crops$crop[tmp_TT_crops$species == "cereal"]
+  & BVIAS_to_RICA_RA_SIQO_crops$org_farming == T])
+
+# average BV of wheat
+mean(BVIAS_to_RICA_RA_SIQO_crops$BVIAS_ha[
+  BVIAS_to_RICA_RA_SIQO_crops$crop == "111"
+  & BVIAS_to_RICA_RA_SIQO_crops$FQS == "Conventionnel"])
+mean(BVIAS_to_RICA_RA_SIQO_crops$BVIAS_ha[
+  BVIAS_to_RICA_RA_SIQO_crops$crop == "111"
+  & BVIAS_to_RICA_RA_SIQO_crops$FQS == "AB"])
+
+((1-mean(BVIAS_to_RICA_RA_SIQO_crops$BVIAS_ha[
+    BVIAS_to_RICA_RA_SIQO_crops$crop == "111"
+    & BVIAS_to_RICA_RA_SIQO_crops$org_farming == T]))
+                   / (1-mean(BVIAS_to_RICA_RA_SIQO_crops$BVIAS_ha[
+    BVIAS_to_RICA_RA_SIQO_crops$crop == "111"
+    & BVIAS_to_RICA_RA_SIQO_crops$org_farming == F])))
+
+
+# average impact of milk
+mean(BVIAS_to_RICA_RA_SIQO_milk$BVIAS_ha_feed[
+  BVIAS_to_RICA_RA_SIQO_milk$FQS == "Conventionnel"])
+mean(BVIAS_to_RICA_RA_SIQO_milk$BVIAS_ha_feed[
+  BVIAS_to_RICA_RA_SIQO_milk$FQS == "AB"])
+mean(BVIAS_to_RICA_RA_SIQO_milk$BVIAS_ha_feed[
+  BVIAS_to_RICA_RA_SIQO_milk$FQS == "Comte - Morbier"])
+mean(BVIAS_to_RICA_RA_SIQO_milk$BVIAS_ha_feed[
+  BVIAS_to_RICA_RA_SIQO_milk$FQS == "Beurre de Charentes-Poitou"])
+
+1-(mean(BVIAS_to_RICA_RA_SIQO_milk$BVIAS_ha_feed[BVIAS_to_RICA_RA_SIQO_milk$FQS == "Comte - Morbier"]) / mean(BVIAS_to_RICA_RA_SIQO_milk$BVIAS_ha_feed[BVIAS_to_RICA_RA_SIQO_milk$FQS == "Conventionnel" & BVIAS_to_RICA_RA_SIQO_milk$farm_id %in% matched_data$farm_id[matched_data$match == "Lait__Comte - Morbier"]]))
+
+# average BV of wheat per tonne
+mean(BVIAS_to_RICA_RA_SIQO_crops$BVIAS_kg[
+  BVIAS_to_RICA_RA_SIQO_crops$crop == "111"
+  & BVIAS_to_RICA_RA_SIQO_crops$FQS == "Conventionnel"])*10^3
+mean(BVIAS_to_RICA_RA_SIQO_crops$BVIAS_kg[
+  BVIAS_to_RICA_RA_SIQO_crops$crop == "111"
+  & BVIAS_to_RICA_RA_SIQO_crops$FQS == "AB"])*10^3
+
+# average impact of milk per tonne
+mean(BVIAS_to_RICA_RA_SIQO_milk$BVIAS_kg[
+  BVIAS_to_RICA_RA_SIQO_milk$FQS == "Conventionnel"])*10^3
+mean(BVIAS_to_RICA_RA_SIQO_milk$BVIAS_kg[
+  BVIAS_to_RICA_RA_SIQO_milk$FQS == "AB"])*10^3
+mean(BVIAS_to_RICA_RA_SIQO_milk$BVIAS_kg[
+  BVIAS_to_RICA_RA_SIQO_milk$FQS == "Comte - Morbier"])*10^3
+mean(BVIAS_to_RICA_RA_SIQO_milk$BVIAS_kg[
+  BVIAS_to_RICA_RA_SIQO_milk$FQS == "Beurre de Charentes-Poitou"])*10^3
+
+
+
+```
+
+
+```{r stat_desc}
+
+# RICA-RA-SIQO ----
+
+# transfert table
+tmp_TT_crops <- readxl::read_xlsx("data_in/supp_data.xlsx",sheet = "TT_crops") %>%
+  rename(crop = RICA_code_number)
+tmp_TT_livestock <- readxl::read_xlsx("data_in/supp_data.xlsx", sheet ="TT_livestock") %>%
+  rename(code_livestock = RICA_code_number)
+tmp_TT_livestock_product <- readxl::read_xlsx("data_in/supp_data.xlsx",sheet = "TT_livestock_products") %>%
+  rename(code_anim_prod = RICA_code_number) %>%
+  select(code_anim_prod,Libelle,RICA_QPROD7_unit,species, production_type) %>%
+  distinct()
+tmp_TT_RICA_SIQO <- readxl::read_xlsx("~/BiodivLabel/data_in/supp_data.xlsx",sheet = "TT_RICA_SIQO") %>%
+  rename(crop = RICA_var_code)
+
+tmp_data_RICA_RA_SIQO <- RICA_RA_SIQO_farm %>%
+  rename(farm_id = IDENT) %>%
+  # add crop area
+  left_join(.,RICA_2020_veg %>%
+              rename(farm_id = IDENT,crop = CODE3) %>%
+              filter(crop %in% tmp_TT_crops$crop[tmp_TT_crops$land_use_type == "arable"]) %>%
+              group_by(farm_id) %>%
+              summarise(crop_area_ha = sum(SUPER3,na.rm=T)*10^-2),
+            by = join_by(farm_id)) %>%
+  # add grassland area
+  left_join(.,RICA_2020_veg %>%
+              rename(farm_id = IDENT,crop = CODE3) %>%
+              filter(crop %in% tmp_TT_crops$crop[tmp_TT_crops$land_use_type == "grassland"]) %>%
+              group_by(farm_id) %>%
+              summarise(grassland_area_ha = sum(SUPER3,na.rm=T)*10^-2),
+            by = join_by(farm_id)) %>%
+  # number cows
+  left_join(.,  RICA_2020_ani %>%
+              rename(farm_id = IDENT,code_livestock = CODE6) %>%
+              filter(code_livestock %in% tmp_TT_livestock$code_livestock[tmp_TT_livestock$species == "cattle"]) %>%
+              group_by(farm_id) %>%
+              summarise(nb_cattle = sum(EFFEC6,na.rm=T)*
+                          unique(tmp_TT_livestock$EFFEC6_unit[tmp_TT_livestock$species == "cattle"])),
+            by = join_by(farm_id)) %>%
+  # number dairy cows
+  left_join(.,  RICA_2020_ani %>%
+              rename(farm_id = IDENT,code_livestock = CODE6) %>%
+              filter(code_livestock == 929) %>%
+              group_by(farm_id) %>%
+              summarise(nb_dairy_cow = sum(EFFEC6,na.rm=T)*tmp_TT_livestock$EFFEC6_unit[tmp_TT_livestock$code_livestock == 929]),
+            by = join_by(farm_id)) %>% 
+  # wheat yield
+  left_join(.,RICA_2020_veg %>%
+              rename(farm_id = IDENT,crop = CODE3) %>%
+              filter(crop == 111) %>%
+              group_by(farm_id) %>%
+              summarise(wheat_yield_kg_ha = (sum(QPROD3,na.rm=T)*10^2)/(sum(SUPER3,na.rm=T)*10^-2)),
+            by = join_by(farm_id)) %>%
+  # milk yield
+  left_join(.,RICA_2020_pan %>%
+              rename(farm_id = IDENT,code_anim_prod = CODE7) %>%
+              filter(code_anim_prod %in% c(21,22)) %>%
+              group_by(farm_id) %>%
+              summarise(milk_yield_kg = sum(QPROD7,na.rm = T)*10^2),
+            by = join_by(farm_id)) %>%
+  mutate(milk_yield_kg_cow = milk_yield_kg/nb_dairy_cow) %>%
+  # add SIQO
+  left_join(.,RICA_RA_SIQO_product_all %>%
+              rename(farm_id = IDENT,crop = RICA_var_code) %>%
+              filter(!is.na(SIQO)) %>%
+              # aggregate SIQO by farm
+              group_by(farm_id) %>%
+              reframe(LIBELLE_PRODUIT = paste0(unique(LIBELLE_PRODUIT), collapse = ";"),
+                      SIQO = paste0(unique(SIQO), collapse = ";"),
+                      SIQO_FILIERE = paste0(unique(SIQO_FILIERE), collapse = ";"),
+                      n_products = n()) %>%
+              distinct(),
+            by = join_by(farm_id)) %>%
+  # add organic farms and OTEX
+  left_join(.,RICA_2020 %>%
+              rename(farm_id = IDENT) %>%
+              select(farm_id,AGBIO,OTEFDD),
+            by = join_by(farm_id)) %>%
+  # define a variable with the most restrictive specifications as: AB > SIQO
+  mutate(
+    FQS = case_when(
+      AGBIO == 0 & is.na(SIQO_FILIERE) ~ "Conventionnel",
+      AGBIO == 0 & !is.na(SIQO_FILIERE) ~ "SIQO", # only 
+      AGBIO == 2 ~ "AB"
+    )) %>%
+  # adapt Libelle produit
+  mutate(
+    FQS = case_when(
+      grepl(c("BEURRE CHARENTESPOITOU"),LIBELLE_PRODUIT) ~ "Beurre de Charentes - Poitou",
+      grepl(c("COMTE|MORBIER"),LIBELLE_PRODUIT) ~ "Comte - Morbier",
+      grepl(c("ROQUEFORT"),LIBELLE_PRODUIT) ~ "Roquefort",
+      grepl(c("BLEU D AUVERGNE|CANTAL "),LIBELLE_PRODUIT) ~ "Bleu d'Auvergne - Cantal", # quality check pour voir le micmac avec le cantal
+      grepl(c("MUNSTER"),LIBELLE_PRODUIT) ~ "Munster", # quality check : pas de munster / emmental ensemble ? non c'est bon
+      grepl(c("BROCCIU"),LIBELLE_PRODUIT) ~ "Brocciu",
+      #grepl(c("EMMENTAL DE SAVOIE|RACLETTE DE SAVOIE|TOMME DE SAVOIE"),LIBELLE_PRODUIT) ~ "Fromages de Savoie",
+      grepl(c("SAVOIE"),LIBELLE_PRODUIT) ~ "Fromages de Savoie",
+      # pour ceux qui ont une autre appelation fromage
+      #grepl(c("FROMAGE"),SIQO_FILIERE) ~ paste0("Autres appellations de fromage ",SIQO_FILIERE),
+      # pour ceux sans SIQO fromage
+      #!grepl(c("FROMAGE"),SIQO_FILIERE) ~ FQS
+      # quality check pour l'instant je mets tous les autres SIQO ensemble, sans distinguer fromage, beurre etc
+      .default = FQS
+    )
+  )# %>%
+# keep only farm for which we could estimate BVIAS
+#filter(farm_id %in% unique(c(BVIAS_to_RICA_RA_SIQO_crops$farm_id,BVI_to_RICA_RA_SIQO_milk$farm_id)))
+
+tmp_data_RICA_RA_SIQO_summary <- tmp_data_RICA_RA_SIQO %>%
+  # nb farms
+  aggregate(farm_id ~ OTEFDD*FQS,FUN = function(x) length(unique(x))) %>%
+  # crop area
+  left_join(., tmp_data_RICA_RA_SIQO %>%
+              aggregate(crop_area_ha ~ OTEFDD*FQS,
+                        FUN = function(x) mean(x,na.rm=T)),
+            by = join_by(OTEFDD, FQS)) %>%
+  # grassland area
+  left_join(., tmp_data_RICA_RA_SIQO %>%
+              aggregate(grassland_area_ha ~ OTEFDD*FQS,
+                        FUN = function(x) mean(x,na.rm=T)),
+            by = join_by(OTEFDD, FQS)) %>%
+  # nb dairy cows
+  left_join(., tmp_data_RICA_RA_SIQO %>%
+              aggregate(nb_dairy_cow ~ OTEFDD*FQS,
+                        FUN = function(x) mean(x,na.rm=T)),
+            by = join_by(OTEFDD, FQS)) %>%
+  # wheat yield
+  left_join(., tmp_data_RICA_RA_SIQO %>%
+              aggregate(wheat_yield_kg_ha ~ OTEFDD*FQS,
+                        FUN = function(x) mean(x,na.rm=T)),
+            by = join_by(OTEFDD, FQS)) %>%
+  # milk yield
+  left_join(., tmp_data_RICA_RA_SIQO %>%
+              aggregate(milk_yield_kg_cow ~ OTEFDD*FQS,
+                        FUN = function(x) mean(x,na.rm=T)),
+            by = join_by(OTEFDD, FQS)) %>%
+  # filter OTEX
+  filter(OTEFDD %in% c(1500,4500,4700,6184))
+
+write.csv(tmp_data_RICA_RA_SIQO_summary,
+          paste0(tmp_output_dir,
+                 "tmp_data_RICA_RA_SIQO_summary_",Sys.Date(),".csv"),quote = F,row.names = F)
+
+
+
+```
+
+## Practices
+
+### Crops
+
+```{r crop_practices}
+
+# set practices names ----
+tmp_practice_names <- tibble(
+  practice = rev(c("A.2.1",
+                   "A.2.2",
+                   "A.3.1",
+                   "A.3.2",
+                   "A.3.3",
+                   "A.4.3",
+                   "A.4.5",
+                   "A.5.1",
+                   "yield")),
+  labels = rev(c("Densité des haies (m.l. / ha)",
+                 "Taille moyenne des parcelles (ha)",
+                 "Travail du sol (L gazole / ha)",
+                 "Couverture su sol (Nombre de jour non couverts)",
+                 "Diversité culturale (Indice de Shannon)",
+                 "Part de fertilisation minérale (%)",
+                 "Fertilisation (kg N / ha)", 
+                 "Produits phytosanitaires (€~IFT~NODU / ha)",
+                 "Rendement (kg / ha)")))
+tmp_practice_names$practice <- factor(tmp_practice_names$practice)
+names(tmp_practice_names$labels) <- tmp_practice_names$practice 
+
+
+# practice data ----
+# wrangle practice data
+tmp_practice_data <- tmp_ProdSIQO %>%
+  # keep only cereals
+  filter(crop %in%
+           tmp_TT_crops$crop[tmp_TT_crops$species == "cereal" & !is.na(tmp_TT_crops$species)]) %>%
+  # add practice data
+  left_join(.,BVIAS_input %>%
+              mutate(crop = as.character(crop)),
+            by = join_by(farm_id, crop)
+  ) %>%
+  # add yields
+  left_join(.,crop_yield,
+            by = join_by(farm_id, crop)) %>%
+  # add farm characteristic data
+  left_join(., RICA_2020 %>%
+              rename(farm_id = IDENT) %>%
+              select(farm_id,OTEFDD,EXTR2),
+            by = join_by(farm_id))
+
+tmp_practice_names_crops <- tmp_practice_names
+tmp_practice_data_crops <- tmp_practice_data %>%
+  # add FQS
+  rowwise() %>%
+  mutate(
+    product_name = Libelle,
+    FQS = tmp_ProdSIQO$FQS[tmp_ProdSIQO$farm_id == farm_id & tmp_ProdSIQO$crop == crop]) %>%
+  select(farm_id,crop,product_name,FQS,tidyselect::all_of(tmp_practice_names$practice))
+
+```
+
+
+### Animal production
+
+#### Herd
+
+```{r practice_milk}
+
+# transfert table
+tmp_TT_livestock <- readxl::read_xlsx("data_in/supp_data.xlsx", sheet ="TT_livestock") %>%
+  rename(code_livestock = RICA_code_number)
+
+
+# areas to feed dairy cows ----
+
+tmp_areas <- feed_by_livestock %>%
+  # filter dairy cow
+  filter(code_livestock == 929) %>%
+  # add yields for produced and purchased feed
+  inner_join(.,feed_by_pseudofarm %>% select(farm_id,crop,yield,feed_origin),
+             by = join_by(farm_id, crop, feed_origin)) %>%
+  # summarise areas
+  group_by(farm_id,feed_origin) %>%
+  summarise(area_ha = sum(DM_kg_crop_livestock / yield),
+            .groups = "keep") %>%
+  pivot_wider(id_cols = farm_id,
+              values_from = area_ha,
+              names_from = feed_origin,
+              names_prefix = "area_",
+              values_fill = 0)
+
+# temporary grassland ----
+
+tmp_temp_pastures <- feed_by_livestock %>%
+  # filter dairy cow
+  filter(code_livestock == 929) %>%
+  # filter temp pastures
+  filter(crop == 331) %>%
+  # add yields
+  inner_join(.,feed_by_pseudofarm %>%
+               select(farm_id,crop,yield,feed_origin) %>%
+               filter(crop == 331 & feed_origin == "feed_produced"),
+             by = join_by(farm_id, crop, feed_origin)) %>%
+  # summarise areas
+  mutate(area_ha_temp_pasture = DM_kg_crop_livestock / yield) %>%
+  select(farm_id,area_ha_temp_pasture) %>%
+  replace_na(list(area_ha_temp_pasture = 0))
+
+# dairy cow population ----
+tmp_cow_pop <- RICA_2020_ani %>%
+  rename(farm_id = IDENT,code_livestock = CODE6) %>%
+  # add species and units
+  left_join(.,tmp_TT_livestock %>% select(code_livestock,EFFEC6_unit,species),
+            by = join_by(code_livestock)) %>%
+  # filter dairy cows
+  filter(code_livestock == "929" & EFFEC6 >0) %>%
+  # summaries populations
+  group_by(farm_id) %>%
+  summarise(cow_pop = sum(EFFEC6*EFFEC6_unit,na.rm = T),
+            .groups = "keep") %>%
+  ungroup() %>%
+  replace_na(list(cow_pop = 0))
+
+# main forage area ----
+
+# Main Forage Area
+# surface fourragère see instruction de collecte de 311 - 371
+
+tmp_MFA <- feed_by_livestock %>%
+  # filter forage
+  filter(crop %in% as.character(seq(311,371,1)) & feed_type == "feed_rough" & feed_origin != "feed_purchased") %>%  
+  # filter dairy cow
+  filter(code_livestock == 929) %>%
+  # add yields
+  inner_join(.,feed_by_pseudofarm %>% select(farm_id,crop,yield,feed_origin),
+             by = join_by(farm_id, crop, feed_origin)) %>%
+  # estimate main forage area for dairy cows
+  group_by(farm_id) %>%
+  summarise(MFA_dairy_cow = sum(DM_kg_crop_livestock / yield,na.rm = T),
+            .groups = "keep") %>%
+  ungroup() %>%
+  replace_na(list(MFA_dairy_cow = 0))
+
+# share of protein crops ----
+
+tmp_protein_crops <- feed_by_livestock %>%
+  # filter protein crops
+  filter(crop %in% as.character(c(seq(214,220,1),"324")) & feed_origin != "feed_purchased") %>%  
+  # filter dairy cow
+  filter(code_livestock == 929) %>%
+  # add yields
+  inner_join(.,feed_by_pseudofarm %>% select(farm_id,crop,yield,feed_origin),
+             by = join_by(farm_id, crop, feed_origin)) %>%
+  # estimate main forage area for dairy cows
+  group_by(farm_id) %>%
+  summarise(protein_crops_ha = sum(DM_kg_crop_livestock / yield,na.rm = T),
+            .groups = "keep") %>%
+  replace_na(list(protein_crops_ha = 0))
+
+
+# kg of DM to feed dairy cows ----
+
+tmp_feed_kg <- feed_by_livestock %>%
+  # filter dairy cow
+  filter(code_livestock == 929) %>%
+  # summarise kg of feed
+  group_by(farm_id,feed_origin) %>%
+  summarise(feed_kg = sum(DM_kg_crop_livestock),
+            .groups = "keep") %>%
+  pivot_wider(id_cols = farm_id,values_from = feed_kg,names_from = feed_origin,names_prefix = "kg_DM_",values_fill = 0)
+
+# kg of maize per cow ----
+
+tmp_kg_maize <- feed_by_livestock %>%
+  # filter dairy cow
+  filter(code_livestock == 929) %>%
+  # filter maize produced
+  filter(crop == "321" & feed_origin == "feed_produced") %>%
+  # summarise kg of maize per cow
+  mutate(kg_DM_panim_maize_produced = DM_kg_crop_LU) %>%
+  select(farm_id,kg_DM_panim_maize_produced) %>%
+  replace_na(list(kg_DM_panim_maize_produced = 0))
+
+
+# kg of soy meal per cow ----
+
+tmp_kg_soy <- feed_by_livestock %>%
+  # filter dairy cow
+  filter(code_livestock == 929) %>%
+  # filter maize produced
+  filter(crop == "223" & feed_origin == "feed_purchased") %>%
+  # summarise kg of maize per cow
+  mutate(kg_DM_panim_soy_meal = sum(DM_kg_crop_LU)) %>%
+  select(farm_id,kg_DM_panim_soy_meal) %>%
+  replace_na(list(kg_DM_panim_soy_meal = 0))
+
+# share of imported soybean meal kg ----
+
+tmp_share_soy <- feed_by_livestock %>%
+  # filter dairy cow
+  filter(code_livestock == 929) %>%
+  # identify soybean
+  mutate(
+    soybean_share = case_when(
+      feed_origin == "feed_purchased" & crop == 223 ~ "kg_DM_soybean",
+      .default = "kg_DM_no_soybean")) %>%
+  # summarise kg of feed
+  group_by(farm_id,soybean_share) %>%
+  summarise(feed_kg = sum(DM_kg_crop_livestock),
+            .groups = "keep") %>%
+  pivot_wider(id_cols = farm_id,values_from = feed_kg,names_from = soybean_share,values_fill = 0)
+
+# share of purchased concentrates kg ----
+
+tmp_share_concent_purchased <- feed_by_livestock %>%
+  # filter dairy cow
+  filter(code_livestock == 929) %>%
+  # filter purchased feed
+  filter(feed_origin == "feed_purchased") %>%
+  # summarise kg of feed
+  group_by(farm_id,feed_type) %>%
+  summarise(feed_kg = sum(DM_kg_crop_livestock),
+            .groups = "keep") %>%
+  pivot_wider(id_cols = farm_id,values_from = feed_kg,names_from = feed_type,names_prefix = "kg_DM_purchased_",values_fill = 0)
+
+# share of all concentrates kg ----
+
+tmp_share_concent <- feed_by_livestock %>%
+  # filter dairy cow
+  filter(code_livestock == 929) %>%
+  # summarise kg of feed
+  group_by(farm_id,feed_type) %>%
+  summarise(feed_kg = sum(DM_kg_crop_livestock),
+            .groups = "keep") %>%
+  pivot_wider(id_cols = farm_id,values_from = feed_kg,names_from = feed_type,names_prefix = "kg_DM_",values_fill = 0)
+
+# Concatenate data ----
+tmp_practice_data <- tmp_ProdSIQO %>%
+  # keep only milk
+  filter(crop == "22") %>%
+  # add practice data
+  left_join(.,tmp_areas,by = join_by(farm_id)) %>%
+  left_join(.,tmp_temp_pastures,by = join_by(farm_id)) %>%
+  left_join(.,tmp_cow_pop,by = join_by(farm_id)) %>%
+  left_join(.,tmp_MFA,by = join_by(farm_id)) %>%
+  left_join(.,tmp_protein_crops,by = join_by(farm_id)) %>%
+  left_join(.,tmp_feed_kg,by = join_by(farm_id)) %>%
+  left_join(.,tmp_kg_maize,by = join_by(farm_id)) %>%
+  left_join(.,tmp_kg_soy,by = join_by(farm_id)) %>%
+  left_join(.,tmp_share_soy,by = join_by(farm_id)) %>%
+  left_join(.,tmp_share_concent_purchased,by = join_by(farm_id)) %>%
+  left_join(.,tmp_share_concent,by = join_by(farm_id)) %>%
+  # add production data
+  left_join(.,BVIAS_to_RICA_RA_SIQO_milk %>%
+              select(farm_id,prod_kg),
+            by = join_by(farm_id)) 
+
+
+```
+
+```{r gather_practice_milk}
+
+# set practices names ----
+
+tmp_practice_names <- tibble(
+  practice = c("yield_l_pha",
+               "yield_l_panim",
+               "nb_cow_pha",
+               "cow_pMFA",
+               "feed_autonomy",
+               "kg_DM_panim_maize_produced",
+               #"kg_DM_panim_soy_meal",
+               "share_soybean",
+               #"share_concent_purchased",
+               "share_concent",
+               "protein_crop_ha_pha_pseudofarm",
+               "MFA_pcow",
+               "MFA_pha_pseudofarm",
+               "ha_temp_pasture_pha_pseudofarm",
+               "grassland_share_pseudofarm"#,
+               #"grassland_share_farm"
+  ),
+  labels = c("Rendement (L lait / ha pseudoferme)",
+             "Rendement (L lait / vache laitière)",
+             "Taux de chargement (vache laitière / ha pseudoferme)",
+             "Taux de chargement (vache laitière / ha SFP)",
+             "Autonomie alimentaire (kg d'aliment produits / kg d'aliments)",
+             "Maïs fourrage (kg de maïs fourrage produit sur l'exploitation / vache laitière)",
+             #"Tourteau de soja (kg de tourteau de soja acheté / vache laitière)",
+             "Part du tourteau de soja importé (kg tourteau de soja / kg d'aliments)",
+             #"Part des concentrés dans les aliments achetés (kg de concentrés / kg d'aliments achetés)",
+             "Part des concentrés dans l'alimentation (kg de concentrés / kg d'aliments)",
+             "Part des protéagineux dans l'alimentation (ha protéagineux / ha pseudoferme",
+             "Surface Fourragère Principale (SFP / vache laitière)",
+             "Part de la Surface Fourragère Principale (ha SFP / ha pseudoferme)",
+             "Part des prairies temporaires (ha prairie / ha pseudoferme)",
+             "Part des prairies permanentes (ha prairie / ha pseudoferme)"#,
+             #"Part des prairies permanentes (ha prairie / ha ferme)"
+  ))
+
+tmp_practice_names$practice <- factor(tmp_practice_names$practice)
+names(tmp_practice_names$labels) <- tmp_practice_names$practice 
+
+# estimate practice ----
+
+tmp_practice_data <- tmp_practice_data %>%
+  # yield L milk / ha pseudofarm
+  mutate(yield_l_pha = prod_kg / (area_feed_grassland+area_feed_produced+area_feed_purchased)) %>%
+  # yield L milk / dairy cow
+  mutate(yield_l_panim = prod_kg / cow_pop) %>% 
+  # nb cow / ha pseudofarm
+  mutate(nb_cow_pha = cow_pop / (area_feed_grassland+area_feed_produced+area_feed_purchased)) %>%
+  # feed autonomy
+  mutate(feed_autonomy = (kg_DM_feed_grassland+kg_DM_feed_produced) /
+           (kg_DM_feed_grassland+kg_DM_feed_produced+kg_DM_feed_purchased)) %>%
+  # main forage area
+  mutate(MFA_pcow = MFA_dairy_cow / cow_pop) %>%
+  mutate(cow_pMFA = cow_pop / MFA_dairy_cow) %>%
+  # kg of maize produced per cow
+  mutate(kg_DM_panim_maize_produced = kg_DM_panim_maize_produced) %>%
+  # kg of soy meal purchased per cow
+  mutate(kg_DM_panim_soy_meal = kg_DM_panim_soy_meal) %>%
+  # share of imported soybean meal
+  mutate(share_soybean = kg_DM_soybean / (kg_DM_soybean+kg_DM_no_soybean)) %>%
+  # share of purchased concentrates
+  mutate(share_concent_purchased = kg_DM_purchased_feed_concent / (kg_DM_purchased_feed_concent+kg_DM_purchased_feed_rough)) %>%
+  # share of concentrates
+  mutate(share_concent = kg_DM_feed_concent / (kg_DM_feed_concent+kg_DM_feed_rough)) %>%
+  # share of protein crop area
+  mutate(protein_crop_ha_pha_pseudofarm = protein_crops_ha / (area_feed_grassland+area_feed_produced+area_feed_purchased)) %>%
+  # share of main forage area
+  mutate(MFA_pha_pseudofarm = MFA_dairy_cow / (area_feed_grassland+area_feed_produced+area_feed_purchased)) %>%
+  # share of temporary grassland
+  mutate(ha_temp_pasture_pha_pseudofarm = area_ha_temp_pasture / (area_feed_grassland+area_feed_produced+area_feed_purchased)) %>%
+  # share of grassland 
+  mutate(
+    grassland_share_pseudofarm = area_feed_grassland / (area_feed_grassland+area_feed_produced+area_feed_purchased),
+    grassland_share_farm = area_feed_grassland / (area_feed_grassland+area_feed_produced)) %>%
+  # add farm characteristic data
+  left_join(., RICA_2020 %>%
+              rename(farm_id = IDENT) %>%
+              select(farm_id,OTEFDD,EXTR2),
+            by = join_by(farm_id))
+
+tmp_table <- tmp_practice_data %>%
+  select(FQS,tidyselect::all_of(tmp_practice_names$practice)) %>%
+  # summarise var
+  group_by(FQS) %>%
+  summarise_all(.funs = mean,na.rm=T)
+
+#ggsave(filename = "~/BiodivLabel/figure/fig2.svg",plot = tmp_plot, width = 297,height = 210, units = "mm")
+#write.csv(tmp_table,paste0(tmp_output_dir,"tmp.csv",quote = F,row.names = F))
+
+tmp_practice_names_herd <- tmp_practice_names
+tmp_practice_data_herd <- tmp_practice_data %>%
+  select(farm_id,crop,FQS,tidyselect::all_of(tmp_practice_names$practice))
+
+```
+
+#### Feed
+
+```{r practice_feed}
+
+# set practices names ----
+tmp_practice_names <- tibble(
+  practice = rev(c("A.2.1",
+                   "A.2.2",
+                   "A.3.1",
+                   "A.3.2",
+                   "A.3.3",
+                   "A.4.3",
+                   "A.4.5",
+                   "A.5.1",
+                   "yield")),
+  labels = rev(c("Densité des haies (m.l. / ha)",
+                 "Taille moyenne des parcelles (ha)",
+                 "Travail du sol (L gazole / ha)",
+                 "Couverture su sol (Nombre de jour non couverts)",
+                 "Diversité culturale (Indice de Shannon)",
+                 "Part de fertilisation minérale (%)",
+                 "Fertilisation (kg N / ha)", 
+                 "Produits phytosanitaires (€~IFT~NODU / ha)",
+                 "Rendement (kg / ha)")))
+tmp_practice_names$practice <- factor(tmp_practice_names$practice)
+names(tmp_practice_names$labels) <- tmp_practice_names$practice 
+
+# agricultural practices to produce forage ----
+
+
+tmp_farm <- tmp_ProdSIQO %>%
+  filter(production_type == "milk") 
+
+tmp_farm_feed <- feed_by_livestock %>%
+  # filter dairy cow
+  filter(code_livestock == 929) %>%
+  # add practices
+  left_join(.,feed_by_pseudofarm %>%
+              select(farm_id,feed_origin,feed_type,crop,tidyselect::all_of(tmp_practice_names$practice)),
+            by = join_by(farm_id, feed_type, crop, feed_origin))
+
+tmp_practice_data <- tmp_farm %>%
+  select(farm_id,NOM_DOSSIER,FQS,BVIAS_ha,BVIAS_kg,production_type,product_name,product_FQS) %>%
+  inner_join(.,tmp_farm_feed,
+             by = join_by(farm_id))
+
+tmp_practice_names_feed <- tmp_practice_names %>%
+  mutate(practice = paste0("feed_",practice))
+
+tmp_practice_names_feed$practice <- factor(tmp_practice_names_feed$practice)
+names(tmp_practice_names$labels) <- tmp_practice_names$practice 
+
+tmp_practice_data_feed <- tmp_practice_data %>%
+  select(farm_id,crop,FQS,feed_origin,feed_type,crop,tidyselect::all_of(tmp_practice_names$practice)) %>%
+  rename_at(vars(tidyselect::all_of(tmp_practice_names$practice)),
+            ~paste0("feed_",tidyselect::all_of(tmp_practice_names$practice)))
+
+```
+
+# Gather all data
+
+```{r all_data}
+
+# data ----
+# all variables to be tested
+
+practice_names_all <- list(
+  "BVIAS" = tibble("practice" = factor(x = c("BVIAS_ha","BVIAS_kg"),levels = c("BVIAS_ha","BVIAS_kg")),"labels" = c("BVIAS (ha)","BVIAS (kg)")),
+  "practice_crops" = tmp_practice_names_crops,
+  "practice_herd" = tmp_practice_names_herd,
+  "practice_feed" = tmp_practice_names_feed
+)
+
+practice_data_all <- list(
+  "BVIAS" = tmp_ProdSIQO,
+  "practice_crops" = tmp_practice_data_crops %>% mutate(production_type = "crop"),
+  "practice_herd" = tmp_practice_data_herd %>% mutate(product_name = "Lait",production_type = "milk"),
+  "practice_feed" = tmp_practice_data_feed %>% mutate(product_name = "Lait",production_type = "milk")
+)
+
+```
+
+```{r tables}
+
+tmp_table_w0_match <- tmp_ProdSIQO %>%
+  aggregate(farm_id ~ production_type * product_name * FQS,FUN = function(x) length(unique(x))) %>%
+  rename(n = farm_id)
+
+tmp_table_w_match <- matched_data %>%
+  aggregate(farm_id ~ production_type * product_name * FQS * match,FUN = function(x) length(unique(x))) %>%
+  rename(n = farm_id)
+
+for (tmp_data_in_ls in c("BVIAS","practice_crops","practice_herd","practice_feed")) {
+  #tmp_data_in_ls = c("BVIAS","practice_crops","practice_herd","practice_feed")[1]
+  
+  tmp_loop1_practice_names <- practice_names_all[[tmp_data_in_ls]]
+  
+  tmp_loop1_practice_data <- practice_data_all[[tmp_data_in_ls]]
+  
+  tmp_loop1_practice_data_matched <- matched_data %>%
+    select(farm_id,crop,FQS,match,nb_farm) %>%
+    rename(nb_farm_match = nb_farm) %>%
+    inner_join(.,tmp_loop1_practice_data,
+               relationship = "many-to-many",
+               by = join_by(farm_id, crop, FQS))
+  
+  tmp_var = levels(tmp_loop1_practice_names$practice)
+  
+  # unmatched data
+  tmp_loop2_practice_data <- tmp_loop1_practice_data %>%
+    # mean
+    group_by(production_type,product_name,FQS) %>%
+    summarise_at(tidyselect::all_of(tmp_var),mean,na.rm=T) %>%
+    mutate(statistique = "mean") %>%
+    # sd
+    rbind(.,tmp_loop1_practice_data %>%
+            group_by(production_type,product_name,FQS) %>%
+            summarise_at(tidyselect::all_of(tmp_var),sd,na.rm=T) %>%
+            mutate(statistique = "sd")) %>%
+    # quantile
+    rbind(.,tmp_loop1_practice_data %>%
+            group_by(production_type,product_name,FQS) %>%
+            summarise_at(tidyselect::all_of(tmp_var),quantile,na.rm=T) %>%
+            mutate(statistique = c("q0","q25","q50","q75","q100"))) %>%
+    # max
+    rbind(.,tmp_loop1_practice_data %>%
+            group_by(production_type,product_name,FQS) %>%
+            summarise_at(tidyselect::all_of(tmp_var),max,na.rm=T) %>%
+            mutate(statistique = c("max")))
+  
+  
+  # matched data
+  tmp_loop2_practice_data_matched <- tmp_loop1_practice_data_matched %>%
+    # mean
+    group_by(production_type,product_name,FQS,match) %>%
+    summarise_at(tidyselect::all_of(tmp_var),mean,na.rm=T) %>%
+    mutate(statistique = "mean") %>%
+    # sd
+    rbind(.,tmp_loop1_practice_data_matched %>%
+            group_by(production_type,product_name,FQS,match) %>%
+            summarise_at(tidyselect::all_of(tmp_var),sd,na.rm=T) %>%
+            mutate(statistique = "sd")) %>%
+    # quantile
+    rbind(.,tmp_loop1_practice_data_matched %>%
+            group_by(production_type,product_name,FQS,match) %>%
+            summarise_at(tidyselect::all_of(tmp_var),quantile,na.rm=T) %>%
+            mutate(statistique = c("q0","q25","q50","q75","q100"))) %>%
+    # max
+    rbind(.,tmp_loop1_practice_data_matched %>%
+            group_by(production_type,product_name,FQS,match) %>%
+            summarise_at(tidyselect::all_of(tmp_var),max,na.rm=T) %>%
+            mutate(statistique = c("max")))
+  
+  # extract tibble
+  tmp_table_w0_match <- tmp_table_w0_match %>%
+    left_join(.,tmp_loop2_practice_data)
+  tmp_table_w_match <- tmp_table_w_match %>%
+    left_join(.,tmp_loop2_practice_data_matched)
+  
+  rm(list = names(.GlobalEnv)[grep("tmp_loop2",names(.GlobalEnv))])
+  rm(list = names(.GlobalEnv)[grep("tmp_loop1",names(.GlobalEnv))])
+  
+}
+
+write.csv(tmp_table_w0_match,paste0(tmp_output_dir,"tmp_resp_var_w0_match_",Sys.Date(),".csv"),quote = F,row.names = F)
+write.csv(tmp_table_w_match,paste0(tmp_output_dir,"tmp_resp_var_w_match_",Sys.Date(),".csv"),quote = F,row.names = F)
+
+```
+
+
+# Statistic tests
+
+## Tukey HSD on unmatched data
+
+```{r Tukey_HSD}
+
+# stat Tukey crops ----
+
+tmp_stat_data <- tibble()
+
+for (tmp_data_in_ls in c("BVIAS","practice_crops","practice_herd","practice_feed")) {
+  # tmp_data_in_ls = "practice_crops"
+  
+  tmp_loop1_practice_names <- practice_names_all[[tmp_data_in_ls]]
+  tmp_loop1_practice_data <- practice_data_all[[tmp_data_in_ls]]
+  
+  for (tmp_var in levels(tmp_loop1_practice_names$practice)) {
+# tmp_var = levels(tmp_loop1_practice_names$practice)[7]
+    
+    for (tmp_production_type in unique(tmp_ProdSIQO$production_type)) {
+# tmp_production_type = unique(tmp_ProdSIQO$production_type)[1]
+      
+      ## select variable
+      tmp_loop2 = tmp_loop1_practice_data %>%
+        filter(production_type == tmp_production_type) %>%
+        select(farm_id,product_name,FQS,tidyselect::all_of(tmp_var)) %>%
+        setNames(c("farm_id","product_name","FQS","my_var"))
+      
+      if (nrow(tmp_loop2) >0) {
+        
+        # ANOVA + Tukey HSD test
+        ## lm
+        if (tmp_production_type == "crop") {
+          tmp_loop2_lm = lm(tmp_loop2$my_var ~ tmp_loop2$product_name * tmp_loop2$FQS)
+          
+          ## anova
+          tmp_loop2_aov = aov(tmp_loop2_lm)
+          summary(tmp_loop2_aov)
+          ## post-hoc Tukey HSD test
+          tmp_loop2_comp = HSD.test(tmp_loop2_aov,trt = c('tmp_loop2$product_name','tmp_loop2$FQS'),alpha = 0.05, group = T)
+          
+          ## means
+          tmp_loop2_stat_means =  tibble("trt" = rownames(tmp_loop2_comp[["means"]])) %>%
+            cbind(.,tmp_loop2_comp[["means"]])
+          
+          # stat groups
+          tmp_loop2_stat_grp = tibble(
+            "trt" = rownames(tmp_loop2_comp[["groups"]]),
+            "FQS_mean" = tmp_loop2_comp[["groups"]][["tmp_loop2$my_var"]],
+            "stat_grp" = unlist(tmp_loop2_comp[["groups"]][["groups"]])) %>%
+            # wrangle names
+            mutate(
+              practice_subset = tmp_data_in_ls,
+              practice = tmp_var,
+              production_type = tmp_production_type,
+              product_name = unlist(str_split(trt,pattern = ":"))[seq(1,nrow(tmp_loop2_comp[["groups"]])*2,2)],
+              FQS = unlist(str_split(trt,pattern = ":"))[seq(2,nrow(tmp_loop2_comp[["groups"]])*2,2)],
+              max_value = max(tmp_loop2$my_var)
+            )
+          
+          
+          # add conventionnal stat group
+          tmp_loop2_stat_grp <- tmp_loop2_stat_grp %>%
+            left_join(.,tmp_loop2_stat_grp %>%
+                        filter(FQS == "Conventionnel") %>%
+                        rename(stat_grp_conv = stat_grp,
+                               conv_mean = FQS_mean) %>%
+                        select(product_name,stat_grp_conv,conv_mean))
+          
+          ## p-values
+          tmp_loop2_comp_pval = HSD.test(tmp_loop2_aov,trt = c('tmp_loop2$product_name','tmp_loop2$FQS'),alpha = 0.05, group = F)
+          
+          tmp_loop2_stat_pval = tibble(
+            "comp" = rownames(tmp_loop2_comp_pval[["comparison"]]),
+            "pval" = tmp_loop2_comp_pval[["comparison"]][["pvalue"]]) %>%
+            ## split comparison names
+            mutate(
+              trt1 = unlist(str_split(comp,pattern = " - "))[seq(1,nrow(tmp_loop2_comp_pval[["comparison"]])*2,2)],
+              trt2 = unlist(str_split(comp,pattern = " - "))[seq(2,nrow(tmp_loop2_comp_pval[["comparison"]])*2,2)]) %>%
+            ## split treatment names
+            mutate(
+              product_name1 = unlist(str_split(trt1,pattern = ":"))[seq(1,nrow(tmp_loop2_comp_pval[["comparison"]])*2,2)],
+              FQS1 = unlist(str_split(trt1,pattern = ":"))[seq(2,nrow(tmp_loop2_comp_pval[["comparison"]])*2,2)],
+              product_name2 = unlist(str_split(trt2,pattern = ":"))[seq(1,nrow(tmp_loop2_comp_pval[["comparison"]])*2,2)],
+              FQS2 = unlist(str_split(trt2,pattern = ":"))[seq(2,nrow(tmp_loop2_comp_pval[["comparison"]])*2,2)],
+            ) %>%
+            ## keep only comparisons between same products
+            filter(product_name1 == product_name2) %>%
+            ## keep only comparisons between FQS and conventional
+            filter(FQS1 == "Conventionnel" | FQS2 == "Conventionnel") %>%
+            ## retrieve product name and FQS
+            mutate(
+              product_name = product_name1,
+              FQS = case_when(
+                FQS1 == "Conventionnel" ~ FQS2,
+                .default = FQS1
+              )     ) %>%
+            # select variables
+            select(product_name,FQS,pval)
+          
+          
+          
+          
+        } else {
+          
+          tmp_loop2_lm = lm(tmp_loop2$my_var ~ tmp_loop2$FQS)
+          
+          ## anova
+          tmp_loop2_aov = aov(tmp_loop2_lm)
+          summary(tmp_loop2_aov)
+          ## post-hoc Tukey HSD test
+          tmp_loop2_comp = HSD.test(tmp_loop2_aov,trt = c('tmp_loop2$FQS'),alpha = 0.05, group = T)
+          
+          ## means
+          tmp_loop2_stat_means =  tibble("trt" = rownames(tmp_loop2_comp[["means"]])) %>%
+            cbind(.,tmp_loop2_comp[["means"]])
+          
+          ## stat groups 
+          tmp_loop2_stat_grp = tibble(
+            "trt" = rownames(tmp_loop2_comp[["groups"]]),
+            "FQS_mean" = tmp_loop2_comp[["groups"]][["tmp_loop2$my_var"]],
+            "stat_grp" = unlist(tmp_loop2_comp[["groups"]][["groups"]])) %>%
+            # wrangle names
+            mutate(
+              practice_subset = tmp_data_in_ls,
+              practice = tmp_var,
+              production_type = tmp_production_type,
+              product_name = "Lait",
+              FQS = trt,
+              max_value = max(tmp_loop2$my_var,na.rm = T)
+            ) %>%
+            # add conventionnal stat group
+            mutate(stat_grp_conv = stat_grp[FQS == "Conventionnel"],
+                   conv_mean = FQS_mean[FQS == "Conventionnel"])
+          
+          ## p-values
+          tmp_loop2_comp_pval = HSD.test(tmp_loop2_aov,trt = c('tmp_loop2$FQS'),alpha = 0.05, group = F)
+          
+          tmp_loop2_stat_pval = tibble(
+            "comp" = rownames(tmp_loop2_comp_pval[["comparison"]]),
+            "pval" = tmp_loop2_comp_pval[["comparison"]][["pvalue"]]) %>%
+            ## keep only comparisons between FQS and conventional
+            filter(grepl(pattern = "Conventionnel",comp)) %>%
+            ## retrieve product name and FQS
+            mutate(
+              product_name = "Lait",
+              FQS = gsub(pattern = "Conventionnel - | - Conventionnel","",comp)) %>%
+            # select variables
+            select(product_name,FQS,pval)
+          
+        }
+        
+        # compare with conventionnal
+        tmp_loop2_stat_grp <- tmp_loop2_stat_grp %>%
+          rowwise() %>%
+          mutate(
+            # is group letter different than conventionnal?
+            stat_grp_conv_diff = length(intersect(unlist(strsplit(stat_grp,"")),
+                                                  unlist(strsplit(stat_grp_conv,"")))) == 0) %>%
+          mutate(mean_conv_diff = (((FQS_mean - conv_mean)*100)/conv_mean))
+        
+        
+        # extract tibble
+        tmp_stat_data <- tmp_stat_data %>%
+          rbind(.,tmp_loop2_stat_means %>% left_join(.,tmp_loop2_stat_grp) %>% left_join(.,tmp_loop2_stat_pval))
+        
+        tmp_loop2_print = paste0(tmp_data_in_ls," -> ",tmp_production_type," -> ",tmp_var)
+        print(tmp_loop2_print)
+        
+        rm(list = names(.GlobalEnv)[grep("tmp_loop2",names(.GlobalEnv))])
+        
+      }    
+    }
+  }
+  rm(list = names(.GlobalEnv)[grep("tmp_loop1",names(.GlobalEnv))])
+  
+}
+
+
+# extract table ----
+stat_tukey_hsd = tmp_stat_data %>%
+  rename(trt_mean = `tmp_loop2$my_var`,pval_tukey = pval)
+write.csv(stat_tukey_hsd,paste0("~/BiodivLabel/data_out/tmp_TukeyHSD_",Sys.Date(),".csv"),quote = F,row.names = F)
+
+
+```
+
+
+## Paired t-test on matched data
+
+```{r propensity_score_all_paired_t_test}
+
+# Sur chaque produit pour chaque FQS ----
+
+tmp_pttest_all <- tibble()
+
+for (tmp_data_in_ls in c("BVIAS","practice_crops","practice_herd","practice_feed")) {
+  #tmp_data_in_ls = c("BVIAS","practice_crops","practice_herd","practice_feed")[4]
+  
+  tmp_loop1_practice_names <- practice_names_all[[tmp_data_in_ls]]
+  tmp_loop1_practice_data <- practice_data_all[[tmp_data_in_ls]]
+  
+  for (tmp_var in levels(tmp_loop1_practice_names$practice)) {
+    #tmp_var = levels(tmp_loop1_practice_names$practice)[1]
+    
+    for (tmp_match in sort(unique(matched_data$match[
+      matched_data$production_type %in% unique(tmp_loop1_practice_data$production_type)]))) {
+      #tmp_match = sort(unique(matched_data$match[matched_data$production_type %in% unique(tmp_loop1_practice_data$production_type)]))[1]
+      
+      # subset data
+      tmp_loop2_data = matched_data %>% 
+        filter(match == tmp_match) %>%
+        select(farm_id,production_type,product_name,FQS,match,subclass) %>%
+        # add practice data
+        left_join(.,tmp_loop1_practice_data,
+                  by = join_by(farm_id, production_type, product_name, FQS)) %>%
+        # rename
+        rename(my_var = tidyselect::all_of(tmp_var))
+      
+      # paired t.test
+      ## differences between paired observations
+      tmp_loop2_dif <- tmp_loop2_data %>% 
+        group_by(FQS,subclass) %>% 
+        summarise(my_var = mean(my_var,na.rm = T),
+                  .groups = "keep") %>% 
+        mutate(ttt = case_when(
+          FQS != "Conventionnel" ~ "treated",
+          FQS == "Conventionnel" ~ "control"
+        )) %>%
+        pivot_wider(id_cols = subclass,names_from = ttt,values_from = my_var) %>%
+        mutate(diff = treated - control)
+      # paired t-test
+      tmp_loop2_t.test <- t.test(tmp_loop2_dif$treated,tmp_loop2_dif$control,paired = T)
+      
+      print(tmp_var)
+      print(tmp_match)
+      print(tmp_loop2_t.test)
+      
+      # tibble
+      tmp_loop2_table <- tmp_loop2_data %>%
+        group_by(production_type,product_name,FQS,match) %>%
+        summarise(mean = mean(my_var,na.rm = T),
+                  sd = sd(my_var,na.rm = T)) %>%
+        mutate(practice = tmp_var) %>%
+        mutate(
+          n_matched = case_when(
+            FQS == "Conventionnel" ~ length(unique(tmp_loop2_data$farm_id[tmp_loop2_data$FQS == "Conventionnel"])),
+            FQS != "Conventionnel" ~ length(unique(tmp_loop2_data$farm_id[tmp_loop2_data$FQS != "Conventionnel"]))),
+          
+          mean_diff_match = case_when(
+            FQS != "Conventionnel" ~ tmp_loop2_t.test[["estimate"]]),
+          pval_pttest = case_when(
+            FQS != "Conventionnel" ~tmp_loop2_t.test[["p.value"]]))
+      
+      # extract tibble & list
+      tmp_pttest_all <- tmp_pttest_all %>%
+        rbind(.,tmp_loop2_table)
+      
+      rm(list = names(.GlobalEnv)[grep("tmp_loop2",names(.GlobalEnv))])
+      
+    }}
+  
+  rm(list = names(.GlobalEnv)[grep("tmp_loop1",names(.GlobalEnv))])
+  
+}
+
+# Bonferroni correction on p-values
+tmp_pttest_all[,"padjust_bonf"] <- p.adjust(tmp_pttest_all$pval_pttest,"bonferroni")
+
+# extract table ----
+stat_paired_t_test = tmp_pttest_all
+write.csv(stat_paired_t_test,paste0("~/BiodivLabel/data_out/tmp_paired_ttest_",Sys.Date(),".csv"),quote = F,row.names = F)
+
+```
+
+```{r clean}
+
+save.image(paste0("~/BiodivLabel/data_CASD/main_",Sys.Date(),".RData"))
+
+rm(list = names(.GlobalEnv)[grep("tmp",names(.GlobalEnv))])
+```
+
+

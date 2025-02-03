@@ -1,0 +1,3267 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   class="svglite"
+   width="538.58pt"
+   height="340.16pt"
+   viewBox="0 0 538.58 340.16"
+   version="1.1"
+   id="svg207"
+   sodipodi:docname="fig-results_t.svg"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview207"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="pt"
+     inkscape:zoom="3.7378531"
+     inkscape:cx="475.40659"
+     inkscape:cy="332.14253"
+     inkscape:window-width="2880"
+     inkscape:window-height="1514"
+     inkscape:window-x="2869"
+     inkscape:window-y="-11"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g207" />
+  <defs
+     id="defs1">
+    <style
+       type="text/css"
+       id="style1"><![CDATA[
+    .svglite line, .svglite polyline, .svglite polygon, .svglite path, .svglite rect, .svglite circle {
+      fill: none;
+      stroke: #000000;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-miterlimit: 10.00;
+    }
+    .svglite text {
+      white-space: pre;
+    }
+  ]]></style>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath208">
+      <g
+         id="g209">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect208" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath209">
+      <g
+         id="g210">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect209" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath210">
+      <g
+         id="g211">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect210" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath211">
+      <g
+         id="g212">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect211" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath212">
+      <g
+         id="g213">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect212" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath213">
+      <g
+         id="g214">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect213" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath214">
+      <g
+         id="g215">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect214" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath215">
+      <g
+         id="g216">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect215" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath216">
+      <g
+         id="g217">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect216" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath217">
+      <g
+         id="g218">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect217" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath218">
+      <g
+         id="g219">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect218" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath219">
+      <g
+         id="g220">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect219" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath220">
+      <g
+         id="g221">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect220" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath221">
+      <g
+         id="g222">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect221" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath222">
+      <g
+         id="g223">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect222" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath223">
+      <g
+         id="g224">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect223" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath224">
+      <g
+         id="g225">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect224" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath225">
+      <g
+         id="g226">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect225" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath226">
+      <g
+         id="g227">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect226" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath227">
+      <g
+         id="g228">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect227" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath228">
+      <g
+         id="g229">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect228" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath229">
+      <g
+         id="g230">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect229" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath230">
+      <g
+         id="g231">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect230" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath231">
+      <g
+         id="g232">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect231" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath232">
+      <g
+         id="g233">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect232" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath233">
+      <g
+         id="g234">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect233" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath234">
+      <g
+         id="g235">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect234" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath235">
+      <g
+         id="g236">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect235" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath236">
+      <g
+         id="g237">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect236" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath237">
+      <g
+         id="g238">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect237" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath238">
+      <g
+         id="g239">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect238" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath239">
+      <g
+         id="g240">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect239" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath240">
+      <g
+         id="g241">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect240" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath241">
+      <g
+         id="g242">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect241" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath242">
+      <g
+         id="g243">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect242" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath243">
+      <g
+         id="g244">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect243" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath244">
+      <g
+         id="g245">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect244" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath245">
+      <g
+         id="g246">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect245" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath246">
+      <g
+         id="g247">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect246" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath247">
+      <g
+         id="g248">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect247" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath248">
+      <g
+         id="g249">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect248" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath249">
+      <g
+         id="g250">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect249" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath250">
+      <g
+         id="g251">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect250" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath251">
+      <g
+         id="g252">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect251" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath252">
+      <g
+         id="g253">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect252" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath253">
+      <g
+         id="g254">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect253" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath254">
+      <g
+         id="g255">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect254" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath255">
+      <g
+         id="g256">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect255" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath256">
+      <g
+         id="g257">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect256" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath257">
+      <g
+         id="g258">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect257" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath258">
+      <g
+         id="g259">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect258" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath259">
+      <g
+         id="g260">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect259" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath260">
+      <g
+         id="g261">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect260" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath261">
+      <g
+         id="g262">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect261" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath262">
+      <g
+         id="g263">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect262" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath263">
+      <g
+         id="g264">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect263" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath264">
+      <g
+         id="g265">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect264" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath265">
+      <g
+         id="g266">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect265" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath266">
+      <g
+         id="g267">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect266" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath267">
+      <g
+         id="g268">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect267" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath268">
+      <g
+         id="g269">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect268" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath269">
+      <g
+         id="g270">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect269" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath270">
+      <g
+         id="g271">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect270" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath271">
+      <g
+         id="g272">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect271" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath272">
+      <g
+         id="g273">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect272" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath273">
+      <g
+         id="g274">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect273" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath274">
+      <g
+         id="g275">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect274" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath275">
+      <g
+         id="g276">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect275" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath276">
+      <g
+         id="g277">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect276" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath277">
+      <g
+         id="g278">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect277" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath278">
+      <g
+         id="g279">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect278" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath279">
+      <g
+         id="g280">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect279" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath280">
+      <g
+         id="g281">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect280" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath281">
+      <g
+         id="g282">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect281" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath282">
+      <g
+         id="g283">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect282" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath283">
+      <g
+         id="g284">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect283" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath284">
+      <g
+         id="g285">
+        <rect
+           x="151.72"
+           y="20.16"
+           width="381.38"
+           height="131.25"
+           id="rect284" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath286">
+      <g
+         id="g287">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect286" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath287">
+      <g
+         id="g288">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect287" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath288">
+      <g
+         id="g289">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect288" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath289">
+      <g
+         id="g290">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect289" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath290">
+      <g
+         id="g291">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect290" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath291">
+      <g
+         id="g292">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect291" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath292">
+      <g
+         id="g293">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect292" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath293">
+      <g
+         id="g294">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect293" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath294">
+      <g
+         id="g295">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect294" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath295">
+      <g
+         id="g296">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect295" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath296">
+      <g
+         id="g297">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect296" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath297">
+      <g
+         id="g298">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect297" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath298">
+      <g
+         id="g299">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect298" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath299">
+      <g
+         id="g300">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect299" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath300">
+      <g
+         id="g301">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect300" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath301">
+      <g
+         id="g302">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect301" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath302">
+      <g
+         id="g303">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect302" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath303">
+      <g
+         id="g304">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect303" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath304">
+      <g
+         id="g305">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect304" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath305">
+      <g
+         id="g306">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect305" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath306">
+      <g
+         id="g307">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect306" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath307">
+      <g
+         id="g308">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect307" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath308">
+      <g
+         id="g309">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect308" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath309">
+      <g
+         id="g310">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect309" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath310">
+      <g
+         id="g311">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect310" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath311">
+      <g
+         id="g312">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect311" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath312">
+      <g
+         id="g313">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect312" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath313">
+      <g
+         id="g314">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect313" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath314">
+      <g
+         id="g315">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect314" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath315">
+      <g
+         id="g316">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect315" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath316">
+      <g
+         id="g317">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect316" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath317">
+      <g
+         id="g318">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect317" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath318">
+      <g
+         id="g319">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect318" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath319">
+      <g
+         id="g320">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect319" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath320">
+      <g
+         id="g321">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect320" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath321">
+      <g
+         id="g322">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect321" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath322">
+      <g
+         id="g323">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect322" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath323">
+      <g
+         id="g324">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect323" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath324">
+      <g
+         id="g325">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect324" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath325">
+      <g
+         id="g326">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect325" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath326">
+      <g
+         id="g327">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect326" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath327">
+      <g
+         id="g328">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect327" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath328">
+      <g
+         id="g329">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect328" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath329">
+      <g
+         id="g330">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect329" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath330">
+      <g
+         id="g331">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect330" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath331">
+      <g
+         id="g332">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect331" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath332">
+      <g
+         id="g333">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect332" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath333">
+      <g
+         id="g334">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect333" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath334">
+      <g
+         id="g335">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect334" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath335">
+      <g
+         id="g336">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect335" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath336">
+      <g
+         id="g337">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect336" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath337">
+      <g
+         id="g338">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect337" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath338">
+      <g
+         id="g339">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect338" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath339">
+      <g
+         id="g340">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect339" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath340">
+      <g
+         id="g341">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect340" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath341">
+      <g
+         id="g342">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect341" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath342">
+      <g
+         id="g343">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect342" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath343">
+      <g
+         id="g344">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect343" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath344">
+      <g
+         id="g345">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect344" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath345">
+      <g
+         id="g346">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect345" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath346">
+      <g
+         id="g347">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect346" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath347">
+      <g
+         id="g348">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect347" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath348">
+      <g
+         id="g349">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect348" />
+      </g>
+    </clipPath>
+    <clipPath
+       clipPathUnits="userSpaceOnUse"
+       id="clipPath349">
+      <g
+         id="g350">
+        <rect
+           x="151.72"
+           y="182.42999"
+           width="381.38"
+           height="131.25"
+           id="rect349" />
+      </g>
+    </clipPath>
+  </defs>
+  <rect
+     width="100%"
+     height="100%"
+     style="stroke: none; fill: #FFFFFF;"
+     id="rect1" />
+  <defs
+     id="defs2">
+    <clipPath
+       id="cpMC4wMHw1MzguNTh8MC4wMHwzNDAuMTY=">
+      <rect
+         x="0.00"
+         y="0.00"
+         width="538.58"
+         height="340.16"
+         id="rect2" />
+    </clipPath>
+  </defs>
+  <g
+     clip-path="url(#cpMC4wMHw1MzguNTh8MC4wMHwzNDAuMTY=)"
+     id="g3">
+    <rect
+       x="0.000000000000064"
+       y="0.00"
+       width="538.58"
+       height="340.16"
+       style="stroke-width: 1.07; stroke: #FFFFFF; fill: #FFFFFF;"
+       id="rect3" />
+  </g>
+  <defs
+     id="defs4" />
+  <rect
+     x="151.72"
+     y="20.16"
+     width="381.38"
+     height="131.25"
+     style="fill:#ffffff;stroke:none;stroke-width:1.07"
+     id="rect5"
+     clip-path="url(#clipPath284)" />
+  <polyline
+     points="209.13,151.41 209.13,20.16 "
+     style="stroke:#dedede;stroke-width:0.27;stroke-linecap:butt"
+     id="polyline5"
+     clip-path="url(#clipPath283)" />
+  <polyline
+     points="276.28,151.41 276.28,20.16 "
+     style="stroke:#dedede;stroke-width:0.27;stroke-linecap:butt"
+     id="polyline6"
+     clip-path="url(#clipPath282)" />
+  <polyline
+     points="343.43,151.41 343.43,20.16 "
+     style="stroke:#dedede;stroke-width:0.27;stroke-linecap:butt"
+     id="polyline7"
+     clip-path="url(#clipPath281)" />
+  <polyline
+     points="410.58,151.41 410.58,20.16 "
+     style="stroke:#dedede;stroke-width:0.27;stroke-linecap:butt"
+     id="polyline8"
+     clip-path="url(#clipPath280)" />
+  <polyline
+     points="477.73,151.41 477.73,20.16 "
+     style="stroke:#dedede;stroke-width:0.27;stroke-linecap:butt"
+     id="polyline9"
+     clip-path="url(#clipPath279)" />
+  <polyline
+     points="151.72,141.81 533.10,141.81 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline10"
+     clip-path="url(#clipPath278)" />
+  <polyline
+     points="151.72,125.80 533.10,125.80 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline11"
+     clip-path="url(#clipPath277)" />
+  <polyline
+     points="151.72,109.80 533.10,109.80 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline12"
+     clip-path="url(#clipPath276)" />
+  <polyline
+     points="151.72,93.79 533.10,93.79 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline13"
+     clip-path="url(#clipPath275)" />
+  <polyline
+     points="151.72,77.79 533.10,77.79 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline14"
+     clip-path="url(#clipPath274)" />
+  <polyline
+     points="151.72,61.78 533.10,61.78 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline15"
+     clip-path="url(#clipPath273)" />
+  <polyline
+     points="151.72,45.77 533.10,45.77 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline16"
+     clip-path="url(#clipPath272)" />
+  <polyline
+     points="151.72,29.77 533.10,29.77 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline17"
+     clip-path="url(#clipPath271)" />
+  <polyline
+     points="175.56,151.41 175.56,20.16 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline18"
+     clip-path="url(#clipPath270)" />
+  <polyline
+     points="242.71,151.41 242.71,20.16 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline19"
+     clip-path="url(#clipPath269)" />
+  <polyline
+     points="309.86,151.41 309.86,20.16 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline20"
+     clip-path="url(#clipPath268)" />
+  <polyline
+     points="377.01,151.41 377.01,20.16 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline21"
+     clip-path="url(#clipPath267)" />
+  <polyline
+     points="444.15,151.41 444.15,20.16 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline22"
+     clip-path="url(#clipPath266)" />
+  <polyline
+     points="511.30,151.41 511.30,20.16 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline23"
+     clip-path="url(#clipPath265)" />
+  <circle
+     cx="402.20999"
+     cy="45.77"
+     r="2.8399999"
+     style="fill:#7ccd7c;stroke:#7ccd7c;stroke-width:1.42"
+     id="circle23"
+     clip-path="url(#clipPath264)" />
+  <circle
+     cx="330"
+     cy="29.77"
+     r="2.8399999"
+     style="fill:#a9a9a9;stroke:#a9a9a9;stroke-width:1.42"
+     id="circle24"
+     clip-path="url(#clipPath263)" />
+  <circle
+     cx="326.41"
+     cy="77.790001"
+     r="2.8399999"
+     style="fill:#cd5c5c;stroke:#cd5c5c;stroke-width:1.42"
+     id="circle25"
+     clip-path="url(#clipPath262)" />
+  <circle
+     cx="357.89001"
+     cy="125.8"
+     r="2.8399999"
+     style="fill:#7ccd7c;stroke:#7ccd7c;stroke-width:1.42"
+     id="circle26"
+     clip-path="url(#clipPath261)" />
+  <circle
+     cx="322.22"
+     cy="109.8"
+     r="2.8399999"
+     style="fill:#a9a9a9;stroke:#a9a9a9;stroke-width:1.42"
+     id="circle27"
+     clip-path="url(#clipPath260)" />
+  <circle
+     cx="329.16"
+     cy="61.779999"
+     r="2.8399999"
+     style="fill:#333333;stroke:#333333;stroke-width:1.42"
+     id="circle28"
+     clip-path="url(#clipPath259)" />
+  <circle
+     cx="336.03"
+     cy="93.790001"
+     r="2.8399999"
+     style="fill:#333333;stroke:#333333;stroke-width:1.42"
+     id="circle29"
+     clip-path="url(#clipPath258)" />
+  <circle
+     cx="319.35001"
+     cy="141.81"
+     r="2.8399999"
+     style="fill:#333333;stroke:#333333;stroke-width:1.42"
+     id="circle30"
+     clip-path="url(#clipPath257)" />
+  <polyline
+     points="419.27,49.78 419.27,41.77 "
+     style="stroke:#7ccd7c;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline30"
+     clip-path="url(#clipPath256)" />
+  <polyline
+     points="419.27,45.77 385.16,45.77 "
+     style="stroke:#7ccd7c;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline31"
+     clip-path="url(#clipPath255)" />
+  <polyline
+     points="385.16,49.78 385.16,41.77 "
+     style="stroke:#7ccd7c;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline32"
+     clip-path="url(#clipPath254)" />
+  <polyline
+     points="335.63,33.77 335.63,25.77 "
+     style="stroke:#a9a9a9;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline33"
+     clip-path="url(#clipPath253)" />
+  <polyline
+     points="335.63,29.77 324.37,29.77 "
+     style="stroke:#a9a9a9;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline34"
+     clip-path="url(#clipPath252)" />
+  <polyline
+     points="324.37,33.77 324.37,25.77 "
+     style="stroke:#a9a9a9;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline35"
+     clip-path="url(#clipPath251)" />
+  <polyline
+     points="331.46,81.79 331.46,73.78 "
+     style="stroke:#cd5c5c;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline36"
+     clip-path="url(#clipPath250)" />
+  <polyline
+     points="331.46,77.79 321.36,77.79 "
+     style="stroke:#cd5c5c;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline37"
+     clip-path="url(#clipPath249)" />
+  <polyline
+     points="321.36,81.79 321.36,73.78 "
+     style="stroke:#cd5c5c;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline38"
+     clip-path="url(#clipPath248)" />
+  <polyline
+     points="377.87,129.80 377.87,121.80 "
+     style="stroke:#7ccd7c;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline39"
+     clip-path="url(#clipPath247)" />
+  <polyline
+     points="377.87,125.80 337.90,125.80 "
+     style="stroke:#7ccd7c;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline40"
+     clip-path="url(#clipPath246)" />
+  <polyline
+     points="337.90,129.80 337.90,121.80 "
+     style="stroke:#7ccd7c;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline41"
+     clip-path="url(#clipPath245)" />
+  <polyline
+     points="326.69,113.80 326.69,105.80 "
+     style="stroke:#a9a9a9;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline42"
+     clip-path="url(#clipPath244)" />
+  <polyline
+     points="326.69,109.80 317.75,109.80 "
+     style="stroke:#a9a9a9;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline43"
+     clip-path="url(#clipPath243)" />
+  <polyline
+     points="317.75,113.80 317.75,105.80 "
+     style="stroke:#a9a9a9;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline44"
+     clip-path="url(#clipPath242)" />
+  <polyline
+     points="337.05,65.78 337.05,57.78 "
+     style="stroke:#333333;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline45"
+     clip-path="url(#clipPath241)" />
+  <polyline
+     points="337.05,61.78 321.27,61.78 "
+     style="stroke:#333333;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline46"
+     clip-path="url(#clipPath240)" />
+  <polyline
+     points="321.27,65.78 321.27,57.78 "
+     style="stroke:#333333;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline47"
+     clip-path="url(#clipPath239)" />
+  <polyline
+     points="342.78,97.79 342.78,89.79 "
+     style="stroke:#333333;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline48"
+     clip-path="url(#clipPath238)" />
+  <polyline
+     points="342.78,93.79 329.28,93.79 "
+     style="stroke:#333333;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline49"
+     clip-path="url(#clipPath237)" />
+  <polyline
+     points="329.28,97.79 329.28,89.79 "
+     style="stroke:#333333;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline50"
+     clip-path="url(#clipPath236)" />
+  <polyline
+     points="327.02,145.81 327.02,137.81 "
+     style="stroke:#333333;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline51"
+     clip-path="url(#clipPath235)" />
+  <polyline
+     points="327.02,141.81 311.67,141.81 "
+     style="stroke:#333333;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline52"
+     clip-path="url(#clipPath234)" />
+  <polyline
+     points="311.67,145.81 311.67,137.81 "
+     style="stroke:#333333;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline53"
+     clip-path="url(#clipPath233)" />
+  <polyline
+     points="486.12,49.78 486.12,41.77 "
+     style="stroke:#7ccd7c;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline54"
+     clip-path="url(#clipPath232)" />
+  <polyline
+     points="486.12,45.77 318.30,45.77 "
+     style="stroke:#7ccd7c;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline55"
+     clip-path="url(#clipPath231)" />
+  <polyline
+     points="318.30,49.78 318.30,41.77 "
+     style="stroke:#7ccd7c;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline56"
+     clip-path="url(#clipPath230)" />
+  <polyline
+     points="490.94,33.77 490.94,25.77 "
+     style="stroke:#a9a9a9;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline57"
+     clip-path="url(#clipPath229)" />
+  <polyline
+     points="490.94,29.77 169.06,29.77 "
+     style="stroke:#a9a9a9;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline58"
+     clip-path="url(#clipPath228)" />
+  <polyline
+     points="169.06,33.77 169.06,25.77 "
+     style="stroke:#a9a9a9;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline59"
+     clip-path="url(#clipPath227)" />
+  <polyline
+     points="352.18,81.79 352.18,73.78 "
+     style="stroke:#cd5c5c;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline60"
+     clip-path="url(#clipPath226)" />
+  <polyline
+     points="352.18,77.79 300.65,77.79 "
+     style="stroke:#cd5c5c;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline61"
+     clip-path="url(#clipPath225)" />
+  <polyline
+     points="300.65,81.79 300.65,73.78 "
+     style="stroke:#cd5c5c;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline62"
+     clip-path="url(#clipPath224)" />
+  <polyline
+     points="419.91,129.80 419.91,121.80 "
+     style="stroke:#7ccd7c;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline63"
+     clip-path="url(#clipPath223)" />
+  <polyline
+     points="419.91,125.80 295.86,125.80 "
+     style="stroke:#7ccd7c;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline64"
+     clip-path="url(#clipPath222)" />
+  <polyline
+     points="295.86,129.80 295.86,121.80 "
+     style="stroke:#7ccd7c;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline65"
+     clip-path="url(#clipPath221)" />
+  <polyline
+     points="414.95,113.80 414.95,105.80 "
+     style="stroke:#a9a9a9;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline66"
+     clip-path="url(#clipPath220)" />
+  <polyline
+     points="414.95,109.80 229.49,109.80 "
+     style="stroke:#a9a9a9;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline67"
+     clip-path="url(#clipPath219)" />
+  <polyline
+     points="229.49,113.80 229.49,105.80 "
+     style="stroke:#a9a9a9;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline68"
+     clip-path="url(#clipPath218)" />
+  <polyline
+     points="396.39,65.78 396.39,57.78 "
+     style="stroke:#333333;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline69"
+     clip-path="url(#clipPath217)" />
+  <polyline
+     points="396.39,61.78 261.93,61.78 "
+     style="stroke:#333333;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline70"
+     clip-path="url(#clipPath216)" />
+  <polyline
+     points="261.93,65.78 261.93,57.78 "
+     style="stroke:#333333;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline71"
+     clip-path="url(#clipPath215)" />
+  <polyline
+     points="395.65,97.79 395.65,89.79 "
+     style="stroke:#333333;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline72"
+     clip-path="url(#clipPath214)" />
+  <polyline
+     points="395.65,93.79 276.41,93.79 "
+     style="stroke:#333333;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline73"
+     clip-path="url(#clipPath213)" />
+  <polyline
+     points="276.41,97.79 276.41,89.79 "
+     style="stroke:#333333;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline74"
+     clip-path="url(#clipPath212)" />
+  <polyline
+     points="360.62,145.81 360.62,137.81 "
+     style="stroke:#333333;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline75"
+     clip-path="url(#clipPath211)" />
+  <polyline
+     points="360.62,141.81 278.07,141.81 "
+     style="stroke:#333333;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline76"
+     clip-path="url(#clipPath210)" />
+  <polyline
+     points="278.07,145.81 278.07,137.81 "
+     style="stroke:#333333;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline77"
+     clip-path="url(#clipPath209)" />
+  <text
+     x="515.77002"
+     y="49.720001"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#7ccd7c"
+     textLength="30.98"
+     lengthAdjust="spacingAndGlyphs"
+     id="text77"
+     transform="translate(-6.1350233)">n = 93</text>
+  <text
+     x="515.77002"
+     y="33.720001"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#a9a9a9"
+     textLength="43.25"
+     lengthAdjust="spacingAndGlyphs"
+     id="text78">n = 3136</text>
+  <text
+     x="515.77002"
+     y="81.730003"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#cd5c5c"
+     textLength="37.119999"
+     lengthAdjust="spacingAndGlyphs"
+     id="text79"
+     transform="translate(-3.0651073)">n = 100</text>
+  <text
+     x="515.77002"
+     y="129.75"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#7ccd7c"
+     textLength="30.98"
+     lengthAdjust="spacingAndGlyphs"
+     id="text80"
+     transform="translate(-6.1350233)">n = 37</text>
+  <text
+     x="515.77002"
+     y="113.75"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#a9a9a9"
+     textLength="43.25"
+     lengthAdjust="spacingAndGlyphs"
+     id="text81">n = 1656</text>
+  <text
+     x="515.77002"
+     y="65.730003"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#333333"
+     textLength="37.119999"
+     lengthAdjust="spacingAndGlyphs"
+     id="text82"
+     transform="translate(-3.0651073)">n = 279</text>
+  <text
+     x="515.77002"
+     y="97.739998"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#333333"
+     textLength="37.119999"
+     lengthAdjust="spacingAndGlyphs"
+     id="text83"
+     transform="translate(-3.0651073)">n = 300</text>
+  <text
+     x="515.77002"
+     y="145.75999"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#333333"
+     textLength="35.470001"
+     lengthAdjust="spacingAndGlyphs"
+     id="text84"
+     transform="translate(-3.8898571)">n = 111</text>
+  <rect
+     x="151.72"
+     y="20.16"
+     width="381.38"
+     height="131.25"
+     style="stroke:#b3b3b3;stroke-width:1.07"
+     id="rect90"
+     clip-path="url(#clipPath208)" />
+  <g
+     clip-path="url(#cpMC4wMHw1MzguNTh8MC4wMHwzNDAuMTY=)"
+     id="g91" />
+  <defs
+     id="defs91" />
+  <rect
+     x="151.72"
+     y="182.42999"
+     width="381.38"
+     height="131.25"
+     style="fill:#ffffff;stroke:none;stroke-width:1.07"
+     id="rect92"
+     clip-path="url(#clipPath349)" />
+  <polyline
+     points="202.11,313.67 202.11,182.43 "
+     style="stroke:#dedede;stroke-width:0.27;stroke-linecap:butt"
+     id="polyline92"
+     clip-path="url(#clipPath348)" />
+  <polyline
+     points="316.86,313.67 316.86,182.43 "
+     style="stroke:#dedede;stroke-width:0.27;stroke-linecap:butt"
+     id="polyline93"
+     clip-path="url(#clipPath347)" />
+  <polyline
+     points="431.60,313.67 431.60,182.43 "
+     style="stroke:#dedede;stroke-width:0.27;stroke-linecap:butt"
+     id="polyline94"
+     clip-path="url(#clipPath346)" />
+  <polyline
+     points="151.72,302.74 533.10,302.74 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline95"
+     clip-path="url(#clipPath345)" />
+  <polyline
+     points="151.72,284.51 533.10,284.51 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline96"
+     clip-path="url(#clipPath344)" />
+  <polyline
+     points="151.72,266.28 533.10,266.28 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline97"
+     clip-path="url(#clipPath343)" />
+  <polyline
+     points="151.72,248.05 533.10,248.05 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline98"
+     clip-path="url(#clipPath342)" />
+  <polyline
+     points="151.72,229.82 533.10,229.82 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline99"
+     clip-path="url(#clipPath341)" />
+  <polyline
+     points="151.72,211.59 533.10,211.59 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline100"
+     clip-path="url(#clipPath340)" />
+  <polyline
+     points="151.72,193.36 533.10,193.36 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline101"
+     clip-path="url(#clipPath339)" />
+  <polyline
+     points="259.49,313.67 259.49,182.43 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline102"
+     clip-path="url(#clipPath338)" />
+  <polyline
+     points="374.23,313.67 374.23,182.43 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline103"
+     clip-path="url(#clipPath337)" />
+  <polyline
+     points="488.98,313.67 488.98,182.43 "
+     style="stroke:#dedede;stroke-width:0.53;stroke-linecap:butt"
+     id="polyline104"
+     clip-path="url(#clipPath336)" />
+  <circle
+     cx="326.89999"
+     cy="211.59"
+     r="2.8399999"
+     style="fill:#7ccd7c;stroke:#7ccd7c;stroke-width:1.42"
+     id="circle104"
+     clip-path="url(#clipPath335)" />
+  <circle
+     cx="281.70001"
+     cy="248.05"
+     r="2.8399999"
+     style="fill:#8b668b;stroke:#8b668b;stroke-width:1.42"
+     id="circle105"
+     clip-path="url(#clipPath334)" />
+  <circle
+     cx="314.01999"
+     cy="284.51001"
+     r="2.8399999"
+     style="fill:#8b668b;stroke:#8b668b;stroke-width:1.42"
+     id="circle106"
+     clip-path="url(#clipPath333)" />
+  <circle
+     cx="279.72"
+     cy="193.36"
+     r="2.8399999"
+     style="fill:#a9a9a9;stroke:#a9a9a9;stroke-width:1.42"
+     id="circle107"
+     clip-path="url(#clipPath332)" />
+  <circle
+     cx="281.56"
+     cy="229.82001"
+     r="2.8399999"
+     style="fill:#333333;stroke:#333333;stroke-width:1.42"
+     id="circle108"
+     clip-path="url(#clipPath331)" />
+  <circle
+     cx="282.85999"
+     cy="266.28"
+     r="2.8399999"
+     style="fill:#333333;stroke:#333333;stroke-width:1.42"
+     id="circle109"
+     clip-path="url(#clipPath330)" />
+  <circle
+     cx="288.79001"
+     cy="302.73999"
+     r="2.8399999"
+     style="fill:#333333;stroke:#333333;stroke-width:1.42"
+     id="circle110"
+     clip-path="url(#clipPath329)" />
+  <polyline
+     points="359.31,216.15 359.31,207.03 "
+     style="stroke:#7ccd7c;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline110"
+     clip-path="url(#clipPath328)" />
+  <polyline
+     points="359.31,211.59 294.48,211.59 "
+     style="stroke:#7ccd7c;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline111"
+     clip-path="url(#clipPath327)" />
+  <polyline
+     points="294.48,216.15 294.48,207.03 "
+     style="stroke:#7ccd7c;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline112"
+     clip-path="url(#clipPath326)" />
+  <polyline
+     points="290.34,252.61 290.34,243.49 "
+     style="stroke:#8b668b;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline113"
+     clip-path="url(#clipPath325)" />
+  <polyline
+     points="290.34,248.05 273.07,248.05 "
+     style="stroke:#8b668b;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline114"
+     clip-path="url(#clipPath324)" />
+  <polyline
+     points="273.07,252.61 273.07,243.49 "
+     style="stroke:#8b668b;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline115"
+     clip-path="url(#clipPath323)" />
+  <polyline
+     points="324.12,289.06 324.12,279.95 "
+     style="stroke:#8b668b;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline116"
+     clip-path="url(#clipPath322)" />
+  <polyline
+     points="324.12,284.51 303.93,284.51 "
+     style="stroke:#8b668b;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline117"
+     clip-path="url(#clipPath321)" />
+  <polyline
+     points="303.93,289.06 303.93,279.95 "
+     style="stroke:#8b668b;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline118"
+     clip-path="url(#clipPath320)" />
+  <polyline
+     points="282.68,197.92 282.68,188.81 "
+     style="stroke:#a9a9a9;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline119"
+     clip-path="url(#clipPath319)" />
+  <polyline
+     points="282.68,193.36 276.76,193.36 "
+     style="stroke:#a9a9a9;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline120"
+     clip-path="url(#clipPath318)" />
+  <polyline
+     points="276.76,197.92 276.76,188.81 "
+     style="stroke:#a9a9a9;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline121"
+     clip-path="url(#clipPath317)" />
+  <polyline
+     points="286.91,234.38 286.91,225.26 "
+     style="stroke:#333333;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline122"
+     clip-path="url(#clipPath316)" />
+  <polyline
+     points="286.91,229.82 276.20,229.82 "
+     style="stroke:#333333;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline123"
+     clip-path="url(#clipPath315)" />
+  <polyline
+     points="276.20,234.38 276.20,225.26 "
+     style="stroke:#333333;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline124"
+     clip-path="url(#clipPath314)" />
+  <polyline
+     points="289.81,270.84 289.81,261.72 "
+     style="stroke:#333333;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline125"
+     clip-path="url(#clipPath313)" />
+  <polyline
+     points="289.81,266.28 275.91,266.28 "
+     style="stroke:#333333;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline126"
+     clip-path="url(#clipPath312)" />
+  <polyline
+     points="275.91,270.84 275.91,261.72 "
+     style="stroke:#333333;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline127"
+     clip-path="url(#clipPath311)" />
+  <polyline
+     points="298.45,307.29 298.45,298.18 "
+     style="stroke:#333333;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline128"
+     clip-path="url(#clipPath310)" />
+  <polyline
+     points="298.45,302.74 279.13,302.74 "
+     style="stroke:#333333;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline129"
+     clip-path="url(#clipPath309)" />
+  <polyline
+     points="279.13,307.29 279.13,298.18 "
+     style="stroke:#333333;stroke-width:2.13;stroke-linecap:butt"
+     id="polyline130"
+     clip-path="url(#clipPath308)" />
+  <polyline
+     points="482.04,216.15 482.04,207.03 "
+     style="stroke:#7ccd7c;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline131"
+     clip-path="url(#clipPath307)" />
+  <polyline
+     points="482.04,211.59 171.76,211.59 "
+     style="stroke:#7ccd7c;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline132"
+     clip-path="url(#clipPath306)" />
+  <polyline
+     points="171.76,216.15 171.76,207.03 "
+     style="stroke:#7ccd7c;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline133"
+     clip-path="url(#clipPath305)" />
+  <polyline
+     points="315.54,252.61 315.54,243.49 "
+     style="stroke:#8b668b;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline134"
+     clip-path="url(#clipPath304)" />
+  <polyline
+     points="315.54,248.05 247.86,248.05 "
+     style="stroke:#8b668b;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline135"
+     clip-path="url(#clipPath303)" />
+  <polyline
+     points="247.86,252.61 247.86,243.49 "
+     style="stroke:#8b668b;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline136"
+     clip-path="url(#clipPath302)" />
+  <polyline
+     points="355.22,289.06 355.22,279.95 "
+     style="stroke:#8b668b;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline137"
+     clip-path="url(#clipPath301)" />
+  <polyline
+     points="355.22,284.51 272.83,284.51 "
+     style="stroke:#8b668b;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline138"
+     clip-path="url(#clipPath300)" />
+  <polyline
+     points="272.83,289.06 272.83,279.95 "
+     style="stroke:#8b668b;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline139"
+     clip-path="url(#clipPath299)" />
+  <polyline
+     points="324.63,197.92 324.63,188.81 "
+     style="stroke:#a9a9a9;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline140"
+     clip-path="url(#clipPath298)" />
+  <polyline
+     points="324.63,193.36 234.81,193.36 "
+     style="stroke:#a9a9a9;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline141"
+     clip-path="url(#clipPath297)" />
+  <polyline
+     points="234.81,197.92 234.81,188.81 "
+     style="stroke:#a9a9a9;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline142"
+     clip-path="url(#clipPath296)" />
+  <polyline
+     points="325.95,234.38 325.95,225.26 "
+     style="stroke:#333333;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline143"
+     clip-path="url(#clipPath295)" />
+  <polyline
+     points="325.95,229.82 237.16,229.82 "
+     style="stroke:#333333;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline144"
+     clip-path="url(#clipPath294)" />
+  <polyline
+     points="237.16,234.38 237.16,225.26 "
+     style="stroke:#333333;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline145"
+     clip-path="url(#clipPath293)" />
+  <polyline
+     points="319.01,270.84 319.01,261.72 "
+     style="stroke:#333333;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline146"
+     clip-path="url(#clipPath292)" />
+  <polyline
+     points="319.01,266.28 246.71,266.28 "
+     style="stroke:#333333;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline147"
+     clip-path="url(#clipPath291)" />
+  <polyline
+     points="246.71,270.84 246.71,261.72 "
+     style="stroke:#333333;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline148"
+     clip-path="url(#clipPath290)" />
+  <polyline
+     points="331.17,307.29 331.17,298.18 "
+     style="stroke:#333333;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline149"
+     clip-path="url(#clipPath289)" />
+  <polyline
+     points="331.17,302.74 246.40,302.74 "
+     style="stroke:#333333;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline150"
+     clip-path="url(#clipPath288)" />
+  <polyline
+     points="246.40,307.29 246.40,298.18 "
+     style="stroke:#333333;stroke-width:1.07;stroke-linecap:butt;stroke-dasharray:5.69, 5.69"
+     id="polyline151"
+     clip-path="url(#clipPath287)" />
+  <text
+     x="515.77002"
+     y="215.53999"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#7ccd7c"
+     textLength="30.98"
+     lengthAdjust="spacingAndGlyphs"
+     id="text151"
+     transform="translate(-6.1350233)">n = 88</text>
+  <text
+     x="515.77002"
+     y="252"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#8b668b"
+     textLength="30.98"
+     lengthAdjust="spacingAndGlyphs"
+     id="text152"
+     transform="translate(-6.1350233)">n = 59</text>
+  <text
+     x="515.77002"
+     y="288.45999"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#8b668b"
+     textLength="30.98"
+     lengthAdjust="spacingAndGlyphs"
+     id="text153"
+     transform="translate(-6.1350233)">n = 64</text>
+  <text
+     x="515.77002"
+     y="197.31"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#a9a9a9"
+     textLength="37.119999"
+     lengthAdjust="spacingAndGlyphs"
+     id="text154"
+     transform="translate(-3.0651073)">n = 883</text>
+  <text
+     x="515.77002"
+     y="233.77"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#333333"
+     textLength="37.119999"
+     lengthAdjust="spacingAndGlyphs"
+     id="text155"
+     transform="translate(-3.0651073)">n = 264</text>
+  <text
+     x="515.77002"
+     y="270.23001"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#333333"
+     textLength="37.119999"
+     lengthAdjust="spacingAndGlyphs"
+     id="text156"
+     transform="translate(-3.0651073)">n = 104</text>
+  <text
+     x="515.77002"
+     y="306.67999"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#333333"
+     textLength="30.98"
+     lengthAdjust="spacingAndGlyphs"
+     id="text157"
+     transform="translate(-6.1350233)">n = 74</text>
+  <rect
+     x="151.72"
+     y="182.42999"
+     width="381.38"
+     height="131.25"
+     style="stroke:#b3b3b3;stroke-width:1.07"
+     id="rect161"
+     clip-path="url(#clipPath286)" />
+  <g
+     clip-path="url(#cpMC4wMHw1MzguNTh8MC4wMHwzNDAuMTY=)"
+     id="g162" />
+  <defs
+     id="defs162">
+    <clipPath
+       id="cpMTUxLjcyfDUzMy4xMHwxNjcuNzR8MTgyLjQz">
+      <rect
+         x="151.72"
+         y="167.74"
+         width="381.38"
+         height="14.69"
+         id="rect162" />
+    </clipPath>
+  </defs>
+  <g
+     clip-path="url(#cpMTUxLjcyfDUzMy4xMHwxNjcuNzR8MTgyLjQz)"
+     id="g163">
+    <rect
+       x="151.72"
+       y="167.74"
+       width="381.38"
+       height="14.69"
+       style="stroke-width: 2.13; stroke: #CCCCCC; fill: #FFFFFF;"
+       id="rect163" />
+    <text
+       x="342.41"
+       y="177.37"
+       text-anchor="middle"
+       style="font-size: 6.40px;fill: #333333; font-family: &quot;Arial&quot;;"
+       textLength="14.93px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text163">MILK</text>
+  </g>
+  <g
+     clip-path="url(#cpMC4wMHw1MzguNTh8MC4wMHwzNDAuMTY=)"
+     id="g164" />
+  <defs
+     id="defs164">
+    <clipPath
+       id="cpMTUxLjcyfDUzMy4xMHw1LjQ4fDIwLjE2">
+      <rect
+         x="151.72"
+         y="5.48"
+         width="381.38"
+         height="14.69"
+         id="rect164" />
+    </clipPath>
+  </defs>
+  <g
+     clip-path="url(#cpMTUxLjcyfDUzMy4xMHw1LjQ4fDIwLjE2)"
+     id="g165">
+    <rect
+       x="151.72"
+       y="5.48"
+       width="381.38"
+       height="14.69"
+       style="stroke-width: 2.13; stroke: #CCCCCC; fill: #FFFFFF;"
+       id="rect165" />
+    <text
+       x="342.41"
+       y="15.11"
+       text-anchor="middle"
+       style="font-size: 6.40px;fill: #333333; font-family: &quot;Arial&quot;;"
+       textLength="18.47px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text165">CROP</text>
+  </g>
+  <g
+     clip-path="url(#cpMC4wMHw1MzguNTh8MC4wMHwzNDAuMTY=)"
+     id="g207">
+    <polyline
+       points="259.49,316.41 259.49,313.67 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline165" />
+    <polyline
+       points="374.23,316.41 374.23,313.67 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline166" />
+    <polyline
+       points="488.98,316.41 488.98,313.67 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline167" />
+    <text
+       x="259.49"
+       y="323.18"
+       text-anchor="middle"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="8.89px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text167">0.2</text>
+    <text
+       x="374.23"
+       y="323.18"
+       text-anchor="middle"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="8.89px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text168">0.4</text>
+    <text
+       x="488.98"
+       y="323.18"
+       text-anchor="middle"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="8.89px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text169">0.6</text>
+    <polyline
+       points="175.56,154.15 175.56,151.41 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline169" />
+    <polyline
+       points="242.71,154.15 242.71,151.41 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline170" />
+    <polyline
+       points="309.86,154.15 309.86,151.41 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline171" />
+    <polyline
+       points="377.01,154.15 377.01,151.41 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline172" />
+    <polyline
+       points="444.15,154.15 444.15,151.41 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline173" />
+    <polyline
+       points="511.30,154.15 511.30,151.41 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline174" />
+    <text
+       x="175.56"
+       y="160.92"
+       text-anchor="middle"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="11.02px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text174">-0.1</text>
+    <text
+       x="242.71"
+       y="160.92"
+       text-anchor="middle"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="8.89px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text175">0.0</text>
+    <text
+       x="309.86"
+       y="160.92"
+       text-anchor="middle"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="8.89px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text176">0.1</text>
+    <text
+       x="377.01"
+       y="160.92"
+       text-anchor="middle"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="8.89px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text177">0.2</text>
+    <text
+       x="444.15"
+       y="160.92"
+       text-anchor="middle"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="8.89px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text178">0.3</text>
+    <text
+       x="511.30"
+       y="160.92"
+       text-anchor="middle"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="8.89px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text179">0.4</text>
+    <text
+       x="146.79"
+       y="144.10"
+       text-anchor="end"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="131.16px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text180">Grain Maize - Counterfactual Organic Farming</text>
+    <text
+       x="146.79"
+       y="128.09"
+       text-anchor="end"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="87.78px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text181">Grain Maize - Organic Farming</text>
+    <text
+       x="146.79"
+       y="112.09"
+       text-anchor="end"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="77.49px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text182">Grain Maize - Conventional</text>
+    <text
+       x="146.79"
+       y="96.08"
+       text-anchor="end"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="116.96px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text183">Soft Wheat - Counterfactual Label Rouge</text>
+    <text
+       x="146.79"
+       y="80.07"
+       text-anchor="end"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="73.59px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text184">Soft Wheat - Label Rouge</text>
+    <text
+       x="146.79"
+       y="64.07"
+       text-anchor="end"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="128.32px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text185">Soft Wheat - Counterfactual Organic Farming</text>
+    <text
+       x="146.79"
+       y="48.06"
+       text-anchor="end"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="84.95px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text186">Soft Wheat - Organic Farming</text>
+    <text
+       x="146.79"
+       y="32.06"
+       text-anchor="end"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="74.65px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text187">Soft Wheat - Conventional</text>
+    <polyline
+       points="148.98,141.81 151.72,141.81 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline187" />
+    <polyline
+       points="148.98,125.80 151.72,125.80 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline188" />
+    <polyline
+       points="148.98,109.80 151.72,109.80 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline189" />
+    <polyline
+       points="148.98,93.79 151.72,93.79 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline190" />
+    <polyline
+       points="148.98,77.79 151.72,77.79 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline191" />
+    <polyline
+       points="148.98,61.78 151.72,61.78 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline192" />
+    <polyline
+       points="148.98,45.77 151.72,45.77 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline193" />
+    <polyline
+       points="148.98,29.77 151.72,29.77 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline194" />
+    <text
+       x="146.79"
+       y="305.02"
+       text-anchor="end"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="106.62px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text194">Milk - Counterfactual Comte - Morbier</text>
+    <text
+       x="146.79"
+       y="286.80"
+       text-anchor="end"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="63.25px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text195">Milk - Comte - Morbier</text>
+    <text
+       x="146.79"
+       y="268.57"
+       text-anchor="end"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="129.03px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text196">Milk - Counterfactual Charentes-Poitou Butter</text>
+    <text
+       x="146.79"
+       y="250.34"
+       text-anchor="end"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="85.66px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text197">Milk - Charentes-Poitou Butter</text>
+    <text
+       x="146.79"
+       y="232.11"
+       text-anchor="end"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="108.04px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text198">Milk - Counterfactual Organic Farming</text>
+    <text
+       x="146.79"
+       y="213.88"
+       text-anchor="end"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="64.67px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text199">Milk - Organic Farming</text>
+    <text
+       x="146.79"
+       y="195.65"
+       text-anchor="end"
+       style="font-size: 6.40px;fill: #4D4D4D; font-family: &quot;Arial&quot;;"
+       textLength="54.37px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text200">Milk - Conventional</text>
+    <polyline
+       points="148.98,302.74 151.72,302.74 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline200" />
+    <polyline
+       points="148.98,284.51 151.72,284.51 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline201" />
+    <polyline
+       points="148.98,266.28 151.72,266.28 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline202" />
+    <polyline
+       points="148.98,248.05 151.72,248.05 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline203" />
+    <polyline
+       points="148.98,229.82 151.72,229.82 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline204" />
+    <polyline
+       points="148.98,211.59 151.72,211.59 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline205" />
+    <polyline
+       points="148.98,193.36 151.72,193.36 "
+       style="stroke-width: 0.53; stroke: #B3B3B3; stroke-linecap: butt;"
+       id="polyline206" />
+    <text
+       x="342.41"
+       y="332.98999"
+       text-anchor="middle"
+       style="font-size:8px;font-family:Arial"
+       textLength="19.57"
+       lengthAdjust="spacingAndGlyphs"
+       id="text206"
+       transform="matrix(0.73820643,0,0,1,87.288448,0)">BVI<tspan
+   style="font-size:65%;baseline-shift:sub"
+   id="tspan350">t</tspan></text>
+    <text
+       transform="translate(11.21,166.92) rotate(-90)"
+       text-anchor="middle"
+       style="font-size: 8.00px; font-family: &quot;Arial&quot;;"
+       textLength="31.58px"
+       lengthAdjust="spacingAndGlyphs"
+       id="text207">Products</text>
+  </g>
+  <text
+     x="176.42"
+     y="49.720001"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#7ccd7c"
+     textLength="17.780001"
+     lengthAdjust="spacingAndGlyphs"
+     id="text85"
+     transform="translate(-15.382023)">cde</text>
+  <text
+     x="176.42"
+     y="33.720001"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#a9a9a9"
+     textLength="9.1999998"
+     lengthAdjust="spacingAndGlyphs"
+     id="text86"
+     transform="translate(-15.077687)">fg</text>
+  <text
+     x="176.42"
+     y="81.730003"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#cd5c5c"
+     textLength="9.1999998"
+     lengthAdjust="spacingAndGlyphs"
+     id="text87"
+     transform="translate(-15.077687)">fg</text>
+  <text
+     x="176.42"
+     y="129.75"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#7ccd7c"
+     textLength="21.469999"
+     lengthAdjust="spacingAndGlyphs"
+     id="text88"
+     transform="translate(-15.215043)">defg</text>
+  <text
+     x="176.42"
+     y="113.75"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#a9a9a9"
+     textLength="9.1999998"
+     lengthAdjust="spacingAndGlyphs"
+     id="text89"
+     transform="translate(-15.077687)">fg</text>
+  <text
+     x="176.42"
+     y="65.730003"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#333333"
+     textLength="4.29"
+     lengthAdjust="spacingAndGlyphs"
+     id="text90"
+     transform="translate(-15.373954)">*</text>
+  <text
+     x="169.06"
+     y="215.53999"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#7ccd7c"
+     textLength="6.1300001"
+     lengthAdjust="spacingAndGlyphs"
+     id="text158"
+     transform="translate(-8.0005017)">a</text>
+  <text
+     x="169.06"
+     y="252"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#8b668b"
+     textLength="11.65"
+     lengthAdjust="spacingAndGlyphs"
+     id="text159"
+     transform="translate(-8.3451811)">bc</text>
+  <text
+     x="169.06"
+     y="288.45999"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#8b668b"
+     textLength="6.1300001"
+     lengthAdjust="spacingAndGlyphs"
+     id="text160"
+     transform="translate(-8.0005017)">a</text>
+  <text
+     x="169.06"
+     y="197.31"
+     text-anchor="middle"
+     style="font-size:11.04px;font-family:Arial;fill:#a9a9a9"
+     textLength="5.52"
+     lengthAdjust="spacingAndGlyphs"
+     id="text161"
+     transform="translate(-8.1998981)">c</text>
+</svg>

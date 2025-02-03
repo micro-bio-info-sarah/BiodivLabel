@@ -387,6 +387,149 @@
             "type": "report"
         },
         {
+            "DOI": "10.1016/j.jclepro.2015.09.062",
+            "ISSN": "09596526",
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0959652615012895",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2023,
+                        9,
+                        12
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Battini",
+                    "given": "F."
+                },
+                {
+                    "family": "Agostini",
+                    "given": "A."
+                },
+                {
+                    "family": "Tabaglio",
+                    "given": "V."
+                },
+                {
+                    "family": "Amaducci",
+                    "given": "S."
+                }
+            ],
+            "container-title": "Journal of Cleaner Production",
+            "id": "battini_environmental_2016",
+            "issued": {
+                "date-parts": [
+                    [
+                        2016,
+                        1
+                    ]
+                ]
+            },
+            "page": "91-102",
+            "title": "Environmental impacts of different dairy farming systems in the Po Valley",
+            "type": "article-journal",
+            "volume": "112"
+        },
+        {
+            "DOI": "10.1007/s11367-013-0638-5",
+            "ISSN": "0948-3349, 1614-7502",
+            "URL": "http://link.springer.com/10.1007/s11367-013-0638-5",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2023,
+                        9,
+                        12
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Mueller",
+                    "given": "Carina"
+                },
+                {
+                    "family": "De Baan",
+                    "given": "Laura"
+                },
+                {
+                    "family": "Koellner",
+                    "given": "Thomas"
+                }
+            ],
+            "container-title": "The International Journal of Life Cycle Assessment",
+            "id": "mueller_comparing_2014",
+            "issue": "1",
+            "issued": {
+                "date-parts": [
+                    [
+                        2014,
+                        1
+                    ]
+                ]
+            },
+            "page": "52-68",
+            "title": "Comparing direct land use impacts on biodiversity of conventional and organic milk—based on a Swedish case study",
+            "type": "article-journal",
+            "volume": "19"
+        },
+        {
+            "DOI": "10.1016/j.jclepro.2013.04.035",
+            "ISSN": "09596526",
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0959652613002795",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2023,
+                        9,
+                        12
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Guerci",
+                    "given": "Matteo"
+                },
+                {
+                    "family": "Knudsen",
+                    "given": "Marie Trydeman"
+                },
+                {
+                    "family": "Bava",
+                    "given": "Luciana"
+                },
+                {
+                    "family": "Zucali",
+                    "given": "Maddalena"
+                },
+                {
+                    "family": "Schönbach",
+                    "given": "Philipp"
+                },
+                {
+                    "family": "Kristensen",
+                    "given": "Troels"
+                }
+            ],
+            "container-title": "Journal of Cleaner Production",
+            "id": "guerci_parameters_2013",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013,
+                        9
+                    ]
+                ]
+            },
+            "page": "133-141",
+            "title": "Parameters affecting the environmental impact of a range of dairy farming systems in Denmark, Germany and Italy",
+            "type": "article-journal",
+            "volume": "54"
+        },
+        {
             "author": [
                 {
                     "family": "IPCC"
@@ -451,6 +594,122 @@
             "publisher-place": "Luxembourg",
             "title": "Updated characterisation and normalisation factors for the environmental footprint 3.1 method",
             "type": "book"
+        },
+        {
+            "DOI": "10.1016/j.jclepro.2022.135423",
+            "ISSN": "0959-6526",
+            "URL": "https://www.sciencedirect.com/science/article/pii/S0959652622049976",
+            "abstract": "Following the Paris agreement in 2015, the European Union (EU) set a carbon neutrality objective by 2050, and so did France. The French agricultural sector can contribute as a carbon sink through carbon storage in biomass and soil, in addition to reducing GHG emissions. The objective of this study is to quantitatively assess the additional storage potential and cost of a set of eight carbon-storing practices. The impacts of these agricultural practices on soil organic carbon storage and crop production are assessed at a very fine spatial scale, using crop and grassland models. The associated area base, GHG budget, and implementation costs are assessed and aggregated at the region level. The economic model BANCO uses this information to derive the marginal abatement cost curve for France and identify the combination of carbon storing practices that minimizes the total cost of achieving a given national net GHG mitigation target. We find that a substantial amount of carbon, 36.2 to 52.9 MtCO2e yr−1, can be stored in soil and biomass for reasonable carbon prices of 55 and 250 € tCO2e−1, respectively (corresponding to current and 2030 French carbon value for climate action), mainly by developing agroforestry and hedges, generalising cover crops, and introducing or extending temporary grasslands in crop sequences. This finding questions the 3–5 times lower target of 10 MtCO2e.yr−1 retained for the agricultural carbon sink by the French climate neutrality strategy. Overall, this would decrease total French GHG emissions by 9.2–13.8%, respectively (reference year 2019).",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        1,
+                        24
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Bamière",
+                    "given": "L."
+                },
+                {
+                    "family": "Bellassen",
+                    "given": "V."
+                },
+                {
+                    "family": "Angers",
+                    "given": "D."
+                },
+                {
+                    "family": "Cardinael",
+                    "given": "R."
+                },
+                {
+                    "family": "Ceschia",
+                    "given": "E."
+                },
+                {
+                    "family": "Chenu",
+                    "given": "C."
+                },
+                {
+                    "family": "Constantin",
+                    "given": "J."
+                },
+                {
+                    "family": "Delame",
+                    "given": "N."
+                },
+                {
+                    "family": "Diallo",
+                    "given": "A."
+                },
+                {
+                    "family": "Graux",
+                    "given": "A. -I."
+                },
+                {
+                    "family": "Houot",
+                    "given": "S."
+                },
+                {
+                    "family": "Klumpp",
+                    "given": "K."
+                },
+                {
+                    "family": "Launay",
+                    "given": "C."
+                },
+                {
+                    "family": "Letort",
+                    "given": "E."
+                },
+                {
+                    "family": "Martin",
+                    "given": "R."
+                },
+                {
+                    "family": "Mézière",
+                    "given": "D."
+                },
+                {
+                    "family": "Mosnier",
+                    "given": "C."
+                },
+                {
+                    "family": "Réchauchère",
+                    "given": "O."
+                },
+                {
+                    "family": "Schiavo",
+                    "given": "M."
+                },
+                {
+                    "family": "Thérond",
+                    "given": "O."
+                },
+                {
+                    "family": "Pellerin",
+                    "given": "S."
+                }
+            ],
+            "container-title": "Journal of Cleaner Production",
+            "id": "bamiere_marginal_2023",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023,
+                        1
+                    ]
+                ]
+            },
+            "keyword": "Abatement cost, Agriculture, Carbon neutrality, Climate change mitigation, France, Greenhouse gas, Soil organic carbon sequestration",
+            "page": "135423",
+            "title": "A marginal abatement cost curve for climate change mitigation by additional carbon storage in French agricultural land",
+            "type": "article-journal",
+            "volume": "383"
         },
         {
             "URL": "https://data.europa.eu/doi/10.2790/3647",
@@ -694,7 +953,7 @@
                     ]
                 ]
             },
-            "keyword": "Adolescent, Adult, Aged, Cohort Studies, cumulative energy demand, Diet, diet monetary cost, dietary greenhouse gas emissions, dietary pesticide exposure, dietary score, Feeding and Eating Disorders, Female, Food, Food Contamination, Food, Organic, France, Humans, Male, Middle Aged, Nutrition Surveys, Nutritive Value, observational data, organic food consumption, Surveys and Questionnaires, sustainability indicators, Young Adult",
+            "keyword": "France, Diet, Food, Humans, Adult, Female, Male, Young Adult, Adolescent, Aged, Cohort Studies, cumulative energy demand, diet monetary cost, dietary greenhouse gas emissions, dietary pesticide exposure, dietary score, Feeding and Eating Disorders, Food Contamination, Food, Organic, Middle Aged, Nutrition Surveys, Nutritive Value, observational data, organic food consumption, Surveys and Questionnaires, sustainability indicators",
             "page": "1173-1188",
             "title": "Improvement of diet sustainability with increased level of organic food in the diet: Findings from the BioNutriNet cohort",
             "title-short": "Improvement of diet sustainability with increased level of organic food in the diet",
@@ -919,6 +1178,60 @@
             "title": "Environmental impacts of organic and conventional agricultural products - Are the differences captured by life cycle assessment?",
             "type": "article-journal",
             "volume": "149"
+        },
+        {
+            "DOI": "10.1038/s41893-021-00699-2",
+            "ISSN": "2398-9629",
+            "URL": "https://www.nature.com/articles/s41893-021-00699-2",
+            "abstract": "Small farms constitute most of the world’s farms and are a central focus of sustainable agricultural development. However, the relationship between farm size and production, profitability, biodiversity and greenhouse gas emissions remains contested. Here, we synthesize current knowledge through an evidence review and meta-analysis and show that smaller farms, on average, have higher yields and harbour greater crop and non-crop biodiversity at the farm and landscape scales than do larger farms. We find little conclusive evidence for differences in resource-use efficiency, greenhouse gas emission intensity and profits. Our findings highlight the importance of farm size in mediating some environmental and social outcomes relevant to sustainable development. We identify a series of research priorities to inform land- and market-based policies that affect smallholders globally.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        5,
+                        22
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Ricciardi",
+                    "given": "Vincent"
+                },
+                {
+                    "family": "Mehrabi",
+                    "given": "Zia"
+                },
+                {
+                    "family": "Wittman",
+                    "given": "Hannah"
+                },
+                {
+                    "family": "James",
+                    "given": "Dana"
+                },
+                {
+                    "family": "Ramankutty",
+                    "given": "Navin"
+                }
+            ],
+            "container-title": "Nature Sustainability",
+            "id": "ricciardi_higher_2021",
+            "issue": "7",
+            "issued": {
+                "date-parts": [
+                    [
+                        2021,
+                        7
+                    ]
+                ]
+            },
+            "keyword": "Agriculture, Sustainability, Environmental impact",
+            "note": "Publisher: Nature Publishing Group",
+            "page": "651-657",
+            "title": "Higher yields and more biodiversity on smaller farms",
+            "type": "article-journal",
+            "volume": "4"
         },
         {
             "author": [
@@ -1989,6 +2302,84 @@
             "type": "book"
         },
         {
+            "DOI": "10.1111/1365-2664.14484",
+            "ISSN": "1365-2664",
+            "URL": "https://onlinelibrary.wiley.com/doi/abs/10.1111/1365-2664.14484",
+            "abstract": "One of the critical challenges in agriculture is enhancing yield without compromising its foundation, a healthy environment and, particularly, soils. Hence, there is an urgent need to identify management practices that simultaneously support soil health and production and help achieve environmentally sound production systems. To investigate how management influences production and soil health under realistic agronomic conditions, we conducted an on-farm study involving 60 wheat fields managed conventionally, under no-till or organically. We assessed 68 variables defining management, production and soil health properties. We examined how management systems and individual practices describing crop diversification, fertiliser inputs, agrochemical use and soil disturbance influenced production—quantity and quality—and soil health focusing on aspects ranging from soil organic matter over soil structure to microbial abundance and diversity. Our on-farm comparison showed marked differences between soil health and production in the current system: organic management resulted in the best overall soil health (+47%) but the most significant yield gap (−34%) compared to conventional management. No-till systems were generally intermediate, exhibiting a smaller yield gap (−17%) and only a marginally improved level of soil health (+5%) compared to conventional management. Yet, the overlap between management systems in production and soil health properties was considerably large. Our results further highlight the importance of soil health for productivity by revealing positive associations between crop yield and soil health properties, particularly under conventional management, whereas factors such as weed pressure were more dominant in organic systems. None of the three systems showed advantages in supporting production-soil health-based multifunctionality. In contrast, a cross-system analysis suggests that multifunctional agroecosystems could be achieved through a combination of crop diversification and organic amendments with effective crop protection. Synthesis and applications: Our on-farm study implies that current trade-offs in managing production and soil health could be overcome through more balanced systems incorporating conventional and alternative approaches. Such multifunctionality supporting systems could unlock synergies between vital ecosystem services and help achieve productive yet environmentally sound agriculture supported by healthy soils.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2023,
+                        10,
+                        11
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Walder",
+                    "given": "Florian"
+                },
+                {
+                    "family": "Büchi",
+                    "given": "Lucie"
+                },
+                {
+                    "family": "Wagg",
+                    "given": "Cameron"
+                },
+                {
+                    "family": "Colombi",
+                    "given": "Tino"
+                },
+                {
+                    "family": "Banerjee",
+                    "given": "Samiran"
+                },
+                {
+                    "family": "Hirte",
+                    "given": "Juliane"
+                },
+                {
+                    "family": "Mayer",
+                    "given": "Jochen"
+                },
+                {
+                    "family": "Six",
+                    "given": "Johan"
+                },
+                {
+                    "family": "Keller",
+                    "given": "Thomas"
+                },
+                {
+                    "family": "Charles",
+                    "given": "Raphaël"
+                },
+                {
+                    "dropping-particle": "van der",
+                    "family": "Heijden",
+                    "given": "Marcel G. A."
+                }
+            ],
+            "container-title": "Journal of Applied Ecology",
+            "id": "walder_synergism_2023",
+            "issue": "10",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023
+                    ]
+                ]
+            },
+            "keyword": "Organic farming, conservation agriculture, trade-offs, productivity, soil quality, yield-impact trade-off, balanced agricultural systems, ecosystem multifunctionality, soil improving cropping systems",
+            "note": "_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/1365-2664.14484",
+            "page": "2091-2104",
+            "title": "Synergism between production and soil health through crop diversification, organic amendments and crop protection in wheat-based systems",
+            "type": "article-journal",
+            "volume": "60"
+        },
+        {
             "DOI": "10.1016/j.agsy.2020.102979",
             "ISSN": "0308-521X",
             "URL": "https://www.sciencedirect.com/science/article/pii/S0308521X20308404",
@@ -2706,6 +3097,45 @@
             "volume": "4"
         },
         {
+            "URL": "https://hal.science/hal-04465927",
+            "abstract": "The loss of biodiversity has become a major concern in the 21 st century. The current agricultural model is one of the main drivers of biodiversity loss; however, agriculture can also help maintain and even promote biodiversity. Therefore, understanding of the positive and negative effects of agricultural practices on biodiversity needs to be increased. We developed a method to summarize the results of meta-analyses on this subject. We reviewed 27 meta-analyses from the literature to provide a detailed overview of their results and quality. These meta-analyses examined effects of several agricultural practices on terrestrial biodiversity at the local scale: inorganic or organic fertilization, crop rotation, intercropping, use of cover crops, use of plant-protection products, tillage, landscape management and grazing. We found that (i) the meta-analyses considered certain taxonomic or functional groups much more than others, depending on the agricultural practices considered and feasibility criteria; (ii) compositional biodiversity, especially at the species level, was usually considered through changes in abundance, richness or diversity; (iii) the taxonomic/functional groups and metrics chosen determined the biodiversity observed and (iv) all of the agricultural practices studied influence biodiversity dynamics, and some have a dominant influence, such as the use of plant-protection products and landscape management. However, the intensity of practices, interactions between practices and the sensitivity of environments influenced the effects observed and must be better understood to classify practices objectively according to their effects on biodiversity. Further research and data are required to qualify in more detail the relations between agricultural practices and biodiversity, as well as to increase understanding of the relations between ecosystem functioning and the compositional and structural components of biodiversity.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        2,
+                        27
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Babin",
+                    "given": "Corentin"
+                },
+                {
+                    "family": "Espagnol",
+                    "given": "Sandrine"
+                },
+                {
+                    "family": "Aubin",
+                    "given": "Joël"
+                }
+            ],
+            "id": "babin_effects_2023",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023,
+                        12
+                    ]
+                ]
+            },
+            "keyword": "fertilization, grazing, landscape complexity, meta-analyses, plant diversification, plantprotection products, systematic review, tillage",
+            "title": "Effects of agricultural practices on biodiversity. A review",
+            "type": "manuscript"
+        },
+        {
             "DOI": "10.1515/jafio-2019-0045",
             "ISSN": "1542-0485",
             "URL": "https://www.degruyter.com/document/doi/10.1515/jafio-2019-0045/html",
@@ -2835,6 +3265,46 @@
             "publisher": "Bourgogne Franche-Comté",
             "title": "Essais sur les externalités spatiales associées à l’agriculture biologique",
             "type": "thesis"
+        },
+        {
+            "DOI": "10.1016/j.jenvman.2012.08.018",
+            "ISSN": "1095-8630",
+            "PMID": "22947228",
+            "abstract": "Organic farming practices have been promoted as, inter alia, reducing the environmental impacts of agriculture. This meta-analysis systematically analyses published studies that compare environmental impacts of organic and conventional farming in Europe. The results show that organic farming practices generally have positive impacts on the environment per unit of area, but not necessarily per product unit. Organic farms tend to have higher soil organic matter content and lower nutrient losses (nitrogen leaching, nitrous oxide emissions and ammonia emissions) per unit of field area. However, ammonia emissions, nitrogen leaching and nitrous oxide emissions per product unit were higher from organic systems. Organic systems had lower energy requirements, but higher land use, eutrophication potential and acidification potential per product unit. The variation within the results across different studies was wide due to differences in the systems compared and research methods used. The only impacts that were found to differ significantly between the systems were soil organic matter content, nitrogen leaching, nitrous oxide emissions per unit of field area, energy use and land use. Most of the studies that compared biodiversity in organic and conventional farming demonstrated lower environmental impacts from organic farming. The key challenges in conventional farming are to improve soil quality (by versatile crop rotations and additions of organic material), recycle nutrients and enhance and protect biodiversity. In organic farming, the main challenges are to improve the nutrient management and increase yields. In order to reduce the environmental impacts of farming in Europe, research efforts and policies should be targeted to developing farming systems that produce high yields with low negative environmental impacts drawing on techniques from both organic and conventional systems.",
+            "author": [
+                {
+                    "family": "Tuomisto",
+                    "given": "H. L."
+                },
+                {
+                    "family": "Hodge",
+                    "given": "I. D."
+                },
+                {
+                    "family": "Riordan",
+                    "given": "P."
+                },
+                {
+                    "family": "Macdonald",
+                    "given": "D. W."
+                }
+            ],
+            "container-title": "Journal of Environmental Management",
+            "id": "tuomisto_does_2012",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012,
+                        12
+                    ]
+                ]
+            },
+            "keyword": "Biodiversity, Nitrogen, Ammonia, Environmental Monitoring, Environment, Nitrous Oxide, Phosphorus",
+            "page": "309-320",
+            "title": "Does organic farming reduce environmental impacts?–a meta-analysis of European research",
+            "title-short": "Does organic farming reduce environmental impacts?",
+            "type": "article-journal",
+            "volume": "112"
         },
         {
             "DOI": "10.15454/1.5433098269609653E12",
@@ -4198,6 +4668,7 @@
                     ]
                 ]
             },
+            "keyword": "⛔ No DOI found",
             "note": "Type: Presented at the 19th Annual Conference on Global Economic Analysis, Washington DC, USA",
             "publisher": "Global Trade Analysis Project (GTAP)",
             "publisher-place": "Department of Agricultural Economics, Purdue University, West Lafayette, IN",
@@ -4552,6 +5023,56 @@
             "type": ""
         },
         {
+            "DOI": "10.1111/1365-2664.12035",
+            "ISSN": "1365-2664",
+            "URL": "https://onlinelibrary.wiley.com/doi/abs/10.1111/1365-2664.12035",
+            "abstract": "A substantial proportion of the global land surface is used for agricultural production. Agricultural land serves multiple societal purposes; it provides food, fuel and fibre and also acts as habitat for organisms and supports the services they provide. Biodiversity conservation and food production need to be balanced: production needs to be sustainable, while conservation cannot be totally at the expense of crop yield. To identify the benefits (in terms of biodiversity conservation) and costs (in terms of reduction in yields) of agricultural management, we examined the relationship between crop yield and abundance and species density of important taxa in winter cereal fields on both organic and conventional farms in lowland England. Of eight species groups examined, five (farmland plants, bumblebees, butterflies, solitary bees and epigeal arthropods) were negatively associated with crop yield, but the shape of this relationship varied between taxa. It was linear for the abundance of bumblebees and species density of butterflies, concave up for the abundance of epigeal arthropods and butterflies and concave down for species density of plants and bumblebees. Grain production per unit area was 54% lower in organic compared with conventional fields. When controlling for yield, diversity of bumblebees, butterflies, hoverflies and epigeal arthropods did not differ between farming systems, indicating that observed differences in biodiversity between organic and conventional fields are explained by lower yields in organic fields and not by different management practices per se. Only percentage cover and species density of plants were increased by organic field management after controlling for yield. The abundance of solitary wild bees and hoverflies was increased in landscapes with high amount of organic land. Synthesis and applications. Our results indicate that considerable gains in biodiversity require roughly proportionate reductions in yield in highly productive agricultural systems. They suggest that conservation efforts may be more cost effective in low-productivity agricultural systems or on non-agricultural land. In less productive agricultural landscapes, biodiversity benefit can be gained by concentrating organic farms into hotspots without a commensurate reduction in yield.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        10,
+                        22
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Gabriel",
+                    "given": "Doreen"
+                },
+                {
+                    "family": "Sait",
+                    "given": "Steven M."
+                },
+                {
+                    "family": "Kunin",
+                    "given": "William E."
+                },
+                {
+                    "family": "Benton",
+                    "given": "Tim G."
+                }
+            ],
+            "container-title": "Journal of Applied Ecology",
+            "id": "gabriel_food_2013",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2013
+                    ]
+                ]
+            },
+            "keyword": "diversity, organic farming, agri-environment schemes, conservation, landscape, yield, agro-ecology, land sharing, land sparing, wheat",
+            "note": "_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/1365-2664.12035",
+            "page": "355-364",
+            "title": "Food production vs. Biodiversity: Comparing organic and conventional agriculture",
+            "title-short": "Food production vs. biodiversity",
+            "type": "article-journal",
+            "volume": "50"
+        },
+        {
             "DOI": "10.3389/fpubh.2017.00361",
             "ISSN": "2296-2565",
             "URL": "https://www.frontiersin.org/journals/public-health/articles/10.3389/fpubh.2017.00361/full",
@@ -4585,7 +5106,7 @@
                     ]
                 ]
             },
-            "keyword": "adjuvants, Cocktail effect, Endocrine Disruptors, pesticide, Pesticides, Risk Assessment, surfactants, Toxicity Tests",
+            "keyword": "Pesticides, pesticide, adjuvants, Endocrine Disruptors, Risk Assessment, surfactants, Toxicity Tests, Cocktail effect",
             "note": "Publisher: Frontiers",
             "title": "Ignoring Adjuvant Toxicity Falsifies the Safety Profile of Commercial Pesticides",
             "type": "article-journal",
@@ -4622,7 +5143,7 @@
                     ]
                 ]
             },
-            "keyword": "Azoles, Cocktail effect, Fungicides, Herbicides, Organophosphates, pesticide, Pesticides, Synergy testing, Toxicity, Xenobiotic metabolism",
+            "keyword": "Pesticides, pesticide, Herbicides, Azoles, Fungicides, Organophosphates, Synergy testing, Toxicity, Xenobiotic metabolism, Cocktail effect",
             "note": "Publisher: Public Library of Science",
             "page": "e96580",
             "title": "Quantifying Synergy: A Systematic Review of Mixture Toxicity Studies within Environmental Toxicology",
@@ -4668,7 +5189,7 @@
                     ]
                 ]
             },
-            "keyword": "Cocktail effect, Endocrine disrupting compounds (EDCs), mixture, pesticide, pollutants, Sex-dimorphism",
+            "keyword": "pesticide, Cocktail effect, Endocrine disrupting compounds (EDCs), mixture, pollutants, Sex-dimorphism",
             "note": "Publisher: Frontiers",
             "title": "Environmental Pollutants and Metabolic Disorders: The Multi-Exposure Scenario of Life",
             "title-short": "Environmental Pollutants and Metabolic Disorders",
@@ -4706,7 +5227,7 @@
                     ]
                 ]
             },
-            "keyword": "Amphibian decline, aquatic, Cocktail effect, Environmental Chemistry, Food web, Multiple pesticides, pesticide, Pesticide mixture, Synergistic",
+            "keyword": "Food web, pesticide, Cocktail effect, Amphibian decline, Environmental Chemistry, Multiple pesticides, Pesticide mixture, Synergistic, aquatic",
             "page": "363-376",
             "title": "A cocktail of contaminants: How mixtures of pesticides at low concentrations affect aquatic communities",
             "title-short": "A cocktail of contaminants",
@@ -4773,11 +5294,991 @@
                     ]
                 ]
             },
-            "keyword": "Environmental effect, Health hazards, pesticide, Pesticide toxicity, Route of exposure",
+            "keyword": "pesticide, Environmental effect, Health hazards, Pesticide toxicity, Route of exposure",
             "page": "525-535",
             "title": "Exposure to pesticides and the associated human health effects",
             "type": "article-journal",
             "volume": "575"
+        },
+        {
+            "DOI": "10.1111/j.2007.0030-1299.16303.x",
+            "ISSN": "1600-0706",
+            "URL": "https://onlinelibrary.wiley.com/doi/abs/10.1111/j.2007.0030-1299.16303.x",
+            "abstract": "Pollinators are traditionally thought to perceive non-flowering crop fields as hostile landscape matrix. In this study, we show that landscapes composed of higher proportions of organic crop fields support more bee species at greater abundances in fallow strips. An increase in organic cropping in the surrounding landscape from 5% to 20% enhanced bee species richness in fallow strips by 50%, density of solitary bees by 60% and bumble bee density by 150%. Bee species richness and bumble bee density responded strongest to organic cropping in landscape sectors with 500 m radius, solitary bee density in landscape sectors with 250 m radius. The most likely source of these results is that crop and noncrop habitats are strongly connected via bee foraging at the landscape scale. It seems likely that bees depending on nesting sites in fallow strips benefited from the more abundant flower resources provided by broadleaved weeds in organic crop fields. We conclude that the incorporation of organic crop fields into conventionally managed agricultural landscapes can provide food resources needed to sustain greater pollinator species richness in noncrop habitats.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        11,
+                        25
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Holzschuh",
+                    "given": "Andrea"
+                },
+                {
+                    "family": "Steffan-Dewenter",
+                    "given": "Ingolf"
+                },
+                {
+                    "family": "Tscharntke",
+                    "given": "Teja"
+                }
+            ],
+            "container-title": "Oikos",
+            "id": "holzschuh_agricultural_2008",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008
+                    ]
+                ]
+            },
+            "note": "_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1111/j.2007.0030-1299.16303.x",
+            "page": "354-361",
+            "title": "Agricultural landscapes with organic crops support higher pollinator diversity",
+            "type": "article-journal",
+            "volume": "117"
+        },
+        {
+            "DOI": "10.1016/j.agee.2023.108672",
+            "ISSN": "0167-8809",
+            "URL": "https://www.sciencedirect.com/science/article/pii/S0167880923003316",
+            "abstract": "Dry semi-natural grasslands are highly species-rich, and therefore often protected in cultural landscapes of Central Europe. However, reserves are typically small and may be subjected to edge effects. Here, we ask how grassland biodiversity changes from edges neighbouring arable fields into grassland interior. We compared plant diversity of protected grasslands adjacent to organically versus conventionally managed arable fields. We surveyed the vegetation along 50 m transects from the arable field border into the grasslands, and compared site characteristics via Ellenberg indicator values and measured soil parameters. Averaged linear mixed-effects models showed an increase of diversity with increasing distance from the adjacent field, from a mean observed richness of 25 species per 4 m²-plot at the border to more than 30 species in the interior. For organic sites, models consistently showed 13 species more per plot than for conventional sites. Diversity for the two land use types remained different over the entire transect length. Thus, the effect of adjacent field farming extends far into the interior of the protected grasslands, yet overall organic farming is less detrimental. We assume that this is related to a combination of differences in local farm management, such as pesticide application, and the wider landscape context associated with the farm type. Buffer zones with at least organic-like management could improve the conservation value of nature reserves.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        11,
+                        25
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Schöpke",
+                    "given": "Benito"
+                },
+                {
+                    "family": "Wesche",
+                    "given": "Karsten"
+                },
+                {
+                    "family": "Wulf",
+                    "given": "Monika"
+                }
+            ],
+            "container-title": "Agriculture, Ecosystems & Environment",
+            "id": "schopke_dry_2023",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023,
+                        11
+                    ]
+                ]
+            },
+            "keyword": "Ancient grassland, Arable field, Ellenberg indicator values, Farming practices, Nature reserve, Plant species richness, Semi-natural grassland",
+            "page": "108672",
+            "title": "Dry grasslands adjacent to organic fields have higher plant diversity − Even far into their interior",
+            "type": "article-journal",
+            "volume": "357"
+        },
+        {
+            "DOI": "10.1016/j.jclepro.2018.12.273",
+            "ISSN": "0959-6526",
+            "URL": "https://www.sciencedirect.com/science/article/pii/S0959652618339805",
+            "abstract": "Estimates of soil carbon changes, biodiversity and ecotoxicity have often been missing from life cycle assessment based studies of organic dairy products, despite evidence that the impacts of organic and conventional management may differ greatly within these areas. The aim of the present work was therefore to investigate the magnitude of including these impact categories within a comprehensive environmental impact assessment of organic and conventional dairy systems differing in basic production conditions. Three basic systems representative of a range of European approaches to dairy production were selected for the analysis, i.e. (i) low-land mixed crop-livestock systems, (ii) lowland grassland-based systems, (iii) and mountainous systems. As in previous publications, this study showed that when assessing climate change, eutrophication and acidification impact organic milk has similar or slightly lower impact than conventional, although land-use is higher under organic management. Including soil carbon changes reduced the global warming potential by 5–18%, mostly in organic systems with a high share of grass in the ration. The impacts of organic milk production on freshwater ecotoxicity, biodiversity and resource depletion were 2, 33 and 20% of the impacts of conventional management, respectively, across the basic systems considered. The study highlights the importance of including biodiversity, ecotoxicity and soil carbon changes in life cycle assessments when comparing organic and conventional agricultural products. Furthermore, the study shows that including more grass in the ration of dairy cows increases soil carbon sequestration and decreases the negative impact on biodiversity.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        11,
+                        25
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Knudsen",
+                    "given": "Marie Trydeman"
+                },
+                {
+                    "family": "Dorca-Preda",
+                    "given": "Teodora"
+                },
+                {
+                    "family": "Djomo",
+                    "given": "Sylvestre Njakou"
+                },
+                {
+                    "family": "Peña",
+                    "given": "Nancy"
+                },
+                {
+                    "family": "Padel",
+                    "given": "Susanne"
+                },
+                {
+                    "family": "Smith",
+                    "given": "Laurence G."
+                },
+                {
+                    "family": "Zollitsch",
+                    "given": "Werner"
+                },
+                {
+                    "family": "Hörtenhuber",
+                    "given": "Stefan"
+                },
+                {
+                    "family": "Hermansen",
+                    "given": "John E."
+                }
+            ],
+            "container-title": "Journal of Cleaner Production",
+            "id": "knudsen_importance_2019",
+            "issued": {
+                "date-parts": [
+                    [
+                        2019,
+                        4
+                    ]
+                ]
+            },
+            "keyword": "Biodiversity, LCA, Organic, Dairy, Ecotoxicity, Soil carbon",
+            "page": "433-443",
+            "title": "The importance of including soil carbon changes, ecotoxicity and biodiversity impacts in environmental life cycle assessments of organic and conventional milk in Western Europe",
+            "type": "article-journal",
+            "volume": "215"
+        },
+        {
+            "DOI": "10.1016/j.biocon.2023.110262",
+            "ISSN": "0006-3207",
+            "URL": "https://www.sciencedirect.com/science/article/pii/S0006320723003634",
+            "abstract": "Although positive effects on biodiversity of woody features in agricultural landscapes are widely recognized, questions remain as to which landscape context to prioritize their implementation and in what proportion. To investigate the response of farmland biodiversity to small woody features (SWF) density in different landscape compositions (cropland, grassland, mixed), we analyzed fine-resolution data from standardized monitoring schemes on 111 birds, 22 bats, and 25 bush cricket’s species, at national scale (relying on 3772, 834 and 727 monitoring points) over the period 2015–2019, in metropolitan France. We used Generalized Additive Mixed Models to analyze population and community responses, through different metrics (abundance, species diversity, and functional composition). We found a positive response exhibited by the three taxa to SWF, more especially in cropland where the SWF density is the lowest relative to grassland and mixed landscapes. Also, our results suggested a non-linear response common to the three taxa, with an increased benefit up to at least 6 % of SWF density in cropland, and beyond for most of the metrics but to a lesser extent (e.g., maximum abundance reached at 7–12 % SWF). We note, however, that some species among farmland bird specialists are negatively impacted by SWF. Overall, we emphasize the benefits to promote woody features in agricultural landscapes, notably in cropland, to support biodiversity and its associated ecosystem functions. Our study provides crucial empirical evidence to the recommendations from previous studies and the relevance of the EU Biodiversity Strategy for 2030 to dedicate at least 10 % of farmland to high-diversity landscape features.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        12,
+                        2
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Vallé",
+                    "given": "Clément"
+                },
+                {
+                    "family": "Le Viol",
+                    "given": "Isabelle"
+                },
+                {
+                    "family": "Kerbiriou",
+                    "given": "Christian"
+                },
+                {
+                    "family": "Bas",
+                    "given": "Yves"
+                },
+                {
+                    "family": "Jiguet",
+                    "given": "Frédéric"
+                },
+                {
+                    "family": "Princé",
+                    "given": "Karine"
+                }
+            ],
+            "container-title": "Biological Conservation",
+            "id": "valle_farmland_2023",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023,
+                        10
+                    ]
+                ]
+            },
+            "keyword": "Agri-environment schemes, Biodiversity conservation, Common Agricultural Policy, Cropland, EU Biodiversity Strategy, Landscape features",
+            "page": "110262",
+            "title": "Farmland biodiversity benefits from small woody features",
+            "type": "article-journal",
+            "volume": "286"
+        },
+        {
+            "DOI": "10.1007/s10666-016-9531-5",
+            "ISSN": "1573-2967",
+            "URL": "https://doi.org/10.1007/s10666-016-9531-5",
+            "abstract": "In this paper, we model the supply and demand for agricultural goods and assess and compare how welfare, land use, and biodiversity are affected under intensive and extensive farming systems at market equilibrium instead of at exogenous production levels. As long as demand is responsive to price, and intensive farming has lower production costs, there exists a rebound effect (larger market size) of intensive farming. Intensive farming is then less beneficial to biodiversity than extensive farming is, except when there is a high degree of convexity between biodiversity and yield. On the other hand, extensive farming leads to higher prices and smaller quantities for consumers. Depending on parameter values, it may increase or decrease agricultural producer profits. Implementing “active” land sparing by zoning some land for agriculture and other land for conservation could overcome the rebound effect of intensive farming, but we show that farmers have then incentives to encroach on land zoned for conservation, with higher incentives under intensive farming. We also show that the primary effect of the higher prices associated with extensive farming is a reduction of animal feed production, which has a higher price elasticity of demand, whereas less of an effect is observed on plant-based food production and almost no effect is observed on biofuel production if there are mandatory blending policies.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        12,
+                        12
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Desquilbet",
+                    "given": "Marion"
+                },
+                {
+                    "family": "Dorin",
+                    "given": "Bruno"
+                },
+                {
+                    "family": "Couvet",
+                    "given": "Denis"
+                }
+            ],
+            "container-title": "Environmental Modeling & Assessment",
+            "id": "desquilbet_land_2017",
+            "issue": "3",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017,
+                        6
+                    ]
+                ]
+            },
+            "keyword": "Agriculture, Biodiversity, Land use, Conservation, Markets, Welfare",
+            "page": "185-200",
+            "title": "Land Sharing vs Land Sparing to Conserve Biodiversity: How Agricultural Markets Make the Difference",
+            "title-short": "Land Sharing vs Land Sparing to Conserve Biodiversity",
+            "type": "article-journal",
+            "volume": "22"
+        },
+        {
+            "URL": "https://www.strategie.gouv.fr/sites/strategie.gouv.fr/files/atoms/files/fs-2024-na_136_enjeux_et_usages_de_leau_avril.pdf",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        12,
+                        12
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Arambourou",
+                    "given": "Hélène"
+                },
+                {
+                    "family": "Ferrière",
+                    "given": "Simon"
+                },
+                {
+                    "family": "Oliu-Barton",
+                    "given": "Miquel"
+                }
+            ],
+            "id": "arambourou_prelevements_2024",
+            "issued": {
+                "date-parts": [
+                    [
+                        2024,
+                        4
+                    ]
+                ]
+            },
+            "number": "136",
+            "publisher": "France Stratégie",
+            "title": "Prélèvements et consommations d’eau : Quels enjeux et usages ?",
+            "title-short": "Prélèvements et consommations d’eau ",
+            "type": "report"
+        },
+        {
+            "DOI": "10.1021/acs.est.7b02529",
+            "ISSN": "0013-936X",
+            "URL": "https://doi.org/10.1021/acs.est.7b02529",
+            "abstract": "For polar and more degradable pesticides, not many data on long-term persistence in soil under field conditions and real application practices exist. To assess the persistence of pesticides in soil, a multiple-compound screening method (log Kow 1.7–5.5) was developed based on pressurized liquid extraction, QuEChERS and LC-HRMS. The method was applied to study 80 polar pesticides and >90 transformation products (TPs) in archived topsoil samples from the Swiss Soil Monitoring Network (NABO) from 1995 to 2008 with known pesticide application patterns. The results reveal large variations between crop type and field sites. For the majority of the sites 10–15 pesticides were identified with a detection rate of 45% at concentrations between 1 and 330 μg/kgdw in soil. Furthermore, TPs were detected in 47% of the cases where the “parent-compound” was applied. Overall, residues of about 80% of all applied pesticides could be detected with half of these found as TPs with a persistence of more than a decade.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2024,
+                        12,
+                        12
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Chiaia-Hernandez",
+                    "given": "Aurea C."
+                },
+                {
+                    "family": "Keller",
+                    "given": "Armin"
+                },
+                {
+                    "family": "Wächter",
+                    "given": "Daniel"
+                },
+                {
+                    "family": "Steinlin",
+                    "given": "Christine"
+                },
+                {
+                    "family": "Camenzuli",
+                    "given": "Louise"
+                },
+                {
+                    "family": "Hollender",
+                    "given": "Juliane"
+                },
+                {
+                    "family": "Krauss",
+                    "given": "Martin"
+                }
+            ],
+            "container-title": "Environmental Science & Technology",
+            "id": "chiaia-hernandez_long-term_2017",
+            "issue": "18",
+            "issued": {
+                "date-parts": [
+                    [
+                        2017,
+                        9
+                    ]
+                ]
+            },
+            "keyword": "Agriculture, Pesticide Residues, Pesticides, Soil, Soil Pollutants",
+            "note": "Publisher: American Chemical Society",
+            "page": "10642-10651",
+            "title": "Long-Term Persistence of Pesticides and TPs in Archived Agricultural Soil Samples and Comparison with Pesticide Application",
+            "type": "article-journal",
+            "volume": "51"
+        },
+        {
+            "author": [
+                {
+                    "family": "Peyraud",
+                    "given": "Jean-Louis"
+                },
+                {
+                    "family": "Cellier",
+                    "given": "Pierre"
+                },
+                {
+                    "family": "Donnars",
+                    "given": "Catherine"
+                }
+            ],
+            "id": "peyraud_flux_2012",
+            "issued": {
+                "date-parts": [
+                    [
+                        2012,
+                        1
+                    ]
+                ]
+            },
+            "title": "Les flux d’azote liés aux élevages : Réduire les pertes, rétablir les équilibres",
+            "title-short": "Les flux d’azote liés aux élevages ",
+            "type": "report"
+        },
+        {
+            "URL": "https://www.data.gouv.fr/fr/datasets/table-de-composition-nutritionnelle-des-aliments-ciqual/",
+            "abstract": "En France, la base de données de référence sur la…",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        1,
+                        23
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Agence nationale de sécurité sanitaire",
+                    "given": "de l’environnement et du travail (Anses)",
+                    "suffix": "de l’alimentation"
+                }
+            ],
+            "id": "agence_nationale_de_securite_sanitaire_de_lalimentation_de_lenvironnement_et_du_travail_anses_table_2020",
+            "issued": {
+                "date-parts": [
+                    [
+                        2020,
+                        7
+                    ]
+                ]
+            },
+            "title": "Table de composition nutritionnelle des aliments Ciqual",
+            "title-short": "Ciqual",
+            "type": ""
+        },
+        {
+            "DOI": "10.1007/s11367-010-0205-2",
+            "ISSN": "1614-7502",
+            "URL": "https://doi.org/10.1007/s11367-010-0205-2",
+            "abstract": "Uncertainties in land use damage modeling are recognized, but hardly quantified in life cycle assessment (LCA). The objective of this study is to analyze the influence of various key assumptions and uncertainties within the development of characterisation factors (CFs) for land use in LCA. We assessed the influence on land use CFs of (1) parameter uncertainty and (2) the choice for a constant or land use-specific species accumulation factor z and including or excluding regional effects.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        1,
+                        24
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "De Schryver",
+                    "given": "An M."
+                },
+                {
+                    "family": "Goedkoop",
+                    "given": "Mark J."
+                },
+                {
+                    "family": "Leuven",
+                    "given": "Rob S. E. W."
+                },
+                {
+                    "family": "Huijbregts",
+                    "given": "Mark A. J."
+                }
+            ],
+            "container-title": "The International Journal of Life Cycle Assessment",
+            "id": "de_schryver_uncertainties_2010",
+            "issue": "7",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010,
+                        8
+                    ]
+                ]
+            },
+            "keyword": "Biodiversity, Life cycle assessment, Land use, Environmental Chemistry, Perspectives, Species area relationship, Uncertainty analysis",
+            "page": "682-691",
+            "title": "Uncertainties in the application of the species area relationship for characterisation factors of land occupation in life cycle assessment",
+            "type": "article-journal",
+            "volume": "15"
+        },
+        {
+            "author": [
+                {
+                    "dropping-particle": "de la",
+                    "family": "Transition écologique",
+                    "given": "Ministère"
+                },
+                {
+                    "family": "ADEME"
+                },
+                {
+                    "family": "OFB"
+                }
+            ],
+            "id": "ministere_de_la_transition_ecologique_gt_2023",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023,
+                        11
+                    ]
+                ]
+            },
+            "title": "GT Ecologue affichage environnemental n°3",
+            "type": ""
+        },
+        {
+            "DOI": "10.1016/j.biocon.2023.110049",
+            "ISSN": "0006-3207",
+            "URL": "https://www.sciencedirect.com/science/article/pii/S0006320723001507",
+            "abstract": "There is long-running debate concerning the conservation benefits of marine protected areas (MPAs) in seascapes that are already “well-regulated” by other forms of fisheries management. Resolving this issue is particularly important given recent calls for expanding MPA coverage. Here, we adapt an influential model from agriculture – the land sparing/sharing framework – to an archetypal managed trawl fishery to determine how catches can be obtained at least cost to biodiversity in such seascapes. This new sea sparing/sharing framework fixes catch across scenarios so that fishing effort displacement is not overlooked. We find that a sparing strategy combining MPAs with fishing effort regulation is best for biodiversity when avoiding the local extinction of sensitive species is a priority. However, if there are no sensitive species, or if biodiversity is instead measured in a way that emphasises species abundances, then a sharing strategy relying on fishing effort regulation alone instead prevails. Extending these findings globally to “well-regulated” crustacean trawl fisheries, we find that ≈72% may benefit from no-trawl MPAs (≈57–100% depending on the methodology chosen). However, these MPAs could also necessitate increased fishing effort if catches are to be maintained. Our framework thus suggests that whether MPAs increase biodiversity in a well-regulated seascape depends heavily on the presence of highly sensitive species there, as well as conservation and management priorities.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        1,
+                        25
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Erm",
+                    "given": "Philip"
+                },
+                {
+                    "family": "Balmford",
+                    "given": "Andrew"
+                },
+                {
+                    "family": "Holden",
+                    "given": "Matthew H."
+                }
+            ],
+            "container-title": "Biological Conservation",
+            "id": "erm_biodiversity_2023",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023,
+                        8
+                    ]
+                ]
+            },
+            "keyword": "Sustainability, Food security, Fishery management, Marine biodiversity, Marine protected areas",
+            "page": "110049",
+            "title": "The biodiversity benefits of marine protected areas in well-regulated fisheries",
+            "type": "article-journal",
+            "volume": "284"
+        },
+        {
+            "DOI": "10.1021/acs.est.2c05311",
+            "ISSN": "0013-936X",
+            "URL": "https://doi.org/10.1021/acs.est.2c05311",
+            "abstract": "While wild pollinators play a key role in global food production, their assessment is currently missing from the most commonly used environmental impact assessment method, Life Cycle Assessment (LCA). This is mainly due to constraints in data availability and compatibility with LCA inventories. To target this gap, relative pollinator abundance estimates were obtained with the use of a Delphi assessment, during which 25 experts, covering 16 nationalities and 45 countries of expertise, provided scores for low, typical, and high expected abundance associated with 24 land use categories. Based on these estimates, this study presents a set of globally generic characterization factors (CFs) that allows translating land use into relative impacts to wild pollinator abundance. The associated uncertainty of the CFs is presented along with an illustrative case to demonstrate the applicability in LCA studies. The CFs based on estimates that reached consensus during the Delphi assessment are recommended as readily applicable and allow key differences among land use types to be distinguished. The resulting CFs are proposed as the first step for incorporating pollinator impacts in LCA studies, exemplifying the use of expert elicitation methods as a useful tool to fill data gaps that constrain the characterization of key environmental impacts.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        1,
+                        25
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Alejandre",
+                    "given": "Elizabeth M."
+                },
+                {
+                    "family": "Scherer",
+                    "given": "Laura"
+                },
+                {
+                    "family": "Guinée",
+                    "given": "Jeroen B."
+                },
+                {
+                    "family": "Aizen",
+                    "given": "Marcelo A."
+                },
+                {
+                    "family": "Albrecht",
+                    "given": "Matthias"
+                },
+                {
+                    "family": "Balzan",
+                    "given": "Mario V."
+                },
+                {
+                    "family": "Bartomeus",
+                    "given": "Ignasi"
+                },
+                {
+                    "family": "Bevk",
+                    "given": "Danilo"
+                },
+                {
+                    "family": "Burkle",
+                    "given": "Laura A."
+                },
+                {
+                    "family": "Clough",
+                    "given": "Yann"
+                },
+                {
+                    "family": "Cole",
+                    "given": "Lorna J."
+                },
+                {
+                    "family": "Delphia",
+                    "given": "Casey M."
+                },
+                {
+                    "family": "Dicks",
+                    "given": "Lynn V."
+                },
+                {
+                    "family": "Garratt",
+                    "given": "Michael P. D."
+                },
+                {
+                    "family": "Kleijn",
+                    "given": "David"
+                },
+                {
+                    "family": "Kovács-Hostyánszki",
+                    "given": "Anikó"
+                },
+                {
+                    "family": "Mandelik",
+                    "given": "Yael"
+                },
+                {
+                    "family": "Paxton",
+                    "given": "Robert J."
+                },
+                {
+                    "family": "Petanidou",
+                    "given": "Theodora"
+                },
+                {
+                    "family": "Potts",
+                    "given": "Simon"
+                },
+                {
+                    "family": "Sárospataki",
+                    "given": "Miklós"
+                },
+                {
+                    "family": "Schulp",
+                    "given": "Catharina J. E."
+                },
+                {
+                    "family": "Stavrinides",
+                    "given": "Menelaos"
+                },
+                {
+                    "family": "Stein",
+                    "given": "Katharina"
+                },
+                {
+                    "family": "Stout",
+                    "given": "Jane C."
+                },
+                {
+                    "family": "Szentgyörgyi",
+                    "given": "Hajnalka"
+                },
+                {
+                    "family": "Varnava",
+                    "given": "Androulla I."
+                },
+                {
+                    "family": "Woodcock",
+                    "given": "Ben A."
+                },
+                {
+                    "dropping-particle": "van",
+                    "family": "Bodegom",
+                    "given": "Peter M."
+                }
+            ],
+            "container-title": "Environmental Science & Technology",
+            "id": "alejandre_characterization_2023",
+            "issue": "8",
+            "issued": {
+                "date-parts": [
+                    [
+                        2023,
+                        2
+                    ]
+                ]
+            },
+            "note": "Publisher: American Chemical Society",
+            "page": "3445-3454",
+            "title": "Characterization Factors to Assess Land Use Impacts on Pollinator Abundance in Life Cycle Assessment",
+            "type": "article-journal",
+            "volume": "57"
+        },
+        {
+            "ISBN": "978-2-85557-119-5",
+            "abstract": "Cet ouvrage sur le devenir des pesticides dans le sol est un recueil des données les plus importantes, accompagnées de leur analyse critique, destinée à en souligner l’intérêt et les limites. Il comprend un ensemble de neuf chapitres conduisant le lecteur, des connaissances de base, à leurs applications agronomiques et environnementales. La pollution des milieux naturels par les pesticides fait l’objet de plusieurs paragraphes pour en analyser le déterminisme, exposer les démarches de prévision des risques et indiquer les principaux moyens de les réduire. Ces chapitres sont groupés en trois parties destinées répondre aux questions suivantes: Que sont les pesticides, A quels phénomènes sont-ils soumis dans le sol, Que deviennent-ils dans ce milieu et quelles en sont les conséquences. L’attention du lecteur est attirée sur la progression de l’exposé des connaissances. La troisième partie ne peut être utilement abordée qu’après la lecture préalable des deux premières. Chaque chapitre contient les informations nécessaires à la description et à la compréhension des phénomènes. A la fin de chacun d’eux, des notes complètent l’information sur des points particuliers. Des fiches résumant les principales connaissances exposées et renvoyant aux chapitres correspondants, sont placées à la fin de l’ouvrage. Les annexes contiennent des données sur les principaux produits cités et une liste d’organismes où, des informations scientifiques, techniques et réglementaires, peuvent être trouvées. Dans le contexte actuel de sensibilisation à la maîtrise des pollutions, l’ouvrage est une contribution scientifique à la diffusion des connaissances sur le sujet. Il intéressera un large panel de techniciens, de chercheurs et d’enseignants dans tous les métiers et les disciplines concernés par les pesticides et les milieux naturels.",
+            "author": [
+                {
+                    "family": "Calvet",
+                    "given": "Raoul"
+                }
+            ],
+            "id": "calvet_pesticides_2005",
+            "issued": {
+                "date-parts": [
+                    [
+                        2005
+                    ]
+                ]
+            },
+            "note": "Google-Books-ID: YaSjZm4E0EwC",
+            "publisher": "France Agricole Editions",
+            "title": "Les pesticides dans le sol: Conséquences agronomiques et environnementales",
+            "title-short": "Les pesticides dans le sol",
+            "type": "book"
+        },
+        {
+            "DOI": "10.1016/j.biocon.2010.05.005",
+            "ISSN": "0006-3207",
+            "URL": "https://www.sciencedirect.com/science/article/pii/S0006320710002193",
+            "abstract": "Hedges provide important nesting, feeding and sheltering sites for birds in agricultural areas, while organic farming also enhances farmland birds. However, it is little known how the interaction of these local variables (amount of hedges and organic management) with landscape scale variables affects birds. We selected paired conventional and organic winter wheat fields and meadows in each of 10 landscapes in Germany. Birds were surveyed in the fields and in the adjoining hedges. More bird species occurred in organic than in conventional fields regardless of land-use type (wheat fields and meadows). However, hedge length had a much stronger effect on bird richness than organic farmland management. We found an interaction of landscape complexity and hedge length in that hedge length enhanced bird richness only in case of simple landscapes (<17% semi-natural areas within a 500m radius around the centre of bird survey plots). In more complex landscapes the local effect of hedge length levelled off because bird richness was high even without local hedges. Therefore, adding hedges or introducing organic farming practices should be primarily promoted in simple landscapes, where it really makes a difference for biodiversity.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        1,
+                        26
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Batáry",
+                    "given": "Péter"
+                },
+                {
+                    "family": "Matthiesen",
+                    "given": "Theda"
+                },
+                {
+                    "family": "Tscharntke",
+                    "given": "Teja"
+                }
+            ],
+            "container-title": "Biological Conservation",
+            "id": "batary_landscape-moderated_2010",
+            "issue": "9",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010,
+                        9
+                    ]
+                ]
+            },
+            "keyword": "Agri-environmental schemes, Hedge length, Landscape complexity, Winter wheat",
+            "page": "2020-2027",
+            "title": "Landscape-moderated importance of hedges in conserving farmland bird diversity of organic vs. Conventional croplands and grasslands",
+            "type": "article-journal",
+            "volume": "143"
+        },
+        {
+            "DOI": "10.1016/j.biocon.2007.10.011",
+            "ISSN": "00063207",
+            "URL": "https://linkinghub.elsevier.com/retrieve/pii/S0006320707004168",
+            "abstract": "Organic farming has been suggested to counteract declines in farmland biodiversity, but comparisons to conventional farming have produced variable outcomes. To examine whether this is due to the landscape context farms are situated in and traits of the studied organisms, we surveyed bumble bees in cereal ﬁeld borders and margins at 12 pairs of matched organic and conventional farms, with half the pairs located in heterogeneous farmland and the remaining in homogeneous plains. Species richness and abundance of bumble bees were signiﬁcantly positively related to both organic farming and landscape heterogeneity. However, there was an interaction effect between farming practice and landscape context so that species richness and abundance were only signiﬁcantly higher on organic farms in homogeneous landscapes. The higher abundance of bumble bees on organic farms was partly related to higher ﬂower abundance on these sites. The effect of landscape context on bumble bee abundance was stronger for species with medium sized colonies than for those with smaller and larger colony sizes. These patterns may reﬂect that species with medium sized foraging ranges are most affected by fragmentation of foraging habitat, because colony size reﬂects the spatial scale at which bumble bees utilize resources. We conclude that both organic farming and landscape heterogeneity can be used to increase bumble bee species richness and abundance, but that organic farming has a larger effect in homogeneous landscapes and landscape heterogeneity a larger effect on conventional farms. The effects differed between species, suggesting that a single prescription to increase pollinator abundance may not be valid.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        1,
+                        26
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Rundlöf",
+                    "given": "Maj"
+                },
+                {
+                    "family": "Nilsson",
+                    "given": "Helena"
+                },
+                {
+                    "family": "Smith",
+                    "given": "Henrik G."
+                }
+            ],
+            "container-title": "Biological Conservation",
+            "id": "rundlof_interacting_2008",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2008,
+                        2
+                    ]
+                ]
+            },
+            "page": "417-426",
+            "title": "Interacting effects of farming practice and landscape context on bumble bees",
+            "type": "article-journal",
+            "volume": "141"
+        },
+        {
+            "DOI": "10.1016/j.agsy.2015.02.009",
+            "ISSN": "0308-521X",
+            "URL": "https://www.sciencedirect.com/science/article/pii/S0308521X15000311",
+            "abstract": "Farming systems and management regimes of vineyards may affect local biodiversity of plants and invertebrates. While most studies have focused on the overall biodiversity of vineyards, there has been little consideration of the response of different ecological guilds to vineyard management, or to how vineyard management affects communities of adjacent semi-natural habitats. We study here two functional guilds of carabids and five of spiders in Langa Astigiana (NW-Italy) with the following aims: (i) to assess the comparative effects of organic and conventional farming systems, along with associated habitat and landscape variables, on species richness and abundance in vineyards; and (ii) to compare the same within forest patches surrounding organic and conventional vineyards. The different guilds exhibited distinct preferences for habitat characteristics (i.e. grass cover), landscape context and farming systems. Generalized Linear Mixed Models showed that spider preferences mostly depended upon habitat variables, while carabid preferences depended on small-scale landscape variables. In general, organic farming increased biodiversity and abundance of arthropod predators, even though different guilds of carabids and spiders responded differently. Brachypterous carabids, ambush spiders, ground-hunter spiders and other hunters preferred organic vineyards, whereas macropterous carabids, specialist spiders (mostly ant-eating spiders) and sheet web weavers selected conventional vineyards. The research we report here shows that preferences for vineyards with different farming systems has been driven not only by farming systems per se (i.e. omission of synthetic pesticides), but also by habitat characteristics and small-scale landscape structure. Arthropod diversity was greater in the forest patches adjacent to organic vineyards than to conventional ones. This suggests that organic systems may sustain a higher diversity of carabids and spiders both in vineyards and in the adjacent forest patches as well. We conclude that although conventional systems may promote the diversity of some guilds, organic systems should take priority.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        1,
+                        26
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Caprio",
+                    "given": "Enrico"
+                },
+                {
+                    "family": "Nervo",
+                    "given": "Beatrice"
+                },
+                {
+                    "family": "Isaia",
+                    "given": "Marco"
+                },
+                {
+                    "family": "Allegro",
+                    "given": "Gianni"
+                },
+                {
+                    "family": "Rolando",
+                    "given": "Antonio"
+                }
+            ],
+            "container-title": "Agricultural Systems",
+            "id": "caprio_organic_2015",
+            "issued": {
+                "date-parts": [
+                    [
+                        2015,
+                        6
+                    ]
+                ]
+            },
+            "keyword": "Araneae, Biodiversity, Carabidae, Forest patches, Organic farming, Vineyards",
+            "page": "61-69",
+            "title": "Organic versus conventional systems in viticulture: Comparative effects on spiders and carabids in vineyards and adjacent forests",
+            "title-short": "Organic versus conventional systems in viticulture",
+            "type": "article-journal",
+            "volume": "136"
+        },
+        {
+            "DOI": "10.1002/jsfa.3805",
+            "ISSN": "1097-0010",
+            "URL": "https://onlinelibrary.wiley.com/doi/abs/10.1002/jsfa.3805",
+            "abstract": "Feeding experiments comparing organically and conventionally produced food are performed to assess the overall impact on the animals’ health as a model for the effects experienced by the human consumers. These experiments are based on systems research and characterized by their focus on production methods, whole food testing and procedures in accordance with the terms of organic farming. A short review of such experiments shows that the majority of these tests revealed effects of the organically produced feed on health parameters such as reproductive performance and immune responses. Systems research is not just about simple cause–effect chains, but rather about the pluralism of interactions in biological networks; therefore, the interpretation of the outcome of whole food experiments is difficult. Furthermore, the test diets of organic and conventional origin can be constituted in different ways, compensating for or maintaining existing differences in nutrient and energy contents. The science-based results suggest positive influences from organic feeds, but there is still a need for confirmation in animals and, finally, in humans. For this purpose animal feeding trials with feed from different production systems should be conducted, with the aims to define health indicators and to establish biomarkers as a basis for future dietary intervention studies in humans. Copyright © 2009 Society of Chemical Industry",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        1,
+                        26
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Velimirov",
+                    "given": "Alberta"
+                },
+                {
+                    "family": "Huber",
+                    "given": "Machteld"
+                },
+                {
+                    "family": "Lauridsen",
+                    "given": "Charlotte"
+                },
+                {
+                    "family": "Rembiałkowska",
+                    "given": "Ewa"
+                },
+                {
+                    "family": "Seidel",
+                    "given": "Kathrin"
+                },
+                {
+                    "family": "Bügel",
+                    "given": "Susanne"
+                }
+            ],
+            "container-title": "Journal of the Science of Food and Agriculture",
+            "id": "velimirov_feeding_2010",
+            "issue": "2",
+            "issued": {
+                "date-parts": [
+                    [
+                        2010
+                    ]
+                ]
+            },
+            "keyword": "biomarkers, feeding trials, health effects, organic feed",
+            "note": "_eprint: https://onlinelibrary.wiley.com/doi/pdf/10.1002/jsfa.3805",
+            "page": "175-182",
+            "title": "Feeding trials in organic food quality and health research",
+            "type": "article-journal",
+            "volume": "90"
+        },
+        {
+            "DOI": "10.1093/nutrit/nuad124",
+            "ISSN": "0029-6643",
+            "URL": "https://doi.org/10.1093/nutrit/nuad124",
+            "abstract": "Although the nutritional composition of organic food has been thoroughly researched, there is a dearth of published data relating to its impact on human health.This systematic review aimed to examine the association between organic food intake and health effects, including changes in in vivo biomarkers, disease prevalence, and functional changes.PubMed, EMBASE, Web of Science, the Cochrane Library, and ClinicalTrials.gov were searched from inception through Nov 13, 2022.Both observational and interventional studies conducted in human populations were included, and association between level of organic food intake and each outcome was quantified as “no association,” “inconsistent,” “beneficial correlation/harmful correlation,” or “insufficient”. For outcomes with sufficient data reported by at least 3 studies, meta-analyses were conducted, using random-effects models to calculate standardized mean differences.Based on the included 23 observational and 27 interventional studies, the association between levels of organic food intake and (i) pesticide exposure biomarker was assessed as “beneficial correlation,” (ii) toxic metals and carotenoids in the plasma was assessed as “no association,” (iii) fatty acids in human milk was assessed as “insufficient,” (iv) phenolics was assessed as “beneficial”, and serum parameters and antioxidant status was assessed as “inconsistent”. For diseases and functional changes, there was an overall “beneficial” association with organic food intake, and there were similar findings for obesity and body mass index. However, evidence for association of organic food intake with other single diseases was assessed as “insufficient” due to the limited number and extent of studies.Organic food intake was found to have a beneficial impact in terms of reducing pesticide exposure, and the general effect on disease and functional changes (body mass index, male sperm quality) was appreciable. More long-term studies are required, especially for single diseases.PROSPERO registration no. CRD42022350175.",
+            "accessed": {
+                "date-parts": [
+                    [
+                        2025,
+                        1,
+                        26
+                    ]
+                ]
+            },
+            "author": [
+                {
+                    "family": "Jiang",
+                    "given": "Bibo"
+                },
+                {
+                    "family": "Pang",
+                    "given": "Jinzhu"
+                },
+                {
+                    "family": "Li",
+                    "given": "Junan"
+                },
+                {
+                    "family": "Mi",
+                    "given": "Lijuan"
+                },
+                {
+                    "family": "Ru",
+                    "given": "Dongmei"
+                },
+                {
+                    "family": "Feng",
+                    "given": "Jingxi"
+                },
+                {
+                    "family": "Li",
+                    "given": "Xiaoxu"
+                },
+                {
+                    "family": "Zhao",
+                    "given": "Ai"
+                },
+                {
+                    "family": "Cai",
+                    "given": "Li"
+                }
+            ],
+            "container-title": "Nutrition Reviews",
+            "id": "jiang_effects_2024",
+            "issue": "9",
+            "issued": {
+                "date-parts": [
+                    [
+                        2024,
+                        9
+                    ]
+                ]
+            },
+            "page": "1151-1175",
+            "title": "The effects of organic food on human health: A systematic review and meta-analysis of population-based studies",
+            "title-short": "The effects of organic food on human health",
+            "type": "article-journal",
+            "volume": "82"
         }
     ],
     "project_biblios": [

@@ -1,13 +1,13 @@
 {
     "sortOrder": [
         {
-            "columnIndex": 4,
-            "ascending": false
-        },
-        {
             "columnIndex": 2,
             "ascending": true
+        },
+        {
+            "columnIndex": 4,
+            "ascending": false
         }
     ],
-    "path": "d:/users/srhuet/documents/BiodivLabel/huet_estimating_2025"
+    "path": "C:/Users/srhuet/Downloads/surf_nbpar_haie_bio_nonbio"
 }

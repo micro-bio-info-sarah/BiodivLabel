@@ -1,0 +1,66 @@
+"0",""
+"0","library(gt)"
+"2","Avis :"
+"2"," le package ‘gt’ a été compilé avec la version R 4.4.1
+"
+"2","Registered S3 methods overwritten by 'htmltools':
+  method               from         
+  print.html           tools:rstudio
+  print.shiny.tag      tools:rstudio
+  print.shiny.tag.list tools:rstudio
+"
+"0","library(dplyr)"
+"2","
+Attachement du package : ‘dplyr’
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:stats’:
+
+    filter, lag
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+"
+"0","library(tidyr)"
+"0",""
+"0","tmp_data <- read.csv(""../CASD_export/CASD_export_240515/tmp_data_RICA_RA_SIQO_summary.csv"")"
+"0",""
+"0","tmp_table <- tmp_data %>%"
+"0","    pivot_longer(cols = !c(OTEFDD,FQS),"
+"0","                 names_to = ""Variable"","
+"0","                 values_to = ""value"") %>%"
+"0","    mutate("
+"0","        Variable = case_when("
+"0","            Variable == ""IDENT"" ~ ""Farm number"","
+"0","            Variable == ""crop_area_ha"" ~ ""Crop area (ha)"","
+"0","            Variable == ""grassland_area_ha"" ~ ""Permanent grassland area (ha)"","
+"0","            Variable == ""nb_dairy_cow"" ~ ""Dairy herd size (number of cow)"","
+"0","            Variable == ""wheat_yield_kg_ha"" ~ ""Wheat yield (kg/ha)"","
+"0","            Variable == ""milk_yield_kg_cow"" ~ ""Milk yield (L/cow)"""
+"0","        )"
+"0","    ) %>%"
+"0","    pivot_wider("
+"0","        id_cols = c(OTEFDD,Variable),"
+"0","        names_from = FQS,"
+"0","        values_from = value"
+"0","    )"
+"0",""
+"0","tmp_table %>%"
+"0","    # groups"
+"0","    mutate(OTEFDD = ifelse(row_number() == 1,"
+"0","                           as.character(OTEFDD), """"),"
+"0","           .by = OTEFDD) %>%"
+"0","    select(OTEFDD,Variable,Conventionnel,AB,SIQO) %>%"
+"0","    gt() %>%"
+"0","    cols_label("
+"0","        OTEFDD = ""Technical Orientation"","
+"0","        AB = ""Organic Farming"","
+"0","        SIQO = ""Other FQSs"""
+"0","    ) %>%"
+"0","    # replace NAs"
+"0","    sub_missing(missing_text = ""-"") %>%"
+"0","    # format numbers"
+"0","    fmt_auto()"
