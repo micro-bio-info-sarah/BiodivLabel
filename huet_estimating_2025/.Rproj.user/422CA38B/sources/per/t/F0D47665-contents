@@ -221,45 +221,64 @@ library(gt)
 library(dplyr)
 library(tidyr)
 
-tmp_data <- read.csv("../CASD_export/CASD_export_240515/tmp_data_RICA_RA_SIQO_summary.csv")
+tmp_data <- read.csv("~/BiodivLabel/CASD_export/CASD_export_250122/stat_desc_by_OTEX_2025-01-22.csv")
 
 tmp_table <- tmp_data %>%
-    mutate(OTEFDD = case_when(
-      OTEFDD == 1500 ~ "Field crops",
-      OTEFDD == 4500 ~ "Dairy cattle",
-      OTEFDD == 4700 ~ "Mixed cattle",
-      OTEFDD == 6184 ~ "Mixed crop and/or mixed livestock"
-    )) %>%
-    pivot_longer(cols = !c(OTEFDD,FQS),
+    filter(OTEFDA %in% c(1516,4500,4700,6184)) %>%
+filter(FQS %in% c("AB","Conventionnel","LR","Beurre de Charentes-Poitou",
+"Bleu d'Auvergne - Cantal","Comte - Morbier","Fromages de Savoie","Munster")) %>%
+    mutate(FQS = case_when(
+        FQS == "Conventionnel" ~"Conventionnel",
+        FQS == "AB" ~"AB",
+        .default = "FQS"
+    )) %>% 
+    group_by(OTEFDA,FQS) %>%
+    summarise(
+        nobs = sum(nobs,na.rm = T),
+        crop_area_ha = mean(crop_area_ha,na.rm = T),
+        grassland_area_ha = mean(grassland_area_ha,na.rm = T),
+        nb_dairy_cow = mean(nb_dairy_cow,na.rm = T),
+        wheat_yield_t_ha = mean(wheat_yield_t_ha,na.rm = T),
+        milk_yield_kg_cow = mean(milk_yield_kg_cow,na.rm = T),
+        .groups = "keep"
+    ) %>% ungroup() %>%
+mutate(OTEFDA = case_when(
+    OTEFDA == 1516 ~ "Field crops",
+    OTEFDA == 4500 ~ "Dairy cattle",
+    OTEFDA == 4700 ~ "Mixed cattle",
+    OTEFDA == 6184 ~ "Mixed crop and/or mixed livestock"
+)) %>%
+    pivot_longer(cols = !c(OTEFDA,FQS),
                  names_to = "Variable",
                  values_to = "value") %>%
     mutate(
         Variable = case_when(
-            Variable == "IDENT" ~ "Farm number",
+            Variable == "nobs" ~ "Farm number",
             Variable == "crop_area_ha" ~ "Crop area (ha)",
             Variable == "grassland_area_ha" ~ "Permanent grassland area (ha)",
             Variable == "nb_dairy_cow" ~ "Dairy herd size (number of cow)",
-            Variable == "wheat_yield_kg_ha" ~ "Wheat yield (kg/ha)",
+            Variable == "wheat_yield_t_ha" ~ "Wheat yield (t/ha)",
             Variable == "milk_yield_kg_cow" ~ "Milk yield (L/cow)"
         )
     ) %>%
-    pivot_wider(
-        id_cols = c(OTEFDD,Variable),
-        names_from = FQS,
-        values_from = value
-    )
+pivot_wider(
+    id_cols = c(OTEFDA,Variable),
+    names_from = FQS,
+    values_from = value
+)
+
 
 tmp_table %>%
     # groups
-    mutate(OTEFDD = ifelse(row_number() == 1,
-                           as.character(OTEFDD), ""),
-           .by = OTEFDD) %>%
-    select(OTEFDD,Variable,Conventionnel,AB,SIQO) %>%
+    mutate(OTEFDA = ifelse(row_number() == 1,
+                           as.character(OTEFDA), ""),
+           .by = OTEFDA) %>%
+    select(OTEFDA,Variable,Conventionnel,AB,FQS) %>%
     gt() %>%
     cols_label(
-        OTEFDD = "Technical Orientation",
+        OTEFDA = "Technical Orientation",
         AB = "Organic Farming",
-        SIQO = "Other FQSs"
+        FQS = "Other FQSs"
     ) %>%
     # replace NAs
     sub_missing(missing_text = "-") %>%

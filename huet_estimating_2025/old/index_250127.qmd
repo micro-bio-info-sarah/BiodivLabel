@@ -221,14 +221,14 @@ library(gt)
 library(dplyr)
 library(tidyr)
 
-tmp_data <- read.csv("../CASD_export/CASD_export_240515/tmp_data_RICA_RA_SIQO_summary.csv")
+tmp_data <- read.csv("~/BiodivLabel/CASD_export/CASD_export_250122/stat_desc_by_OTEX_2025-01-22.csv")
 
 tmp_table <- tmp_data %>%
     mutate(OTEFDD = case_when(
-      OTEFDD == 1500 ~ "Field crops",
-      OTEFDD == 4500 ~ "Dairy cattle",
-      OTEFDD == 4700 ~ "Mixed cattle",
-      OTEFDD == 6184 ~ "Mixed crop and/or mixed livestock"
+      OTEFDA == 1500 ~ "Field crops",
+      OTEFDA == 4500 ~ "Dairy cattle",
+      OTEFDA == 4700 ~ "Mixed cattle",
+      OTEFDA == 6184 ~ "Mixed crop and/or mixed livestock"
     )) %>%
     pivot_longer(cols = !c(OTEFDD,FQS),
                  names_to = "Variable",

@@ -1,0 +1,36 @@
+"0",""
+"0","library(gt)"
+"2","Avis :"
+"2"," le package ‘gt’ a été compilé avec la version R 4.4.2
+"
+"2","Registered S3 methods overwritten by 'htmltools':
+  method               from         
+  print.html           tools:rstudio
+  print.shiny.tag      tools:rstudio
+  print.shiny.tag.list tools:rstudio
+"
+"0","library(dplyr)"
+"2","
+Attachement du package : ‘dplyr’
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:stats’:
+
+    filter, lag
+
+"
+"2","Les objets suivants sont masqués depuis ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+"
+"0","library(tidyr)"
+"0",""
+"0","tmp_data <- read.csv(""../CASD_export/CASD_export_240515/tmp_data_RICA_RA_SIQO_summary.csv"")"
+"2","Avis dans file(file, ""rt"") :"
+"2","
+ "
+"2"," impossible d'ouvrir le fichier '../CASD_export/CASD_export_240515/tmp_data_RICA_RA_SIQO_summary.csv' : No such file or directory
+"
+"2","Erreur dans file(file, ""rt"") : impossible d'ouvrir la connexion
+"
